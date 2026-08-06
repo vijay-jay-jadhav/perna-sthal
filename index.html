@@ -125,7 +125,7 @@
   }
   .visit-pill:hover{background:var(--brick); border-color:var(--brick); color:var(--paper);}
 
-  /* ================= HERO (scroll-scrubbed video) ================= */
+  /* ================= HERO (scroll-scrubbed image sequence) ================= */
   .hero{
     position:relative;
     height:380vh;
@@ -137,12 +137,14 @@
     height:100svh;
     min-height:620px;
     overflow:hidden;
+    background-image:url('images/architecture/cover.jpg');
+    background-size:cover;
+    background-position:50% 30%;
   }
-  .hero-video{
+  .hero-canvas{
     position:absolute; inset:0;
     width:100%; height:100%;
-    object-fit:cover;
-    object-position:50% 30%;
+    display:block;
   }
   .hero-sticky::after{
     content:"";
@@ -641,7 +643,7 @@
   <section class="hero">
     <div class="hero-sticky">
       <div class="hero-progress" id="heroProgress"></div>
-      <video class="hero-video" id="heroVideo" poster="images/architecture/cover.jpg" muted playsinline preload="auto"></video>
+      <canvas class="hero-canvas" id="heroCanvas"></canvas>
       <div class="hero-content">
         <img src="images/logo.png" alt="Prerna Sthal" class="hero-logo reveal">
         <div class="hero-sub reveal">
@@ -844,50 +846,71 @@
   }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'});
   els.forEach(el=>io.observe(el));
 
-  // Scroll-scrubbed hero video: pinned section, video seeks with scroll position.
-  // The video is fully fetched into memory first (via blob URL) so that
-  // scrubbing never has to wait on a network request mid-scroll — this is
-  // what keeps it smooth once hosted, instead of only working locally.
+  // Scroll-scrubbed hero: a preloaded sequence of still frames drawn to a
+  // <canvas> based on scroll position — the same technique Apple's product
+  // pages use. Frame-accurate and independent of video codec/seek behavior,
+  // so it stays smooth regardless of host or connection once frames are in.
   const heroSection = document.querySelector('.hero');
-  const heroVideo = document.getElementById('heroVideo');
+  const heroCanvas = document.getElementById('heroCanvas');
   const heroProgress = document.getElementById('heroProgress');
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const HERO_VIDEO_SRC = 'videos/dome-orbit.mp4';
 
-  if(heroSection && heroVideo){
-    let ticking = false;
-    let primed = false;
+  if(heroSection && heroCanvas){
+    const FRAME_COUNT = 80;
+    const framePath = i => `images/hero-frames/frame_${String(i).padStart(3,'0')}.webp`;
+    const ctx = heroCanvas.getContext('2d');
+    const frames = new Array(FRAME_COUNT);
+    let loadedCount = 0;
     let ready = false;
+    let currentIndex = -1;
+    let ticking = false;
 
-    function primeVideo(){
-      // iOS Safari (and some others) won't render scrubbed frames on a video
-      // that has never played. Prime it with a near-instant play/pause once
-      // metadata is ready, before any scroll-driven seeking happens.
-      if(primed) return;
-      primed = true;
-      const p = heroVideo.play();
-      if(p && p.then){
-        p.then(()=>heroVideo.pause()).catch(()=>{});
-      } else {
-        heroVideo.pause();
-      }
+    function sizeCanvas(){
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = heroSection.clientWidth;
+      const h = heroCanvas.parentElement.clientHeight;
+      heroCanvas.width = w * dpr;
+      heroCanvas.height = h * dpr;
+      heroCanvas.style.width = w + 'px';
+      heroCanvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    // Manual "object-fit: cover" + "object-position: 50% 30%" for canvas,
+    // since neither applies to drawImage directly.
+    function drawCover(img){
+      const cw = heroCanvas.clientWidth, ch = heroCanvas.clientHeight;
+      const iw = img.naturalWidth, ih = img.naturalHeight;
+      if(!cw || !ch || !iw || !ih) return;
+      const scale = Math.max(cw/iw, ch/ih);
+      const dw = iw*scale, dh = ih*scale;
+      const dx = (cw-dw)/2;
+      const dy = (ch-dh)*0.30; // biases toward showing more of the top, like object-position 50% 30%
+      ctx.clearRect(0,0,cw,ch);
+      ctx.drawImage(img, dx, dy, dw, dh);
+    }
+
+    function drawFrame(index){
+      index = Math.max(0, Math.min(FRAME_COUNT-1, index));
+      if(index === currentIndex) return;
+      const img = frames[index];
+      if(!img || !img.complete) return;
+      currentIndex = index;
+      drawCover(img);
     }
 
     function updateHero(){
       ticking = false;
-      const duration = heroVideo.duration;
-      if(!ready || !duration || isNaN(duration)) return;
+      if(!ready) return;
       const rect = heroSection.getBoundingClientRect();
       const scrollable = rect.height - window.innerHeight;
       if(scrollable <= 0) return;
       let progress = -rect.top / scrollable;
       progress = Math.min(1, Math.max(0, progress));
-      if(prefersReduced){
-        // Respect reduced motion: show a static representative frame instead of scrubbing.
-        heroVideo.currentTime = duration * 0.5;
-      } else {
-        heroVideo.currentTime = progress * duration;
-      }
+      const targetIndex = prefersReduced
+        ? Math.round((FRAME_COUNT-1) * 0.5) // static representative frame
+        : Math.round(progress * (FRAME_COUNT-1));
+      drawFrame(targetIndex);
       if(heroProgress) heroProgress.style.width = (progress*100) + '%';
     }
 
@@ -898,56 +921,33 @@
       }
     }
     window.addEventListener('scroll', onScroll, {passive:true});
-    window.addEventListener('resize', updateHero);
+    window.addEventListener('resize', () => { sizeCanvas(); updateHero(); });
 
-    // Show fetch progress on the same bar, so the page never feels stalled.
     function setLoadBar(frac){
       if(heroProgress) heroProgress.style.width = (frac*100) + '%';
     }
 
-    fetch(HERO_VIDEO_SRC)
-      .then(res => {
-        const total = parseInt(res.headers.get('content-length') || '0', 10);
-        if(!res.body || !total){
-          return res.blob();
+    sizeCanvas();
+
+    // Load frame 1 first so the hero has real content as fast as possible,
+    // then bring in the rest of the sequence in the background.
+    for(let i = 0; i < FRAME_COUNT; i++){
+      const img = new Image();
+      img.decoding = 'async';
+      img.onload = () => {
+        loadedCount++;
+        setLoadBar(loadedCount / FRAME_COUNT);
+        if(i === 0){
+          drawFrame(0);
         }
-        const reader = res.body.getReader();
-        let received = 0;
-        const chunks = [];
-        return new Promise((resolve, reject) => {
-          function pump(){
-            reader.read().then(({done, value}) => {
-              if(done){
-                resolve(new Blob(chunks));
-                return;
-              }
-              chunks.push(value);
-              received += value.length;
-              setLoadBar(Math.min(1, received/total));
-              pump();
-            }).catch(reject);
-          }
-          pump();
-        });
-      })
-      .then(blob => {
-        const url = URL.createObjectURL(blob);
-        heroVideo.src = url;
-        heroVideo.addEventListener('loadedmetadata', () => {
+        if(loadedCount === FRAME_COUNT){
           ready = true;
-          primeVideo();
           updateHero();
-        }, {once:true});
-      })
-      .catch(() => {
-        // Network/CORS fallback: stream normally rather than block the hero.
-        heroVideo.src = HERO_VIDEO_SRC;
-        heroVideo.addEventListener('loadedmetadata', () => {
-          ready = true;
-          primeVideo();
-          updateHero();
-        }, {once:true});
-      });
+        }
+      };
+      img.src = framePath(i+1);
+      frames[i] = img;
+    }
   }
 </script>
 </body>

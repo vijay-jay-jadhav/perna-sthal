@@ -125,26 +125,37 @@
   }
   .visit-pill:hover{background:var(--brick); border-color:var(--brick); color:var(--paper);}
 
-  /* ================= HERO ================= */
+  /* ================= HERO (scroll-scrubbed video) ================= */
   .hero{
     position:relative;
+    height:380vh;
+    background:var(--teal-deep);
+  }
+  .hero-sticky{
+    position:sticky;
+    top:0;
     height:100svh;
     min-height:620px;
     overflow:hidden;
-    background:var(--teal-deep);
   }
-  .hero-img{
+  .hero-video{
     position:absolute; inset:0;
     width:100%; height:100%;
     object-fit:cover;
-    object-position:50% 8%;
-    transform:scale(1.02);
-    will-change:transform;
+    object-position:50% 30%;
   }
-  .hero::after{
+  .hero-sticky::after{
     content:"";
     position:absolute; inset:0;
     background:linear-gradient(180deg, rgba(10,20,17,0.55) 0%, rgba(10,20,17,0.05) 32%, rgba(10,20,17,0.1) 62%, rgba(10,20,17,0.72) 100%);
+  }
+  .hero-progress{
+    position:absolute;
+    top:0; left:0;
+    height:2px;
+    background:var(--gold);
+    z-index:2;
+    width:0%;
   }
   .hero-content{
     position:relative;
@@ -584,7 +595,12 @@
   }
 
   /* ================= RESPONSIVE ================= */
+  @media (orientation: portrait){
+    .hero-sticky{height:min(100svh, 820px);}
+  }
   @media (max-width: 900px){
+    .hero{height:280vh;}
+    .hero-sticky{height:min(100svh, 820px);}
     .site-nav{padding:0 22px; height:64px;}
     .mark span{display:none;}
     .visit-pill{padding:8px 14px;}
@@ -621,17 +637,20 @@
     <a href="#visit" class="visit-pill">Visit</a>
   </nav>
 
-  <!-- ================= HERO ================= -->
+  <!-- ================= HERO (scroll-scrubbed drone video) ================= -->
   <section class="hero">
-    <img src="images/architecture/cover.jpg" alt="Rendering of the Prerna Sthal dome hall, seen from the garden path at golden hour" class="hero-img" id="heroImg">
-    <div class="hero-content">
-      <img src="images/logo.png" alt="Prerna Sthal" class="hero-logo reveal">
-      <div class="hero-sub reveal">
-        <p class="hero-tagline">A meditation and reflection hall, rising within Nakshatra Garden.</p>
-        <p class="hero-loc">Vidya Nagari Campus<br>Baramati, Maharashtra</p>
+    <div class="hero-sticky">
+      <div class="hero-progress" id="heroProgress"></div>
+      <video class="hero-video" id="heroVideo" src="videos/dome-orbit.mp4" poster="images/architecture/cover.jpg" muted playsinline preload="auto"></video>
+      <div class="hero-content">
+        <img src="images/logo.png" alt="Prerna Sthal" class="hero-logo reveal">
+        <div class="hero-sub reveal">
+          <p class="hero-tagline">A meditation and reflection hall, rising within Nakshatra Garden.</p>
+          <p class="hero-loc">Vidya Nagari Campus<br>Baramati, Maharashtra</p>
+        </div>
       </div>
+      <div class="scroll-cue"></div>
     </div>
-    <div class="scroll-cue"></div>
   </section>
 
   <!-- ================= SIGNATURE DIVIDER ================= -->
@@ -825,16 +844,58 @@
   }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'});
   els.forEach(el=>io.observe(el));
 
-  // Subtle hero parallax
-  const heroImg = document.getElementById('heroImg');
+  // Scroll-scrubbed hero video: pinned section, video seeks with scroll position
+  const heroSection = document.querySelector('.hero');
+  const heroVideo = document.getElementById('heroVideo');
+  const heroProgress = document.getElementById('heroProgress');
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!prefersReduced && heroImg){
+  if(heroSection && heroVideo){
+    let ticking = false;
+    let primed = false;
+
+    // iOS Safari (and some others) won't render scrubbed frames on a video
+    // that has never played. Prime it with a near-instant play/pause once
+    // metadata is ready, before any scroll-driven seeking happens.
+    function primeVideo(){
+      if(primed) return;
+      primed = true;
+      const p = heroVideo.play();
+      if(p && p.then){
+        p.then(()=>heroVideo.pause()).catch(()=>{});
+      } else {
+        heroVideo.pause();
+      }
+    }
+    heroVideo.addEventListener('loadedmetadata', primeVideo);
+    if(heroVideo.readyState >= 1) primeVideo();
+
+    function updateHero(){
+      ticking = false;
+      const duration = heroVideo.duration;
+      if(!duration || isNaN(duration)) return;
+      const rect = heroSection.getBoundingClientRect();
+      const scrollable = rect.height - window.innerHeight;
+      if(scrollable <= 0) return;
+      let progress = -rect.top / scrollable;
+      progress = Math.min(1, Math.max(0, progress));
+      if(prefersReduced){
+        // Respect reduced motion: show a static representative frame instead of scrubbing.
+        heroVideo.currentTime = duration * 0.5;
+      } else {
+        heroVideo.currentTime = progress * duration;
+      }
+      if(heroProgress) heroProgress.style.width = (progress*100) + '%';
+    }
     window.addEventListener('scroll', ()=>{
-      const y = window.scrollY;
-      if(y < window.innerHeight){
-        heroImg.style.transform = `scale(1.02) translateY(${y*0.06}px)`;
+      if(!ticking){
+        window.requestAnimationFrame(updateHero);
+        ticking = true;
       }
     }, {passive:true});
+    window.addEventListener('resize', updateHero);
+    heroVideo.addEventListener('loadedmetadata', updateHero);
+    // Run once in case of a mid-scroll page load (e.g. anchor link, refresh).
+    updateHero();
   }
 </script>
 </body>

@@ -641,7 +641,7 @@
   <section class="hero">
     <div class="hero-sticky">
       <div class="hero-progress" id="heroProgress"></div>
-      <video class="hero-video" id="heroVideo" src="videos/dome-orbit.mp4" poster="images/architecture/cover.jpg" muted playsinline preload="auto"></video>
+      <video class="hero-video" id="heroVideo" poster="images/architecture/cover.jpg" muted playsinline preload="auto"></video>
       <div class="hero-content">
         <img src="images/logo.png" alt="Prerna Sthal" class="hero-logo reveal">
         <div class="hero-sub reveal">
@@ -844,19 +844,25 @@
   }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'});
   els.forEach(el=>io.observe(el));
 
-  // Scroll-scrubbed hero video: pinned section, video seeks with scroll position
+  // Scroll-scrubbed hero video: pinned section, video seeks with scroll position.
+  // The video is fully fetched into memory first (via blob URL) so that
+  // scrubbing never has to wait on a network request mid-scroll — this is
+  // what keeps it smooth once hosted, instead of only working locally.
   const heroSection = document.querySelector('.hero');
   const heroVideo = document.getElementById('heroVideo');
   const heroProgress = document.getElementById('heroProgress');
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const HERO_VIDEO_SRC = 'videos/dome-orbit.mp4';
+
   if(heroSection && heroVideo){
     let ticking = false;
     let primed = false;
+    let ready = false;
 
-    // iOS Safari (and some others) won't render scrubbed frames on a video
-    // that has never played. Prime it with a near-instant play/pause once
-    // metadata is ready, before any scroll-driven seeking happens.
     function primeVideo(){
+      // iOS Safari (and some others) won't render scrubbed frames on a video
+      // that has never played. Prime it with a near-instant play/pause once
+      // metadata is ready, before any scroll-driven seeking happens.
       if(primed) return;
       primed = true;
       const p = heroVideo.play();
@@ -866,13 +872,11 @@
         heroVideo.pause();
       }
     }
-    heroVideo.addEventListener('loadedmetadata', primeVideo);
-    if(heroVideo.readyState >= 1) primeVideo();
 
     function updateHero(){
       ticking = false;
       const duration = heroVideo.duration;
-      if(!duration || isNaN(duration)) return;
+      if(!ready || !duration || isNaN(duration)) return;
       const rect = heroSection.getBoundingClientRect();
       const scrollable = rect.height - window.innerHeight;
       if(scrollable <= 0) return;
@@ -886,16 +890,64 @@
       }
       if(heroProgress) heroProgress.style.width = (progress*100) + '%';
     }
-    window.addEventListener('scroll', ()=>{
+
+    function onScroll(){
       if(!ticking){
         window.requestAnimationFrame(updateHero);
         ticking = true;
       }
-    }, {passive:true});
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
     window.addEventListener('resize', updateHero);
-    heroVideo.addEventListener('loadedmetadata', updateHero);
-    // Run once in case of a mid-scroll page load (e.g. anchor link, refresh).
-    updateHero();
+
+    // Show fetch progress on the same bar, so the page never feels stalled.
+    function setLoadBar(frac){
+      if(heroProgress) heroProgress.style.width = (frac*100) + '%';
+    }
+
+    fetch(HERO_VIDEO_SRC)
+      .then(res => {
+        const total = parseInt(res.headers.get('content-length') || '0', 10);
+        if(!res.body || !total){
+          return res.blob();
+        }
+        const reader = res.body.getReader();
+        let received = 0;
+        const chunks = [];
+        return new Promise((resolve, reject) => {
+          function pump(){
+            reader.read().then(({done, value}) => {
+              if(done){
+                resolve(new Blob(chunks));
+                return;
+              }
+              chunks.push(value);
+              received += value.length;
+              setLoadBar(Math.min(1, received/total));
+              pump();
+            }).catch(reject);
+          }
+          pump();
+        });
+      })
+      .then(blob => {
+        const url = URL.createObjectURL(blob);
+        heroVideo.src = url;
+        heroVideo.addEventListener('loadedmetadata', () => {
+          ready = true;
+          primeVideo();
+          updateHero();
+        }, {once:true});
+      })
+      .catch(() => {
+        // Network/CORS fallback: stream normally rather than block the hero.
+        heroVideo.src = HERO_VIDEO_SRC;
+        heroVideo.addEventListener('loadedmetadata', () => {
+          ready = true;
+          primeVideo();
+          updateHero();
+        }, {once:true});
+      });
   }
 </script>
 </body>

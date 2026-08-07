@@ -89,7 +89,7 @@
     position:fixed;
     top:0; left:0; right:0;
     z-index:50;
-    height:74px;
+    height:92px;
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -108,7 +108,7 @@
     text-transform:uppercase;
     color:var(--ink);
   }
-  .mark img{height:26px; width:auto;}
+  .mark img{height:52px; width:auto;}
 
   .visit-pill{
     font-family:'Space Mono', monospace;
@@ -168,36 +168,15 @@
     justify-content:flex-end;
     padding:0 6vw 64px;
   }
-  .hero-logo{
-    width:min(420px, 62vw);
-    filter:brightness(0) invert(1);
-    opacity:0.96;
-  }
-  .hero-sub{
-    margin-top:18px;
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-    gap:24px;
-    flex-wrap:wrap;
-    border-top:1px solid var(--line-onlight);
-    padding-top:18px;
-  }
-  .hero-tagline{
-    font-family:'Fraunces', serif;
-    font-style:italic;
-    font-weight:400;
-    font-size:clamp(18px,2.4vw,26px);
-    color:var(--paper);
-    max-width:520px;
-  }
   .hero-loc{
+    display:inline-block;
     font-family:'Space Mono', monospace;
     font-size:12px;
     letter-spacing:0.16em;
     text-transform:uppercase;
     color:var(--gold-soft);
-    text-align:right;
+    border-top:1px solid var(--line-onlight);
+    padding-top:16px;
   }
   .scroll-cue{
     position:absolute;
@@ -238,13 +217,15 @@
     padding:120px 0 0;
   }
   .threshold-text{
-    max-width:640px;
     margin-top:34px;
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:60px;
+    align-items:start;
   }
   .threshold h2{
     font-size:clamp(28px,3.4vw,42px);
     max-width:9ch;
-    margin:18px 0 26px;
   }
   .threshold p{
     font-size:17px;
@@ -587,7 +568,7 @@
     gap:20px;
     flex-wrap:wrap;
   }
-  .footer-bottom img{height:34px; width:auto; opacity:0.9;}
+  .footer-bottom img{height:56px; width:auto; opacity:0.9;}
   .footer-fine{
     font-family:'Space Mono', monospace;
     font-size:10.5px;
@@ -603,9 +584,11 @@
   @media (max-width: 900px){
     .hero{height:280vh;}
     .hero-sticky{height:min(100svh, 820px);}
-    .site-nav{padding:0 22px; height:64px;}
+    .site-nav{padding:0 22px; height:72px;}
+    .mark img{height:42px;}
     .mark span{display:none;}
     .visit-pill{padding:8px 14px;}
+    .threshold-text{grid-template-columns:1fr; gap:22px;}
     .threshold-figure img{max-height:56vh;}
     .garden-image img{max-height:56vh;}
     .reasons{grid-template-columns:1fr;}
@@ -645,11 +628,7 @@
       <div class="hero-progress" id="heroProgress"></div>
       <canvas class="hero-canvas" id="heroCanvas"></canvas>
       <div class="hero-content">
-        <img src="images/logo.png" alt="Prerna Sthal" class="hero-logo reveal">
-        <div class="hero-sub reveal">
-          <p class="hero-tagline">A meditation and reflection hall, rising within Nakshatra Garden.</p>
-          <p class="hero-loc">Vidya Nagari Campus<br>Baramati, Maharashtra</p>
-        </div>
+        <p class="hero-loc reveal">Vidya Nagari Campus<br>Baramati, Maharashtra</p>
       </div>
       <div class="scroll-cue"></div>
     </div>
@@ -663,11 +642,13 @@
   <!-- ================= THRESHOLD ================= -->
   <section class="threshold" id="about">
     <div class="wrap">
-      <div class="eyebrow reveal">I · About the space</div>
+      <div class="eyebrow reveal">About the space</div>
       <div class="threshold-text reveal">
         <h2>Where architecture, nature, and stillness meet.</h2>
-        <p><b>Prerna Sthal</b> is a thoughtfully envisioned meditation and reflection space, located within Nakshatra Garden in the Vidya Nagari campus of Vidya Pratishthan, Baramati.</p>
-        <p>Surrounded by the tranquil landscape of Nakshatra Garden, the project is designed to promote inner peace, mindfulness, and spiritual well‑being through its harmonious integration of architecture, nature, and water elements.</p>
+        <div class="threshold-copy">
+          <p><b>Prerna Sthal</b> is a thoughtfully envisioned meditation and reflection space, located within Nakshatra Garden in the Vidya Nagari campus of Vidya Pratishthan, Baramati.</p>
+          <p>Surrounded by the tranquil landscape of Nakshatra Garden, the project is designed to promote inner peace, mindfulness, and spiritual well‑being through its harmonious integration of architecture, nature, and water elements.</p>
+        </div>
       </div>
     </div>
     <figure class="threshold-figure bleed reveal">
@@ -690,7 +671,7 @@
       <circle cx="100" cy="100" r="14" fill="none" stroke="var(--gold)" stroke-width="0.6"/>
     </svg>
     <div class="wrap">
-      <div class="eyebrow on-dark reveal">II · Why a meditation hall</div>
+      <div class="eyebrow on-dark reveal">Why a meditation hall</div>
       <p class="epigraph reveal">In today's world of stress and conflict, Gautam Buddha remains a powerful symbol of peace — reminding us that inner calm and compassion are the foundations of a peaceful society.</p>
 
       <div class="reasons">
@@ -723,7 +704,7 @@
   <!-- ================= GARDEN ================= -->
   <section class="garden" id="garden">
     <div class="wrap">
-      <div class="eyebrow reveal">III · The garden</div>
+      <div class="eyebrow reveal">The garden</div>
       <div class="garden-head">
         <div class="reveal">
           <h2>Nakshatra Garden</h2>
@@ -785,7 +766,7 @@
     <div class="wrap">
       <div class="corridor-head">
         <div>
-          <div class="eyebrow on-dark reveal">IV · The corridor</div>
+          <div class="eyebrow on-dark reveal">The corridor</div>
           <h2 class="reveal">An inspirational gallery</h2>
         </div>
         <p class="reveal">The corridor circling the dome is envisioned as a gallery of life‑size, hand‑painted portraits — leaders, reformers, and nation‑builders whose lives shaped the values this space is built to hold. Full captions and stories are being finalised ahead of the corridor's opening.</p>
@@ -813,7 +794,7 @@
     <div class="wrap">
       <div class="visit-grid">
         <div class="reveal">
-          <div class="eyebrow">V · Visit</div>
+          <div class="eyebrow">Visit</div>
           <h2>Come, sit a while.</h2>
           <p class="lede">Prerna Sthal is part of Vidya Pratishthan's Vidya Nagari campus in Baramati. For visits, collaborations, or support toward the project, reach the trust directly.</p>
         </div>

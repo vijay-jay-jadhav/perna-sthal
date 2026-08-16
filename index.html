@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prerna Sthal, Nakshatra Garden, Baramati</title>
+<meta name="description" content="Prerna Sthal, a meditation and reflection hall taking shape within Nakshatra Garden at Vidya Pratishthan, Baramati.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:       #17231f;
+    --teal:      #0f4a44;
+    --teal-deep: #0a2f2b;
+    --maroon:    #56374d;
+    --maroon-deep:#402639;
+    --gold:      #c79a4a;
+    --gold-soft: #dcc189;
+    --brick:     #b97a51;
+    --parchment: #f1e7d6;
+    --paper:     #faf5ea;
+    --line:      rgba(23,35,31,0.14);
+    --line-onlight: rgba(250,245,234,0.28);
+    --shadow: 0 30px 60px -30px rgba(15,25,20,0.35);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    margin:0;
+    line-height:1.05;
+  }
+
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--brick);
+  }
+  .eyebrow.on-dark{color:var(--gold-soft);}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 6vw;
+  }
+
+  a{color:inherit;}
+
+  /* ---------- reveal ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.9s cubic-bezier(.16,.8,.28,1), transform 0.9s cubic-bezier(.16,.8,.28,1);
+  }
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- nav bar ---------- */
+  .site-nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:50;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    box-shadow:0 8px 24px -18px rgba(23,35,31,0.35);
+  }
+  .nav-top{position:relative; display:flex; align-items:center; justify-content:center; height:76px; padding:0 6vw;}
+  .logo-link{display:flex; align-items:center;}
+  .logo-img{height:44px; width:auto; display:block;}
+
+  .nav-links-row{display:flex; align-items:center; justify-content:center; gap:38px; height:48px; border-top:1px solid var(--line); font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700;}
+  .nav-links-row a{
+    position:relative; overflow:hidden; z-index:1;
+    text-decoration:none; color:var(--ink); opacity:0.85;
+    padding:8px 16px; min-height:36px; border-radius:999px;
+    display:flex; align-items:center;
+    transition:color 0.3s ease;
+  }
+  .nav-links-row a::before{
+    content:""; position:absolute; left:50%; bottom:0; z-index:-1;
+    width:140%; height:220%; border-radius:50%; background:var(--teal);
+    transform:translate(-50%, 100%); transition:transform 0.45s cubic-bezier(.55,0,.1,1);
+  }
+  .nav-links-row a:hover, .nav-links-row a:focus-visible{color:var(--paper); opacity:1;}
+  .nav-links-row a:hover::before, .nav-links-row a:focus-visible::before{transform:translate(-50%, -8%);}
+  .nav-links-row a.is-current{color:var(--teal); opacity:1; font-weight:800;}
+
+  .hamburger{
+    display:none;
+    position:absolute; left:6vw; top:50%; transform:translateY(-50%);
+    flex-direction:column; justify-content:center; align-items:center; gap:5px;
+    width:38px; height:38px; border:0; background:transparent; cursor:pointer; padding:0;
+    touch-action:manipulation; z-index:2;
+  }
+  .hamburger span{display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; transition:transform 0.3s ease, opacity 0.3s ease;}
+  .hamburger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.is-open span:nth-child(2){opacity:0;}
+  .hamburger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-menu{
+    position:fixed; top:0; left:0; right:0; bottom:0; z-index:200;
+    background:var(--paper);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity 0.3s ease;
+  }
+  .mobile-menu.is-open{opacity:1; visibility:visible; pointer-events:auto;}
+  .mobile-menu a{
+    font-family:'Space Mono', monospace; font-size:20px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700;
+    color:var(--ink); opacity:0.8; text-decoration:none; padding:10px 20px;
+  }
+  .mobile-menu a:hover, .mobile-menu a.is-current{color:var(--teal); opacity:1;}
+  .mobile-menu-close{
+    position:absolute; top:24px; right:6vw;
+    width:38px; height:38px; border:0; background:transparent; cursor:pointer;
+  }
+  .mobile-menu-close span{display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; position:absolute; top:50%; left:50%;}
+  .mobile-menu-close span:first-child{transform:translate(-50%,-50%) rotate(45deg);}
+  .mobile-menu-close span:last-child{transform:translate(-50%,-50%) rotate(-45deg);}
+
+  @media (max-width:860px){
+    .hamburger{display:flex;}
+  }
+
+  .mr{font-family:'Baloo 2', sans-serif;}
+  .en{display:inline;}
+  body.lang-mr .en{display:none;}
+  .mr-block{display:none;}
+  body.lang-mr .mr-block{display:block;}
+  body.lang-mr .gallery-cta.mr-block{display:inline-flex;}
+  .mr-inline{display:none;}
+  body.lang-mr .mr-inline{display:inline;}
+
+  .lang-toggle{display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.06em;}
+  .lang-toggle button{border:0; background:transparent; padding:9px 14px; min-height:36px; cursor:pointer; color:var(--ink); opacity:0.55; font-family:inherit; font-size:inherit; transition:background 0.2s ease, color 0.2s ease, opacity 0.2s ease;}
+  .lang-toggle button.active{background:var(--teal); color:var(--paper); opacity:1;}
+
+  .visit-pill{
+    position:absolute; right:6vw; top:50%; transform:translateY(-50%);
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--paper);
+    background:var(--teal);
+    border:1px solid var(--teal);
+    padding:9px 18px;
+    border-radius:999px;
+    transition:background 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .visit-pill:hover{background:var(--brick); border-color:var(--brick); color:var(--paper);}
+
+  /* ================= HERO (scroll-scrubbed image sequence) ================= */
+  .hero{
+    position:relative;
+    height:380vh;
+    background:var(--teal-deep);
+  }
+  .hero-sticky{
+    position:sticky;
+    top:0;
+    height:100svh;
+    min-height:620px;
+    overflow:hidden;
+    background-image:url('images/architecture/cover.jpg');
+    background-size:cover;
+    background-position:50% 30%;
+  }
+  .hero-canvas{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    display:block;
+  }
+  .hero-sticky::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,20,17,0.55) 0%, rgba(10,20,17,0.05) 32%, rgba(10,20,17,0.1) 62%, rgba(10,20,17,0.72) 100%);
+  }
+  .hero-progress{
+    position:absolute;
+    top:0; left:0;
+    height:2px;
+    background:var(--gold);
+    z-index:2;
+    width:0%;
+  }
+  .hero-content{
+    position:relative;
+    z-index:2;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:0 6vw 64px;
+  }
+  .hero-loc{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    border-top:1px solid var(--line-onlight);
+    padding-top:16px;
+  }
+  .scroll-cue{
+    position:absolute;
+    bottom:26px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:2;
+    width:1px;
+    height:52px;
+    background:linear-gradient(var(--line-onlight), transparent);
+  }
+  .scroll-cue::after{
+    content:"";
+    position:absolute;
+    top:0; left:-2.5px;
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--gold-soft);
+    animation:cue 2.6s ease-in-out infinite;
+  }
+  @keyframes cue{
+    0%{top:0; opacity:0;}
+    20%{opacity:1;}
+    80%{opacity:1;}
+    100%{top:46px; opacity:0;}
+  }
+
+  /* ================= DIVIDER (signature) ================= */
+  .divider{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+
+  /* ================= THRESHOLD (redesigned: doorway motif) ================= */
+  .threshold{
+    background:var(--parchment);
+    padding:130px 0 140px;
+  }
+  .threshold-grid{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:0.62fr 1px 1fr;
+    gap:0;
+    align-items:start;
+  }
+  .threshold-lede-col{padding-right:52px;}
+  .threshold-lede{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(24px,2.6vw,34px);
+    line-height:1.38;
+    color:var(--teal-deep);
+    max-width:15ch;
+  }
+  .threshold-rule{
+    background:linear-gradient(var(--gold), var(--gold) 60%, transparent);
+    background-color:var(--line);
+    width:1px;
+    align-self:stretch;
+    position:relative;
+    min-height:100%;
+  }
+  .threshold-rule::before{
+    content:"";
+    position:absolute; top:0; left:50%; transform:translateX(-50%);
+    width:7px; height:7px; border-radius:50%; background:var(--gold);
+  }
+  .threshold-copy-col{padding-left:52px;}
+  .threshold-copy{max-width:56ch;}
+  .threshold-copy p{
+    font-size:17px;
+    line-height:1.8;
+    color:var(--ink);
+    opacity:0.85;
+  }
+  .threshold-copy p + p{margin-top:16px;}
+  .threshold-plate{
+    margin-top:52px;
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:26px;
+    align-items:end;
+    max-width:56ch;
+  }
+  .threshold-plate img{
+    width:280px;
+    height:auto;
+    display:block;
+    border:1px solid var(--line);
+    padding:8px;
+    background:var(--paper);
+  }
+  .threshold-plate-cap{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color:var(--brick);
+    padding-bottom:14px;
+    border-top:1px solid var(--line);
+    padding-top:14px;
+  }
+  .threshold-plate-cap b{display:block; color:var(--ink); font-family:'Fraunces', serif; font-style:italic; font-size:15px; letter-spacing:0; margin-bottom:6px; text-transform:none;}
+
+  /* ================= WHY (maroon, redesigned as an index list) ================= */
+  .why{
+    background:var(--maroon);
+    color:var(--paper);
+    padding:130px 0 110px;
+    position:relative;
+  }
+  .why .wrap{position:relative; z-index:2;}
+  .why-ring{
+    position:absolute;
+    top:70px; right:6vw;
+    width:340px; height:340px;
+    opacity:0.14;
+    z-index:1;
+  }
+  .epigraph{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(22px,3vw,32px);
+    line-height:1.5;
+    max-width:22ch;
+    color:var(--gold-soft);
+    margin:22px 0 80px;
+  }
+  .epigraph::before{content:"“";}
+  .epigraph::after{content:"”";}
+
+  .reasons{border-top:1px solid var(--line-onlight);}
+  .reason{
+    padding:30px 0;
+    border-bottom:1px solid var(--line-onlight);
+    display:grid;
+    grid-template-columns:90px 1fr 2fr;
+    gap:28px;
+    align-items:baseline;
+  }
+  .reason .num{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:30px;
+    color:var(--gold);
+    opacity:0.85;
+    line-height:1;
+    letter-spacing:0.02em;
+  }
+  .reason h3{
+    font-size:19px;
+    font-weight:500;
+    color:var(--paper);
+    max-width:16ch;
+  }
+  .reason p{
+    font-size:15px;
+    line-height:1.7;
+    color:var(--paper);
+    opacity:0.72;
+    max-width:44ch;
+  }
+  .why-close{
+    margin-top:64px;
+    padding-top:38px;
+    border-top:1px solid var(--line-onlight);
+    font-family:'Fraunces', serif;
+    font-size:clamp(17px,1.8vw,21px);
+    font-weight:500;
+    max-width:42ch;
+    line-height:1.55;
+    color:var(--gold-soft);
+  }
+
+  /* ================= GARDEN ================= */
+  .garden{
+    background:var(--paper);
+    padding:130px 0 60px;
+  }
+  .garden-head{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:end;
+    margin-bottom:56px;
+  }
+  .garden-head h2{
+    font-size:clamp(30px,4vw,50px);
+    margin-top:16px;
+  }
+  .garden-head .lede{
+    font-size:16px;
+    line-height:1.75;
+    opacity:0.82;
+    max-width:46ch;
+  }
+  .garden-image{
+    position:relative;
+    overflow:hidden;
+    margin-bottom:80px;
+  }
+  .garden-image img{width:100%; max-height:88vh; object-fit:cover; display:block;}
+  .garden-image .cap{
+    position:absolute;
+    left:6vw; bottom:22px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    color:var(--paper);
+    background:rgba(10,20,17,0.55);
+    padding:7px 12px;
+    backdrop-filter:blur(3px);
+  }
+
+  .garden-detail{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-bottom:70px;
+  }
+  .gd-item{
+    background:var(--paper);
+    padding:30px 26px;
+  }
+  .gd-item h4{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--brick);
+    margin-bottom:12px;
+    font-weight:700;
+  }
+  .gd-item p{
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+    opacity:0.78;
+    margin:0;
+  }
+
+  .water-block{
+    background:var(--teal);
+    color:var(--paper);
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    margin-bottom:0;
+    overflow:hidden;
+  }
+  .water-left{
+    padding:56px 48px;
+    border-right:1px solid var(--line-onlight);
+  }
+  .water-left h3{
+    font-size:clamp(24px,2.6vw,32px);
+    color:var(--paper);
+    margin-bottom:22px;
+    max-width:12ch;
+  }
+  .water-left ul{
+    list-style:none;
+    margin:0; padding:0;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:17px;
+    line-height:2.1;
+    color:var(--gold-soft);
+  }
+  .water-right{
+    padding:56px 48px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:26px;
+  }
+  .water-right p{
+    margin:0;
+    font-size:14.5px;
+    line-height:1.7;
+    color:var(--paper);
+    opacity:0.82;
+  }
+  .water-right p b{color:var(--gold-soft); font-weight:500;}
+
+  /* ================= CORRIDOR ================= */
+  .corridor{
+    background:var(--ink);
+    color:var(--paper);
+    padding:130px 0 110px;
+  }
+  .corridor-head{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:60px;
+    margin-bottom:60px;
+    align-items:end;
+  }
+  .corridor-head h2{
+    font-size:clamp(30px,4vw,48px);
+    color:var(--paper);
+    margin-top:16px;
+  }
+  .corridor-head p{
+    font-size:15.5px;
+    line-height:1.75;
+    color:var(--paper);
+    opacity:0.62;
+    max-width:48ch;
+  }
+  .gallery{
+    columns:5 220px;
+    column-gap:14px;
+  }
+  .gallery figure{
+    margin:0 0 14px;
+    break-inside:avoid;
+    position:relative;
+    overflow:hidden;
+    border-radius:1px;
+  }
+  .gallery img{
+    width:100%;
+    height:auto;
+    display:block;
+    filter:grayscale(28%) contrast(1.02);
+    transition:filter 0.6s ease, transform 0.8s ease;
+  }
+  .gallery figure:hover img{
+    filter:grayscale(0%) contrast(1.05);
+    transform:scale(1.035);
+  }
+  .gallery figure::after{
+    content:"";
+    position:absolute; inset:0;
+    box-shadow:inset 0 0 0 1px rgba(199,154,74,0.18);
+    pointer-events:none;
+  }
+
+  /* ---------- circular carousel ---------- */
+  .carousel{position:relative; padding-top:10px;}
+  .carousel-viewport{
+    position:relative;
+    height:520px;
+    margin:0 -6vw;
+    overflow:hidden;
+  }
+  .carousel-track{
+    position:absolute; top:0; left:0; right:0; bottom:0;
+  }
+  .carousel-card{
+    position:absolute;
+    top:50%; left:50%;
+    width:250px;
+    margin:-227px 0 0 -125px;
+    transition:transform 0.55s cubic-bezier(.16,.8,.28,1), opacity 0.55s ease;
+    cursor:pointer;
+    text-decoration:none;
+    color:inherit;
+  }
+  .carousel-card .frame{
+    width:100%; aspect-ratio:0.618;
+    overflow:hidden;
+    background:var(--teal-deep);
+    border:1px solid rgba(220,193,137,0.22);
+    position:relative;
+  }
+  .carousel-card .frame img{width:100%; height:100%; object-fit:contain; display:block;}
+  .carousel-card .placeholder-name{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    text-align:center; padding:20px; font-family:'Fraunces', serif; font-style:italic; font-size:16px;
+    color:var(--gold-soft); opacity:0.7; line-height:1.4;
+  }
+  .carousel-card .pending-tag{
+    position:absolute; left:10px; bottom:10px;
+    font-family:'Space Mono', monospace; font-size:9px; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--gold-soft); opacity:0.65; border:1px solid rgba(220,193,137,0.3); padding:4px 7px;
+  }
+  .carousel-card .cap{
+    margin-top:16px; text-align:center; font-family:'Space Mono', monospace; font-size:11px;
+    letter-spacing:0.06em; text-transform:uppercase; color:var(--gold-soft); opacity:0.85; line-height:1.5;
+  }
+  .carousel-card.is-active .frame{border-color:var(--gold);}
+  .carousel-controls{
+    display:flex; align-items:center; justify-content:center; gap:18px; margin-top:34px;
+  }
+  .carousel-btn{
+    width:46px; height:46px; border-radius:50%; border:1px solid var(--line-onlight);
+    background:transparent; color:var(--paper); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    touch-action:manipulation;
+  }
+  .carousel-btn:hover{background:var(--gold); color:var(--teal-deep); border-color:var(--gold);}
+  .carousel-dots{display:flex; gap:7px; margin:0 6px;}
+  .carousel-dots span{width:5px; height:5px; border-radius:50%; background:var(--line-onlight); transition:background 0.3s ease, transform 0.3s ease;}
+  .carousel-dots span.is-active{background:var(--gold); transform:scale(1.5);}
+
+  .gallery-cta-wrap{margin-top:52px; text-align:center;}
+  .gallery-cta{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700;
+    color:var(--teal-deep); background:var(--gold-soft);
+    padding:16px 32px; border-radius:999px; text-decoration:none;
+    transition:background 0.25s ease, transform 0.25s ease;
+  }
+  .gallery-cta:hover{background:var(--gold); transform:translateY(-2px);}
+
+  /* ================= VISIT / FOOTER ================= */
+  .visit{
+    background:var(--parchment);
+    padding:120px 0 0;
+  }
+  .visit-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:60px;
+    padding-bottom:80px;
+    border-bottom:1px solid var(--line);
+  }
+  .visit h2{
+    font-size:clamp(32px,4.4vw,54px);
+    margin:18px 0 22px;
+  }
+  .visit .lede{
+    font-size:16px;
+    line-height:1.75;
+    opacity:0.82;
+    max-width:44ch;
+  }
+  .contact-card{
+    font-family:'Work Sans', sans-serif;
+  }
+  .contact-row{
+    padding:18px 0;
+    border-top:1px solid var(--line);
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:10px;
+    font-size:14.5px;
+  }
+  .contact-row:last-child{border-bottom:1px solid var(--line);}
+  .contact-row .k{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--brick);
+    padding-top:2px;
+  }
+  .contact-row .v{line-height:1.6; opacity:0.88;}
+  .contact-row a{text-decoration:none; border-bottom:1px solid var(--line); }
+
+  .footer-bottom{
+    padding:36px 0 40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .footer-bottom img{height:56px; width:auto; opacity:0.9;}
+  .footer-fine{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    opacity:0.48;
+  }
+
+  /* ================= RESPONSIVE ================= */
+  @media (orientation: portrait){
+    .hero-sticky{height:min(100svh, 820px);}
+  }
+  @media (max-width: 860px){
+    .hero{height:280vh;}
+    .hero-sticky{height:min(100svh, 820px);}
+    .nav-top{padding:0 22px; height:66px;}
+    .logo-img{height:36px;}
+    .nav-links-row{display:none;}
+    .visit-pill{padding:7px 12px; font-size:10px;}
+    .lang-toggle button{padding:7px 10px; min-height:32px;}
+    .threshold-grid{grid-template-columns:1fr; gap:28px;}
+    .threshold-rule{display:none;}
+    .threshold-lede-col, .threshold-copy-col{padding:0;}
+    .threshold-plate{grid-template-columns:1fr; gap:14px;}
+    .threshold-plate img{width:100%; max-width:320px;}
+    .garden-image img{max-height:56vh;}
+    .reason{grid-template-columns:56px 1fr; gap:6px 16px;}
+    .reason > div{grid-column:2;}
+    .reason p{max-width:none;}
+    .garden-head{grid-template-columns:1fr; gap:20px;}
+    .garden-detail{grid-template-columns:repeat(2,1fr);}
+    .water-block{grid-template-columns:1fr;}
+    .water-left{border-right:none; border-bottom:1px solid var(--line-onlight);}
+    .corridor-head{grid-template-columns:1fr; gap:18px;}
+    .carousel-viewport{height:340px;}
+    .carousel-card{width:150px; margin:-150px 0 0 -75px;}
+    .carousel-card .frame{height:240px;}
+    .gallery{columns:2 160px;}
+    .visit-grid{grid-template-columns:1fr; gap:40px;}
+    .why-ring{display:none;}
+  }
+  @media (max-width: 560px){
+    .wrap{padding:0 22px;}
+    .hero-content{padding:0 22px 48px;}
+    .contact-row{grid-template-columns:1fr; gap:4px;}
+  }
+
+  :focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-top">
+      <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <a href="index.html" class="logo-link"><img src="images/logo.png" class="logo-img" alt="Prerna Sthal"></a>
+      <div style="position:absolute; right:6vw; top:50%; transform:translateY(-50%); display:flex; align-items:center; gap:14px;">
+        <div class="lang-toggle" role="group" aria-label="Choose language">
+          <button type="button" class="active" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="mr" aria-pressed="false">मराठी</button>
+        </div>
+        <a href="contact.html" class="visit-pill" style="position:static; transform:none;">Visit</a>
+      </div>
+    </div>
+    <div class="nav-links-row">
+      <a href="mahapurush.html">Mahapurush</a>
+      <a href="mudras.html">Hasta Mudra</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu"><span></span><span></span></button>
+    <a href="mahapurush.html" class="en">Mahapurush</a>
+    <a href="mahapurush.html" class="mr-block mr">महापुरुष</a>
+    <a href="mudras.html" class="en">Hasta Mudra</a>
+    <a href="mudras.html" class="mr-block mr">हस्तमुद्रा</a>
+    <a href="contact.html" class="en">Contact</a>
+    <a href="contact.html" class="mr-block mr">संपर्क</a>
+  </div>
+
+  <!-- ================= HERO (scroll-scrubbed drone video) ================= -->
+  <section class="hero">
+    <div class="hero-sticky">
+      <div class="hero-progress" id="heroProgress"></div>
+      <canvas class="hero-canvas" id="heroCanvas"></canvas>
+      <div class="hero-content">
+        <p class="hero-loc reveal en">Vidya Nagari Campus<br>Baramati, Maharashtra</p>
+        <p class="hero-loc reveal mr-block mr">विद्या नगरी कॅम्पस<br>बारामती, महाराष्ट्र</p>
+      </div>
+      <div class="scroll-cue"></div>
+    </div>
+  </section>
+
+  <!-- ================= SIGNATURE DIVIDER ================= -->
+  <svg class="divider" viewBox="0 0 1200 60" preserveAspectRatio="none" style="background:var(--parchment)">
+    <path d="M0,54 C220,54 260,10 400,10 C540,10 560,54 700,54 C840,54 880,18 1000,18 C1100,18 1140,40 1200,40" fill="none" stroke="var(--teal)" stroke-width="1.4" opacity="0.55"/>
+  </svg>
+
+  <!-- ================= THRESHOLD ================= -->
+  <section class="threshold" id="about">
+    <div class="wrap">
+      <div class="eyebrow reveal"><span class="en">About the space</span><span class="mr-inline mr">या जागेविषयी</span></div>
+      <div class="threshold-grid reveal">
+        <div class="threshold-lede-col">
+          <p class="threshold-lede en">Where architecture, nature, and stillness meet at the door.</p>
+          <p class="threshold-lede mr-block mr">जिथे वास्तुकला, निसर्ग आणि शांतता उंबरठ्यावर एकत्र येतात.</p>
+        </div>
+        <div class="threshold-rule" aria-hidden="true"></div>
+        <div class="threshold-copy-col">
+          <div class="threshold-copy">
+            <p class="en"><b>Prerna Sthal</b> is a thoughtfully envisioned meditation and reflection space, located within Nakshatra Garden in the Vidya Nagari campus of Vidya Pratishthan, Baramati.</p>
+            <p class="en">Surrounded by the tranquil landscape of Nakshatra Garden, the project is designed to promote inner peace, mindfulness, and spiritual well‑being through its harmonious integration of architecture, nature, and water elements.</p>
+            <p class="mr-block mr"><b>प्रेरणा स्थळ</b> ही विद्या प्रतिष्ठान, बारामतीच्या विद्या नगरी कॅम्पसमधील नक्षत्र गार्डनमध्ये वसलेली, काळजीपूर्वक साकारलेली ध्यान आणि चिंतनाची जागा आहे.</p>
+            <p class="mr-block mr">नक्षत्र गार्डनच्या शांत परिसराने वेढलेला हा प्रकल्प वास्तुकला, निसर्ग आणि जल घटकांच्या सुसंवादी एकत्रीकरणातून आंतरिक शांती, सजगता आणि आध्यात्मिक स्वास्थ्य वाढवण्यासाठी रचला आहे.</p>
+          </div>
+          <figure class="threshold-plate">
+            <img src="images/architecture/bird1.jpg" alt="Aerial rendering of the Prerna Sthal dome and its surrounding garden pathways">
+            <figcaption class="threshold-plate-cap"><b>Prerna Sthal</b>Architectural rendering, aerial view</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY (maroon) ================= -->
+  <section class="why" id="why">
+    <svg class="why-ring" viewBox="0 0 200 200" aria-hidden="true">
+      <circle cx="100" cy="100" r="98" fill="none" stroke="var(--gold)" stroke-width="0.6"/>
+      <circle cx="100" cy="100" r="80" fill="none" stroke="var(--gold)" stroke-width="0.6"/>
+      <g stroke="var(--gold)" stroke-width="0.6">
+        <line x1="100" y1="2" x2="100" y2="198"/>
+        <line x1="2" y1="100" x2="198" y2="100"/>
+        <line x1="29" y1="29" x2="171" y2="171"/>
+        <line x1="171" y1="29" x2="29" y2="171"/>
+      </g>
+      <circle cx="100" cy="100" r="14" fill="none" stroke="var(--gold)" stroke-width="0.6"/>
+    </svg>
+    <div class="wrap">
+      <div class="eyebrow on-dark reveal"><span class="en">Why a meditation hall</span><span class="mr-inline mr">ध्यान मंदिर का</span></div>
+      <p class="epigraph reveal en">In today's world of stress and conflict, Gautam Buddha remains a powerful symbol of peace, reminding us that inner calm and compassion are the foundations of a peaceful society.</p>
+      <p class="epigraph reveal mr-block mr">आजच्या तणावग्रस्त आणि संघर्षमय जगात, गौतम बुद्ध शांततेचे प्रभावी प्रतीक आहेत, आंतरिक शांती आणि करुणा हाच शांत समाजाचा पाया आहे याची आठवण करून देणारे.</p>
+
+      <div class="reasons">
+        <div class="reason reveal">
+          <span class="num">01</span>
+          <div>
+          <h3 class="en">Mental well‑being</h3>
+          <h3 class="mr-block mr">मानसिक स्वास्थ्य</h3>
+          </div>
+          <div>
+          <p class="en">A quiet, peaceful space away from the city's noise and stress, helping reduce anxiety through regular meditation practice.</p>
+          <p class="mr-block mr">शहराच्या गोंगाटापासून दूर असलेली शांत जागा, नियमित ध्यानाभ्यासाने चिंता कमी करण्यास मदत करते.</p>
+          </div>
+        </div>
+        <div class="reason reveal">
+          <span class="num">02</span>
+          <div>
+          <h3 class="en">Spiritual growth</h3>
+          <h3 class="mr-block mr">आध्यात्मिक विकास</h3>
+          </div>
+          <div>
+          <p class="en">A sacred, neutral environment for people of all faiths, or none, to connect with themselves, encouraging self‑awareness and personal reflection.</p>
+          <p class="mr-block mr">सर्व श्रद्धांच्या, किंवा कोणत्याही श्रद्धेशिवाय, लोकांना स्वतःशी जोडून घेण्यासाठी पवित्र, तटस्थ वातावरण, आत्मभान आणि चिंतनाला प्रोत्साहन देणारे.</p>
+          </div>
+        </div>
+        <div class="reason reveal">
+          <span class="num">03</span>
+          <div>
+          <h3 class="en">Community building</h3>
+          <h3 class="mr-block mr">समुदाय उभारणी</h3>
+          </div>
+          <div>
+          <p class="en">A gathering space for those drawn to mindfulness and inner development, able to host group meditation, workshops, and discussion.</p>
+          <p class="mr-block mr">सजगता आणि आंतरिक विकासाकडे ओढल्या गेलेल्यांसाठी एकत्र येण्याची जागा, सामूहिक ध्यान, कार्यशाळा आणि चर्चांसाठी सक्षम.</p>
+          </div>
+        </div>
+        <div class="reason reveal">
+          <span class="num">04</span>
+          <div>
+          <h3 class="en">Health benefits</h3>
+          <h3 class="mr-block mr">आरोग्यविषयक लाभ</h3>
+          </div>
+          <div>
+          <p class="en">Meditation carries scientifically documented benefits: improved focus, better sleep, and steadier emotional regulation.</p>
+          <p class="mr-block mr">ध्यानाचे शास्त्रीयदृष्ट्या सिद्ध झालेले फायदे आहेत: सुधारलेली एकाग्रता, चांगली झोप आणि स्थिर भावनिक संतुलन.</p>
+          </div>
+        </div>
+        <div class="reason reveal">
+          <span class="num">05</span>
+          <div>
+          <h3 class="en">Educational resource</h3>
+          <h3 class="mr-block mr">शैक्षणिक साधन</h3>
+          </div>
+          <div>
+          <p class="en">Guidance and resources for beginners and advanced practitioners alike, alongside the corridor's inspirational gallery.</p>
+          <p class="mr-block mr">कॉरिडॉरच्या प्रेरणादायी गॅलरीसह, नवशिक्या आणि अनुभवी साधकांसाठी मार्गदर्शन आणि साधने.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="why-close reveal en">In a fast‑paced urban environment, a meditation hall serves as a sanctuary, promoting calm, clarity, and connection in daily life.</p>
+      <p class="why-close reveal mr-block mr">वेगवान शहरी जीवनात, ध्यान मंदिर एक आश्रयस्थान बनते, दैनंदिन जीवनात शांतता, स्पष्टता आणि जोडलेपणा वाढवणारे.</p>
+    </div>
+  </section>
+
+  <!-- ================= GARDEN ================= -->
+  <section class="garden" id="garden">
+    <div class="wrap">
+      <div class="eyebrow reveal"><span class="en">The garden</span><span class="mr-inline mr">उद्यान</span></div>
+      <div class="garden-head">
+        <div class="reveal">
+          <h2 class="en">Nakshatra Garden</h2>
+          <h2 class="mr-block mr">नक्षत्र गार्डन</h2>
+        </div>
+        <div>
+          <p class="lede reveal en">Inner peace through nature: each section of the garden corresponds to a specific Nakshatra, planted with trees and flora traditionally associated with that constellation. Signboards along the paths carry each plant's name, botanical detail, and medicinal use.</p>
+          <p class="lede reveal mr-block mr">निसर्गातून आंतरिक शांती: उद्यानाचा प्रत्येक भाग एका विशिष्ट नक्षत्राशी संबंधित असून, त्या नक्षत्राशी परंपरेने जोडलेली झाडे आणि वनस्पती लावलेली आहेत. वाटांवरील फलकांवर प्रत्येक वनस्पतीचे नाव, वनस्पतीशास्त्रीय माहिती आणि औषधी उपयोग दिलेला आहे.</p>
+        </div>
+      </div>
+    </div>
+
+    <figure class="garden-image bleed reveal">
+      <img src="images/architecture/bird2.jpg" alt="Aerial rendering of Nakshatra Garden encircling the Prerna Sthal dome">
+      <span class="cap en">Nakshatra Garden, site plan rendering</span><span class="cap mr-block mr">नक्षत्र गार्डन, आराखडा प्रतिमा</span>
+    </figure>
+
+    <div class="wrap">
+      <div class="garden-detail reveal">
+        <div class="gd-item">
+          <h4 class="en">Walking &amp; jogging</h4>
+          <h4 class="mr-block mr">चालणे व जॉगिंग</h4>
+          <p class="en">Well‑maintained pathways suited to walking, jogging, yoga, and meditation, a popular stretch for early risers.</p>
+          <p class="mr-block mr">चालणे, जॉगिंग, योग आणि ध्यानासाठी सुयोग्य, सुस्थितीत ठेवलेल्या वाटा, पहाटे फिरणाऱ्यांसाठी लोकप्रिय.</p>
+        </div>
+        <div class="gd-item">
+          <h4 class="en">Biodiversity</h4>
+          <h4 class="mr-block mr">जैवविविधता</h4>
+          <p class="en">A diverse range of herbal and medicinal plants, doubling as an educational resource for botany and Ayurveda.</p>
+          <p class="mr-block mr">विविध औषधी आणि वनस्पतीशास्त्रीय झाडे, वनस्पतीशास्त्र आणि आयुर्वेदासाठी शैक्षणिक साधन म्हणूनही उपयुक्त.</p>
+        </div>
+        <div class="gd-item">
+          <h4 class="en">Eco‑friendly practice</h4>
+          <h4 class="mr-block mr">पर्यावरणपूरक पद्धत</h4>
+          <p class="en">Treated wastewater is used for irrigation, a small, working demonstration of sustainable water management.</p>
+          <p class="mr-block mr">प्रक्रिया केलेले सांडपाणी सिंचनासाठी वापरले जाते, शाश्वत जलव्यवस्थापनाचे एक छोटे, कार्यरत उदाहरण.</p>
+        </div>
+        <div class="gd-item">
+          <h4 class="en">Landscape features</h4>
+          <h4 class="mr-block mr">भूदृश्य वैशिष्ट्ये</h4>
+          <p class="en">Existing tree clusters, native planting, flower borders, and seating, kept to minimal landscape intervention.</p>
+          <p class="mr-block mr">विद्यमान वृक्षसमूह, स्थानिक वनस्पती, फुलांच्या सीमारेषा आणि बैठक व्यवस्था, किमान भूदृश्य हस्तक्षेपासह.</p>
+        </div>
+      </div>
+
+      <div class="water-block reveal">
+        <div class="water-left">
+          <h3 class="en">Water, as a healing element</h3>
+          <h3 class="mr-block mr">जल, एक उपचारक घटक</h3>
+          <ul>
+            <li class="en">Water channels</li>
+            <li class="en">Lily ponds</li>
+            <li class="en">Flowing water patterns</li>
+            <li class="en">Natural soundscape</li>
+            <li class="mr-block mr">जल वाहिन्या</li>
+            <li class="mr-block mr">कमळ तलाव</li>
+            <li class="mr-block mr">वाहत्या पाण्याची रचना</li>
+            <li class="mr-block mr">नैसर्गिक ध्वनी</li>
+          </ul>
+        </div>
+        <div class="water-right">
+          <p class="en">The sound and movement of water is woven through Prerna Sthal deliberately: channels and lily ponds that slow the pace of a visitor before they've even reached the door, setting a <b>meditation environment</b> that begins outside the hall.</p>
+          <p class="en">Together with the astrological plantings underfoot and the dome overhead, water completes the sense that this is a space built for stillness, not just around it.</p>
+          <p class="mr-block mr">प्रेरणा स्थळामध्ये पाण्याचा आवाज आणि हालचाल जाणीवपूर्वक विणलेली आहे: वाहिन्या आणि कमळ तलाव जे भेट देणाऱ्याची गती दारापर्यंत पोहोचण्याआधीच मंदावतात, सभागृहाबाहेरच सुरू होणारे <b>ध्यान वातावरण</b> निर्माण करतात.</p>
+          <p class="mr-block mr">पायाखालच्या ज्योतिषशास्त्रीय वनस्पती आणि वरील घुमटासह, पाणी ही जागा केवळ स्थिरतेच्या भोवती नव्हे तर स्थिरतेसाठीच बांधलेली आहे ही भावना पूर्ण करते.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SIGNATURE DIVIDER 2 ================= -->
+  <svg class="divider" viewBox="0 0 1200 60" preserveAspectRatio="none" style="background:var(--ink)">
+    <path d="M0,20 C220,20 260,50 400,50 C540,50 560,14 700,14 C840,14 880,46 1000,46 C1100,46 1140,26 1200,26" fill="none" stroke="var(--gold)" stroke-width="1.4" opacity="0.55"/>
+  </svg>
+
+  <!-- ================= CORRIDOR ================= -->
+  <section class="corridor" id="corridor">
+    <div class="wrap">
+      <div class="corridor-head">
+        <div>
+          <div class="eyebrow on-dark reveal"><span class="en">The corridor</span><span class="mr-inline mr">कॉरिडॉर</span></div>
+          <h2 class="reveal en">An inspirational gallery</h2>
+          <h2 class="reveal mr-block mr">प्रेरणादायी गॅलरी</h2>
+        </div>
+        <div>
+          <p class="reveal en">The corridor circling the dome is envisioned as a gallery of life‑size, hand‑painted portraits: leaders, reformers, and nation‑builders whose lives shaped the values this space is built to hold. Full captions and stories are being finalised ahead of the corridor's opening.</p>
+          <p class="reveal mr-block mr">घुमटाभोवतीचा कॉरिडॉर जीवनाकार, हस्तचित्रित व्यक्तिचित्रांची गॅलरी म्हणून कल्पिला आहे: नेते, समाजसुधारक आणि राष्ट्रनिर्माते ज्यांच्या जीवनाने या जागेचे मूल्य घडवले. कॉरिडॉर उघडण्यापूर्वी संपूर्ण मजकूर आणि कथा अंतिम केल्या जात आहेत.</p>
+        </div>
+      </div>
+
+      <div class="carousel reveal">
+        <div class="carousel-viewport">
+          <div class="carousel-track" id="corridorTrack">
+            <a href="mahapurush.html" class="carousel-card" data-index="0"><div class="frame"><span class="placeholder-name">Rajmata Jijau</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Rajmata Jijau</div></a>
+            <a href="mahapurush.html" class="carousel-card" data-index="1"><div class="frame"><span class="placeholder-name">Chhatrapati Shivaji Maharaj</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Chhatrapati Shivaji Maharaj</div></a>
+            <a href="mahapurush.html" class="carousel-card" data-index="2"><div class="frame"><img src="images/portraits/Ahilyabai%20Holkar.jpg" loading="lazy" alt="Hand-painted portrait of Ahilyabai Holkar"></div><div class="cap">Ahilyabai Holkar</div></a>
+            <a href="mahapurush.html" class="carousel-card" data-index="3"><div class="frame"><img src="images/portraits/Mahatma%20Jyotirao%20Phule.jpg" loading="lazy" alt="Hand-painted portrait of Mahatma Jyotirao Phule"></div><div class="cap">Mahatma Jyotirao Phule</div></a>
+            <a href="mahapurush.html" class="carousel-card" data-index="4"><div class="frame"><img src="images/portraits/Savitribai%20Phule.jpg" loading="lazy" alt="Hand-painted portrait of Savitribai Phule"></div><div class="cap">Savitribai Phule</div></a>
+            <a href="shahu-maharaj.html" class="carousel-card" data-index="5"><div class="frame"><img src="images/portraits/Chhatrapati%20Rajarshi%20Shahu%20Maharaj.jpg" loading="lazy" alt="Hand-painted portrait of Rajarshi Shahu Maharaj"></div><div class="cap">Rajarshi Shahu Maharaj</div></a>
+            <a href="mahapurush.html" class="carousel-card" data-index="6"><div class="frame"><img src="images/portraits/Dr.%20Babasaheb%20Ambedkar.jpg" loading="lazy" alt="Hand-painted portrait of Dr. Babasaheb Ambedkar"></div><div class="cap">Dr. Babasaheb Ambedkar</div></a>
+            <a href="mahapurush.html" class="carousel-card" data-index="7"><div class="frame"><img src="images/portraits/Maharaja%20Sayajirao%20Gaikwad.jpg" loading="lazy" alt="Hand-painted portrait of Maharaja Sayajirao Gaikwad"></div><div class="cap">Maharaja Sayajirao Gaikwad</div></a>
+            <a href="mahapurush.html" class="carousel-card" data-index="8"><div class="frame"><img src="images/portraits/Mahatma%20Gandhi.jpg" loading="lazy" alt="Hand-painted portrait of Mahatma Gandhi"></div><div class="cap">Mahatma Gandhi</div></a>
+            <a href="mahapurush.html" class="carousel-card" data-index="9"><div class="frame"><img src="images/portraits/Karmaveer%20Bhaurao%20Patil.jpg" loading="lazy" alt="Hand-painted portrait of Karmaveer Bhaurao Patil"></div><div class="cap">Karmaveer Bhaurao Patil</div></a>
+            <a href="mahapurush.html" class="carousel-card" data-index="10"><div class="frame"><img src="images/portraits/Annabhau%20Sathe.jpg" loading="lazy" alt="Hand-painted portrait of Annabhau Sathe"></div><div class="cap">Annabhau Sathe</div></a>
+            <a href="mahapurush.html" class="carousel-card" data-index="11"><div class="frame"><span class="placeholder-name">Shardabai Pawar</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Shardabai Pawar</div></a>
+            <a href="mahapurush.html" class="carousel-card" data-index="12"><div class="frame"><img src="images/portraits/Yashwantrao%20Chavan.jpg" loading="lazy" alt="Hand-painted portrait of Yashwantrao Chavan"></div><div class="cap">Yashwantrao Chavan</div></a>
+            <a href="mahapurush.html" class="carousel-card" data-index="13"><div class="frame"><span class="placeholder-name">Lokmanya Tilak</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Lokmanya Tilak</div></a>
+            <a href="mahapurush.html" class="carousel-card" data-index="14"><div class="frame"><span class="placeholder-name">Maulana Abul Kalam Azad</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Maulana Abul Kalam Azad</div></a>
+          </div>
+        </div>
+        <div class="carousel-controls">
+          <button type="button" class="carousel-btn" id="corridorPrev" aria-label="Previous portrait">&larr;</button>
+          <div class="carousel-dots" id="corridorDots"></div>
+          <button type="button" class="carousel-btn" id="corridorNext" aria-label="Next portrait">&rarr;</button>
+        </div>
+      </div>
+
+      <div class="gallery-cta-wrap reveal">
+        <a href="mahapurush.html" class="gallery-cta en">View full gallery &rarr;</a>
+        <a href="mahapurush.html" class="gallery-cta mr-block mr">संपूर्ण गॅलरी पहा &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VISIT ================= -->
+  <section class="visit" id="visit">
+    <div class="wrap">
+      <div class="visit-grid">
+        <div class="reveal">
+          <div class="eyebrow"><span class="en">Visit</span><span class="mr-inline mr">भेट द्या</span></div>
+          <h2 class="en">Come, sit a while.</h2>
+          <h2 class="mr-block mr">या, थोडा वेळ बसा.</h2>
+          <p class="lede en">Prerna Sthal is part of Vidya Pratishthan's Vidya Nagari campus in Baramati. For visits, collaborations, or support toward the project, reach the trust directly.</p>
+          <p class="lede mr-block mr">प्रेरणा स्थळ हे विद्या प्रतिष्ठानच्या बारामतीतील विद्या नगरी कॅम्पसचा भाग आहे. भेटीसाठी, सहकार्यासाठी किंवा प्रकल्पासाठी पाठबळासाठी, थेट विश्वस्त मंडळाशी संपर्क साधा.</p>
+        </div>
+        <div class="contact-card reveal">
+          <div class="contact-row"><div class="k"><span class="en">Address</span><span class="mr-block mr">पत्ता</span></div><div class="v">Vidya Pratishthan, Vidyanagari, Bhigwan Road, Baramati, Dist. Pune – 413133, Maharashtra, India</div></div>
+          <div class="contact-row"><div class="k"><span class="en">Phone</span><span class="mr-block mr">फोन</span></div><div class="v">02112‑243691 / 239200 / 239156</div></div>
+          <div class="contact-row"><div class="k"><span class="en">Fax</span><span class="mr-block mr">फॅक्स</span></div><div class="v">02112‑239159</div></div>
+          <div class="contact-row"><div class="k"><span class="en">Email</span><span class="mr-block mr">ईमेल</span></div><div class="v"><a href="mailto:vpbaramati@yahoo.co.in">vpbaramati@yahoo.co.in</a></div></div>
+          <div class="contact-row"><div class="k"><span class="en">Website</span><span class="mr-block mr">वेबसाइट</span></div><div class="v"><a href="https://www.vidyapratishthan.com" target="_blank" rel="noopener">www.vidyapratishthan.com</a></div></div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <img src="images/logo.png" alt="Prerna Sthal">
+        <span class="footer-fine">Prerna Sthal · Nakshatra Garden · Vidya Pratishthan, Baramati</span>
+      </div>
+    </div>
+  </section>
+
+<script>
+  // Scroll reveal
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'});
+  els.forEach(el=>io.observe(el));
+
+  // Scroll-scrubbed hero: a preloaded sequence of still frames drawn to a
+  // <canvas> based on scroll position, the same technique Apple's product
+  // pages use. Frame-accurate and independent of video codec/seek behavior,
+  // so it stays smooth regardless of host or connection once frames are in.
+  const heroSection = document.querySelector('.hero');
+  const heroCanvas = document.getElementById('heroCanvas');
+  const heroProgress = document.getElementById('heroProgress');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(heroSection && heroCanvas){
+    const FRAME_COUNT = 80;
+    const framePath = i => `images/hero-frames/frame_${String(i).padStart(3,'0')}.webp`;
+    const ctx = heroCanvas.getContext('2d');
+    const frames = new Array(FRAME_COUNT);
+    let loadedCount = 0;
+    let ready = false;
+    let currentIndex = -1;
+    let ticking = false;
+
+    function sizeCanvas(){
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = heroSection.clientWidth;
+      const h = heroCanvas.parentElement.clientHeight;
+      heroCanvas.width = w * dpr;
+      heroCanvas.height = h * dpr;
+      heroCanvas.style.width = w + 'px';
+      heroCanvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    // Manual "object-fit: cover" + "object-position: 50% 30%" for canvas,
+    // since neither applies to drawImage directly.
+    function drawCover(img){
+      const cw = heroCanvas.clientWidth, ch = heroCanvas.clientHeight;
+      const iw = img.naturalWidth, ih = img.naturalHeight;
+      if(!cw || !ch || !iw || !ih) return;
+      const scale = Math.max(cw/iw, ch/ih);
+      const dw = iw*scale, dh = ih*scale;
+      const dx = (cw-dw)/2;
+      const dy = (ch-dh)*0.30; // biases toward showing more of the top, like object-position 50% 30%
+      ctx.clearRect(0,0,cw,ch);
+      ctx.drawImage(img, dx, dy, dw, dh);
+    }
+
+    function drawFrame(index){
+      index = Math.max(0, Math.min(FRAME_COUNT-1, index));
+      if(index === currentIndex) return;
+      const img = frames[index];
+      if(!img || !img.complete) return;
+      currentIndex = index;
+      drawCover(img);
+    }
+
+    function updateHero(){
+      ticking = false;
+      if(!ready) return;
+      const rect = heroSection.getBoundingClientRect();
+      const scrollable = rect.height - window.innerHeight;
+      if(scrollable <= 0) return;
+      let progress = -rect.top / scrollable;
+      progress = Math.min(1, Math.max(0, progress));
+      const targetIndex = prefersReduced
+        ? Math.round((FRAME_COUNT-1) * 0.5) // static representative frame
+        : Math.round(progress * (FRAME_COUNT-1));
+      drawFrame(targetIndex);
+      if(heroProgress) heroProgress.style.width = (progress*100) + '%';
+    }
+
+    function onScroll(){
+      if(!ticking){
+        window.requestAnimationFrame(updateHero);
+        ticking = true;
+      }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', () => { sizeCanvas(); updateHero(); });
+
+    function setLoadBar(frac){
+      if(heroProgress) heroProgress.style.width = (frac*100) + '%';
+    }
+
+    sizeCanvas();
+
+    // Load frame 1 first so the hero has real content as fast as possible,
+    // then bring in the rest of the sequence in the background.
+    for(let i = 0; i < FRAME_COUNT; i++){
+      const img = new Image();
+      img.decoding = 'async';
+      img.onload = () => {
+        loadedCount++;
+        setLoadBar(loadedCount / FRAME_COUNT);
+        if(i === 0){
+          drawFrame(0);
+        }
+        if(loadedCount === FRAME_COUNT){
+          ready = true;
+          updateHero();
+        }
+      };
+      img.src = framePath(i+1);
+      frames[i] = img;
+    }
+  }
+
+  // ---------- circular corridor carousel ----------
+  (function(){
+    const track = document.getElementById('corridorTrack');
+    if(!track) return;
+    const cards = Array.from(track.querySelectorAll('.carousel-card'));
+    const N = cards.length;
+    const dotsWrap = document.getElementById('corridorDots');
+    let active = 5; // start on the confirmed portrait (Shahu Maharaj)
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    cards.forEach((c, i) => {
+      const dot = document.createElement('span');
+      if(i === active) dot.classList.add('is-active');
+      dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function render(){
+      cards.forEach((card, i) => {
+        let offset = i - active;
+        if(offset > N/2) offset -= N;
+        if(offset < -N/2) offset += N;
+        const abs = Math.abs(offset);
+        const spacing = window.innerWidth < 640 ? 130 : 225;
+        const x = offset * spacing;
+        const scale = offset === 0 ? 1.22 : Math.max(1 - abs * 0.16, 0.55);
+        const opacity = abs > 3 ? 0 : Math.max(1 - abs * 0.28, 0);
+        const z = 100 - abs;
+        card.style.transform = `translateX(${x}px) scale(${scale})`;
+        card.style.opacity = opacity;
+        card.style.zIndex = z;
+        card.style.pointerEvents = abs > 3 ? 'none' : 'auto';
+        card.classList.toggle('is-active', offset === 0);
+      });
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === active));
+    }
+
+    function go(delta){
+      active = (active + delta + N) % N;
+      render();
+    }
+
+    document.getElementById('corridorPrev').addEventListener('click', () => go(-1));
+    document.getElementById('corridorNext').addEventListener('click', () => go(1));
+
+    cards.forEach((card, i) => {
+      card.addEventListener('click', (e) => {
+        const offset = (() => { let o = i - active; if(o > N/2) o -= N; if(o < -N/2) o += N; return o; })();
+        if(offset !== 0){ e.preventDefault(); active = i; render(); }
+      });
+    });
+
+    // basic swipe support
+    let startX = null;
+    const viewport = track.parentElement;
+    viewport.addEventListener('pointerdown', (e) => { startX = e.clientX; });
+    viewport.addEventListener('pointerup', (e) => {
+      if(startX === null) return;
+      const dx = e.clientX - startX;
+      if(Math.abs(dx) > 40) go(dx > 0 ? -1 : 1);
+      startX = null;
+    });
+
+    window.addEventListener('resize', render);
+    render();
+  })();
+
+  // language toggle
+  const langButtons = document.querySelectorAll('.lang-toggle button');
+  langButtons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      langButtons.forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
+      const isMr = btn.dataset.lang === 'mr';
+      document.body.classList.toggle('lang-mr', isMr);
+      document.documentElement.lang = isMr ? 'mr' : 'en';
+    });
+  });
+  // mobile hamburger menu
+  (function(){
+    const btn = document.getElementById('hamburgerBtn');
+    const menu = document.getElementById('mobileMenu');
+    const closeBtn = document.getElementById('mobileMenuClose');
+    if(!btn || !menu) return;
+    function openMenu(){
+      menu.classList.add('is-open');
+      btn.classList.add('is-open');
+      btn.setAttribute('aria-expanded','true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu(){
+      menu.classList.remove('is-open');
+      btn.classList.remove('is-open');
+      btn.setAttribute('aria-expanded','false');
+      document.body.style.overflow = '';
+    }
+    btn.addEventListener('click', () => { menu.classList.contains('is-open') ? closeMenu() : openMenu(); });
+    if(closeBtn) closeBtn.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  })();
+</script>
+</body>
+</html>

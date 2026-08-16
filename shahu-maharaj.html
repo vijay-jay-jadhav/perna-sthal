@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rajarshi Shahu Maharaj · Prerna Sthal Corridor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:       #17231f;
+    --teal:      #0f4a44;
+    --teal-deep: #0a2f2b;
+    --maroon:    #56374d;
+    --gold:      #c79a4a;
+    --gold-soft: #dcc189;
+    --brick:     #96552f;
+    --parchment: #f1e7d6;
+    --paper:     #faf5ea;
+    --line:      rgba(23,35,31,0.14);
+    --line-onlight: rgba(250,245,234,0.28);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--parchment); color:var(--ink); font-family:'Work Sans', sans-serif; font-size:16px; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  img{max-width:100%;display:block;}
+  h1,h2,h3,h4{font-family:'Fraunces', serif; font-weight:500; margin:0; line-height:1.08;}
+  a{color:inherit;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 6vw;}
+  .mr{font-family:'Baloo 2', sans-serif;}
+
+  .skip-link{position:absolute; left:12px; top:-60px; z-index:100; background:var(--teal-deep); color:var(--paper); padding:12px 18px; border-radius:4px; font-family:'Space Mono', monospace; font-size:13px; text-decoration:none; transition:top 0.2s ease;}
+  .skip-link:focus{top:12px;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--gold); outline-offset:3px; border-radius:2px;}
+  button{font-family:inherit; touch-action:manipulation;}
+
+  .eyebrow{font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--brick);}
+  .eyebrow.on-dark{color:var(--gold-soft);}
+  .center{text-align:center;}
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity 0.8s cubic-bezier(.16,.8,.28,1), transform 0.8s cubic-bezier(.16,.8,.28,1);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} html{scroll-behavior:auto;} }
+
+  .site-nav{position:fixed; top:0; left:0; right:0; z-index:50; background:var(--paper); border-bottom:1px solid var(--line); box-shadow:0 8px 24px -18px rgba(23,35,31,0.35);}
+  .nav-top{position:relative; display:flex; align-items:center; justify-content:center; height:76px; padding:0 6vw;}
+  .logo-link{display:flex; align-items:center;}
+  .logo-img{height:44px; width:auto; display:block;}
+  .nav-lang-wrap{position:absolute; right:6vw; top:50%; transform:translateY(-50%);}
+  .nav-links-row{display:flex; align-items:center; justify-content:center; gap:38px; height:48px; border-top:1px solid var(--line); font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700;}
+  .nav-links-row a{
+    position:relative; overflow:hidden; z-index:1;
+    text-decoration:none; color:var(--ink); opacity:0.85;
+    padding:8px 16px; min-height:36px; border-radius:999px;
+    display:flex; align-items:center;
+    transition:color 0.3s ease;
+  }
+  .nav-links-row a::before{
+    content:""; position:absolute; left:50%; bottom:0; z-index:-1;
+    width:140%; height:220%; border-radius:50%; background:var(--teal);
+    transform:translate(-50%, 100%); transition:transform 0.45s cubic-bezier(.55,0,.1,1);
+  }
+  .nav-links-row a:hover, .nav-links-row a:focus-visible{color:var(--paper); opacity:1;}
+  .nav-links-row a:hover::before, .nav-links-row a:focus-visible::before{transform:translate(-50%, -8%);}
+  .nav-links-row a.is-current{color:var(--teal); opacity:1; font-weight:800;}
+
+  .hamburger{
+    display:none;
+    position:absolute; left:6vw; top:50%; transform:translateY(-50%);
+    flex-direction:column; justify-content:center; align-items:center; gap:5px;
+    width:38px; height:38px; border:0; background:transparent; cursor:pointer; padding:0;
+    touch-action:manipulation; z-index:2;
+  }
+  .hamburger span{display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; transition:transform 0.3s ease, opacity 0.3s ease;}
+  .hamburger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.is-open span:nth-child(2){opacity:0;}
+  .hamburger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-menu{
+    position:fixed; top:0; left:0; right:0; bottom:0; z-index:200;
+    background:var(--paper);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity 0.3s ease;
+  }
+  .mobile-menu.is-open{opacity:1; visibility:visible; pointer-events:auto;}
+  .mobile-menu a{
+    font-family:'Space Mono', monospace; font-size:20px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700;
+    color:var(--ink); opacity:0.8; text-decoration:none; padding:10px 20px;
+  }
+  .mobile-menu a:hover, .mobile-menu a.is-current{color:var(--teal); opacity:1;}
+  .mobile-menu-close{
+    position:absolute; top:24px; right:6vw;
+    width:38px; height:38px; border:0; background:transparent; cursor:pointer;
+  }
+  .mobile-menu-close span{display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; position:absolute; top:50%; left:50%;}
+  .mobile-menu-close span:first-child{transform:translate(-50%,-50%) rotate(45deg);}
+  .mobile-menu-close span:last-child{transform:translate(-50%,-50%) rotate(-45deg);}
+
+  @media (max-width:860px){
+    .hamburger{display:flex;}
+  }
+  .lang-toggle{display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.06em;}
+  .lang-toggle button{border:0; background:transparent; padding:13px 16px; min-height:44px; cursor:pointer; color:var(--ink); opacity:0.55; font-family:inherit; font-size:inherit; transition:background 0.2s ease, color 0.2s ease, opacity 0.2s ease;}
+  .lang-toggle button.active{background:var(--teal); color:var(--paper); opacity:1;}
+
+  .corridor-progress{position:fixed; top:124px; left:0; right:0; height:2px; z-index:49; background:rgba(23,35,31,0.08);}
+  .corridor-progress-fill{height:100%; width:0%; background:var(--gold); transition:width 0.05s linear;}
+
+  body.lang-mr .en{display:none;}
+  .mr-block{display:none;}
+  body.lang-mr .mr-block{display:block;}
+
+  .leader-header{margin-top:124px; background:var(--teal-deep); color:var(--paper); padding:80px 0 80px; text-align:center;}
+  .leader-portrait-frame{max-width:420px; margin:0 auto; background:var(--ink); border:1px solid rgba(220,193,137,0.25); overflow:hidden; box-shadow:0 40px 80px -30px rgba(0,0,0,0.5);}
+  .leader-portrait-frame img{width:100%; height:auto; display:block; will-change:transform;}
+  .portrait-credit{margin-top:16px; font-family:'Space Mono', monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-soft); opacity:0.75;}
+  .leader-name-en{font-size:clamp(32px,4.6vw,54px); color:var(--paper); margin-top:38px;}
+  .leader-name-mr{font-size:clamp(22px,2.8vw,30px); color:var(--gold-soft); margin-top:10px;}
+  .leader-tag{font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-soft); margin-top:22px;}
+  .leader-quote{font-family:'Fraunces', serif; font-style:italic; font-weight:400; font-size:clamp(17px,1.6vw,21px); line-height:1.55; color:var(--parchment); max-width:46ch; margin:30px auto 0; opacity:0.92;}
+
+
+  .bio{padding:100px 0 100px;}
+  .bio-body{max-width:68ch; margin:0 auto;}
+  .bio-body p{font-size:17px; line-height:1.85; opacity:0.88;}
+  .bio-body p + p{margin-top:20px;}
+  .bio-body.mr-block p{font-size:18px; line-height:2;}
+
+  .media{padding:0 0 120px;}
+  .media-head{text-align:center; margin-bottom:46px;}
+  .media-head h2{font-size:clamp(24px,2.4vw,32px); margin-top:14px;}
+  .media-stack{max-width:640px; margin:0 auto; display:flex; flex-direction:column; gap:24px;}
+  .media-card{background:var(--paper); border:1px solid var(--line); border-radius:4px; padding:36px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:16px;}
+  .media-card .m-eyebrow{font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--teal);}
+  .media-play{width:56px; height:56px; border-radius:50%; border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; color:var(--gold);}
+  .media-status{font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.04em; opacity:0.6;}
+  .waveform{display:flex; align-items:flex-end; gap:3px; height:34px;}
+  .waveform span{width:3px; background:var(--gold-soft); border-radius:2px;}
+  .video-frame{width:100%; aspect-ratio:16/9; background:var(--teal-deep); border-radius:3px; display:flex; align-items:center; justify-content:center;}
+  .video-frame .media-play{border-color:var(--gold-soft); color:var(--gold-soft);}
+
+  .gallery-nav{border-top:1px solid var(--line); padding:44px 0; display:flex; align-items:center; justify-content:space-between; font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;}
+  .gallery-nav a{text-decoration:none; opacity:0.7; display:flex; align-items:center; gap:10px; padding:12px 6px; min-height:44px;}
+  .gallery-nav a:hover{opacity:1;}
+  .gallery-nav .center-link{color:var(--teal); opacity:1; font-weight:700;}
+
+  .visit{background:var(--teal-deep); color:var(--paper); padding:90px 0 44px;}
+  .footer-bottom{margin-top:60px; padding-top:26px; border-top:1px solid var(--line-onlight); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+  .footer-fine{font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-soft); opacity:0.8;}
+
+  @media (max-width:860px){
+    .nav-links-row{display:none;}
+  }
+  @media (max-width:600px){ .gallery-nav{flex-wrap:wrap; gap:14px; justify-content:center;} }
+</style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav">
+    <div class="nav-top">
+      <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <a href="index.html" class="logo-link"><img src="images/logo.png" class="logo-img" alt="Prerna Sthal"></a>
+      <div class="nav-lang-wrap">
+        <div class="lang-toggle" role="group" aria-label="Choose language">
+          <button type="button" class="active" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="mr" aria-pressed="false">मराठी</button>
+        </div>
+      </div>
+    </div>
+    <div class="nav-links-row">
+      <a href="mahapurush.html">Mahapurush</a>
+      <a href="mudras.html">Hasta Mudra</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu"><span></span><span></span></button>
+    <a href="mahapurush.html" class="en">Mahapurush</a>
+    <a href="mahapurush.html" class="mr-block mr">महापुरुष</a>
+    <a href="mudras.html" class="en">Hasta Mudra</a>
+    <a href="mudras.html" class="mr-block mr">हस्तमुद्रा</a>
+    <a href="contact.html" class="en">Contact</a>
+    <a href="contact.html" class="mr-block mr">संपर्क</a>
+  </div>
+  <div class="corridor-progress"><div class="corridor-progress-fill" id="corridorFill"></div></div>
+
+  <header class="leader-header">
+    <div class="wrap">
+      <div class="eyebrow on-dark center reveal">The Corridor · Mahapurush</div>
+      <div class="leader-portrait-frame reveal" id="portraitFrame">
+        <img src="images/portraits/Chhatrapati%20Rajarshi%20Shahu%20Maharaj.jpg" width="865" height="1400" id="portraitImg" alt="Hand-painted portrait of Rajarshi Shahu Maharaj, corridor gallery, Prerna Sthal">
+      </div>
+      <div class="portrait-credit reveal">Portrait by Vishal Tajanekar</div>
+
+      <h1 class="leader-name-en reveal en">Rajarshi Shahu Maharaj</h1>
+      <h1 class="leader-name-en reveal mr-block mr">राजर्षी शाहू महाराज</h1>
+      <p class="leader-name-mr reveal en mr">राजर्षी शाहू महाराज</p>
+      <p class="leader-name-mr reveal mr-block" style="font-family:'Work Sans',sans-serif;">Rajarshi Shahu Maharaj</p>
+
+      <p class="leader-tag reveal en">Social reformer &nbsp;·&nbsp; Chhatrapati of Kolhapur &nbsp;·&nbsp; 1894 – 1922</p>
+      <p class="leader-tag reveal mr-block mr">समाजसुधारक &nbsp;·&nbsp; कोल्हापूरचे छत्रपती &nbsp;·&nbsp; १८९४ – १९२२</p>
+
+      <p class="leader-quote reveal en">Possessing both the detachment of a sage and the power of a king, he spent royal wealth and authority not on grandeur, but on ending inequality.</p>
+      <p class="leader-quote reveal mr-block mr">ऋषीची विरक्ती आणि राजाची शक्ती अंगी असलेल्या शाहू महाराजांनी राजसत्ता व संपत्ती वापरून समाजातील विषमता नष्ट करण्यावर भर दिला.</p>
+    </div>
+  </header>
+
+  <section class="bio" id="main">
+    <div class="wrap">
+      <div class="bio-body reveal en">
+        <p>Born into the Ghatge family of Kagal, Yashwant was adopted by Anandibai, the widow of Shivaji Raje IV of the Kolhapur State, on March 17, 1884, and renamed 'Shahu'. Before assuming the reins of administration in 1894 upon completing his education, Shahu Maharaj toured the entire state to understand the joys and sorrows of his people. Despite inheriting a legacy of royal grandeur, he laid the foundation for social equality through his governance.</p>
+        <p>To liberate the people of that era from the shackles of poverty, ignorance, and superstition, Chhatrapati Shahu made primary education free, compulsory, and universal, and established caste-based hostels for underprivileged students. He reserved fifty percent of administrative posts in the Kolhapur State for backward classes, extended royal patronage to art and sports, and ushered in a new era of women's emancipation by banning the Devadasi practice, legalizing widow remarriage, and protecting women from domestic violence. By granting legal recognition to inter-caste and inter-religious marriages, he struck a decisive blow at the very roots of the caste system.</p>
+        <p>At a time when many monarchs were engrossed in the opulence of the throne, Shahu Maharaj expanded the scope of his subjects' rights and focused on eradicating social inequality by leveraging royal authority and wealth. Possessing both the detachment of a sage and the power of a king, he brought about a social revolution during his 28-year reign and gave direction to an inclusive Maharashtra.</p>
+      </div>
+      <div class="bio-body reveal mr-block mr">
+        <p>कागलच्या घाटगे घराण्यात जन्मलेल्या यशवंतला कोल्हापूर संस्थानच्या चौथ्या शिवाजी राजेंच्या निधनानंतर त्यांच्या पत्नी आनंदीबाई यांनी १७ मार्च, १८८४ रोजी दत्तक घेऊन त्याचे नामकरण 'शाहू' केले. शाहू महाराजांनी १८९४ मध्ये शिक्षण पूर्ण झाल्यावर राज्यकारभार हातात घेण्यापूर्वी संपूर्ण राज्याचा दौरा करून जनतेची सुखदुःखे समजून घेतली. राजवैभवाचा मोठा वारसा असूनही त्यांनी आपल्या कारभारातून सामाजिक समतेची पायाभरणी केली.</p>
+        <p>तत्कालीन जनतेला दारिद्र्य, अज्ञान, अंधश्रद्धांच्या जोखडातून मुक्त करण्यासाठी शिक्षण हक्क कायदा आणून छत्रपती शाहूंनी प्राथमिक शिक्षण, मोफत, सक्तीचे व सार्वत्रिक केले. गरीब विद्यार्थ्यांसाठी जातिनिहाय वसतिगृहे उभारली. प्रशासनाला सर्वसमावेशक करण्यासाठी कोल्हापूर संस्थानात पन्नास टक्के जागा मागासवर्गीयांसाठी राखीव ठेवून त्यांनी सामाजिक न्यायाचा पाया घातला. कला, क्रीडा क्षेत्राला राजाश्रय दिला. देवदासी प्रथा बंदी आणि विधवा पुर्नविवाहाचा कायदा, कौटुंबिक हिंसेपासून महिलांचे संरक्षण व्हावे म्हणून कायदा करून त्यांनी स्त्री-मुक्तीचे नवे पर्व सुरू केले. आंतरजातीय व आंतरधर्मीय विवाहांना कायदेशीर मान्यता देत छत्रपती शाहूंनी जातिव्यवस्थेच्या मुळावरच घाव घातला.</p>
+        <p>बरेचसे राजे राजगादीच्या वैभवात मग्न असतानाच्या काळात शाहू महाराजांनी आपल्या प्रजेच्या अधिकारांच्या सीमा वाढवल्या, राजसत्ता व संपत्ती वापरून समाजातील विषमता नष्ट करण्यावर भर दिला. ऋषीची विरक्ती आणि राजाची शक्ती अंगी असलेल्या शाहू महाराजांनी आपल्या २८ वर्षांच्या कारकीर्दीत सामाजिक क्रांती घडवत सर्वसमावेशक महाराष्ट्राला दिशा दिली.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="media">
+    <div class="wrap">
+      <div class="media-head reveal">
+        <div class="eyebrow center">Listen &amp; watch</div>
+        <h2 class="en">Beyond the page</h2>
+        <h2 class="mr-block mr">पानांच्या पलीकडे</h2>
+      </div>
+      <div class="media-stack reveal">
+        <div class="media-card">
+          <span class="m-eyebrow en">Audio narration</span>
+          <span class="m-eyebrow mr-block mr">श्राव्य निवेदन</span>
+          <div class="media-play" aria-hidden="true">&#9658;</div>
+          <div class="waveform" aria-hidden="true">
+            <span style="height:10px"></span><span style="height:20px"></span><span style="height:14px"></span>
+            <span style="height:28px"></span><span style="height:16px"></span><span style="height:24px"></span>
+            <span style="height:12px"></span><span style="height:22px"></span><span style="height:18px"></span>
+            <span style="height:30px"></span><span style="height:14px"></span><span style="height:20px"></span>
+          </div>
+          <span class="media-status en">Narration will be added here once ready</span>
+          <span class="media-status mr-block mr">तयार झाल्यावर निवेदन येथे जोडले जाईल</span>
+        </div>
+        <div class="media-card">
+          <span class="m-eyebrow en">Video</span>
+          <span class="m-eyebrow mr-block mr">व्हिडिओ</span>
+          <div class="video-frame"><div class="media-play" aria-hidden="true">&#9658;</div></div>
+          <span class="media-status en">Video will be added here once ready</span>
+          <span class="media-status mr-block mr">तयार झाल्यावर व्हिडिओ येथे जोडला जाईल</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="gallery-nav">
+      <a href="mahapurush.html">&larr; <span class="en">Previous</span><span class="mr-block mr">मागील</span></a>
+      <a href="mahapurush.html" class="center-link"><span class="en">All Mahapurush</span><span class="mr-block mr">सर्व महापुरुष</span></a>
+      <a href="mahapurush.html"><span class="en">Next</span><span class="mr-block mr">पुढील</span> &rarr;</a>
+    </div>
+  </div>
+
+  <section class="visit">
+    <div class="wrap">
+      <div class="eyebrow on-dark reveal">Prerna Sthal</div>
+      <p class="reveal" style="max-width:52ch; margin-top:16px; opacity:0.85; font-size:15px;">Nakshatra Garden, Vidya Pratishthan, Baramati.</p>
+      <div class="footer-bottom">
+        <span class="footer-fine">Prerna Sthal · Nakshatra Garden · Vidya Pratishthan, Baramati</span>
+        <a href="contact.html" class="footer-fine" style="text-decoration:underline;">Get in touch →</a>
+      </div>
+    </div>
+  </section>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  els.forEach(el=>io.observe(el));
+
+  const buttons = document.querySelectorAll('.lang-toggle button');
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      buttons.forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
+      const isMr = btn.dataset.lang === 'mr';
+      document.body.classList.toggle('lang-mr', isMr);
+      document.documentElement.lang = isMr ? 'mr' : 'en';
+    });
+  });
+
+  const fill = document.getElementById('corridorFill');
+  const portraitImg = document.getElementById('portraitImg');
+  const portraitFrame = document.getElementById('portraitFrame');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let ticking = false;
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(()=>{
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - window.innerHeight;
+      const y = window.scrollY;
+      if(fill && scrollable > 0) fill.style.width = Math.min(100, (y/scrollable)*100) + '%';
+      if(!reduceMotion && portraitImg && portraitFrame){
+        const rect = portraitFrame.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const p = Math.max(0, Math.min(1, 1 - (rect.top / vh)));
+        portraitImg.style.transform = 'scale(' + (1 + p*0.04) + ')';
+      }
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  // mobile hamburger menu
+  (function(){
+    const btn = document.getElementById('hamburgerBtn');
+    const menu = document.getElementById('mobileMenu');
+    const closeBtn = document.getElementById('mobileMenuClose');
+    if(!btn || !menu) return;
+    function openMenu(){
+      menu.classList.add('is-open');
+      btn.classList.add('is-open');
+      btn.setAttribute('aria-expanded','true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu(){
+      menu.classList.remove('is-open');
+      btn.classList.remove('is-open');
+      btn.setAttribute('aria-expanded','false');
+      document.body.style.overflow = '';
+    }
+    btn.addEventListener('click', () => { menu.classList.contains('is-open') ? closeMenu() : openMenu(); });
+    if(closeBtn) closeBtn.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  })();
+</script>
+</body>
+</html>

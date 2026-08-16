@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mahapurush · The Corridor Gallery · Prerna Sthal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:       #17231f;
+    --teal:      #0f4a44;
+    --teal-deep: #0a2f2b;
+    --maroon:    #56374d;
+    --gold:      #c79a4a;
+    --gold-soft: #dcc189;
+    --brick:     #96552f;
+    --parchment: #f1e7d6;
+    --paper:     #faf5ea;
+    --line:      rgba(23,35,31,0.14);
+    --line-onlight: rgba(250,245,234,0.28);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--parchment); color:var(--ink); font-family:'Work Sans', sans-serif; font-size:16px; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  img{max-width:100%;display:block;}
+  h1,h2,h3,h4{font-family:'Fraunces', serif; font-weight:500; margin:0; line-height:1.08;}
+  a{color:inherit;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 6vw;}
+  .mr-serif{font-family:'Baloo 2', sans-serif;}
+  .mr-sans{font-family:'Baloo 2', sans-serif;}
+
+  .skip-link{position:absolute; left:12px; top:-60px; z-index:100; background:var(--teal-deep); color:var(--paper); padding:12px 18px; border-radius:4px; font-family:'Space Mono', monospace; font-size:13px; text-decoration:none; transition:top 0.2s ease;}
+  .skip-link:focus{top:12px;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--gold); outline-offset:3px; border-radius:2px;}
+  button{font-family:inherit; touch-action:manipulation;}
+
+  .eyebrow{font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--brick);}
+  .eyebrow.on-dark{color:var(--gold-soft);}
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity 0.8s cubic-bezier(.16,.8,.28,1), transform 0.8s cubic-bezier(.16,.8,.28,1);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} html{scroll-behavior:auto;} }
+
+    .site-nav{position:fixed; top:0; left:0; right:0; z-index:50; background:var(--paper); border-bottom:1px solid var(--line); box-shadow:0 8px 24px -18px rgba(23,35,31,0.35);}
+  .nav-top{position:relative; display:flex; align-items:center; justify-content:center; height:76px; padding:0 6vw;}
+  .logo-link{display:flex; align-items:center;}
+  .logo-img{height:44px; width:auto; display:block;}
+  .nav-links-row{display:flex; align-items:center; justify-content:center; gap:38px; height:48px; border-top:1px solid var(--line); font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700;}
+  .nav-links-row a{
+    position:relative; overflow:hidden; z-index:1;
+    text-decoration:none; color:var(--ink); opacity:0.85;
+    padding:8px 16px; min-height:36px; border-radius:999px;
+    display:flex; align-items:center;
+    transition:color 0.3s ease;
+  }
+  .nav-links-row a::before{
+    content:""; position:absolute; left:50%; bottom:0; z-index:-1;
+    width:140%; height:220%; border-radius:50%; background:var(--teal);
+    transform:translate(-50%, 100%); transition:transform 0.45s cubic-bezier(.55,0,.1,1);
+  }
+  .nav-links-row a:hover, .nav-links-row a:focus-visible{color:var(--paper); opacity:1;}
+  .nav-links-row a:hover::before, .nav-links-row a:focus-visible::before{transform:translate(-50%, -8%);}
+  .nav-links-row a.is-current{color:var(--teal); opacity:1; font-weight:800;}
+
+  .hamburger{
+    display:none;
+    position:absolute; left:6vw; top:50%; transform:translateY(-50%);
+    flex-direction:column; justify-content:center; align-items:center; gap:5px;
+    width:38px; height:38px; border:0; background:transparent; cursor:pointer; padding:0;
+    touch-action:manipulation; z-index:2;
+  }
+  .hamburger span{display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; transition:transform 0.3s ease, opacity 0.3s ease;}
+  .hamburger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.is-open span:nth-child(2){opacity:0;}
+  .hamburger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-menu{
+    position:fixed; top:0; left:0; right:0; bottom:0; z-index:200;
+    background:var(--paper);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity 0.3s ease;
+  }
+  .mobile-menu.is-open{opacity:1; visibility:visible; pointer-events:auto;}
+  .mobile-menu a{
+    font-family:'Space Mono', monospace; font-size:20px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700;
+    color:var(--ink); opacity:0.8; text-decoration:none; padding:10px 20px;
+  }
+  .mobile-menu a:hover, .mobile-menu a.is-current{color:var(--teal); opacity:1;}
+  .mobile-menu-close{
+    position:absolute; top:24px; right:6vw;
+    width:38px; height:38px; border:0; background:transparent; cursor:pointer;
+  }
+  .mobile-menu-close span{display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; position:absolute; top:50%; left:50%;}
+  .mobile-menu-close span:first-child{transform:translate(-50%,-50%) rotate(45deg);}
+  .mobile-menu-close span:last-child{transform:translate(-50%,-50%) rotate(-45deg);}
+
+  @media (max-width:860px){
+    .hamburger{display:flex;}
+  }
+
+  .mr{font-family:'Baloo 2', sans-serif;}
+  body.lang-mr .en{display:none;}
+  .mr-block{display:none;}
+  body.lang-mr .mr-block{display:block;}
+  .mr-inline{display:none;}
+  body.lang-mr .mr-inline{display:inline;}
+
+  .lang-toggle{display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.06em;}
+  .lang-toggle button{border:0; background:transparent; padding:9px 14px; min-height:36px; cursor:pointer; color:var(--ink); opacity:0.55; font-family:inherit; font-size:inherit; transition:background 0.2s ease, color 0.2s ease, opacity 0.2s ease;}
+  .lang-toggle button.active{background:var(--teal); color:var(--paper); opacity:1;}
+  .nav-lang-wrap{position:absolute; right:6vw; top:50%; transform:translateY(-50%);}
+
+  /* ================= HEADER ================= */
+  .page-header{margin-top:124px; background:var(--teal-deep); color:var(--paper); padding:100px 0 70px; text-align:center;}
+  .page-header .eyebrow{text-align:center;}
+  .page-header h1{font-size:clamp(36px,5vw,58px); color:var(--paper); margin-top:18px;}
+  .page-header p{max-width:58ch; margin:22px auto 0; font-size:16px; line-height:1.75; opacity:0.78;}
+
+  /* ================= CAROUSEL (reused from homepage) ================= */
+  .carousel-section{background:var(--ink); padding:70px 0 90px;}
+  .carousel{position:relative;}
+  .carousel-viewport{position:relative; height:560px; margin:0 -6vw; overflow:hidden;}
+  .carousel-track{position:absolute; top:0; left:0; right:0; bottom:0;}
+  .carousel-card{position:absolute; top:50%; left:50%; width:270px; margin:-243px 0 0 -135px; transition:transform 0.55s cubic-bezier(.16,.8,.28,1), opacity 0.55s ease; cursor:pointer; text-decoration:none; color:inherit;}
+  .carousel-card .frame{width:100%; aspect-ratio:0.618; overflow:hidden; background:var(--teal-deep); border:1px solid rgba(220,193,137,0.22); position:relative;}
+  .carousel-card .frame img{width:100%; height:100%; object-fit:contain; display:block;}
+  .carousel-card .placeholder-name{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; font-family:'Fraunces', serif; font-style:italic; font-size:17px; color:var(--gold-soft); opacity:0.7; line-height:1.4;}
+  .carousel-card .pending-tag{position:absolute; left:10px; bottom:10px; font-family:'Space Mono', monospace; font-size:9px; letter-spacing:0.06em; text-transform:uppercase; color:var(--gold-soft); opacity:0.65; border:1px solid rgba(220,193,137,0.3); padding:4px 7px;}
+  .carousel-card .cap{margin-top:16px; text-align:center; font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--gold-soft); opacity:0.85; line-height:1.5;}
+  .carousel-card.is-active .frame{border-color:var(--gold);}
+  .carousel-controls{display:flex; align-items:center; justify-content:center; gap:18px; margin-top:36px;}
+  .carousel-btn{width:46px; height:46px; border-radius:50%; border:1px solid var(--line-onlight); background:transparent; color:var(--paper); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.2s ease, color 0.2s ease, border-color 0.2s ease; touch-action:manipulation;}
+  .carousel-btn:hover{background:var(--gold); color:var(--teal-deep); border-color:var(--gold);}
+  .carousel-dots{display:flex; flex-wrap:wrap; justify-content:center; gap:7px; margin:0 6px; max-width:200px;}
+  .carousel-dots span{width:5px; height:5px; border-radius:50%; background:var(--line-onlight); transition:background 0.3s ease, transform 0.3s ease; cursor:pointer;}
+  .carousel-dots span.is-active{background:var(--gold); transform:scale(1.5);}
+
+  /* ================= INDEX LIST ================= */
+  .index-section{padding:110px 0 120px; background:var(--parchment);}
+  .index-list{border-top:1px solid var(--line); margin-top:40px;}
+  .index-row{
+    display:grid; grid-template-columns:70px 1fr auto; align-items:center; gap:20px;
+    padding:22px 4px; border-bottom:1px solid var(--line);
+    text-decoration:none; color:inherit; transition:background 0.2s ease;
+  }
+  .index-row:hover{background:rgba(199,154,74,0.08);}
+  .index-row .n{font-family:'Fraunces', serif; font-style:italic; font-size:16px; color:var(--gold); opacity:0.85;}
+  .index-row .name{font-family:'Fraunces', serif; font-size:20px; color:var(--teal-deep);}
+  .index-row .name-mr{font-family:'Baloo 2', sans-serif; font-size:15px; color:var(--ink); opacity:0.6; margin-top:3px;}
+  .index-row .status{font-family:'Space Mono', monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; padding:6px 10px; border:1px solid var(--line); white-space:nowrap;}
+  .index-row .status.ready{color:var(--teal); border-color:var(--teal);}
+  .index-row .status.pending{color:var(--brick); opacity:0.75;}
+
+  /* ================= FOOTER ================= */
+  .visit{background:var(--teal-deep); color:var(--paper); padding:90px 0 44px;}
+  .footer-bottom{margin-top:60px; padding-top:26px; border-top:1px solid var(--line-onlight); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+  .footer-fine{font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-soft); opacity:0.8;}
+
+  @media (max-width:860px){
+    .carousel-viewport{height:360px;}
+    .carousel-card{width:160px; margin:-160px 0 0 -80px;}
+    .carousel-card .frame{height:255px;}
+    .index-row{grid-template-columns:40px 1fr auto; gap:12px;}
+    .index-row .name{font-size:17px;}
+    .nav-links-row{display:none;}
+  }
+  @media (max-width:600px){
+    .index-row .status{display:none;}
+  }
+</style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav">
+    <div class="nav-top">
+      <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <a href="index.html" class="logo-link"><img src="images/logo.png" class="logo-img" alt="Prerna Sthal"></a>
+      <div class="nav-lang-wrap">
+        <div class="lang-toggle" role="group" aria-label="Choose language">
+          <button type="button" class="active" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="mr" aria-pressed="false">मराठी</button>
+        </div>
+      </div>
+    </div>
+    <div class="nav-links-row">
+      <a href="mahapurush.html" class="is-current">Mahapurush</a>
+      <a href="mudras.html">Hasta Mudra</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu"><span></span><span></span></button>
+    <a href="mahapurush.html" class="en is-current">Mahapurush</a>
+    <a href="mahapurush.html" class="mr-block mr is-current">महापुरुष</a>
+    <a href="mudras.html" class="en">Hasta Mudra</a>
+    <a href="mudras.html" class="mr-block mr">हस्तमुद्रा</a>
+    <a href="contact.html" class="en">Contact</a>
+    <a href="contact.html" class="mr-block mr">संपर्क</a>
+  </div>
+
+  <header class="page-header">
+    <div class="wrap">
+      <div class="eyebrow on-dark reveal"><span class="en">The Corridor</span><span class="mr-inline mr">कॉरिडॉर</span></div>
+      <h1 class="reveal en">Mahapurush</h1>
+      <h1 class="reveal mr-block mr">महापुरुष</h1>
+      <p class="reveal en">Fifteen leaders, reformers, and nation-builders whose lives shaped the values Prerna Sthal is built to hold. Their hand-painted portraits will line the corridor circling the dome.</p>
+      <p class="reveal mr-block mr">पंधरा नेते, समाजसुधारक आणि राष्ट्रनिर्माते ज्यांच्या जीवनाने प्रेरणा स्थळाचे मूल्य घडवले. त्यांची हस्तचित्रित व्यक्तिचित्रे घुमटाभोवतीच्या कॉरिडॉरमध्ये लावली जातील.</p>
+    </div>
+  </header>
+
+  <section class="carousel-section" id="main">
+    <div class="carousel reveal">
+      <div class="carousel-viewport">
+        <div class="carousel-track" id="mpTrack">
+          <a href="mahapurush.html" class="carousel-card" data-index="0"><div class="frame"><span class="placeholder-name">Rajmata Jijau</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Rajmata Jijau</div></a>
+          <a href="mahapurush.html" class="carousel-card" data-index="1"><div class="frame"><span class="placeholder-name">Chhatrapati Shivaji Maharaj</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Chhatrapati Shivaji Maharaj</div></a>
+          <a href="mahapurush.html" class="carousel-card" data-index="2"><div class="frame"><img src="images/portraits/Ahilyabai%20Holkar.jpg" loading="lazy" alt="Hand-painted portrait of Ahilyabai Holkar"></div><div class="cap">Ahilyabai Holkar</div></a>
+          <a href="mahapurush.html" class="carousel-card" data-index="3"><div class="frame"><img src="images/portraits/Mahatma%20Jyotirao%20Phule.jpg" loading="lazy" alt="Hand-painted portrait of Mahatma Jyotirao Phule"></div><div class="cap">Mahatma Jyotirao Phule</div></a>
+          <a href="mahapurush.html" class="carousel-card" data-index="4"><div class="frame"><img src="images/portraits/Savitribai%20Phule.jpg" loading="lazy" alt="Hand-painted portrait of Savitribai Phule"></div><div class="cap">Savitribai Phule</div></a>
+          <a href="shahu-maharaj.html" class="carousel-card" data-index="5"><div class="frame"><img src="images/portraits/Chhatrapati%20Rajarshi%20Shahu%20Maharaj.jpg" loading="lazy" alt="Hand-painted portrait of Rajarshi Shahu Maharaj"></div><div class="cap">Rajarshi Shahu Maharaj</div></a>
+          <a href="mahapurush.html" class="carousel-card" data-index="6"><div class="frame"><img src="images/portraits/Dr.%20Babasaheb%20Ambedkar.jpg" loading="lazy" alt="Hand-painted portrait of Dr. Babasaheb Ambedkar"></div><div class="cap">Dr. Babasaheb Ambedkar</div></a>
+          <a href="mahapurush.html" class="carousel-card" data-index="7"><div class="frame"><img src="images/portraits/Maharaja%20Sayajirao%20Gaikwad.jpg" loading="lazy" alt="Hand-painted portrait of Maharaja Sayajirao Gaikwad"></div><div class="cap">Maharaja Sayajirao Gaikwad</div></a>
+          <a href="mahapurush.html" class="carousel-card" data-index="8"><div class="frame"><img src="images/portraits/Mahatma%20Gandhi.jpg" loading="lazy" alt="Hand-painted portrait of Mahatma Gandhi"></div><div class="cap">Mahatma Gandhi</div></a>
+          <a href="mahapurush.html" class="carousel-card" data-index="9"><div class="frame"><img src="images/portraits/Karmaveer%20Bhaurao%20Patil.jpg" loading="lazy" alt="Hand-painted portrait of Karmaveer Bhaurao Patil"></div><div class="cap">Karmaveer Bhaurao Patil</div></a>
+          <a href="mahapurush.html" class="carousel-card" data-index="10"><div class="frame"><img src="images/portraits/Annabhau%20Sathe.jpg" loading="lazy" alt="Hand-painted portrait of Annabhau Sathe"></div><div class="cap">Annabhau Sathe</div></a>
+          <a href="mahapurush.html" class="carousel-card" data-index="11"><div class="frame"><span class="placeholder-name">Shardabai Pawar</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Shardabai Pawar</div></a>
+          <a href="mahapurush.html" class="carousel-card" data-index="12"><div class="frame"><img src="images/portraits/Yashwantrao%20Chavan.jpg" loading="lazy" alt="Hand-painted portrait of Yashwantrao Chavan"></div><div class="cap">Yashwantrao Chavan</div></a>
+          <a href="mahapurush.html" class="carousel-card" data-index="13"><div class="frame"><span class="placeholder-name">Lokmanya Tilak</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Lokmanya Tilak</div></a>
+          <a href="mahapurush.html" class="carousel-card" data-index="14"><div class="frame"><span class="placeholder-name">Maulana Abul Kalam Azad</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Maulana Abul Kalam Azad</div></a>
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <button type="button" class="carousel-btn" id="mpPrev" aria-label="Previous portrait">&larr;</button>
+        <div class="carousel-dots" id="mpDots"></div>
+        <button type="button" class="carousel-btn" id="mpNext" aria-label="Next portrait">&rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FULL INDEX LIST ================= -->
+  <section class="index-section">
+    <div class="wrap">
+      <h2 class="reveal en" style="font-size:clamp(26px,2.6vw,34px); margin-top:14px;">Browse the full list</h2>
+      <h2 class="reveal mr-block mr" style="font-size:clamp(26px,2.6vw,34px); margin-top:14px;">संपूर्ण यादी पहा</h2>
+      <div class="index-list reveal">
+        <a href="#row-0" id="row-0" class="index-row"><span class="n">01</span><span><span class="name">Rajmata Jijau</span><div class="name-mr">राजमाता जिजाऊ</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+        <a href="#row-1" id="row-1" class="index-row"><span class="n">02</span><span><span class="name">Chhatrapati Shivaji Maharaj</span><div class="name-mr">छत्रपती शिवाजी महाराज</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+        <a href="#row-2" id="row-2" class="index-row"><span class="n">03</span><span><span class="name">Ahilyabai Holkar</span><div class="name-mr">अहिल्याबाई होळकर</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+        <a href="#row-3" id="row-3" class="index-row"><span class="n">04</span><span><span class="name">Mahatma Jyotirao Phule</span><div class="name-mr">महात्मा ज्योतिराव फुले</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+        <a href="#row-4" id="row-4" class="index-row"><span class="n">05</span><span><span class="name">Savitribai Phule</span><div class="name-mr">सावित्रीबाई फुले</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+        <a href="shahu-maharaj.html" class="index-row"><span class="n">06</span><span><span class="name">Rajarshi Shahu Maharaj</span><div class="name-mr">राजर्षी शाहू महाराज</div></span><span class="status ready"><span class="en">View page →</span><span class="mr-block mr">पान पहा →</span></span></a>
+        <a href="#row-6" id="row-6" class="index-row"><span class="n">07</span><span><span class="name">Dr. Babasaheb Ambedkar</span><div class="name-mr">डॉ. बाबासाहेब आंबेडकर</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+        <a href="#row-7" id="row-7" class="index-row"><span class="n">08</span><span><span class="name">Maharaja Sayajirao Gaikwad</span><div class="name-mr">महाराजा सयाजीराव गायकवाड</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+        <a href="#row-8" id="row-8" class="index-row"><span class="n">09</span><span><span class="name">Mahatma Gandhi</span><div class="name-mr">महात्मा गांधी</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+        <a href="#row-9" id="row-9" class="index-row"><span class="n">10</span><span><span class="name">Karmaveer Bhaurao Patil</span><div class="name-mr">कर्मवीर भाऊराव पाटील</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+        <a href="#row-10" id="row-10" class="index-row"><span class="n">11</span><span><span class="name">Annabhau Sathe</span><div class="name-mr">अण्णाभाऊ साठे</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+        <a href="#row-11" id="row-11" class="index-row"><span class="n">12</span><span><span class="name">Shardabai Pawar</span><div class="name-mr">शारदाबाई पवार</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+        <a href="#row-12" id="row-12" class="index-row"><span class="n">13</span><span><span class="name">Yashwantrao Chavan</span><div class="name-mr">यशवंतराव चव्हाण</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+        <a href="#row-13" id="row-13" class="index-row"><span class="n">14</span><span><span class="name">Lokmanya Tilak</span><div class="name-mr">लोकमान्य टिळक</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+        <a href="#row-14" id="row-14" class="index-row"><span class="n">15</span><span><span class="name">Maulana Abul Kalam Azad</span><div class="name-mr">मौलाना अबुल कलाम आझाद</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit">
+    <div class="wrap">
+      <div class="eyebrow on-dark reveal"><span class="en">Prerna Sthal</span><span class="mr-inline mr">प्रेरणा स्थळ</span></div>
+      <p class="reveal" style="max-width:52ch; margin-top:16px; opacity:0.85; font-size:15px;">Nakshatra Garden, Vidya Pratishthan, Baramati.</p>
+      <div class="footer-bottom">
+        <span class="footer-fine">Prerna Sthal · Nakshatra Garden · Vidya Pratishthan, Baramati</span>
+        <a href="contact.html" class="footer-fine en" style="text-decoration:underline;">Get in touch →</a>
+        <a href="contact.html" class="footer-fine mr-block mr" style="text-decoration:underline;">संपर्क साधा →</a>
+      </div>
+    </div>
+  </section>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  els.forEach(el=>io.observe(el));
+
+  (function(){
+    const track = document.getElementById('mpTrack');
+    if(!track) return;
+    const cards = Array.from(track.querySelectorAll('.carousel-card'));
+    const N = cards.length;
+    const dotsWrap = document.getElementById('mpDots');
+    let active = 5;
+
+    cards.forEach((c, i) => {
+      const dot = document.createElement('span');
+      if(i === active) dot.classList.add('is-active');
+      dot.addEventListener('click', () => { active = i; render(); });
+      dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function render(){
+      cards.forEach((card, i) => {
+        let offset = i - active;
+        if(offset > N/2) offset -= N;
+        if(offset < -N/2) offset += N;
+        const abs = Math.abs(offset);
+        const spacing = window.innerWidth < 640 ? 145 : 240;
+        const x = offset * spacing;
+        const scale = offset === 0 ? 1.2 : Math.max(1 - abs * 0.16, 0.55);
+        const opacity = abs > 3 ? 0 : Math.max(1 - abs * 0.28, 0);
+        card.style.transform = 'translateX(' + x + 'px) scale(' + scale + ')';
+        card.style.opacity = opacity;
+        card.style.zIndex = 100 - abs;
+        card.style.pointerEvents = abs > 3 ? 'none' : 'auto';
+        card.classList.toggle('is-active', offset === 0);
+      });
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === active));
+    }
+
+    function go(delta){ active = (active + delta + N) % N; render(); }
+    document.getElementById('mpPrev').addEventListener('click', () => go(-1));
+    document.getElementById('mpNext').addEventListener('click', () => go(1));
+
+    cards.forEach((card, i) => {
+      card.addEventListener('click', (e) => {
+        let offset = i - active;
+        if(offset > N/2) offset -= N;
+        if(offset < -N/2) offset += N;
+        if(offset !== 0){ e.preventDefault(); active = i; render(); }
+      });
+    });
+
+    let startX = null;
+    const viewport = track.parentElement;
+    viewport.addEventListener('pointerdown', (e) => { startX = e.clientX; });
+    viewport.addEventListener('pointerup', (e) => {
+      if(startX === null) return;
+      const dx = e.clientX - startX;
+      if(Math.abs(dx) > 40) go(dx > 0 ? -1 : 1);
+      startX = null;
+    });
+
+    window.addEventListener('resize', render);
+    render();
+  })();
+
+  // language toggle
+  const langButtons = document.querySelectorAll('.lang-toggle button');
+  langButtons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      langButtons.forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
+      const isMr = btn.dataset.lang === 'mr';
+      document.body.classList.toggle('lang-mr', isMr);
+      document.documentElement.lang = isMr ? 'mr' : 'en';
+    });
+  });
+  // mobile hamburger menu
+  (function(){
+    const btn = document.getElementById('hamburgerBtn');
+    const menu = document.getElementById('mobileMenu');
+    const closeBtn = document.getElementById('mobileMenuClose');
+    if(!btn || !menu) return;
+    function openMenu(){
+      menu.classList.add('is-open');
+      btn.classList.add('is-open');
+      btn.setAttribute('aria-expanded','true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu(){
+      menu.classList.remove('is-open');
+      btn.classList.remove('is-open');
+      btn.setAttribute('aria-expanded','false');
+      document.body.style.overflow = '';
+    }
+    btn.addEventListener('click', () => { menu.classList.contains('is-open') ? closeMenu() : openMenu(); });
+    if(closeBtn) closeBtn.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  })();
+</script>
+</body>
+</html>

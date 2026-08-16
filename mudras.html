@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buddha Hasta Mudra · The Corridor Gallery · Prerna Sthal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:       #17231f;
+    --teal:      #0f4a44;
+    --teal-deep: #0a2f2b;
+    --maroon:    #56374d;
+    --gold:      #c79a4a;
+    --gold-soft: #dcc189;
+    --brick:     #96552f;
+    --parchment: #f1e7d6;
+    --paper:     #faf5ea;
+    --line:      rgba(23,35,31,0.14);
+    --line-onlight: rgba(250,245,234,0.28);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--parchment); color:var(--ink); font-family:'Work Sans', sans-serif; font-size:16px; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  img{max-width:100%;display:block;}
+  h1,h2,h3,h4{font-family:'Fraunces', serif; font-weight:500; margin:0; line-height:1.08;}
+  a{color:inherit;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 6vw;}
+  .mr-serif{font-family:'Baloo 2', sans-serif;}
+
+  .skip-link{position:absolute; left:12px; top:-60px; z-index:100; background:var(--teal-deep); color:var(--paper); padding:12px 18px; border-radius:4px; font-family:'Space Mono', monospace; font-size:13px; text-decoration:none; transition:top 0.2s ease;}
+  .skip-link:focus{top:12px;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--gold); outline-offset:3px; border-radius:2px;}
+
+  .eyebrow{font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--brick);}
+  .eyebrow.on-dark{color:var(--gold-soft);}
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity 0.8s cubic-bezier(.16,.8,.28,1), transform 0.8s cubic-bezier(.16,.8,.28,1);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} html{scroll-behavior:auto;} }
+
+    .site-nav{position:fixed; top:0; left:0; right:0; z-index:50; background:var(--paper); border-bottom:1px solid var(--line); box-shadow:0 8px 24px -18px rgba(23,35,31,0.35);}
+  .nav-top{position:relative; display:flex; align-items:center; justify-content:center; height:76px; padding:0 6vw;}
+  .logo-link{display:flex; align-items:center;}
+  .logo-img{height:44px; width:auto; display:block;}
+  .nav-links-row{display:flex; align-items:center; justify-content:center; gap:38px; height:48px; border-top:1px solid var(--line); font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700;}
+  .nav-links-row a{
+    position:relative; overflow:hidden; z-index:1;
+    text-decoration:none; color:var(--ink); opacity:0.85;
+    padding:8px 16px; min-height:36px; border-radius:999px;
+    display:flex; align-items:center;
+    transition:color 0.3s ease;
+  }
+  .nav-links-row a::before{
+    content:""; position:absolute; left:50%; bottom:0; z-index:-1;
+    width:140%; height:220%; border-radius:50%; background:var(--teal);
+    transform:translate(-50%, 100%); transition:transform 0.45s cubic-bezier(.55,0,.1,1);
+  }
+  .nav-links-row a:hover, .nav-links-row a:focus-visible{color:var(--paper); opacity:1;}
+  .nav-links-row a:hover::before, .nav-links-row a:focus-visible::before{transform:translate(-50%, -8%);}
+  .nav-links-row a.is-current{color:var(--teal); opacity:1; font-weight:800;}
+
+  .hamburger{
+    display:none;
+    position:absolute; left:6vw; top:50%; transform:translateY(-50%);
+    flex-direction:column; justify-content:center; align-items:center; gap:5px;
+    width:38px; height:38px; border:0; background:transparent; cursor:pointer; padding:0;
+    touch-action:manipulation; z-index:2;
+  }
+  .hamburger span{display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; transition:transform 0.3s ease, opacity 0.3s ease;}
+  .hamburger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.is-open span:nth-child(2){opacity:0;}
+  .hamburger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-menu{
+    position:fixed; top:0; left:0; right:0; bottom:0; z-index:200;
+    background:var(--paper);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity 0.3s ease;
+  }
+  .mobile-menu.is-open{opacity:1; visibility:visible; pointer-events:auto;}
+  .mobile-menu a{
+    font-family:'Space Mono', monospace; font-size:20px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700;
+    color:var(--ink); opacity:0.8; text-decoration:none; padding:10px 20px;
+  }
+  .mobile-menu a:hover, .mobile-menu a.is-current{color:var(--teal); opacity:1;}
+  .mobile-menu-close{
+    position:absolute; top:24px; right:6vw;
+    width:38px; height:38px; border:0; background:transparent; cursor:pointer;
+  }
+  .mobile-menu-close span{display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; position:absolute; top:50%; left:50%;}
+  .mobile-menu-close span:first-child{transform:translate(-50%,-50%) rotate(45deg);}
+  .mobile-menu-close span:last-child{transform:translate(-50%,-50%) rotate(-45deg);}
+
+  @media (max-width:860px){
+    .hamburger{display:flex;}
+  }
+
+  .mr{font-family:'Baloo 2', sans-serif;}
+  body.lang-mr .en{display:none;}
+  .mr-block{display:none;}
+  body.lang-mr .mr-block{display:block;}
+  .mr-inline{display:none;}
+  body.lang-mr .mr-inline{display:inline;}
+
+  .lang-toggle{display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.06em;}
+  .lang-toggle button{border:0; background:transparent; padding:9px 14px; min-height:36px; cursor:pointer; color:var(--ink); opacity:0.55; font-family:inherit; font-size:inherit; transition:background 0.2s ease, color 0.2s ease, opacity 0.2s ease;}
+  .lang-toggle button.active{background:var(--teal); color:var(--paper); opacity:1;}
+  .nav-lang-wrap{position:absolute; right:6vw; top:50%; transform:translateY(-50%);}
+
+  .page-header{margin-top:124px; background:var(--teal-deep); color:var(--paper); padding:100px 0 70px; text-align:center;}
+  .page-header .eyebrow{text-align:center;}
+  .page-header h1{font-size:clamp(36px,5vw,58px); color:var(--paper); margin-top:18px;}
+  .page-header p{max-width:58ch; margin:22px auto 0; font-size:16px; line-height:1.75; opacity:0.78;}
+
+  .mudra-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:28px;
+    margin-top:50px;
+  }
+  .mudra-card{
+    background:var(--paper); border:1px solid var(--line);
+    text-decoration:none; color:inherit; display:block;
+    transition:border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .mudra-card:hover{border-color:var(--gold); transform:translateY(-4px); box-shadow:0 20px 40px -24px rgba(15,25,20,0.35);}
+  .mudra-frame{
+    aspect-ratio:1/1; background:var(--parchment); border-bottom:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; padding:28px; position:relative; overflow:hidden;
+  }
+  .mudra-frame img{max-width:100%; max-height:100%; object-fit:contain;}
+  .mudra-frame .mr-glyph{font-family:'Baloo 2', sans-serif; font-size:34px; color:var(--gold); opacity:0.5;}
+  .mudra-card-body{padding:24px 22px; text-align:center;}
+  .mudra-card .name-mr{font-family:'Baloo 2', sans-serif; font-size:22px; color:var(--teal-deep);}
+  .mudra-card .name-en{font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--brick); opacity:0.9; margin-top:8px; line-height:1.5;}
+  .mudra-card .status{font-family:'Space Mono', monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; opacity:0.5; margin-top:12px;}
+  .mudra-card .status.ready{color:var(--teal); opacity:1; font-weight:700;}
+
+  .visit{background:var(--teal-deep); color:var(--paper); padding:90px 0 44px; margin-top:110px;}
+  .footer-bottom{margin-top:60px; padding-top:26px; border-top:1px solid var(--line-onlight); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+  .footer-fine{font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-soft); opacity:0.8;}
+
+  @media (max-width:860px){ .mudra-grid{grid-template-columns:repeat(2,1fr);} .nav-links-row{display:none;} }
+  @media (max-width:640px){ .mudra-grid{grid-template-columns:1fr; gap:20px;} }
+</style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav">
+    <div class="nav-top">
+      <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <a href="index.html" class="logo-link"><img src="images/logo.png" class="logo-img" alt="Prerna Sthal"></a>
+      <div class="nav-lang-wrap">
+        <div class="lang-toggle" role="group" aria-label="Choose language">
+          <button type="button" class="active" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="mr" aria-pressed="false">मराठी</button>
+        </div>
+      </div>
+    </div>
+    <div class="nav-links-row">
+      <a href="mahapurush.html">Mahapurush</a>
+      <a href="mudras.html" class="is-current">Hasta Mudra</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu"><span></span><span></span></button>
+    <a href="mahapurush.html" class="en">Mahapurush</a>
+    <a href="mahapurush.html" class="mr-block mr">महापुरुष</a>
+    <a href="mudras.html" class="en is-current">Hasta Mudra</a>
+    <a href="mudras.html" class="mr-block mr is-current">हस्तमुद्रा</a>
+    <a href="contact.html" class="en">Contact</a>
+    <a href="contact.html" class="mr-block mr">संपर्क</a>
+  </div>
+
+  <header class="page-header">
+    <div class="wrap">
+      <div class="eyebrow on-dark reveal"><span class="en">The Corridor</span><span class="mr-inline mr">कॉरिडॉर</span></div>
+      <h1 class="reveal en">Buddha Hasta Mudra</h1>
+      <h1 class="reveal mr-block mr">बुद्ध हस्तमुद्रा</h1>
+      <p class="reveal en">Ten sacred hand gestures seen in Buddha statues, each carrying its own meaning, explained along the corridor alongside the Mahapurush gallery.</p>
+      <p class="reveal mr-block mr">बुद्ध मूर्तींमध्ये दिसणाऱ्या दहा पवित्र हस्तमुद्रा, प्रत्येकीचा स्वतःचा अर्थ, महापुरुष गॅलरीसह कॉरिडॉरमध्ये स्पष्ट केलेल्या.</p>
+    </div>
+  </header>
+
+  <section id="main">
+    <div class="wrap">
+      <div class="mudra-grid reveal">
+        <div class="mudra-card" aria-disabled="true" style="cursor:default;"><div class="mudra-frame"><span class="mr-glyph">धम्म</span></div><div class="mudra-card-body"><div class="name-mr mr-serif">धम्मचक्र मुद्रा</div><div class="name-en">Dhammacakra Mudra</div><div class="status en">Coming soon</div><div class="status mr-block mr">लवकरच</div></div></div>
+        <div class="mudra-card" aria-disabled="true" style="cursor:default;"><div class="mudra-frame"><span class="mr-glyph">ध्यान</span></div><div class="mudra-card-body"><div class="name-mr mr-serif">ध्यानमुद्रा</div><div class="name-en">Dhyana Mudra</div><div class="status en">Coming soon</div><div class="status mr-block mr">लवकरच</div></div></div>
+        <div class="mudra-card" aria-disabled="true" style="cursor:default;"><div class="mudra-frame"><span class="mr-glyph">भूमी</span></div><div class="mudra-card-body"><div class="name-mr mr-serif">भूमीस्पर्श मुद्रा</div><div class="name-en">Bhoomisparsha Mudra</div><div class="status en">Coming soon</div><div class="status mr-block mr">लवकरच</div></div></div>
+        <div class="mudra-card" aria-disabled="true" style="cursor:default;"><div class="mudra-frame"><span class="mr-glyph">वरद</span></div><div class="mudra-card-body"><div class="name-mr mr-serif">वरद मुद्रा</div><div class="name-en">Varada Mudra</div><div class="status en">Coming soon</div><div class="status mr-block mr">लवकरच</div></div></div>
+        <div class="mudra-card" aria-disabled="true" style="cursor:default;"><div class="mudra-frame"><span class="mr-glyph">कारण</span></div><div class="mudra-card-body"><div class="name-mr mr-serif">कारण मुद्रा</div><div class="name-en">Kaarana Mudra</div><div class="status en">Coming soon</div><div class="status mr-block mr">लवकरच</div></div></div>
+        <a href="vitarka-mudra.html" class="mudra-card"><div class="mudra-frame"><img src="images/mudras/vitarka-mudra.png" loading="lazy" alt="Vitarka Mudra bronze relief"></div><div class="mudra-card-body"><div class="name-mr mr-serif">वितर्क मुद्रा</div><div class="name-en">Vitarka Mudra</div><div class="status ready en">View page →</div><div class="status ready mr-block mr">पान पहा →</div></div></a>
+        <div class="mudra-card" aria-disabled="true" style="cursor:default;"><div class="mudra-frame"><span class="mr-glyph">वज्र</span></div><div class="mudra-card-body"><div class="name-mr mr-serif">वज्रमुद्रा</div><div class="name-en">Vajra / Jnana Mudra</div><div class="status en">Coming soon</div><div class="status mr-block mr">लवकरच</div></div></div>
+        <div class="mudra-card" aria-disabled="true" style="cursor:default;"><div class="mudra-frame"><span class="mr-glyph">अभय</span></div><div class="mudra-card-body"><div class="name-mr mr-serif">अभयमुद्रा</div><div class="name-en">Abhaya Mudra</div><div class="status en">Coming soon</div><div class="status mr-block mr">लवकरच</div></div></div>
+        <div class="mudra-card" aria-disabled="true" style="cursor:default;"><div class="mudra-frame"><span class="mr-glyph">उत्तर</span></div><div class="mudra-card-body"><div class="name-mr mr-serif">उत्तरबोधी मुद्रा</div><div class="name-en">Uttarabodhi Mudra</div><div class="status en">Coming soon</div><div class="status mr-block mr">लवकरच</div></div></div>
+        <div class="mudra-card" aria-disabled="true" style="cursor:default;"><div class="mudra-frame"><span class="mr-glyph">अंजली</span></div><div class="mudra-card-body"><div class="name-mr mr-serif">अंजली मुद्रा</div><div class="name-en">Anjali / Namaskara Mudra</div><div class="status en">Coming soon</div><div class="status mr-block mr">लवकरच</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit">
+    <div class="wrap">
+      <div class="eyebrow on-dark reveal"><span class="en">Prerna Sthal</span><span class="mr-inline mr">प्रेरणा स्थळ</span></div>
+      <p class="reveal" style="max-width:52ch; margin-top:16px; opacity:0.85; font-size:15px;">Nakshatra Garden, Vidya Pratishthan, Baramati.</p>
+      <div class="footer-bottom">
+        <span class="footer-fine">Prerna Sthal · Nakshatra Garden · Vidya Pratishthan, Baramati</span>
+        <a href="contact.html" class="footer-fine en" style="text-decoration:underline;">Get in touch →</a>
+        <a href="contact.html" class="footer-fine mr-block mr" style="text-decoration:underline;">संपर्क साधा →</a>
+      </div>
+    </div>
+  </section>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  els.forEach(el=>io.observe(el));
+
+  // language toggle
+  const langButtons = document.querySelectorAll('.lang-toggle button');
+  langButtons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      langButtons.forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
+      const isMr = btn.dataset.lang === 'mr';
+      document.body.classList.toggle('lang-mr', isMr);
+      document.documentElement.lang = isMr ? 'mr' : 'en';
+    });
+  });
+  // mobile hamburger menu
+  (function(){
+    const btn = document.getElementById('hamburgerBtn');
+    const menu = document.getElementById('mobileMenu');
+    const closeBtn = document.getElementById('mobileMenuClose');
+    if(!btn || !menu) return;
+    function openMenu(){
+      menu.classList.add('is-open');
+      btn.classList.add('is-open');
+      btn.setAttribute('aria-expanded','true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu(){
+      menu.classList.remove('is-open');
+      btn.classList.remove('is-open');
+      btn.setAttribute('aria-expanded','false');
+      document.body.style.overflow = '';
+    }
+    btn.addEventListener('click', () => { menu.classList.contains('is-open') ? closeMenu() : openMenu(); });
+    if(closeBtn) closeBtn.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  })();
+</script>
+</body>
+</html>

@@ -3,172 +3,354 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mahapurush · The Corridor Gallery · Prerna Sthal</title>
+<title>Mahapurush Gallery · 15 Nation-Builders · Prerna Sthal</title>
+<meta name="description" content="Explore the life-size hand-painted portraits and biographies of the 15 great social reformers and leaders in the Prerna Sthal corridor gallery.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+
 <style>
-  :root{
-    --ink:       #17231f;
-    --teal:      #0f4a44;
-    --teal-deep: #0a2f2b;
-    --maroon:    #56374d;
-    --gold:      #c79a4a;
-    --gold-soft: #dcc189;
-    --brick:     #96552f;
-    --parchment: #f1e7d6;
-    --paper:     #faf5ea;
-    --line:      rgba(23,35,31,0.14);
-    --line-onlight: rgba(250,245,234,0.28);
+  .page-header {
+    margin-top: 72px;
+    background: var(--teal-deep);
+    color: var(--paper);
+    padding: var(--sp-8) 0 var(--sp-6);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
   }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{margin:0; background:var(--parchment); color:var(--ink); font-family:'Work Sans', sans-serif; font-size:16px; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
-  img{max-width:100%;display:block;}
-  h1,h2,h3,h4{font-family:'Fraunces', serif; font-weight:500; margin:0; line-height:1.08;}
-  a{color:inherit;}
-  .wrap{max-width:1180px; margin:0 auto; padding:0 6vw;}
-  .mr-serif{font-family:'Baloo 2', sans-serif;}
-  .mr-sans{font-family:'Baloo 2', sans-serif;}
-
-  .skip-link{position:absolute; left:12px; top:-60px; z-index:100; background:var(--teal-deep); color:var(--paper); padding:12px 18px; border-radius:4px; font-family:'Space Mono', monospace; font-size:13px; text-decoration:none; transition:top 0.2s ease;}
-  .skip-link:focus{top:12px;}
-  a:focus-visible, button:focus-visible{outline:2px solid var(--gold); outline-offset:3px; border-radius:2px;}
-  button{font-family:inherit; touch-action:manipulation;}
-
-  .eyebrow{font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--brick);}
-  .eyebrow.on-dark{color:var(--gold-soft);}
-
-  .reveal{opacity:0; transform:translateY(24px); transition:opacity 0.8s cubic-bezier(.16,.8,.28,1), transform 0.8s cubic-bezier(.16,.8,.28,1);}
-  .reveal.in{opacity:1; transform:translateY(0);}
-  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} html{scroll-behavior:auto;} }
-
-    .site-nav{position:fixed; top:0; left:0; right:0; z-index:50; background:var(--paper); border-bottom:1px solid var(--line); box-shadow:0 8px 24px -18px rgba(23,35,31,0.35);}
-  .nav-top{position:relative; display:flex; align-items:center; justify-content:center; height:76px; padding:0 6vw;}
-  .logo-link{display:flex; align-items:center;}
-  .logo-img{height:44px; width:auto; display:block;}
-  .nav-links-row{display:flex; align-items:center; justify-content:center; gap:38px; height:48px; border-top:1px solid var(--line); font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700;}
-  .nav-links-row a{
-    position:relative; overflow:hidden; z-index:1;
-    text-decoration:none; color:var(--ink); opacity:0.85;
-    padding:8px 16px; min-height:36px; border-radius:999px;
-    display:flex; align-items:center;
-    transition:color 0.3s ease;
+  .page-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 20%, rgba(199, 154, 74, 0.15), transparent 60%);
   }
-  .nav-links-row a::before{
-    content:""; position:absolute; left:50%; bottom:0; z-index:-1;
-    width:140%; height:220%; border-radius:50%; background:var(--teal);
-    transform:translate(-50%, 100%); transition:transform 0.45s cubic-bezier(.55,0,.1,1);
+  .page-header h1 {
+    font-size: clamp(34px, 5vw, 60px);
+    color: var(--paper);
+    margin: var(--sp-2) 0;
   }
-  .nav-links-row a:hover, .nav-links-row a:focus-visible{color:var(--paper); opacity:1;}
-  .nav-links-row a:hover::before, .nav-links-row a:focus-visible::before{transform:translate(-50%, -8%);}
-  .nav-links-row a.is-current{color:var(--teal); opacity:1; font-weight:800;}
-
-  .hamburger{
-    display:none;
-    position:absolute; left:6vw; top:50%; transform:translateY(-50%);
-    flex-direction:column; justify-content:center; align-items:center; gap:5px;
-    width:38px; height:38px; border:0; background:transparent; cursor:pointer; padding:0;
-    touch-action:manipulation; z-index:2;
-  }
-  .hamburger span{display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; transition:transform 0.3s ease, opacity 0.3s ease;}
-  .hamburger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-  .hamburger.is-open span:nth-child(2){opacity:0;}
-  .hamburger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-
-  .mobile-menu{
-    position:fixed; top:0; left:0; right:0; bottom:0; z-index:200;
-    background:var(--paper);
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;
-    opacity:0; visibility:hidden; pointer-events:none;
-    transition:opacity 0.3s ease;
-  }
-  .mobile-menu.is-open{opacity:1; visibility:visible; pointer-events:auto;}
-  .mobile-menu a{
-    font-family:'Space Mono', monospace; font-size:20px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700;
-    color:var(--ink); opacity:0.8; text-decoration:none; padding:10px 20px;
-  }
-  .mobile-menu a:hover, .mobile-menu a.is-current{color:var(--teal); opacity:1;}
-  .mobile-menu-close{
-    position:absolute; top:24px; right:6vw;
-    width:38px; height:38px; border:0; background:transparent; cursor:pointer;
-  }
-  .mobile-menu-close span{display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; position:absolute; top:50%; left:50%;}
-  .mobile-menu-close span:first-child{transform:translate(-50%,-50%) rotate(45deg);}
-  .mobile-menu-close span:last-child{transform:translate(-50%,-50%) rotate(-45deg);}
-
-  @media (max-width:860px){
-    .hamburger{display:flex;}
+  .page-header p {
+    max-width: 680px;
+    margin: 0 auto;
+    font-size: 16.5px;
+    line-height: 1.8;
+    color: var(--paper);
+    opacity: 0.9;
   }
 
-  .mr{font-family:'Baloo 2', sans-serif;}
-  body.lang-mr .en{display:none;}
-  .mr-block{display:none;}
-  body.lang-mr .mr-block{display:block;}
-  .mr-inline{display:none;}
-  body.lang-mr .mr-inline{display:inline;}
-
-  .lang-toggle{display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.06em;}
-  .lang-toggle button{border:0; background:transparent; padding:9px 14px; min-height:36px; cursor:pointer; color:var(--ink); opacity:0.55; font-family:inherit; font-size:inherit; transition:background 0.2s ease, color 0.2s ease, opacity 0.2s ease;}
-  .lang-toggle button.active{background:var(--teal); color:var(--paper); opacity:1;}
-  .nav-lang-wrap{position:absolute; right:6vw; top:50%; transform:translateY(-50%);}
-
-  /* ================= HEADER ================= */
-  .page-header{margin-top:124px; background:var(--teal-deep); color:var(--paper); padding:100px 0 70px; text-align:center;}
-  .page-header .eyebrow{text-align:center;}
-  .page-header h1{font-size:clamp(36px,5vw,58px); color:var(--paper); margin-top:18px;}
-  .page-header p{max-width:58ch; margin:22px auto 0; font-size:16px; line-height:1.75; opacity:0.78;}
-
-  /* ================= CAROUSEL (reused from homepage) ================= */
-  .carousel-section{background:var(--ink); padding:70px 0 90px;}
-  .carousel{position:relative;}
-  .carousel-viewport{position:relative; height:560px; margin:0 -6vw; overflow:hidden;}
-  .carousel-track{position:absolute; top:0; left:0; right:0; bottom:0;}
-  .carousel-card{position:absolute; top:50%; left:50%; width:270px; margin:-243px 0 0 -135px; transition:transform 0.55s cubic-bezier(.16,.8,.28,1), opacity 0.55s ease; cursor:pointer; text-decoration:none; color:inherit;}
-  .carousel-card .frame{width:100%; aspect-ratio:0.618; overflow:hidden; background:var(--teal-deep); border:1px solid rgba(220,193,137,0.22); position:relative;}
-  .carousel-card .frame img{width:100%; height:100%; object-fit:contain; display:block;}
-  .carousel-card .placeholder-name{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; font-family:'Fraunces', serif; font-style:italic; font-size:17px; color:var(--gold-soft); opacity:0.7; line-height:1.4;}
-  .carousel-card .pending-tag{position:absolute; left:10px; bottom:10px; font-family:'Space Mono', monospace; font-size:9px; letter-spacing:0.06em; text-transform:uppercase; color:var(--gold-soft); opacity:0.65; border:1px solid rgba(220,193,137,0.3); padding:4px 7px;}
-  .carousel-card .cap{margin-top:16px; text-align:center; font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--gold-soft); opacity:0.85; line-height:1.5;}
-  .carousel-card.is-active .frame{border-color:var(--gold);}
-  .carousel-controls{display:flex; align-items:center; justify-content:center; gap:18px; margin-top:36px;}
-  .carousel-btn{width:46px; height:46px; border-radius:50%; border:1px solid var(--line-onlight); background:transparent; color:var(--paper); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.2s ease, color 0.2s ease, border-color 0.2s ease; touch-action:manipulation;}
-  .carousel-btn:hover{background:var(--gold); color:var(--teal-deep); border-color:var(--gold);}
-  .carousel-dots{display:flex; flex-wrap:wrap; justify-content:center; gap:7px; margin:0 6px; max-width:200px;}
-  .carousel-dots span{width:5px; height:5px; border-radius:50%; background:var(--line-onlight); transition:background 0.3s ease, transform 0.3s ease; cursor:pointer;}
-  .carousel-dots span.is-active{background:var(--gold); transform:scale(1.5);}
-
-  /* ================= INDEX LIST ================= */
-  .index-section{padding:110px 0 120px; background:var(--parchment);}
-  .index-list{border-top:1px solid var(--line); margin-top:40px;}
-  .index-row{
-    display:grid; grid-template-columns:70px 1fr auto; align-items:center; gap:20px;
-    padding:22px 4px; border-bottom:1px solid var(--line);
-    text-decoration:none; color:inherit; transition:background 0.2s ease;
+  /* Filter & Search Bar */
+  .filter-section {
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 20px 0;
+    position: sticky;
+    top: 72px;
+    z-index: 40;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
   }
-  .index-row:hover{background:rgba(199,154,74,0.08);}
-  .index-row .n{font-family:'Fraunces', serif; font-style:italic; font-size:16px; color:var(--gold); opacity:0.85;}
-  .index-row .name{font-family:'Fraunces', serif; font-size:20px; color:var(--teal-deep);}
-  .index-row .name-mr{font-family:'Baloo 2', sans-serif; font-size:15px; color:var(--ink); opacity:0.6; margin-top:3px;}
-  .index-row .status{font-family:'Space Mono', monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; padding:6px 10px; border:1px solid var(--line); white-space:nowrap;}
-  .index-row .status.ready{color:var(--teal); border-color:var(--teal);}
-  .index-row .status.pending{color:var(--brick); opacity:0.75;}
-
-  /* ================= FOOTER ================= */
-  .visit{background:var(--teal-deep); color:var(--paper); padding:90px 0 44px;}
-  .footer-bottom{margin-top:60px; padding-top:26px; border-top:1px solid var(--line-onlight); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
-  .footer-fine{font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-soft); opacity:0.8;}
-
-  @media (max-width:860px){
-    .carousel-viewport{height:360px;}
-    .carousel-card{width:160px; margin:-160px 0 0 -80px;}
-    .carousel-card .frame{height:255px;}
-    .index-row{grid-template-columns:40px 1fr auto; gap:12px;}
-    .index-row .name{font-size:17px;}
-    .nav-links-row{display:none;}
+  .filter-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
   }
-  @media (max-width:600px){
-    .index-row .status{display:none;}
+  .filter-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+  .filter-btn {
+    border: 1px solid var(--line);
+    background: var(--parchment);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    color: var(--ink);
+  }
+  .filter-btn:hover {
+    background: var(--paper);
+    border-color: var(--teal);
+    color: var(--teal);
+  }
+  .filter-btn.active {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: var(--paper);
+  }
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: var(--parchment);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 16px;
+    gap: 8px;
+    width: 260px;
+  }
+  .search-box input {
+    border: none;
+    background: transparent;
+    font-size: 13.5px;
+    width: 100%;
+    outline: none;
+  }
+
+  /* Grid Layout */
+  .gallery-main {
+    padding: var(--sp-7) 0 var(--sp-9);
+    background: var(--parchment);
+  }
+  .mahapurush-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .leader-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+    position: relative;
+    box-shadow: 0 4px 16px rgba(23, 35, 31, 0.04);
+  }
+  .leader-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold);
+    box-shadow: 0 20px 40px -15px rgba(15, 74, 68, 0.2);
+  }
+
+  .card-frame {
+    width: 100%;
+    aspect-ratio: 0.72;
+    background: #0d2824;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .leader-card:hover .card-frame img {
+    transform: scale(1.05);
+  }
+  .card-frame .pending-badge {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    background: radial-gradient(circle, #0e3732 0%, #061e1b 100%);
+    color: var(--gold-soft);
+  }
+  .card-frame .pending-badge h3 {
+    color: var(--gold-soft);
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .card-frame .pending-pill {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--line-ongold);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  .card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  .card-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brick);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .card-title {
+    font-size: 22px;
+    line-height: 1.2;
+    color: var(--teal-deep);
+    margin-bottom: 4px;
+  }
+  .card-title-sub {
+    font-size: 14px;
+    color: var(--teal);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .card-quote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+    flex-grow: 1;
+    border-left: 2px solid var(--gold-soft);
+    padding-left: 12px;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    margin-top: auto;
+  }
+  .card-read-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--teal);
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease;
+  }
+  .card-read-btn:hover {
+    color: var(--brick);
+  }
+  .card-status {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--ink);
+    opacity: 0.6;
+  }
+
+  /* Modal Detail View */
+  .bio-modal-content {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    background: var(--paper);
+  }
+  .bio-modal-side {
+    background: var(--teal-deep);
+    padding: 32px 24px;
+    color: var(--paper);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .bio-modal-portrait {
+    width: 200px;
+    aspect-ratio: 0.65;
+    border: 1px solid var(--line-ongold);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.5);
+  }
+  .bio-modal-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .bio-modal-name {
+    color: var(--paper);
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .bio-modal-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: 14px;
+  }
+  .bio-modal-audio-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(220, 193, 137, 0.15);
+    border: 1px solid var(--line-ongold);
+    color: var(--gold-soft);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    cursor: pointer;
+    margin-top: auto;
+    transition: all 0.2s ease;
+  }
+  .bio-modal-audio-btn:hover {
+    background: var(--gold);
+    color: var(--teal-deep);
+  }
+
+  .bio-modal-main {
+    padding: 40px 36px;
+    overflow-y: auto;
+    max-height: 80vh;
+  }
+  .bio-modal-main h3 {
+    font-size: 26px;
+    margin-bottom: 16px;
+  }
+  .bio-modal-main p {
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .bio-modal-quote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--maroon);
+    background: var(--parchment);
+    padding: 18px 22px;
+    border-left: 3px solid var(--brick);
+    border-radius: 0 8px 8px 0;
+    margin: 24px 0;
+  }
+
+  @media (max-width: 980px) {
+    .mahapurush-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .bio-modal-content { grid-template-columns: 1fr; }
+    .bio-modal-side { padding: 24px; }
+  }
+  @media (max-width: 600px) {
+    .mahapurush-grid { grid-template-columns: 1fr; }
+    .filter-wrap { flex-direction: column; align-items: stretch; }
+    .search-box { width: 100%; }
   }
 </style>
 </head>
@@ -176,212 +358,537 @@
 
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <nav class="site-nav">
+  <!-- ================= TOP NAVIGATION ================= -->
+  <nav class="site-nav" aria-label="Main Navigation">
     <div class="nav-top">
-      <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-      <a href="index.html" class="logo-link"><img src="images/logo.png" class="logo-img" alt="Prerna Sthal"></a>
-      <div class="nav-lang-wrap">
+      <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      
+      <div class="nav-brand">
+        <a href="index.html" class="logo-link">
+          <img src="images/logo.png" class="logo-img" alt="Prerna Sthal Logo">
+        </a>
+        <div class="brand-text">
+          <span class="brand-title">Prerna Sthal</span>
+          <span class="brand-sub">Nakshatra Garden · Baramati</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button type="button" class="audio-nav-btn" aria-label="Toggle meditation chimes" title="Play Sanctuary Chimes">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </button>
+
         <div class="lang-toggle" role="group" aria-label="Choose language">
           <button type="button" class="active" data-lang="en" aria-pressed="true">EN</button>
           <button type="button" data-lang="mr" aria-pressed="false">मराठी</button>
         </div>
+
+        <a href="contact.html" class="visit-pill en">Visit</a>
+        <a href="contact.html" class="visit-pill mr-inline mr">भेट द्या</a>
       </div>
     </div>
+
     <div class="nav-links-row">
-      <a href="mahapurush.html" class="is-current">Mahapurush</a>
-      <a href="mudras.html">Hasta Mudra</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html" class="en">Home</a>
+      <a href="index.html" class="mr-inline mr">मुख्यपृष्ठ</a>
+      <a href="mahapurush.html" class="is-current en">Mahapurush Gallery</a>
+      <a href="mahapurush.html" class="is-current mr-inline mr">महापुरुष गॅलरी</a>
+      <a href="mudras.html" class="en">Hasta Mudras</a>
+      <a href="mudras.html" class="mr-inline mr">हस्तमुद्रा</a>
+      <a href="index.html#garden" class="en">Nakshatra Garden</a>
+      <a href="index.html#garden" class="mr-inline mr">नक्षत्र उद्यान</a>
+      <a href="contact.html" class="en">Contact &amp; Visit</a>
+      <a href="contact.html" class="mr-inline mr">संपर्क व भेट</a>
     </div>
   </nav>
-  <div class="mobile-menu" id="mobileMenu">
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true">
     <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu"><span></span><span></span></button>
-    <a href="mahapurush.html" class="en is-current">Mahapurush</a>
-    <a href="mahapurush.html" class="mr-block mr is-current">महापुरुष</a>
-    <a href="mudras.html" class="en">Hasta Mudra</a>
+    <a href="index.html" class="en">Home</a>
+    <a href="index.html" class="mr-block mr">मुख्यपृष्ठ</a>
+    <a href="mahapurush.html" class="en is-current">Mahapurush Gallery</a>
+    <a href="mahapurush.html" class="mr-block mr is-current">महापुरुष गॅलरी</a>
+    <a href="mudras.html" class="en">Hasta Mudras</a>
     <a href="mudras.html" class="mr-block mr">हस्तमुद्रा</a>
-    <a href="contact.html" class="en">Contact</a>
-    <a href="contact.html" class="mr-block mr">संपर्क</a>
+    <a href="index.html#garden" class="en">Nakshatra Garden</a>
+    <a href="index.html#garden" class="mr-block mr">नक्षत्र उद्यान</a>
+    <a href="contact.html" class="en">Contact &amp; Visit</a>
+    <a href="contact.html" class="mr-block mr">संपर्क व भेट</a>
   </div>
 
-  <header class="page-header">
-    <div class="wrap">
-      <div class="eyebrow on-dark reveal"><span class="en">The Corridor</span><span class="mr-inline mr">कॉरिडॉर</span></div>
-      <h1 class="reveal en">Mahapurush</h1>
-      <h1 class="reveal mr-block mr">महापुरुष</h1>
-      <p class="reveal en">Fifteen leaders, reformers, and nation-builders whose lives shaped the values Prerna Sthal is built to hold. Their hand-painted portraits will line the corridor circling the dome.</p>
-      <p class="reveal mr-block mr">पंधरा नेते, समाजसुधारक आणि राष्ट्रनिर्माते ज्यांच्या जीवनाने प्रेरणा स्थळाचे मूल्य घडवले. त्यांची हस्तचित्रित व्यक्तिचित्रे घुमटाभोवतीच्या कॉरिडॉरमध्ये लावली जातील.</p>
-    </div>
-  </header>
+  <main id="main">
+    <!-- Header -->
+    <header class="page-header">
+      <div class="wrap reveal">
+        <div class="eyebrow on-dark center"><span class="en">The Dome Corridor</span><span class="mr-inline mr">घुमट प्रदक्षिणा मार्ग</span></div>
+        <h1 class="en">Mahapurush Gallery</h1>
+        <h1 class="mr-block mr">महापुरुष दालन</h1>
+        <p class="en">Life-size hand-painted portraits honoring 15 great social reformers, philosophers, educationists, and nation-builders whose ideals anchor modern India.</p>
+        <p class="mr-block mr">आधुनिक भारताची पायाभरणी करणाऱ्या १५ महान समाजसुधारक, शिक्षणतज्ज्ञ, विचारवंत आणि राष्ट्रनिर्मात्यांची भव्य हस्तचित्रे आणि जीवनकार्य.</p>
+      </div>
+    </header>
 
-  <section class="carousel-section" id="main">
-    <div class="carousel reveal">
-      <div class="carousel-viewport">
-        <div class="carousel-track" id="mpTrack">
-          <a href="mahapurush.html" class="carousel-card" data-index="0"><div class="frame"><span class="placeholder-name">Rajmata Jijau</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Rajmata Jijau</div></a>
-          <a href="mahapurush.html" class="carousel-card" data-index="1"><div class="frame"><span class="placeholder-name">Chhatrapati Shivaji Maharaj</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Chhatrapati Shivaji Maharaj</div></a>
-          <a href="mahapurush.html" class="carousel-card" data-index="2"><div class="frame"><img src="images/portraits/Ahilyabai%20Holkar.jpg" loading="lazy" alt="Hand-painted portrait of Ahilyabai Holkar"></div><div class="cap">Ahilyabai Holkar</div></a>
-          <a href="mahapurush.html" class="carousel-card" data-index="3"><div class="frame"><img src="images/portraits/Mahatma%20Jyotirao%20Phule.jpg" loading="lazy" alt="Hand-painted portrait of Mahatma Jyotirao Phule"></div><div class="cap">Mahatma Jyotirao Phule</div></a>
-          <a href="mahapurush.html" class="carousel-card" data-index="4"><div class="frame"><img src="images/portraits/Savitribai%20Phule.jpg" loading="lazy" alt="Hand-painted portrait of Savitribai Phule"></div><div class="cap">Savitribai Phule</div></a>
-          <a href="shahu-maharaj.html" class="carousel-card" data-index="5"><div class="frame"><img src="images/portraits/Chhatrapati%20Rajarshi%20Shahu%20Maharaj.jpg" loading="lazy" alt="Hand-painted portrait of Rajarshi Shahu Maharaj"></div><div class="cap">Rajarshi Shahu Maharaj</div></a>
-          <a href="mahapurush.html" class="carousel-card" data-index="6"><div class="frame"><img src="images/portraits/Dr.%20Babasaheb%20Ambedkar.jpg" loading="lazy" alt="Hand-painted portrait of Dr. Babasaheb Ambedkar"></div><div class="cap">Dr. Babasaheb Ambedkar</div></a>
-          <a href="mahapurush.html" class="carousel-card" data-index="7"><div class="frame"><img src="images/portraits/Maharaja%20Sayajirao%20Gaikwad.jpg" loading="lazy" alt="Hand-painted portrait of Maharaja Sayajirao Gaikwad"></div><div class="cap">Maharaja Sayajirao Gaikwad</div></a>
-          <a href="mahapurush.html" class="carousel-card" data-index="8"><div class="frame"><img src="images/portraits/Mahatma%20Gandhi.jpg" loading="lazy" alt="Hand-painted portrait of Mahatma Gandhi"></div><div class="cap">Mahatma Gandhi</div></a>
-          <a href="mahapurush.html" class="carousel-card" data-index="9"><div class="frame"><img src="images/portraits/Karmaveer%20Bhaurao%20Patil.jpg" loading="lazy" alt="Hand-painted portrait of Karmaveer Bhaurao Patil"></div><div class="cap">Karmaveer Bhaurao Patil</div></a>
-          <a href="mahapurush.html" class="carousel-card" data-index="10"><div class="frame"><img src="images/portraits/Annabhau%20Sathe.jpg" loading="lazy" alt="Hand-painted portrait of Annabhau Sathe"></div><div class="cap">Annabhau Sathe</div></a>
-          <a href="mahapurush.html" class="carousel-card" data-index="11"><div class="frame"><span class="placeholder-name">Shardabai Pawar</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Shardabai Pawar</div></a>
-          <a href="mahapurush.html" class="carousel-card" data-index="12"><div class="frame"><img src="images/portraits/Yashwantrao%20Chavan.jpg" loading="lazy" alt="Hand-painted portrait of Yashwantrao Chavan"></div><div class="cap">Yashwantrao Chavan</div></a>
-          <a href="mahapurush.html" class="carousel-card" data-index="13"><div class="frame"><span class="placeholder-name">Lokmanya Tilak</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Lokmanya Tilak</div></a>
-          <a href="mahapurush.html" class="carousel-card" data-index="14"><div class="frame"><span class="placeholder-name">Maulana Abul Kalam Azad</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Maulana Abul Kalam Azad</div></a>
+    <!-- Filter & Search -->
+    <section class="filter-section">
+      <div class="wrap filter-wrap">
+        <div class="filter-tabs" role="tablist" aria-label="Filter Mahapurush by category">
+          <button type="button" class="filter-btn active" data-category="all">
+            <span class="en">All (15)</span><span class="mr-inline mr">सर्व (१५)</span>
+          </button>
+          <button type="button" class="filter-btn" data-category="social">
+            <span class="en">Social Reformers</span><span class="mr-inline mr">समाजसुधारक</span>
+          </button>
+          <button type="button" class="filter-btn" data-category="education">
+            <span class="en">Educationists</span><span class="mr-inline mr">शिक्षणतज्ज्ञ</span>
+          </button>
+          <button type="button" class="filter-btn" data-category="leaders">
+            <span class="en">National Leaders</span><span class="mr-inline mr">राष्ट्रनेते</span>
+          </button>
+          <button type="button" class="filter-btn" data-category="maratha">
+            <span class="en">Maratha Legacy</span><span class="mr-inline mr">मराठा वारसा</span>
+          </button>
+        </div>
+
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="leaderSearchInput" placeholder="Search by name..." aria-label="Search luminaries">
         </div>
       </div>
-      <div class="carousel-controls">
-        <button type="button" class="carousel-btn" id="mpPrev" aria-label="Previous portrait">&larr;</button>
-        <div class="carousel-dots" id="mpDots"></div>
-        <button type="button" class="carousel-btn" id="mpNext" aria-label="Next portrait">&rarr;</button>
+    </section>
+
+    <!-- Grid of 15 Mahapurush -->
+    <section class="gallery-main">
+      <div class="wrap">
+        <div class="mahapurush-grid" id="leaderGrid">
+          <!-- Rendered dynamically with complete biographic data -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Interactive Biography Modal -->
+  <div class="ps-modal" id="bioModal" role="dialog" aria-modal="true">
+    <div class="ps-modal-dialog" style="overflow:hidden;">
+      <button type="button" class="ps-modal-close" id="bioModalClose" aria-label="Close biography modal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="bio-modal-content" id="bioModalContent">
+        <!-- Rendered by JS -->
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- ================= FULL INDEX LIST ================= -->
-  <section class="index-section">
+  <!-- Footer -->
+  <footer class="site-footer">
     <div class="wrap">
-      <h2 class="reveal en" style="font-size:clamp(26px,2.6vw,34px); margin-top:14px;">Browse the full list</h2>
-      <h2 class="reveal mr-block mr" style="font-size:clamp(26px,2.6vw,34px); margin-top:14px;">संपूर्ण यादी पहा</h2>
-      <div class="index-list reveal">
-        <a href="#row-0" id="row-0" class="index-row"><span class="n">01</span><span><span class="name">Rajmata Jijau</span><div class="name-mr">राजमाता जिजाऊ</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
-        <a href="#row-1" id="row-1" class="index-row"><span class="n">02</span><span><span class="name">Chhatrapati Shivaji Maharaj</span><div class="name-mr">छत्रपती शिवाजी महाराज</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
-        <a href="#row-2" id="row-2" class="index-row"><span class="n">03</span><span><span class="name">Ahilyabai Holkar</span><div class="name-mr">अहिल्याबाई होळकर</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
-        <a href="#row-3" id="row-3" class="index-row"><span class="n">04</span><span><span class="name">Mahatma Jyotirao Phule</span><div class="name-mr">महात्मा ज्योतिराव फुले</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
-        <a href="#row-4" id="row-4" class="index-row"><span class="n">05</span><span><span class="name">Savitribai Phule</span><div class="name-mr">सावित्रीबाई फुले</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
-        <a href="shahu-maharaj.html" class="index-row"><span class="n">06</span><span><span class="name">Rajarshi Shahu Maharaj</span><div class="name-mr">राजर्षी शाहू महाराज</div></span><span class="status ready"><span class="en">View page →</span><span class="mr-block mr">पान पहा →</span></span></a>
-        <a href="#row-6" id="row-6" class="index-row"><span class="n">07</span><span><span class="name">Dr. Babasaheb Ambedkar</span><div class="name-mr">डॉ. बाबासाहेब आंबेडकर</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
-        <a href="#row-7" id="row-7" class="index-row"><span class="n">08</span><span><span class="name">Maharaja Sayajirao Gaikwad</span><div class="name-mr">महाराजा सयाजीराव गायकवाड</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
-        <a href="#row-8" id="row-8" class="index-row"><span class="n">09</span><span><span class="name">Mahatma Gandhi</span><div class="name-mr">महात्मा गांधी</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
-        <a href="#row-9" id="row-9" class="index-row"><span class="n">10</span><span><span class="name">Karmaveer Bhaurao Patil</span><div class="name-mr">कर्मवीर भाऊराव पाटील</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
-        <a href="#row-10" id="row-10" class="index-row"><span class="n">11</span><span><span class="name">Annabhau Sathe</span><div class="name-mr">अण्णाभाऊ साठे</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
-        <a href="#row-11" id="row-11" class="index-row"><span class="n">12</span><span><span class="name">Shardabai Pawar</span><div class="name-mr">शारदाबाई पवार</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
-        <a href="#row-12" id="row-12" class="index-row"><span class="n">13</span><span><span class="name">Yashwantrao Chavan</span><div class="name-mr">यशवंतराव चव्हाण</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
-        <a href="#row-13" id="row-13" class="index-row"><span class="n">14</span><span><span class="name">Lokmanya Tilak</span><div class="name-mr">लोकमान्य टिळक</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
-        <a href="#row-14" id="row-14" class="index-row"><span class="n">15</span><span><span class="name">Maulana Abul Kalam Azad</span><div class="name-mr">मौलाना अबुल कलाम आझाद</div></span><span class="status pending"><span class="en">Portrait pending</span><span class="mr-block mr">पोर्ट्रेट प्रलंबित</span></span></a>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 style="margin-bottom:12px;">Prerna Sthal</h3>
+          <p class="en">Corridor Gallery of Mahapurush · Nakshatra Garden · Vidya Pratishthan, Baramati.</p>
+          <p class="mr-block mr">महापुरुष गॅलरी · नक्षत्र उद्यान · विद्या प्रतिष्ठान, बारामती.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="en">Navigation</h4>
+          <h4 class="mr-block mr">मार्गक्रमण</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Sanctuary Home</a></li>
+            <li><a href="mudras.html">10 Buddha Hasta Mudras</a></li>
+            <li><a href="shahu-maharaj.html">Rajarshi Shahu Maharaj Profile</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="en">Visit</h4>
+          <h4 class="mr-block mr">भेट</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html">Plan Your Visit</a></li>
+            <li><span>Vidyanagari, Baramati</span></li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <section class="visit">
-    <div class="wrap">
-      <div class="eyebrow on-dark reveal"><span class="en">Prerna Sthal</span><span class="mr-inline mr">प्रेरणा स्थळ</span></div>
-      <p class="reveal" style="max-width:52ch; margin-top:16px; opacity:0.85; font-size:15px;">Nakshatra Garden, Vidya Pratishthan, Baramati.</p>
       <div class="footer-bottom">
-        <span class="footer-fine">Prerna Sthal · Nakshatra Garden · Vidya Pratishthan, Baramati</span>
-        <a href="contact.html" class="footer-fine en" style="text-decoration:underline;">Get in touch →</a>
-        <a href="contact.html" class="footer-fine mr-block mr" style="text-decoration:underline;">संपर्क साधा →</a>
+        <span class="footer-fine">© Prerna Sthal · Vidya Pratishthan</span>
+        <span class="footer-fine">Hand-Painted Corridor Portraits by Vishal Tajanekar</span>
       </div>
     </div>
-  </section>
+  </footer>
 
-<script>
-  const els = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {threshold:0.15});
-  els.forEach(el=>io.observe(el));
+  <script src="shared.js"></script>
+  <script>
+    const luminaries = [
+      {
+        id: "jijau",
+        nameEn: "Rajmata Jijau",
+        nameMr: "राजमाता जिजाऊ",
+        period: "1598 – 1674",
+        category: "maratha",
+        portrait: null,
+        tagEn: "Architect of Swarajya Ideals · Mother & Guide",
+        tagMr: "स्वराज्याची प्रेरणा · मार्गदर्शक व माता",
+        quoteEn: "She instilled courage, moral clarity, and the dream of an egalitarian sovereign kingdom in young Shivaji.",
+        quoteMr: "त्यांनी बाल शिवबाच्या मनात नीतीमत्ता, शौर्य आणि रयतेच्या कल्याणाचे स्वराज्य स्थापनेचे स्वप्न रुजवले.",
+        bioEn: "Rajmata Jijabai, affectionately known as Jijau, was a visionary leader and master administrator. Through political turmoil, she stood as the bedrock of wisdom and unyielding fortitude, instilling deep ethical governance, military acumen, and deep empathy for common people into Chhatrapati Shivaji Maharaj.",
+        bioMr: "राजमाता जिजाऊ या केवळ शिवरायांच्या माता नव्हत्या, तर स्वराज्याच्या संकल्पनेच्या खऱ्या मार्गदर्शक आणि शिल्पकार होत्या. प्रतिकूल परिस्थितीत त्यांनी शिवरायांवर न्यायाचे, पराक्रमाचे आणि लोककल्याणकारी राज्यकारभाराचे संस्कार केले."
+      },
+      {
+        id: "shivaji",
+        nameEn: "Chhatrapati Shivaji Maharaj",
+        nameMr: "छत्रपती शिवाजी महाराज",
+        period: "1630 – 1680",
+        category: "maratha",
+        portrait: null,
+        tagEn: "Founder of Hindavi Swarajya · Visionary Ruler",
+        tagMr: "हिंदवी स्वराज्याचे संस्थापक · आदर्श शासनकर्ते",
+        quoteEn: "Freedom is not granted; it is forged by unity, valor, and ethical welfare governance for all citizens.",
+        quoteMr: "स्वराज्य म्हणजे रयतेचे राज्य—जिथे प्रत्येक घटकाला सन्मान, सुरक्षा आणि न्यायाची खात्री असते.",
+        bioEn: "Chhatrapati Shivaji Maharaj established 'Hindavi Swarajya' on principles of religious freedom, strict agrarian welfare, disciplined naval defense, and equal justice. He transformed warfare strategy with Ganimi Kava (guerrilla tactics) while maintaining the highest humanitarian standards.",
+        bioMr: "छत्रपती शिवाजी महाराजांनी रयतेच्या कल्याणासाठी हिंदवी स्वराज्याची स्थापना केली. उत्कृष्ट युद्धनीती, आरमार उभारणी, पर्यावरण संरक्षण आणि सर्वधर्मीय जनतेला सुरक्षितता देणारा त्यांचा राज्यकारभार आजही जगासाठी आदर्श आहे."
+      },
+      {
+        id: "ahilyabai",
+        nameEn: "Ahilyabai Holkar",
+        nameMr: "पुण्यश्लोक अहिल्याबाई होळकर",
+        period: "1725 – 1795",
+        category: "leaders",
+        portrait: "images/portraits/Ahilyabai%20Holkar.jpg",
+        tagEn: "Visionary Queen of Malwa · Builder of Ghats & Temples",
+        tagMr: "माळव्याच्या लोकमाता · मंदिरांचे व घाटांचे जीर्णोद्धारक",
+        quoteEn: "Power is a sacred trust meant exclusively for public welfare, peace, and cultural rejuvenation.",
+        quoteMr: "सत्ता ही प्रजेच्या कल्याणासाठी दिलेली ईश्वरी ठेव आहे, वैभवासाठी नव्हे.",
+        bioEn: "Rani Ahilyabai Holkar governed the Malwa kingdom with supreme wisdom and compassion for three decades. She protected her frontiers, modernized taxation, supported trade, and built pilgrimage ghats, wells, and free rest houses across the entire Indian subcontinent.",
+        bioMr: "पुण्यश्लोक अहिल्याबाई होळकरांनी ३० वर्षे माळवा प्रांताचा आदर्श कारभार सांभाळला. त्यांनी देशभरात बारवा, घाट, धर्मशाळा आणि मंदिरांचा जीर्णोद्धार केला. त्या उत्तम प्रशासक व न्यायी राज्यकर्त्या म्हणून जनमानसात अजरामर आहेत."
+      },
+      {
+        id: "jyotirao-phule",
+        nameEn: "Mahatma Jyotirao Phule",
+        nameMr: "महात्मा ज्योतिराव फुले",
+        period: "1827 – 1890",
+        category: "social",
+        portrait: "images/portraits/Mahatma%20Jyotirao%20Phule.jpg",
+        tagEn: "Pioneer of Education & Human Equality · Satyashodhak",
+        tagMr: "स्त्रीशिक्षणाचे प्रणेते · सत्यशोधक समाजाचे संस्थापक",
+        quoteEn: "Without education, wisdom was lost; without wisdom, morals were lost; without morals, progress was halted.",
+        quoteMr: "विद्येविना मती गेली, मतीविना नीती गेली, नीतीविना गती गेली, गतीविना वित्त गेले, वित्ताविना शूद्र खचले, एवढे अनर्थ एका अविद्येने केले!",
+        bioEn: "Mahatma Jyotirao Phule pioneered girls' education in India by founding the first indigenous school for girls in Pune in 1848 with his wife Savitribai. Through the Satyashodhak Samaj, he spearheaded radical anti-caste reforms, farmers' rights movements, and universal education.",
+        bioMr: "महात्मा जोतीराव फुल्यांनी १८४८ मध्ये पुण्यात मुलींची पहिली शाळा सुरू करून सामाजिक क्रांतीची मुहूर्तमेढ रोवली. सत्यशोधक समाजाच्या माध्यमातून त्यांनी सामाजिक समता, शेतकऱ्यांचे हक्क आणि शिक्षणाचा प्रसार यासाठी संपूर्ण आयुष्य वेचले."
+      },
+      {
+        id: "savitribai-phule",
+        nameEn: "Savitribai Phule",
+        nameMr: "क्रांतिज्योती सावित्रीबाई फुले",
+        period: "1831 – 1897",
+        category: "education",
+        portrait: "images/portraits/Savitribai%20Phule.jpg",
+        tagEn: "India's First Female Teacher · Champion of Women's Rights",
+        tagMr: "भारतातील पहिल्या महिला शिक्षिका · स्त्रीमुक्तीच्या प्रणेत्या",
+        quoteEn: "Go, get education; become self-reliant, work hard, and break the chains of ignorance.",
+        quoteMr: "शिकण्यासाठी उठा, जागे व्हा, बंधने तोडून स्वाभिमानी बना!",
+        bioEn: "Savitribai Phule braved relentless social hostility to become India's first modern female teacher and headmistress. She opened shelters for pregnant widows and victims of exploitation, established literacy centers, and sacrificed her life nursing plague victims.",
+        bioMr: "क्रांतिज्योती सावित्रीबाई फुले यांनी समाजकंटकांच्या विरोधाला न जुमानता मुलींना शिक्षणाची कवाडे खुली केली. त्यांनी बालहत्या प्रतिबंधक गृह सुरू केले आणि प्लेगच्या साथीदरम्यान स्वतःच्या प्राणाची आहुती देऊन रुग्णांची सेवा केली."
+      },
+      {
+        id: "shahu-maharaj",
+        nameEn: "Chhatrapati Rajarshi Shahu Maharaj",
+        nameMr: "छत्रपती राजर्षी शाहू महाराज",
+        period: "1874 – 1922",
+        category: "social",
+        portrait: "images/portraits/Chhatrapati%20Rajarshi%20Shahu%20Maharaj.jpg",
+        tagEn: "Social Democrat · 50% Reservation Pioneer · Kolhapur Ruler",
+        tagMr: "आरक्षणाचे जनक · कोल्हापूरचे छत्रपती · समतेचे दूत",
+        quoteEn: "A sage's detachment and a king's authority: dedicated entirely to demolishing inequality.",
+        quoteMr: "ऋषीची विरक्ती आणि राजाची शक्ती अंगी असलेल्या शाहू महाराजांनी विषमता नष्ट करण्यासाठी राजसत्ता पणाला लावली.",
+        bioEn: "Chhatrapati Shahu Maharaj of Kolhapur issued the historic 1902 decree granting 50% reservation in government posts for backward classes. He enacted free and compulsory primary education, patronized wrestling and arts, legalized inter-caste marriages, and supported Babasaheb Ambedkar's higher education.",
+        bioMr: "शाहू महाराजांनी १९०२ मध्ये ५०% आरक्षणाची ऐतिहासिक घोषणा केली. मोफत व सक्तीचे प्राथमिक शिक्षण, आंतरजातीय विवाहांचा कायदा, देवदासी प्रथा बंदी आणि बहुजन विद्यार्थ्यांसाठी वसतिगृहे उभारून त्यांनी समतेचा पाया रचला.",
+        detailUrl: "shahu-maharaj.html"
+      },
+      {
+        id: "ambedkar",
+        nameEn: "Dr. Babasaheb Ambedkar",
+        nameMr: "भारतरत्न डॉ. बाबासाहेब आंबेडकर",
+        period: "1891 – 1956",
+        category: "leaders",
+        portrait: "images/portraits/Dr.%20Babasaheb%20Ambedkar.jpg",
+        tagEn: "Chief Architect of Indian Constitution · Champion of Equality",
+        tagMr: "भारतीय संविधानाचे शिल्पकार · समता व न्यायाचे प्रतीक",
+        quoteEn: "Educate, Agitate, Organize. Cultivate your mind; freedom of mind is the real freedom.",
+        quoteMr: "शिका, संघटित व्हा आणि संघर्ष करा! मनाचे स्वातंत्र्य हेच खरे स्वातंत्र्य आहे.",
+        bioEn: "Dr. B.R. Ambedkar was a polymath, jurist, economist, and supreme leader who drafted the Constitution of India, guaranteeing fundamental rights, gender equality, and social justice. His struggle at Mahad Satyagraha and conversion to Buddhism revitalized human dignity worldwide.",
+        bioMr: "डॉ. बाबासाहेब आंबेडकर यांनी जगातील सर्वात मोठे लोकशाही संविधान रचले. त्यांनी स्वातंत्र्य, समता आणि बंधुतेच्या मूल्यांवर आधारित समाजरचनेसाठी लढा दिला. त्यांचे विचार मानवाधिकार आणि सामाजिक न्यायाचा जागतिक दीपस्तंभ आहेत."
+      },
+      {
+        id: "sayajirao",
+        nameEn: "Maharaja Sayajirao Gaikwad",
+        nameMr: "महाराजा सयाजीराव गायकवाड",
+        period: "1863 – 1939",
+        category: "education",
+        portrait: "images/portraits/Maharaja%20Sayajirao%20Gaikwad.jpg",
+        tagEn: "Progressive Monarch of Baroda · Pioneer of Public Libraries",
+        tagMr: "बडोद्याचे पुरोगामी नरेश · मोफत ग्रंथालय चळवळीचे जनक",
+        quoteEn: "A nation's greatness is judged not by palaces, but by the schools open to its poorest citizens.",
+        quoteMr: "प्रजेच्या शिक्षणावरच राज्याचे भविष्य अवलंबून असते.",
+        bioEn: "Maharaja Sayajirao Gaikwad III transformed Baroda into one of India's most modern princely states by introducing free compulsory education in 1906, establishing a vast public library network, the Bank of Baroda, and funding the scholarship of Dr. B.R. Ambedkar at Columbia University.",
+        bioMr: "सयाजीराव गायकवाडांनी बडोदा संस्थानात मोफत व सक्तीचे शिक्षण आणि सार्वजनिक वाचनालयांचे जाळे विणले. त्यांनी डॉ. बाबासाहेब आंबेडकर यांच्या उच्च शिक्षणासाठी शिष्यवृत्ती दिली आणि कलेला राजाश्रय दिला."
+      },
+      {
+        id: "gandhi",
+        nameEn: "Mahatma Gandhi",
+        nameMr: "महात्मा गांधी",
+        period: "1869 – 1948",
+        category: "leaders",
+        portrait: "images/portraits/Mahatma%20Gandhi.jpg",
+        tagEn: "Father of the Nation · Apostle of Ahimsa & Satyagraha",
+        tagMr: "राष्ट्रपिता · सत्य व अहिंसेचे प्रणेते",
+        quoteEn: "Be the change that you wish to see in the world. Peace is not the absence of conflict, but the ability to cope with it.",
+        quoteMr: "जगात जो बदल तुम्हाला पाहायचा आहे, तो स्वतःमध्ये घडवून आणा.",
+        bioEn: "Mohandas Karamchand Gandhi led India's freedom struggle through non-violent resistance (Satyagraha), inspiring civil rights movements globally. His principles of truth, self-reliance (Swadeshi), harmony, and spiritual simplicity remain foundational worldwide.",
+        bioMr: "महात्मा गांधींनी सत्य, अहिंसा आणि सत्याग्रहाच्या मार्गाने भारताच्या स्वातंत्र्यलढ्याचे नेतृत्व केले. त्यांच्या साधेपणा, स्वावलंबन आणि अहिंसेच्या विचारांनी संपूर्ण जगाला मानवी हक्कांची प्रेरणा दिली."
+      },
+      {
+        id: "bhaurao-patil",
+        nameEn: "Karmaveer Bhaurao Patil",
+        nameMr: "कर्मवीर भाऊराव पाटील",
+        period: "1887 – 1959",
+        category: "education",
+        portrait: "images/portraits/Karmaveer%20Bhaurao%20Patil.jpg",
+        tagEn: "Founder of Rayat Shikshan Sanstha · Earn & Learn Pioneer",
+        tagMr: "रयत शिक्षण संस्थेचे संस्थापक · 'कमवा व शिका' योजनेचे प्रणेते",
+        quoteEn: "Education must reach the children of farmers and laborers in the remotest villages.",
+        quoteMr: "शिक्षणाची गंगा खेड्यापाड्यातील शेतकरी-कष्टकऱ्यांच्या झोपडीपर्यंत पोहोचली पाहिजे.",
+        bioEn: "Karmaveer Bhaurao Patil established the Rayat Shikshan Sanstha in 1919 at Kale, expanding it into Asia's largest rural educational network. His visionary 'Earn and Learn' scheme enabled hundreds of thousands of impoverished rural youth to obtain higher education.",
+        bioMr: "कर्मवीर भाऊराव पाटील यांनी 'रयत शिक्षण संस्था' स्थापन करून बहुजन समाजातील मुलांना शिक्षणाची संधी उपलब्ध करून दिली. त्यांची 'कमवा आणि शिका' योजना ही स्वावलंबी शिक्षणाचा जागतिक आदर्श मानली जाते."
+      },
+      {
+        id: "annabhau-sathe",
+        nameEn: "Lokshahir Annabhau Sathe",
+        nameMr: "लोकशाहीर अण्णाभाऊ साठे",
+        period: "1920 – 1969",
+        category: "social",
+        portrait: "images/portraits/Annabhau%20Sathe.jpg",
+        tagEn: "Folk Poet & Novelist · Voice of Working-Class Dignity",
+        tagMr: "लोकशाहीर · ज्येष्ठ कादंबरीकार व कामगार चळवळीचे नेते",
+        quoteEn: "This earth rests not on the head of Sheshnag, but on the hardworking palms of laborers and toilers.",
+        quoteMr: "ही पृथ्वी शेषाच्या मस्तकावर तरलेली नसून श्रमिकांच्या तळहातावर तरलेली आहे!",
+        bioEn: "Tukaram Bhaurao Sathe, revered as Lokshahir Annabhau Sathe, was a literary titan who penned 35 novels, including the classic 'Fakira', and over 300 folk songs. He was a central figure in the Samyukta Maharashtra Movement, championing Dalit and working-class empowerment.",
+        bioMr: "अण्णाभाऊ साठे यांनी 'फकिरा'सारख्या अजरामर कादंबऱ्या, पोवाडे आणि नाटकांतून शोषित-वंचितांच्या वेदनांना वाचा फोडली. संयुक्त महाराष्ट्र चळवळीत त्यांच्या शाहिरीने जनतेमध्ये अभूतपूर्व क्रांतीची चेतना निर्माण केली."
+      },
+      {
+        id: "shardabai-pawar",
+        nameEn: "Shardabai Pawar",
+        nameMr: "शारदाबाई पवार",
+        period: "1911 – 1975",
+        category: "education",
+        portrait: null,
+        tagEn: "Pioneering Educational Leader · Champion of Rural Uplift",
+        tagMr: "शिक्षण क्षेत्रातील अग्रणी · ग्रामीण महिला सबलीकरणाच्या शिल्पकार",
+        quoteEn: "Empower girls through learning, and you transform an entire generation.",
+        quoteMr: "मुलींना शिकवा, स्वावलंबी बनवा; कुटुंब आणि समाज आपोआप समृद्ध होईल.",
+        bioEn: "Shardabai Pawar was a visionary social and educational leader from Baramati who championed girls' education, agrarian cooperative societies, and local self-governance. Her dedication laid the bedrock for Vidya Pratishthan's educational institutions.",
+        bioMr: "शारदाबाई पवार यांनी बारामती परिसरात मुलींच्या शिक्षणासाठी, महिलांच्या सबलीकरणासाठी आणि शेतकरी सहकारासाठी मोलाचे योगदान दिले. त्यांच्याच प्रेरणेतून विद्या प्रतिष्ठानच्या शैक्षणिक कार्याची पायाभरणी झाली."
+      },
+      {
+        id: "yashwantrao-chavan",
+        nameEn: "Yashwantrao Chavan",
+        nameMr: "यशवंतराव चव्हाण",
+        period: "1913 – 1984",
+        category: "leaders",
+        portrait: "images/portraits/Yashwantrao%20Chavan.jpg",
+        tagEn: "First Chief Minister of Maharashtra · Modern Institution Builder",
+        tagMr: "महाराष्ट्राचे पहिले मुख्यमंत्री · आधुनिक महाराष्ट्राचे शिल्पकार",
+        quoteEn: "Democratic socialism thrives only when economic power is decentralized to the village panchayats.",
+        quoteMr: "महाराष्ट्राची प्रगती शेतकरी, कष्टकरी आणि सहकार चळवळीच्या मजबुतीत सामावलेली आहे.",
+        bioEn: "Yashwantrao Balwantrao Chavan served as the first Chief Minister of unified Maharashtra and subsequently held top defense, finance, and home ministries of India. He pioneered the cooperative movement, industrial corridors, and the democratic Panchayati Raj structure.",
+        bioMr: "यशवंतराव चव्हाण यांनी संयुक्त महाराष्ट्राचे पहिले मुख्यमंत्री म्हणून पुरोगामी राज्यकारभाराची घडी बसवली. त्यांनी पंचायत राज, सहकार चळवळ, कृषी औद्योगिक विकास आणि शिक्षण संस्थांची भक्कम पायाभरणी केली."
+      },
+      {
+        id: "tilak",
+        nameEn: "Lokmanya Bal Gangadhar Tilak",
+        nameMr: "लोकमान्य बाळ गंगाधर टिळक",
+        period: "1856 – 1920",
+        category: "leaders",
+        portrait: null,
+        tagEn: "Father of Indian Unrest · Scholar of Gita Rahasya",
+        tagMr: "भारतीय असंतोषाचे जनक · केसरीचे संपादक व प्रकांड विचारवंत",
+        quoteEn: "Swaraj is my birthright, and I shall have it!",
+        quoteMr: "स्वराज्य हा माझा जन्मसिद्ध हक्क आहे आणि तो मी मिळवणारच!",
+        bioEn: "Lokmanya Tilak galvanized mass national consciousness against colonial rule through newspapers Kesari and Mahratta, public Ganeshotsav and Shiv Jayanti festivals. He authored the monumental commentary 'Gita Rahasya' during imprisonment in Mandalay.",
+        bioMr: "लोकमान्य टिळकांनी 'केसरी' व 'मराठा' वृत्तपत्रांतून लोकजागृती केली. गणेशोत्सव व शिवजयंती उत्सवांच्या माध्यमातून त्यांनी स्वातंत्र्यलढ्याला जनआंदोलनाचे स्वरूप दिले आणि मंडालेच्या तुरुंगात 'गीतारहस्य' हा अद्वितीय ग्रंथ रचला."
+      },
+      {
+        id: "azad",
+        nameEn: "Maulana Abul Kalam Azad",
+        nameMr: "मौलाना अबुल कलाम आझाद",
+        period: "1888 – 1958",
+        category: "leaders",
+        portrait: null,
+        tagEn: "First Education Minister of India · Architect of Modern Learning",
+        tagMr: "स्वतंत्र भारताचे पहिले शिक्षणमंत्री · उच्च शिक्षणाचे शिल्पकार",
+        quoteEn: "Education imparted by heart can bring revolution in the society.",
+        quoteMr: "हृदयातून दिलेले शिक्षणच समाजात खरी क्रांती घडवून आणू शकते.",
+        bioEn: "Maulana Azad was a stalwart of India's independence struggle, Islamic scholar, and secular nationalist. As India's first Minister of Education, he founded the Indian Institutes of Technology (IITs), the University Grants Commission (UGC), and the Sahitya Akademi.",
+        bioMr: "मौलाना आझाद यांनी स्वतंत्र भारताचे पहिले शिक्षणमंत्री म्हणून आयआयटी (IIT), यूजीसी (UGC), साहित्य अकादमी आणि संगीत नाटक अकादमीची स्थापना केली. त्यांनी मोफत प्राथमिक शिक्षण आणि उच्च तंत्रशिक्षणाचा पाया रचला."
+      }
+    ];
 
-  (function(){
-    const track = document.getElementById('mpTrack');
-    if(!track) return;
-    const cards = Array.from(track.querySelectorAll('.carousel-card'));
-    const N = cards.length;
-    const dotsWrap = document.getElementById('mpDots');
-    let active = 5;
+    function renderLeaderGrid(filterCat = "all", searchStr = "") {
+      const grid = document.getElementById('leaderGrid');
+      if (!grid) return;
+      const isMr = document.body.classList.contains('lang-mr');
+      const q = searchStr.toLowerCase().trim();
 
-    cards.forEach((c, i) => {
-      const dot = document.createElement('span');
-      if(i === active) dot.classList.add('is-active');
-      dot.addEventListener('click', () => { active = i; render(); });
-      dotsWrap.appendChild(dot);
-    });
-    const dots = Array.from(dotsWrap.children);
-
-    function render(){
-      cards.forEach((card, i) => {
-        let offset = i - active;
-        if(offset > N/2) offset -= N;
-        if(offset < -N/2) offset += N;
-        const abs = Math.abs(offset);
-        const spacing = window.innerWidth < 640 ? 145 : 240;
-        const x = offset * spacing;
-        const scale = offset === 0 ? 1.2 : Math.max(1 - abs * 0.16, 0.55);
-        const opacity = abs > 3 ? 0 : Math.max(1 - abs * 0.28, 0);
-        card.style.transform = 'translateX(' + x + 'px) scale(' + scale + ')';
-        card.style.opacity = opacity;
-        card.style.zIndex = 100 - abs;
-        card.style.pointerEvents = abs > 3 ? 'none' : 'auto';
-        card.classList.toggle('is-active', offset === 0);
+      const filtered = luminaries.filter(item => {
+        const matchesCat = filterCat === "all" || item.category === filterCat;
+        const matchesSearch = !q ||
+          item.nameEn.toLowerCase().includes(q) ||
+          item.nameMr.includes(q) ||
+          item.tagEn.toLowerCase().includes(q) ||
+          item.tagMr.includes(q);
+        return matchesCat && matchesSearch;
       });
-      dots.forEach((d, i) => d.classList.toggle('is-active', i === active));
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:60px 20px; font-size:18px; opacity:0.7;">No matching leaders found.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <article class="leader-card reveal" data-id="${item.id}">
+          <div class="card-frame">
+            ${item.portrait
+              ? `<img src="${item.portrait}" alt="${item.nameEn} portrait" loading="lazy" data-zoomable>`
+              : `<div class="pending-badge">
+                   <h3>${isMr ? item.nameMr : item.nameEn}</h3>
+                   <span class="pending-pill">${isMr ? 'चित्र प्रतिक्षेत' : 'Portrait in progress'}</span>
+                 </div>`
+            }
+          </div>
+          <div class="card-body">
+            <span class="card-eyebrow">${item.period}</span>
+            <h3 class="card-title">${isMr ? item.nameMr : item.nameEn}</h3>
+            <div class="card-title-sub">${isMr ? item.nameEn : item.nameMr}</div>
+            <p class="card-quote">"${isMr ? item.quoteMr : item.quoteEn}"</p>
+            <div class="card-footer">
+              <button type="button" class="card-read-btn" onclick="openBioModal('${item.id}')">
+                <span>${isMr ? 'सविस्तर चरित्र वाचा' : 'Read Full Biography'}</span> &rarr;
+              </button>
+              ${item.detailUrl ? `<a href="${item.detailUrl}" style="font-size:11px; font-family:'Space Mono', monospace; color:var(--brick); text-decoration:underline;">${isMr ? 'स्वतंत्र पान' : 'Dedicated Page'}</a>` : ''}
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      // Re-trigger scroll reveal
+      const reveals = grid.querySelectorAll('.reveal');
+      reveals.forEach(r => r.classList.add('in'));
     }
 
-    function go(delta){ active = (active + delta + N) % N; render(); }
-    document.getElementById('mpPrev').addEventListener('click', () => go(-1));
-    document.getElementById('mpNext').addEventListener('click', () => go(1));
+    // Modal Controller
+    function openBioModal(id) {
+      const item = luminaries.find(l => l.id === id);
+      if (!item) return;
+      const isMr = document.body.classList.contains('lang-mr');
+      const modal = document.getElementById('bioModal');
+      const content = document.getElementById('bioModalContent');
 
-    cards.forEach((card, i) => {
-      card.addEventListener('click', (e) => {
-        let offset = i - active;
-        if(offset > N/2) offset -= N;
-        if(offset < -N/2) offset += N;
-        if(offset !== 0){ e.preventDefault(); active = i; render(); }
-      });
-    });
+      content.innerHTML = `
+        <div class="bio-modal-side">
+          <div class="bio-modal-portrait">
+            ${item.portrait 
+              ? `<img src="${item.portrait}" alt="${item.nameEn}">`
+              : `<div style="height:100%; display:flex; align-items:center; justify-content:center; padding:12px; font-size:13px; color:var(--gold-soft);">${item.nameEn}</div>`
+            }
+          </div>
+          <h2 class="bio-modal-name">${isMr ? item.nameMr : item.nameEn}</h2>
+          <span class="bio-modal-tag">${item.period}</span>
+          <p style="font-size:13px; opacity:0.85; line-height:1.5; margin:0 0 16px;">${isMr ? item.tagMr : item.tagEn}</p>
+          
+          <button type="button" class="bio-modal-audio-btn" id="bioNarrateBtn" onclick="toggleBioNarration('${item.id}')">
+            <span>🔊</span>
+            <span>${isMr ? 'चरित्र ऐका (मराठी)' : 'Listen Narration'}</span>
+          </button>
+        </div>
 
-    let startX = null;
-    const viewport = track.parentElement;
-    viewport.addEventListener('pointerdown', (e) => { startX = e.clientX; });
-    viewport.addEventListener('pointerup', (e) => {
-      if(startX === null) return;
-      const dx = e.clientX - startX;
-      if(Math.abs(dx) > 40) go(dx > 0 ? -1 : 1);
-      startX = null;
-    });
+        <div class="bio-modal-main">
+          <div class="eyebrow" style="margin-bottom:8px;">${isMr ? 'जीवन व विचार' : 'Life & Legacy'}</div>
+          <h3>${isMr ? item.nameMr : item.nameEn}</h3>
+          
+          <p>${isMr ? item.bioMr : item.bioEn}</p>
 
-    window.addEventListener('resize', render);
-    render();
-  })();
+          <div class="bio-modal-quote">
+            "${isMr ? item.quoteMr : item.quoteEn}"
+          </div>
 
-  // language toggle
-  const langButtons = document.querySelectorAll('.lang-toggle button');
-  langButtons.forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      langButtons.forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
-      btn.classList.add('active');
-      btn.setAttribute('aria-pressed','true');
-      const isMr = btn.dataset.lang === 'mr';
-      document.body.classList.toggle('lang-mr', isMr);
-      document.documentElement.lang = isMr ? 'mr' : 'en';
-    });
-  });
-  // mobile hamburger menu
-  (function(){
-    const btn = document.getElementById('hamburgerBtn');
-    const menu = document.getElementById('mobileMenu');
-    const closeBtn = document.getElementById('mobileMenuClose');
-    if(!btn || !menu) return;
-    function openMenu(){
-      menu.classList.add('is-open');
-      btn.classList.add('is-open');
-      btn.setAttribute('aria-expanded','true');
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:32px; padding-top:16px; border-top:1px solid var(--line);">
+            <span style="font-family:'Space Mono', monospace; font-size:11px; color:var(--teal);">Prerna Sthal Dome Corridor</span>
+            ${item.detailUrl ? `<a href="${item.detailUrl}" class="visit-pill" style="font-size:11px; padding:6px 14px;">${isMr ? 'स्वतंत्र पानावर जा' : 'Open Dedicated Page →'}</a>` : ''}
+          </div>
+        </div>
+      `;
+
+      modal.classList.add('is-open');
       document.body.style.overflow = 'hidden';
     }
-    function closeMenu(){
-      menu.classList.remove('is-open');
-      btn.classList.remove('is-open');
-      btn.setAttribute('aria-expanded','false');
+
+    function closeBioModal() {
+      const modal = document.getElementById('bioModal');
+      modal.classList.remove('is-open');
       document.body.style.overflow = '';
+      if (window.PrernaSthal) window.PrernaSthal.stopSpeaking();
     }
-    btn.addEventListener('click', () => { menu.classList.contains('is-open') ? closeMenu() : openMenu(); });
-    if(closeBtn) closeBtn.addEventListener('click', closeMenu);
-    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-  })();
-</script>
+
+    let isSpeakingBio = false;
+    function toggleBioNarration(id) {
+      const item = luminaries.find(l => l.id === id);
+      if (!item) return;
+      const isMr = document.body.classList.contains('lang-mr');
+      const text = isMr ? `${item.nameMr}. ${item.tagMr}. ${item.bioMr}` : `${item.nameEn}. ${item.tagEn}. ${item.bioEn}`;
+
+      if (isSpeakingBio) {
+        window.PrernaSthal.stopSpeaking();
+        isSpeakingBio = false;
+        document.getElementById('bioNarrateBtn').innerHTML = `<span>🔊</span><span>${isMr ? 'चरित्र ऐका (मराठी)' : 'Listen Narration'}</span>`;
+      } else {
+        const started = window.PrernaSthal.speakText(text, isMr ? 'mr-IN' : 'en-US');
+        if (started) {
+          isSpeakingBio = true;
+          document.getElementById('bioNarrateBtn').innerHTML = `<span>⏹</span><span>${isMr ? 'थांबवा' : 'Stop Audio'}</span>`;
+        }
+      }
+    }
+
+    document.getElementById('bioModalClose').addEventListener('click', closeBioModal);
+    document.getElementById('bioModal').addEventListener('click', (e) => {
+      if (e.target.id === 'bioModal') closeBioModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeBioModal();
+    });
+
+    // Filtering & Searching listeners
+    let currentCategory = "all";
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = btn.dataset.category;
+        renderLeaderGrid(currentCategory, searchInput.value);
+      });
+    });
+
+    const searchInput = document.getElementById('leaderSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        renderLeaderGrid(currentCategory, e.target.value);
+      });
+    }
+
+    window.addEventListener('ps:langchange', () => {
+      renderLeaderGrid(currentCategory, searchInput ? searchInput.value : "");
+    });
+
+    renderLeaderGrid();
+  </script>
 </body>
 </html>

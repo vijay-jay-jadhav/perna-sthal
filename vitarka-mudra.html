@@ -3,298 +3,483 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vitarka Mudra · Prerna Sthal Corridor</title>
+<title>Vitarka Mudra · Gesture of Teaching &amp; Dialectic Wisdom · Prerna Sthal</title>
+<meta name="description" content="Discover the meaning, symbolism, and meditation practice of the Vitarka Hasta Mudra bronze relief sculpture at Prerna Sthal.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+
 <style>
-  :root{
-    --ink:       #17231f;
-    --teal:      #0f4a44;
-    --teal-deep: #0a2f2b;
-    --maroon:    #56374d;
-    --gold:      #c79a4a;
-    --gold-soft: #dcc189;
-    --brick:     #96552f;
-    --parchment: #f1e7d6;
-    --paper:     #faf5ea;
-    --line:      rgba(23,35,31,0.14);
-    --line-onlight: rgba(250,245,234,0.28);
+  .corridor-progress {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 99;
+    background: rgba(23,35,31,0.08);
   }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{margin:0; background:var(--parchment); color:var(--ink); font-family:'Work Sans', sans-serif; font-size:16px; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
-  img{max-width:100%;display:block;}
-  h1,h2,h3,h4{font-family:'Fraunces', serif; font-weight:500; margin:0; line-height:1.08;}
-  a{color:inherit;}
-  .wrap{max-width:1180px; margin:0 auto; padding:0 6vw;}
-  .mr{font-family:'Baloo 2', sans-serif;}
-
-  .skip-link{position:absolute; left:12px; top:-60px; z-index:100; background:var(--teal-deep); color:var(--paper); padding:12px 18px; border-radius:4px; font-family:'Space Mono', monospace; font-size:13px; text-decoration:none; transition:top 0.2s ease;}
-  .skip-link:focus{top:12px;}
-  a:focus-visible, button:focus-visible{outline:2px solid var(--gold); outline-offset:3px; border-radius:2px;}
-  button{font-family:inherit; touch-action:manipulation;}
-
-  .eyebrow{font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--brick);}
-  .eyebrow.on-dark{color:var(--gold-soft);}
-  .center{text-align:center;}
-
-  .reveal{opacity:0; transform:translateY(24px); transition:opacity 0.8s cubic-bezier(.16,.8,.28,1), transform 0.8s cubic-bezier(.16,.8,.28,1);}
-  .reveal.in{opacity:1; transform:translateY(0);}
-  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} html{scroll-behavior:auto;} }
-
-  .site-nav{position:fixed; top:0; left:0; right:0; z-index:50; background:var(--paper); border-bottom:1px solid var(--line); box-shadow:0 8px 24px -18px rgba(23,35,31,0.35);}
-  .nav-top{position:relative; display:flex; align-items:center; justify-content:center; height:76px; padding:0 6vw;}
-  .logo-link{display:flex; align-items:center;}
-  .logo-img{height:44px; width:auto; display:block;}
-  .nav-lang-wrap{position:absolute; right:6vw; top:50%; transform:translateY(-50%);}
-  .nav-links-row{display:flex; align-items:center; justify-content:center; gap:38px; height:48px; border-top:1px solid var(--line); font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700;}
-  .nav-links-row a{
-    position:relative; overflow:hidden; z-index:1;
-    text-decoration:none; color:var(--ink); opacity:0.85;
-    padding:8px 16px; min-height:36px; border-radius:999px;
-    display:flex; align-items:center;
-    transition:color 0.3s ease;
+  .corridor-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+    transition: width 0.05s linear;
   }
-  .nav-links-row a::before{
-    content:""; position:absolute; left:50%; bottom:0; z-index:-1;
-    width:140%; height:220%; border-radius:50%; background:var(--teal);
-    transform:translate(-50%, 100%); transition:transform 0.45s cubic-bezier(.55,0,.1,1);
+
+  .mudra-header {
+    margin-top: 72px;
+    background: var(--teal-deep);
+    color: var(--paper);
+    padding: var(--sp-8) 0 var(--sp-7);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
   }
-  .nav-links-row a:hover, .nav-links-row a:focus-visible{color:var(--paper); opacity:1;}
-  .nav-links-row a:hover::before, .nav-links-row a:focus-visible::before{transform:translate(-50%, -8%);}
-  .nav-links-row a.is-current{color:var(--teal); opacity:1; font-weight:800;}
-
-  .hamburger{
-    display:none;
-    position:absolute; left:6vw; top:50%; transform:translateY(-50%);
-    flex-direction:column; justify-content:center; align-items:center; gap:5px;
-    width:38px; height:38px; border:0; background:transparent; cursor:pointer; padding:0;
-    touch-action:manipulation; z-index:2;
+  .mudra-image-frame {
+    max-width: 360px;
+    margin: var(--sp-4) auto 0;
+    background: radial-gradient(circle at 40% 40%, #154540, #092824);
+    border: 1px solid rgba(220,193,137,0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 32px;
+    box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6);
   }
-  .hamburger span{display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; transition:transform 0.3s ease, opacity 0.3s ease;}
-  .hamburger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-  .hamburger.is-open span:nth-child(2){opacity:0;}
-  .hamburger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-
-  .mobile-menu{
-    position:fixed; top:0; left:0; right:0; bottom:0; z-index:200;
-    background:var(--paper);
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;
-    opacity:0; visibility:hidden; pointer-events:none;
-    transition:opacity 0.3s ease;
+  .mudra-image-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+    cursor: zoom-in;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+    transition: transform 0.4s ease;
   }
-  .mobile-menu.is-open{opacity:1; visibility:visible; pointer-events:auto;}
-  .mobile-menu a{
-    font-family:'Space Mono', monospace; font-size:20px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700;
-    color:var(--ink); opacity:0.8; text-decoration:none; padding:10px 20px;
+  .mudra-image-frame:hover img {
+    transform: scale(1.03);
   }
-  .mobile-menu a:hover, .mobile-menu a.is-current{color:var(--teal); opacity:1;}
-  .mobile-menu-close{
-    position:absolute; top:24px; right:6vw;
-    width:38px; height:38px; border:0; background:transparent; cursor:pointer;
+
+  .mudra-name-mr {
+    font-size: clamp(36px, 5vw, 60px);
+    color: var(--paper);
+    margin-top: 28px;
   }
-  .mobile-menu-close span{display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; position:absolute; top:50%; left:50%;}
-  .mobile-menu-close span:first-child{transform:translate(-50%,-50%) rotate(45deg);}
-  .mobile-menu-close span:last-child{transform:translate(-50%,-50%) rotate(-45deg);}
-
-  @media (max-width:860px){
-    .hamburger{display:flex;}
+  .mudra-name-en {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-top: 14px;
   }
-  .lang-toggle{display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.06em;}
-  .lang-toggle button{border:0; background:transparent; padding:13px 16px; min-height:44px; cursor:pointer; color:var(--ink); opacity:0.55; font-family:inherit; font-size:inherit; transition:background 0.2s ease, color 0.2s ease, opacity 0.2s ease;}
-  .lang-toggle button.active{background:var(--teal); color:var(--paper); opacity:1;}
-
-  .corridor-progress{position:fixed; top:124px; left:0; right:0; height:2px; z-index:49; background:rgba(23,35,31,0.08);}
-  .corridor-progress-fill{height:100%; width:0%; background:var(--gold); transition:width 0.05s linear;}
-
-  body.lang-mr .en{display:none;}
-  .mr-block{display:none;}
-  body.lang-mr .mr-block{display:block;}
-
-  /* ================= HEADER: image, then name ================= */
-  .mudra-header{margin-top:124px; background:var(--teal-deep); color:var(--paper); padding:80px 0 80px; text-align:center;}
-  .mudra-image-frame{
-    max-width:380px; margin:0 auto; background:var(--paper);
-    border:1px solid rgba(220,193,137,0.3); overflow:hidden; padding:36px;
-    box-shadow:0 40px 80px -30px rgba(0,0,0,0.5), inset 0 0 0 8px var(--parchment);
+  .mudra-desc {
+    max-width: 680px;
+    margin: 24px auto 0;
+    font-size: 16.5px;
+    line-height: 1.8;
+    color: var(--parchment);
+    opacity: 0.92;
   }
-  .mudra-image-frame img{width:100%; height:auto; display:block; will-change:transform;}
-  .mudra-name-mr{font-size:clamp(38px,5.6vw,66px); color:var(--paper); margin-top:38px;}
-  .mudra-name-en{font-family:'Space Mono', monospace; font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold-soft); margin-top:16px;}
-  .mudra-desc{max-width:54ch; margin:26px auto 0; font-size:16px; line-height:1.7; opacity:0.82;}
 
-  /* ================= MEANING (centered) ================= */
-  .meaning{padding:90px 0 40px; text-align:center;}
-  .meaning h2{font-size:clamp(26px,2.8vw,36px); margin-top:14px;}
-  .meaning-body{max-width:68ch; margin:46px auto 0; text-align:left;}
-  .meaning-body p{font-size:17px; line-height:1.85; opacity:0.88;}
-  .meaning-body p + p{margin-top:20px;}
-  .meaning-body.mr-block p{font-size:18px; line-height:2;}
+  /* Audio player pill */
+  .audio-narration-bar {
+    max-width: 580px;
+    margin: 32px auto 0;
+    background: rgba(250, 245, 234, 0.08);
+    border: 1px solid var(--line-ongold);
+    border-radius: 999px;
+    padding: 8px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .audio-play-pill {
+    background: var(--gold);
+    color: var(--teal-deep);
+    border: 0;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+  .audio-play-pill:hover { background: var(--paper); }
 
-  .gallery-nav{border-top:1px solid var(--line); padding:44px 0; margin-top:70px; display:flex; align-items:center; justify-content:space-between; font-family:'Space Mono', monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;}
-  .gallery-nav a{text-decoration:none; opacity:0.7; display:flex; align-items:center; gap:10px; padding:12px 6px; min-height:44px;}
-  .gallery-nav a:hover{opacity:1;}
-  .gallery-nav .center-link{color:var(--teal); opacity:1; font-weight:700;}
+  /* Meaning & Meditation Section */
+  .meaning {
+    padding: var(--sp-8) 0;
+    background: var(--parchment);
+  }
+  .meaning-body {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .meaning-body p {
+    font-size: 17.5px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .meaning-body.mr-block p {
+    font-size: 18.5px;
+    line-height: 2;
+  }
 
-  .visit{background:var(--teal-deep); color:var(--paper); padding:90px 0 44px;}
-  .footer-bottom{margin-top:60px; padding-top:26px; border-top:1px solid var(--line-onlight); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
-  .footer-fine{font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-soft); opacity:0.8;}
+  /* Symbolism Cards */
+  .symbol-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 980px;
+    margin: var(--sp-6) auto 0;
+  }
+  .symbol-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+  }
+  .symbol-icon {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .symbol-card h4 {
+    font-size: 17px;
+    color: var(--teal-deep);
+    margin-bottom: 8px;
+  }
+  .symbol-card p {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0;
+  }
 
-  @media (max-width:860px){ .nav-links-row{display:none;} }
-  @media (max-width:600px){ .gallery-nav{flex-wrap:wrap; gap:14px; justify-content:center;} }
+  /* Interactive Breathing Guide */
+  .breathing-box {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: var(--sp-6);
+    max-width: 760px;
+    margin: var(--sp-7) auto 0;
+    text-align: center;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.06);
+  }
+  .breath-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--gold-soft), var(--teal));
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--paper);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    transition: transform 4s ease-in-out;
+  }
+  .breath-circle.inhale { transform: scale(1.35); }
+  .breath-circle.hold { transform: scale(1.35); filter: brightness(1.2); }
+  .breath-circle.exhale { transform: scale(0.9); }
+
+  .gallery-nav {
+    border-top: 1px solid var(--line);
+    padding: 36px 0;
+    margin-top: var(--sp-6);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .gallery-nav a {
+    text-decoration: none;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: all 0.2s ease;
+  }
+  .gallery-nav a:hover {
+    opacity: 1;
+    background: var(--paper);
+    color: var(--teal);
+  }
+  .gallery-nav .center-link {
+    color: var(--teal);
+    opacity: 1;
+    font-weight: 700;
+    background: var(--paper);
+    border: 1px solid var(--line);
+  }
+
+  @media (max-width: 860px) {
+    .symbol-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <nav class="site-nav">
+  <!-- ================= TOP NAVIGATION ================= -->
+  <nav class="site-nav" aria-label="Main Navigation">
     <div class="nav-top">
-      <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-      <a href="index.html" class="logo-link"><img src="images/logo.png" class="logo-img" alt="Prerna Sthal"></a>
-      <div class="nav-lang-wrap">
+      <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      
+      <div class="nav-brand">
+        <a href="index.html" class="logo-link">
+          <img src="images/logo.png" class="logo-img" alt="Prerna Sthal Logo">
+        </a>
+        <div class="brand-text">
+          <span class="brand-title">Prerna Sthal</span>
+          <span class="brand-sub">Nakshatra Garden · Baramati</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button type="button" class="audio-nav-btn" aria-label="Toggle meditation chimes" title="Play Sanctuary Chimes">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </button>
+
         <div class="lang-toggle" role="group" aria-label="Choose language">
           <button type="button" class="active" data-lang="en" aria-pressed="true">EN</button>
           <button type="button" data-lang="mr" aria-pressed="false">मराठी</button>
         </div>
+
+        <a href="contact.html" class="visit-pill en">Visit</a>
+        <a href="contact.html" class="visit-pill mr-inline mr">भेट द्या</a>
       </div>
     </div>
+
     <div class="nav-links-row">
-      <a href="mahapurush.html">Mahapurush</a>
-      <a href="mudras.html">Hasta Mudra</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html" class="en">Home</a>
+      <a href="index.html" class="mr-inline mr">मुख्यपृष्ठ</a>
+      <a href="mahapurush.html" class="en">Mahapurush Gallery</a>
+      <a href="mahapurush.html" class="mr-inline mr">महापुरुष गॅलरी</a>
+      <a href="mudras.html" class="is-current en">Hasta Mudras</a>
+      <a href="mudras.html" class="is-current mr-inline mr">हस्तमुद्रा</a>
+      <a href="index.html#garden" class="en">Nakshatra Garden</a>
+      <a href="index.html#garden" class="mr-inline mr">नक्षत्र उद्यान</a>
+      <a href="contact.html" class="en">Contact &amp; Visit</a>
+      <a href="contact.html" class="mr-inline mr">संपर्क व भेट</a>
     </div>
   </nav>
-  <div class="mobile-menu" id="mobileMenu">
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true">
     <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu"><span></span><span></span></button>
-    <a href="mahapurush.html" class="en">Mahapurush</a>
-    <a href="mahapurush.html" class="mr-block mr">महापुरुष</a>
-    <a href="mudras.html" class="en">Hasta Mudra</a>
-    <a href="mudras.html" class="mr-block mr">हस्तमुद्रा</a>
-    <a href="contact.html" class="en">Contact</a>
-    <a href="contact.html" class="mr-block mr">संपर्क</a>
+    <a href="index.html" class="en">Home</a>
+    <a href="index.html" class="mr-block mr">मुख्यपृष्ठ</a>
+    <a href="mahapurush.html" class="en">Mahapurush Gallery</a>
+    <a href="mahapurush.html" class="mr-block mr">महापुरुष गॅलरी</a>
+    <a href="mudras.html" class="en is-current">Hasta Mudras</a>
+    <a href="mudras.html" class="mr-block mr is-current">हस्तमुद्रा</a>
+    <a href="index.html#garden" class="en">Nakshatra Garden</a>
+    <a href="index.html#garden" class="mr-block mr">नक्षत्र उद्यान</a>
+    <a href="contact.html" class="en">Contact &amp; Visit</a>
+    <a href="contact.html" class="mr-block mr">संपर्क व भेट</a>
   </div>
+
   <div class="corridor-progress"><div class="corridor-progress-fill" id="corridorFill"></div></div>
 
-  <!-- ================= HEADER: image, then name ================= -->
+  <!-- Header -->
   <header class="mudra-header">
     <div class="wrap">
-      <div class="eyebrow on-dark center reveal">The Corridor · Hasta Mudra</div>
+      <div class="eyebrow on-dark center reveal"><span class="en">The Dome Corridor · Hasta Mudra #06</span><span class="mr-inline mr">घुमट प्रदक्षिणा मार्ग · हस्तमुद्रा #०६</span></div>
+      
       <div class="mudra-image-frame reveal" id="mudraFrame">
-        <img src="images/mudras/vitarka-mudra.png" width="1080" height="1080" id="mudraImg" alt="Bronze relief sculpture of a hand showing the Vitarka Mudra, mounted on a leaf-shaped plaque">
+        <img src="images/mudras/vitarka-mudra.png" width="1080" height="1080" id="mudraImg" alt="Bronze relief sculpture of Vitarka Mudra mounted on leaf-shaped plaque" data-zoomable>
       </div>
 
       <h1 class="mudra-name-mr reveal mr">वितर्क मुद्रा</h1>
-      <div class="mudra-name-en reveal">Vitarka Mudra &nbsp;·&nbsp; Vyakhyana Mudra &nbsp;·&nbsp; The Teaching Gesture</div>
+      <div class="mudra-name-en reveal">Vitarka Mudra &nbsp;·&nbsp; Vyakhyana Mudra &nbsp;·&nbsp; The Gesture of Teaching &amp; Inquiry</div>
 
-      <p class="mudra-desc reveal en">The gesture of teaching, intellectual argument, and debate, formed when the thumb touches the index finger to complete a circle of understanding, while the other fingers remain outstretched.</p>
-      <p class="mudra-desc reveal mr-block mr">उपदेश, वैचारिक चर्चा आणि वादचर्चेचा निर्देश करणारी ही मुद्रा, अंगठा आणि तर्जनी यांचा स्पर्श होऊन वर्तुळाकार तयार होते, तर बाकीची बोटे सरळ राहतात.</p>
+      <p class="mudra-desc reveal en">The sacred gesture of dialectic debate, instruction, and reasoning, formed when the tip of the thumb joins the index finger into a circle of understanding while the remaining fingers point skyward.</p>
+      <p class="mudra-desc reveal mr-block mr">उपदेश, वैचारिक चर्चा आणि संवाद दर्शवणारी ही मुद्रा, अंगठा आणि तर्जनी यांच्या स्पर्शातून वर्तुळाकार तयार करते, तर बाकीची तीन बोटे सरळ राहतात.</p>
+
+      <!-- Audio Narration -->
+      <div class="audio-narration-bar reveal">
+        <span style="font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.06em;">
+          <span class="en">Audio Explanation</span><span class="mr-inline mr">श्राव्य माहिती</span>
+        </span>
+        <button type="button" class="audio-play-pill" id="mudraNarrationBtn" onclick="toggleMudraSpeech()">
+          <span id="mudraAudioIcon">▶</span>
+          <span class="en">Listen Meaning</span>
+          <span class="mr-inline mr">अर्थ ऐका</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- ================= MEANING ================= -->
+  <!-- Meaning Body -->
   <section class="meaning" id="main">
     <div class="wrap">
-      <div class="eyebrow center reveal">Meaning</div>
-      <h2 class="reveal en">What it represents</h2>
-      <h2 class="reveal mr-block mr">अर्थ काय आहे</h2>
+      <div class="section-head reveal">
+        <div class="eyebrow center"><span class="en">Philosophy</span><span class="mr-inline mr">तत्त्वज्ञान</span></div>
+        <h2 class="en">What Vitarka Mudra Represents</h2>
+        <h2 class="mr-block mr">वितर्क मुद्रेचा सखोल अर्थ</h2>
+      </div>
 
       <div class="meaning-body reveal en">
-        <p>This gesture indicates teaching, intellectual argument, and debate. The thumb touching the index finger completes a circle of understanding, while the other fingers remain outstretched. This circle represents the teaching and learning cycle, emphasizing that knowledge is a continuous process that evolves through discussion and intellectual engagement.</p>
-        <p>The extended fingers are also symbolic. The three extended fingers represent the three jewels of Buddhism, the Buddha, the Dharma (teachings), and the Sangha (community). This supports the idea that the mudra is about the dissemination of knowledge and the interconnection between the teacher, the teachings, and the community of practitioners.</p>
-      </div>
-      <div class="meaning-body reveal mr-block mr">
-        <p>या मुद्रेने उपदेश, वैचारिक चर्चा आणि वादचर्चेचा निर्देश होतो. अंगठा आणि तर्जनी यांचा स्पर्श होऊन वर्तुळाकार तयार होतो. शिकणे आणि शिकवणे मिळून चर्चा आणि संवादाच्या माध्यमातून ज्ञानाचे चक्र अविरत चालते असा याचा प्रतीकात्मक अर्थ अभिप्रेत असतो.</p>
-        <p>या मुद्रेतील तीन उभी बोटेदेखील बुद्ध, धम्म आणि संघ यांचा निर्देश प्रतीकात्मकरीत्या करतात. शिक्षक, शिकवण आणि साधकांच्या समुदायातील आंतरिक संबंध या मुद्रेतून दर्शविले जातात.</p>
+        <p>This gesture indicates teaching, intellectual argument, and debate. The thumb touching the index finger completes a circle of understanding, while the other fingers remain outstretched. This circle represents the teaching and learning cycle, emphasizing that true knowledge is an ongoing, evolving dialogue rather than static dogma.</p>
+        <p>The three extended fingers are deeply symbolic in Buddhist and Vedic thought. They represent the <strong>Three Jewels (Triratna)</strong>: the Buddha (the enlightened teacher), the Dharma (the timeless teachings), and the Sangha (the community of earnest seekers). Together, they anchor the flow of wisdom from teacher to seeker.</p>
       </div>
 
-      <div class="wrap" style="padding:0;">
-        <div class="gallery-nav">
-          <a href="mudras.html">&larr; <span class="en">Previous</span><span class="mr-block mr">मागील</span></a>
-          <a href="mudras.html" class="center-link"><span class="en">All Hasta Mudras</span><span class="mr-block mr">सर्व हस्तमुद्रा</span></a>
-          <a href="mudras.html"><span class="en">Next</span><span class="mr-block mr">पुढील</span> &rarr;</a>
+      <div class="meaning-body reveal mr-block mr">
+        <p>या मुद्रेने उपदेश, वैचारिक चर्चा आणि सत्यशोधक वादचर्चेचा निर्देश होतो. अंगठा आणि तर्जनीचा स्पर्श होऊन ज्ञानाचे अखंड वर्तुळ तयार होते. शिकणे आणि शिकवणे मिळून संवादाच्या माध्यमातून ज्ञानाचे चक्र अविरत चालते असा याचा प्रतीकात्मक अर्थ आहे.</p>
+        <p>या मुद्रेतील तीन उभी बोटे <strong>'बुद्ध, धम्म आणि संघ'</strong> या त्रिरत्नांचा निर्देश करतात. शिक्षक, शिकवण आणि साधकांच्या समुदायातील आंतरिक सुसंवाद या मुद्रेतून व्यक्त होतो.</p>
+      </div>
+
+      <!-- Symbolism Cards -->
+      <div class="symbol-grid reveal">
+        <div class="symbol-card">
+          <div class="symbol-icon">◯</div>
+          <h4 class="en">The Circle of Wisdom</h4>
+          <h4 class="mr-block mr">ज्ञानाचे वर्तुळ</h4>
+          <p class="en">Thumb and index finger touching symbolizes perfection, continuity, and the cyclical nature of inquiry and insight.</p>
+          <p class="mr-block mr">अंगठा व तर्जनीचा स्पर्श ज्ञानाची अखंडता आणि परिपूर्णतेचे प्रतीक आहे.</p>
+        </div>
+
+        <div class="symbol-card">
+          <div class="symbol-icon">|||</div>
+          <h4 class="en">The Three Jewels</h4>
+          <h4 class="mr-block mr">त्रिरत्न प्रतीक</h4>
+          <p class="en">The three raised fingers represent Buddha (Teacher), Dharma (Path), and Sangha (Community).</p>
+          <p class="mr-block mr">तीन उभी बोटे बुद्ध, धम्म व संघ यांच्या एकतेचे प्रतीक आहेत.</p>
+        </div>
+
+        <div class="symbol-card">
+          <div class="symbol-icon">✦</div>
+          <h4 class="en">Mental Clarity</h4>
+          <h4 class="mr-block mr">मानसिक एकाग्रता</h4>
+          <p class="en">Stimulates cerebral energy pathways, clearing brain fog and enhancing articulate communication.</p>
+          <p class="mr-block mr">मेंदूची विचारशक्ती आणि संवादातील स्पष्टता वाढवण्यासाठी ही मुद्रा अत्यंत उपयुक्त ठरते.</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="visit">
-    <div class="wrap">
-      <div class="eyebrow on-dark reveal">Prerna Sthal</div>
-      <p class="reveal" style="max-width:52ch; margin-top:16px; opacity:0.85; font-size:15px;">Nakshatra Garden, Vidya Pratishthan, Baramati.</p>
-      <div class="footer-bottom">
-        <span class="footer-fine">Prerna Sthal · Nakshatra Garden · Vidya Pratishthan, Baramati</span>
-        <a href="contact.html" class="footer-fine" style="text-decoration:underline;">Get in touch →</a>
+      <!-- Interactive Breathing Meditation Box -->
+      <div class="breathing-box reveal">
+        <div class="eyebrow center" style="margin-bottom:8px;"><span class="en">Mindful Practice</span><span class="mr-inline mr">सजग ध्यानाभ्यास</span></div>
+        <h3 class="en" style="font-size:22px; color:var(--teal-deep);">4-4-4 Contemplative Breathing Loop</h3>
+        <h3 class="mr-block mr" style="font-size:22px; color:var(--teal-deep);">४-४-४ लयबद्ध श्वासोच्छ्वास सराव</h3>
+        <p style="font-size:14px; opacity:0.85; max-width:520px; margin:8px auto 0;">
+          <span class="en">Hold your hands in Vitarka Mudra and follow the pulsing sphere.</span>
+          <span class="mr-block mr">हात वितर्क मुद्रेत ठेवून वर्तुळाच्या लयीनुसार श्वास घ्या व सोडा.</span>
+        </p>
+
+        <div class="breath-circle" id="breathCircle">Inhale</div>
+        <div id="breathLabel" style="font-family:'Space Mono', monospace; font-size:11.5px; color:var(--teal); font-weight:700;">Inhale (4s)</div>
+      </div>
+
+      <div class="gallery-nav">
+        <a href="mudras.html">&larr; <span class="en">Previous (Kaarana Mudra)</span><span class="mr-inline mr">मागील (कारण मुद्रा)</span></a>
+        <a href="mudras.html" class="center-link"><span class="en">All 10 Hasta Mudras</span><span class="mr-inline mr">सर्व १० हस्तमुद्रा</span></a>
+        <a href="mudras.html"><span class="en">Next (Vajra Mudra)</span><span class="mr-inline mr">पुढील (वज्र मुद्रा)</span> &rarr;</a>
       </div>
     </div>
   </section>
 
-<script>
-  const els = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {threshold:0.15});
-  els.forEach(el=>io.observe(el));
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-bottom" style="border:0; padding:0;">
+        <span class="footer-fine">Prerna Sthal · Nakshatra Garden · Vidya Pratishthan, Baramati</span>
+        <a href="contact.html" class="footer-fine" style="text-decoration:underline;">Plan Your Visit →</a>
+      </div>
+    </div>
+  </footer>
 
-  const buttons = document.querySelectorAll('.lang-toggle button');
-  buttons.forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      buttons.forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
-      btn.classList.add('active');
-      btn.setAttribute('aria-pressed','true');
-      const isMr = btn.dataset.lang === 'mr';
-      document.body.classList.toggle('lang-mr', isMr);
-      document.documentElement.lang = isMr ? 'mr' : 'en';
-    });
-  });
+  <script src="shared.js"></script>
+  <script>
+    // Scroll progress
+    const fill = document.getElementById('corridorFill');
+    const mudraImg = document.getElementById('mudraImg');
+    const mudraFrame = document.getElementById('mudraFrame');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let ticking = false;
 
-  const fill = document.getElementById('corridorFill');
-  const mudraImg = document.getElementById('mudraImg');
-  const mudraFrame = document.getElementById('mudraFrame');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let ticking = false;
-  function onScroll(){
-    if(ticking) return;
-    ticking = true;
-    requestAnimationFrame(()=>{
-      const doc = document.documentElement;
-      const scrollable = doc.scrollHeight - window.innerHeight;
-      const y = window.scrollY;
-      if(fill && scrollable > 0) fill.style.width = Math.min(100, (y/scrollable)*100) + '%';
-      if(!reduceMotion && mudraImg && mudraFrame){
-        const rect = mudraFrame.getBoundingClientRect();
-        const vh = window.innerHeight;
-        const p = Math.max(0, Math.min(1, 1 - (rect.top / vh)));
-        mudraImg.style.transform = 'scale(' + (1 + p*0.04) + ')';
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const doc = document.documentElement;
+        const scrollable = doc.scrollHeight - window.innerHeight;
+        const y = window.scrollY;
+        if (fill && scrollable > 0) fill.style.width = Math.min(100, (y / scrollable) * 100) + '%';
+        if (!reduceMotion && mudraImg && mudraFrame) {
+          const rect = mudraFrame.getBoundingClientRect();
+          const vh = window.innerHeight;
+          const p = Math.max(0, Math.min(1, 1 - (rect.top / vh)));
+          mudraImg.style.transform = 'scale(' + (1 + p * 0.04) + ')';
+        }
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Breathing Loop Controller
+    (function initBreathing() {
+      const circle = document.getElementById('breathCircle');
+      const label = document.getElementById('breathLabel');
+      if (!circle || !label) return;
+
+      const phases = [
+        { textEn: 'Inhale (4s)', textMr: 'श्वास आत घ्या (४ सेकंद)', cls: 'inhale', duration: 4000 },
+        { textEn: 'Hold (4s)', textMr: 'श्वास रोखा (४ सेकंद)', cls: 'hold', duration: 4000 },
+        { textEn: 'Exhale (4s)', textMr: 'श्वास हळूच सोडा (४ सेकंद)', cls: 'exhale', duration: 4000 }
+      ];
+      let step = 0;
+
+      function tick() {
+        const isMr = document.body.classList.contains('lang-mr');
+        const curr = phases[step];
+        circle.className = 'breath-circle ' + curr.cls;
+        circle.textContent = isMr ? (step === 0 ? 'श्वास' : (step === 1 ? 'रोखा' : 'सोडा')) : (step === 0 ? 'Inhale' : (step === 1 ? 'Hold' : 'Exhale'));
+        label.textContent = isMr ? curr.textMr : curr.textEn;
+        step = (step + 1) % phases.length;
+        setTimeout(tick, curr.duration);
       }
-      ticking = false;
-    });
-  }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
-  // mobile hamburger menu
-  (function(){
-    const btn = document.getElementById('hamburgerBtn');
-    const menu = document.getElementById('mobileMenu');
-    const closeBtn = document.getElementById('mobileMenuClose');
-    if(!btn || !menu) return;
-    function openMenu(){
-      menu.classList.add('is-open');
-      btn.classList.add('is-open');
-      btn.setAttribute('aria-expanded','true');
-      document.body.style.overflow = 'hidden';
+      tick();
+    })();
+
+    // Speech Narration
+    let isSpeaking = false;
+    function toggleMudraSpeech() {
+      const isMr = document.body.classList.contains('lang-mr');
+      const text = isMr
+        ? "वितर्क मुद्रा. उपदेश, वैचारिक चर्चा आणि संवाद दर्शवणारी ही मुद्रा. अंगठा आणि तर्जनी यांच्या स्पर्शातून ज्ञानाचे वर्तुळ तयार होते, तर बाकीची तीन बोटे बुद्ध, धम्म आणि संघ या त्रिरत्नांचे प्रतिनिधित्व करतात."
+        : "Vitarka Mudra. The gesture of teaching, dialectic inquiry, and debate. The circle formed by thumb and index finger symbolizes the continuous cycle of learning and wisdom, while the three extended fingers represent the Three Jewels.";
+
+      if (isSpeaking) {
+        window.PrernaSthal.stopSpeaking();
+        isSpeaking = false;
+        document.getElementById('mudraAudioIcon').textContent = '▶';
+      } else {
+        const started = window.PrernaSthal.speakText(text, isMr ? 'mr-IN' : 'en-US');
+        if (started) {
+          isSpeaking = true;
+          document.getElementById('mudraAudioIcon').textContent = '⏸';
+        }
+      }
     }
-    function closeMenu(){
-      menu.classList.remove('is-open');
-      btn.classList.remove('is-open');
-      btn.setAttribute('aria-expanded','false');
-      document.body.style.overflow = '';
-    }
-    btn.addEventListener('click', () => { menu.classList.contains('is-open') ? closeMenu() : openMenu(); });
-    if(closeBtn) closeBtn.addEventListener('click', closeMenu);
-    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-  })();
-</script>
+  </script>
 </body>
 </html>

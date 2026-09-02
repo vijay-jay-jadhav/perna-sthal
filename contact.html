@@ -328,7 +328,7 @@
                 <li>
                   <span class="info-icon">✉</span>
                   <div>
-                    <strong>Email:</strong> contact@vidyapratishthan.com<br>
+                    <strong>Email:</strong> <a href="mailto:vijay.jay.jadhav@gmail.com" style="color:var(--teal); text-decoration:underline;">vijay.jay.jadhav@gmail.com</a><br>
                     <strong>Phone:</strong> +91 (02112) 239500 / 239501
                   </div>
                 </li>
@@ -345,8 +345,8 @@
                 <span class="mr-inline mr">भेट नोंदणी व चौकशी</span>
               </h3>
               <p style="font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:24px;">
-                <span class="en">Planning a school, college, or group heritage tour? Let us know in advance to arrange a guided walkthrough.</span>
-                <span class="mr-block mr">शाळा, महाविद्यालय किंवा अभ्यासू गटाच्या सहलीसाठी आधीच नोंदणी करा.</span>
+                <span class="en">Planning a school, college, or group heritage tour? Inquiries are sent directly to <strong>vijay.jay.jadhav@gmail.com</strong>.</span>
+                <span class="mr-block mr">शाळा, महाविद्यालय किंवा अभ्यासू गटाच्या सहलीसाठी आधीच नोंदणी करा. संदेश थेट <strong>vijay.jay.jadhav@gmail.com</strong> वर पाठवला जाईल.</span>
               </p>
 
               <form id="visitForm" onsubmit="handleVisitSubmit(event)">
@@ -363,10 +363,10 @@
                 <div class="form-group">
                   <label class="form-label" for="visitType"><span class="en">Visit Purpose</span><span class="mr-inline mr">भेटीचा उद्देश</span></label>
                   <select id="visitType" class="form-select">
-                    <option value="individual">Individual / Family Pilgrimage</option>
-                    <option value="school">School / College Educational Group</option>
-                    <option value="botanical">Botanical &amp; Nakshatra Garden Study</option>
-                    <option value="architectural">Architectural &amp; Sculpture Research</option>
+                    <option value="Individual / Family Pilgrimage">Individual / Family Pilgrimage</option>
+                    <option value="School / College Educational Group">School / College Educational Group</option>
+                    <option value="Botanical & Nakshatra Garden Study">Botanical &amp; Nakshatra Garden Study</option>
+                    <option value="Architectural & Sculpture Research">Architectural &amp; Sculpture Research</option>
                   </select>
                 </div>
 
@@ -375,11 +375,26 @@
                   <textarea id="visitorMsg" class="form-textarea" rows="4" placeholder="Tell us about your group size or specific interests..."></textarea>
                 </div>
 
-                <button type="submit" class="form-submit-btn">
-                  <span class="en">Submit Visit Request</span>
-                  <span class="mr-inline mr">नोंदणी पाठवा</span>
+                <button type="submit" id="submitBtn" class="form-submit-btn">
+                  <span class="en">Send Inquiry to vijay.jay.jadhav@gmail.com</span>
+                  <span class="mr-inline mr">नोंदणी पाठवा (vijay.jay.jadhav@gmail.com)</span>
                 </button>
               </form>
+
+              <div id="formSuccessCard" style="display:none; margin-top:20px; padding:16px; background:rgba(15,74,68,0.08); border:1px solid var(--teal); border-radius:8px;">
+                <p style="margin:0 0 10px; font-weight:600; color:var(--teal-deep);">
+                  <span class="en">✓ Inquiry Prepared &amp; Dispatched!</span>
+                  <span class="mr-inline mr">✓ नोंदणी यशस्वीरीत्या पाठवली गेली आहे!</span>
+                </p>
+                <p style="margin:0 0 12px; font-size:13.5px; color:var(--ink-soft); line-height:1.6;">
+                  <span class="en">Your visit details have been directed to <strong>vijay.jay.jadhav@gmail.com</strong>. You can also open your mail client directly below:</span>
+                  <span class="mr-block mr">आपल्या भेटीचे तपशील <strong>vijay.jay.jadhav@gmail.com</strong> कडे पाठवले आहेत. आपण खालील बटणाने थेट ईमेल उघडू शकता:</span>
+                </p>
+                <a id="directMailLink" href="#" class="form-submit-btn" style="display:inline-block; text-align:center; text-decoration:none; padding:10px 20px; font-size:11px;">
+                  <span class="en">Open Email Draft ↗</span>
+                  <span class="mr-inline mr">ईमेल मसुदा उघडा ↗</span>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -468,16 +483,69 @@
 
   <script src="shared.js"></script>
   <script>
-    function handleVisitSubmit(e) {
+    async function handleVisitSubmit(e) {
       e.preventDefault();
       const isMr = document.body.classList.contains('lang-mr');
-      const name = document.getElementById('visitorName').value;
-      const successMsg = isMr
-        ? `धन्यवाद ${name}! आपली भेट नोंदणी यशस्वीरीत्या प्राप्त झाली आहे.`
-        : `Thank you ${name}! Your visit inquiry has been received. Our team will contact you shortly.`;
+      const name = document.getElementById('visitorName').value.trim();
+      const email = document.getElementById('visitorEmail').value.trim();
+      const purpose = document.getElementById('visitType').value;
+      const message = document.getElementById('visitorMsg').value.trim();
+      const targetEmail = 'vijay.jay.jadhav@gmail.com';
+
+      const submitBtn = document.getElementById('submitBtn');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = isMr ? 'नोंदणी पाठवत आहे...' : 'Sending inquiry...';
+      }
+
+      // 1. Post to backend server endpoint
+      try {
+        await fetch('/api/inquiry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, purpose, message })
+        });
+      } catch (err) {
+        console.warn('Backend logging note:', err);
+      }
+
+      // 2. Prepare direct mailto URL
+      const emailSubject = encodeURIComponent(`Prerna Sthal Visit Inquiry: ${name} (${purpose})`);
+      const emailBody = encodeURIComponent(
+        `Prerna Sthal Visit Inquiry\n\n` +
+        `Name: ${name}\n` +
+        `Email: ${email}\n` +
+        `Purpose: ${purpose}\n` +
+        `Message / Details:\n${message || 'N/A'}\n\n` +
+        `Sent via Prerna Sthal Sanctuary Portal`
+      );
+      const mailtoUrl = `mailto:${targetEmail}?subject=${emailSubject}&body=${emailBody}`;
+
+      // 3. Update Success Card & direct link
+      const successCard = document.getElementById('formSuccessCard');
+      const directMailLink = document.getElementById('directMailLink');
+      if (directMailLink) directMailLink.href = mailtoUrl;
+      if (successCard) successCard.style.display = 'block';
+
+      // 4. Trigger mail client if accessible
+      try {
+        window.location.href = mailtoUrl;
+      } catch (err) {
+        // Fallback handled by directMailLink
+      }
+
+      const toastMsg = isMr
+        ? `धन्यवाद ${name}! भेट नोंदणी vijay.jay.jadhav@gmail.com वर पाठवली आहे.`
+        : `Thank you ${name}! Inquiry routed to vijay.jay.jadhav@gmail.com.`;
       
-      window.PrernaSthal.showToast(successMsg);
-      document.getElementById('visitForm').reset();
+      if (window.PrernaSthal && window.PrernaSthal.showToast) {
+        window.PrernaSthal.showToast(toastMsg);
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span class="en">Send Another Inquiry</span><span class="mr-inline mr">दुसरी नोंदणी पाठवा</span>`;
+      }
     }
   </script>
 </body>

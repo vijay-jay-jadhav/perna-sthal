@@ -1,6 +1,6 @@
 /* ============================================================
    PRERNA STHAL - DESIGN SYSTEM & SHARED STYLES
-   Vidya Pratishthan, Nakshatra Garden, Baramati
+   Vidya Pratishthan, Nakshatra Udyan, Baramati
    ============================================================ */
 
 :root {
@@ -366,6 +366,7 @@ body.lang-mr .mr-grid { display: grid !important; }
   border-radius: 999px;
   transition: all 0.25s ease;
   box-shadow: 0 2px 8px rgba(15, 74, 68, 0.2);
+  white-space: nowrap;
 }
 .visit-pill:hover {
   background: var(--brick);
@@ -374,52 +375,25 @@ body.lang-mr .mr-grid { display: grid !important; }
   box-shadow: 0 4px 12px rgba(150, 85, 47, 0.3);
 }
 
-.audio-nav-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid var(--line-strong);
-  background: var(--paper);
-  color: var(--teal);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-.audio-nav-btn:hover {
-  background: var(--teal);
-  color: var(--paper);
-  border-color: var(--teal);
-}
-.audio-nav-btn.playing {
-  background: var(--teal);
-  color: var(--gold-soft);
-  animation: pulseAudio 2.5s infinite ease-in-out;
-}
-@keyframes pulseAudio {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(199, 154, 74, 0.4); }
-  50% { box-shadow: 0 0 0 6px rgba(199, 154, 74, 0); }
-}
-
 .hamburger {
   display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--paper);
   cursor: pointer;
   padding: 0;
   touch-action: manipulation;
+  flex-shrink: 0;
 }
 .hamburger span {
   display: block;
-  width: 20px;
+  width: 18px;
   height: 2px;
   background: var(--ink);
   border-radius: 2px;
@@ -470,10 +444,10 @@ body.lang-mr .mr-grid { display: grid !important; }
 }
 .mobile-menu-close {
   position: absolute;
-  top: 24px;
+  top: 20px;
   right: var(--content-pad);
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border: 1px solid var(--line);
   border-radius: 50%;
   background: var(--paper);
@@ -484,7 +458,7 @@ body.lang-mr .mr-grid { display: grid !important; }
 }
 .mobile-menu-close span {
   display: block;
-  width: 20px;
+  width: 18px;
   height: 2px;
   background: var(--ink);
   border-radius: 2px;
@@ -496,7 +470,14 @@ body.lang-mr .mr-grid { display: grid !important; }
 @media (max-width: 860px) {
   .hamburger { display: flex; }
   .nav-links-row { display: none; }
+  .nav-top { height: 60px; padding: 0 14px; gap: 8px; }
+  .nav-brand { gap: 10px; }
+  .logo-img { height: 38px; }
+  .brand-title { font-size: 16px; }
   .brand-sub { display: none; }
+  .nav-actions { gap: 8px; }
+  .lang-toggle button { padding: 5px 8px; min-height: 28px; font-size: 10.5px; }
+  .visit-pill { padding: 6px 12px; font-size: 10px; }
 }
 
 /* ================= GLOBAL FOOTER ================= */

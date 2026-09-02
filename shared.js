@@ -1,6 +1,6 @@
 /**
  * Prerna Sthal - Shared Interactive Engine
- * Nakshatra Garden, Vidya Pratishthan, Baramati
+ * Nakshatra Udyan, Vidya Pratishthan, Baramati
  */
 
 (function () {
@@ -38,116 +38,10 @@
     document.documentElement.lang = currentLang;
   }
 
-  // 2. Ambient Meditation Soundscape (Web Audio API)
-  class MeditationAudio {
-    constructor() {
-      this.ctx = null;
-      this.isPlaying = false;
-      this.gainNode = null;
-      this.intervalId = null;
-    }
-
-    init() {
-      if (this.ctx) return;
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) return;
-      this.ctx = new AudioContext();
-      this.gainNode = this.ctx.createGain();
-      this.gainNode.gain.setValueAtTime(0.01, this.ctx.currentTime);
-      this.gainNode.connect(this.ctx.destination);
-    }
-
-    playSingingBowl(freq = 261.63, duration = 6) { // C4 root
-      if (!this.ctx || !this.isPlaying) return;
-      const t = this.ctx.currentTime;
-
-      // Fundamental and harmonics
-      const freqs = [freq, freq * 2.76, freq * 5.4, freq * 8.93];
-      const gains = [0.12, 0.05, 0.02, 0.008];
-
-      freqs.forEach((f, idx) => {
-        const osc = this.ctx.createOscillator();
-        const g = this.ctx.createGain();
-
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(f, t);
-
-        g.gain.setValueAtTime(gains[idx] * 0.8, t);
-        g.gain.exponentialRampToValueAtTime(0.0001, t + duration);
-
-        osc.connect(g);
-        g.connect(this.gainNode);
-
-        osc.start(t);
-        osc.stop(t + duration);
-      });
-    }
-
-    start() {
-      this.init();
-      if (!this.ctx) return;
-      if (this.ctx.state === 'suspended') {
-        this.ctx.resume();
-      }
-
-      this.isPlaying = true;
-      this.gainNode.gain.linearRampToValueAtTime(0.2, this.ctx.currentTime + 1.5);
-
-      // Strike bowl immediately
-      this.playSingingBowl(216, 7); // 216Hz A3 sub-harmonic soothing tone
-
-      // Ambient periodic chime loop (every 9s)
-      const bowlFreqs = [216, 288, 324, 432];
-      let step = 0;
-      this.intervalId = setInterval(() => {
-        if (!this.isPlaying) return;
-        step = (step + 1) % bowlFreqs.length;
-        this.playSingingBowl(bowlFreqs[step], 8);
-      }, 8500);
-
-      this.updateUI();
-    }
-
-    stop() {
-      if (!this.ctx) return;
-      this.isPlaying = false;
-      if (this.intervalId) {
-        clearInterval(this.intervalId);
-        this.intervalId = null;
-      }
-      if (this.gainNode) {
-        this.gainNode.gain.linearRampToValueAtTime(0.0001, this.ctx.currentTime + 0.8);
-      }
-      this.updateUI();
-    }
-
-    toggle() {
-      if (this.isPlaying) {
-        this.stop();
-      } else {
-        this.start();
-      }
-    }
-
-    updateUI() {
-      document.querySelectorAll('.audio-nav-btn, .audio-toggle-btn').forEach(btn => {
-        btn.classList.toggle('playing', this.isPlaying);
-        btn.setAttribute('aria-pressed', this.isPlaying ? 'true' : 'false');
-        btn.setAttribute('title', this.isPlaying 
-          ? (currentLang === 'mr' ? 'शांतता ध्वनी थांबवा' : 'Mute Sanctuary Chimes')
-          : (currentLang === 'mr' ? 'शांतता ध्वनी सुरू करा' : 'Play Sanctuary Chimes')
-        );
-      });
-    }
-  }
-
-  const soundscape = new MeditationAudio();
-
-  // 3. Speech Synthesizer for Biographies / Narration
+  // 2. Speech Synthesizer for Biographies / Narration
   function speakText(text, lang = 'mr-IN') {
     if (!('speechSynthesis' in window)) return false;
     window.speechSynthesis.cancel();
-
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang;
     utterance.rate = 0.92;
@@ -162,7 +56,7 @@
     }
   }
 
-  // 4. Modal Lightbox System
+  // 3. Modal Lightbox System
   function initLightbox() {
     let modal = document.getElementById('psLightboxModal');
     if (!modal) {
@@ -278,13 +172,6 @@
       });
     }
 
-    // Audio Nav Button Toggle
-    document.querySelectorAll('.audio-nav-btn, .audio-toggle-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        soundscape.toggle();
-      });
-    });
-
     // Scroll Reveal Intersection Observer
     const reveals = document.querySelectorAll('.reveal');
     if ('IntersectionObserver' in window && reveals.length > 0) {
@@ -310,7 +197,6 @@
   window.PrernaSthal = {
     setLanguage: applyLanguage,
     getLanguage: () => currentLang,
-    soundscape,
     speakText,
     stopSpeaking
   };

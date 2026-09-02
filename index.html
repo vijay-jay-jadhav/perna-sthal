@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prerna Sthal · Meditation &amp; Reflection Hall · Nakshatra Garden, Baramati</title>
-<meta name="description" content="Prerna Sthal is a meditation and reflection hall within the Nakshatra Garden at Vidya Pratishthan, Baramati, Maharashtra.">
+<title>Prerna Sthal · Meditation &amp; Reflection Hall · Nakshatra Udyan, Baramati</title>
+<meta name="description" content="Prerna Sthal is a meditation and reflection hall within the Nakshatra Udyan at Vidya Pratishthan, Baramati, Maharashtra.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -41,43 +41,7 @@
     transition: width 0.05s ease-out;
   }
   
-  /* Hero Overlays & Controls */
-  .hero-overlay-top {
-    position: absolute;
-    top: 96px;
-    left: var(--content-pad);
-    z-index: 10;
-    pointer-events: none;
-  }
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(10, 47, 43, 0.75);
-    border: 1px solid var(--line-ongold);
-    padding: 6px 14px;
-    border-radius: 999px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    color: var(--gold-soft);
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-  .hero-badge-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--gold);
-    box-shadow: 0 0 8px var(--gold);
-    animation: blink 2s infinite ease-in-out;
-  }
-  @keyframes blink {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
-  }
-
+  /* Hero Controls */
   .hero-content {
     position: absolute;
     left: 0;
@@ -114,7 +78,7 @@
     background: rgba(10, 47, 43, 0.85);
     color: var(--gold-soft);
     border: 1px solid var(--line-ongold);
-    padding: 8px 16px;
+    padding: 8px 18px;
     border-radius: 999px;
     font-family: 'Space Mono', monospace;
     font-size: 11px;
@@ -128,16 +92,6 @@
     background: var(--gold);
     color: var(--teal-deep);
     border-color: var(--gold);
-  }
-  .hero-frame-counter {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--gold-soft);
-    opacity: 0.8;
-    background: rgba(10, 47, 43, 0.6);
-    padding: 4px 10px;
-    border-radius: 6px;
-    border: 1px solid var(--line-onlight);
   }
 
   .scroll-cue {
@@ -171,8 +125,7 @@
 
   @media (max-width: 860px) {
     .hero { height: 260vh; }
-    .hero-content { flex-direction: column; align-items: flex-start; gap: 14px; }
-    .hero-overlay-top { top: 84px; }
+    .hero-content { flex-direction: column; align-items: flex-start; gap: 14px; padding: 0 16px 20px; }
   }
 
   /* ================= ABOUT SECTION ================= */
@@ -284,17 +237,14 @@
 
   /* ================= VISUAL BREAK ================= */
   .visual-break {
-    width: 100%;
-    aspect-ratio: 16/9;
-    max-height: 74vh;
+    position: relative;
+    margin: var(--sp-7) 0;
     overflow: hidden;
     background: var(--teal-deep);
-    position: relative;
-    margin: 0;
   }
   .visual-break img {
     width: 100%;
-    height: 100%;
+    height: auto;
     display: block;
     object-fit: cover;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -309,12 +259,27 @@
     font-family: 'Space Mono', monospace;
     font-size: 11px;
     letter-spacing: 0.1em;
-    color: var(--paper);
-    background: rgba(10, 30, 27, 0.75);
+    color: var(--gold-soft);
+    background: rgba(10, 47, 43, 0.88);
     padding: 8px 16px;
-    border-radius: 6px;
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(220, 193, 137, 0.25);
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--line-ongold);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  }
+  @media (max-width: 640px) {
+    .visual-break { margin: var(--sp-5) 0; }
+    .visual-break .visual-cap {
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      font-size: 10px;
+      padding: 6px 12px;
+      text-align: center;
+      max-width: fit-content;
+      margin: 0 auto;
+    }
   }
 
   /* ================= WHY / BENEFITS ================= */
@@ -402,22 +367,81 @@
     .benefits { grid-template-columns: 1fr; }
   }
 
-  /* ================= GARDEN & NAKSHATRA EXPLORER ================= */
+  /* ================= NAKSHATRA UDYAN OVERVIEW ================= */
   .garden {
     background: var(--parchment);
     padding: var(--sp-8) 0;
   }
+  .garden-overview-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: var(--sp-6) var(--sp-6);
+    margin-bottom: var(--sp-6);
+    box-shadow: 0 10px 30px -12px rgba(15, 74, 68, 0.08);
+  }
+  .garden-overview-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 36px;
+    align-items: center;
+  }
+  .garden-overview-text h3 {
+    font-size: clamp(22px, 2.2vw, 28px);
+    color: var(--teal-deep);
+    margin-bottom: 12px;
+  }
+  .garden-overview-text p {
+    font-size: 15.5px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .garden-overview-stat {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    background: var(--parchment);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .stat-item {
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-lbl {
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brick);
+    font-weight: 700;
+  }
+
   .garden-features {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    margin-bottom: var(--sp-7);
+    margin-bottom: var(--sp-6);
   }
   .gf-card {
     background: var(--paper);
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 26px 22px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .gf-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--teal);
   }
   .gf-card h4 {
     font-family: 'Space Mono', monospace;
@@ -435,92 +459,12 @@
     margin: 0;
   }
 
-  /* Interactive Nakshatra Constellation Lookup */
-  .nakshatra-box {
-    background: var(--paper);
-    border: 1px solid var(--line-strong);
-    border-radius: 12px;
-    padding: var(--sp-5);
-    margin-bottom: var(--sp-7);
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.06);
-  }
-  .nakshatra-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 18px;
-    margin-bottom: var(--sp-4);
-    border-bottom: 1px solid var(--line);
-    padding-bottom: var(--sp-3);
-  }
-  .nakshatra-search {
-    display: flex;
-    align-items: center;
-    background: var(--parchment);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 6px 16px;
-    gap: 8px;
-    width: 280px;
-  }
-  .nakshatra-search input {
-    border: none;
-    background: transparent;
-    font-size: 13.5px;
-    width: 100%;
-    outline: none;
-  }
-  .nakshatra-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 16px;
-    max-height: 380px;
-    overflow-y: auto;
-    padding-right: 6px;
-  }
-  .nakshatra-card {
-    background: var(--parchment);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 16px;
-    transition: all 0.2s ease;
-  }
-  .nakshatra-card:hover {
-    border-color: var(--gold);
-    background: #fffdf8;
-  }
-  .n-num {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    color: var(--brick);
-    font-weight: 700;
-  }
-  .n-name {
-    font-family: 'Fraunces', serif;
-    font-size: 16px;
-    color: var(--teal-deep);
-    margin: 2px 0 6px;
-  }
-  .n-tree {
-    font-size: 13px;
-    color: var(--teal);
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-  .n-botanical {
-    font-size: 11.5px;
-    font-style: italic;
-    color: var(--ink);
-    opacity: 0.75;
-  }
-
   .water-block {
     background: var(--teal);
     color: var(--paper);
     display: grid;
     grid-template-columns: 0.9fr 1.1fr;
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 20px 40px -15px rgba(10, 47, 43, 0.3);
   }
@@ -565,11 +509,13 @@
   }
 
   @media (max-width: 860px) {
+    .garden-overview-grid { grid-template-columns: 1fr; gap: 24px; }
     .garden-features { grid-template-columns: repeat(2, 1fr); }
     .water-block { grid-template-columns: 1fr; }
   }
   @media (max-width: 580px) {
     .garden-features { grid-template-columns: 1fr; }
+    .garden-overview-card { padding: 22px 18px; }
   }
 
   /* ================= CORRIDOR CAROUSEL ================= */
@@ -695,10 +641,11 @@
   }
   .carousel-dots {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    align-items: center;
     justify-content: center;
-    gap: 8px;
-    max-width: 240px;
+    gap: 6px;
+    max-width: 100%;
   }
   .carousel-dots span {
     width: 6px;
@@ -707,10 +654,16 @@
     background: var(--line-onlight);
     transition: all 0.3s ease;
     cursor: pointer;
+    flex-shrink: 0;
   }
   .carousel-dots span.is-active {
     background: var(--gold);
-    transform: scale(1.6);
+    transform: scale(1.5);
+  }
+  @media (max-width: 640px) {
+    .carousel-dots { gap: 4px; }
+    .carousel-dots span { width: 5px; height: 5px; }
+    .carousel-dots span.is-active { transform: scale(1.4); }
   }
 
   .gallery-cta-wrap {
@@ -840,18 +793,11 @@
         </a>
         <div class="brand-text">
           <span class="brand-title">Prerna Sthal</span>
-          <span class="brand-sub">Nakshatra Garden · Baramati</span>
+          <span class="brand-sub">Nakshatra Udyan · Baramati</span>
         </div>
       </div>
 
       <div class="nav-actions">
-        <button type="button" class="audio-nav-btn" aria-label="Toggle meditation chimes" title="Play Sanctuary Chimes">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-          </svg>
-        </button>
-
         <div class="lang-toggle" role="group" aria-label="Choose language">
           <button type="button" class="active" data-lang="en" aria-pressed="true">EN</button>
           <button type="button" data-lang="mr" aria-pressed="false">मराठी</button>
@@ -869,7 +815,7 @@
       <a href="mahapurush.html" class="mr-inline mr">महापुरुष गॅलरी</a>
       <a href="mudras.html" class="en">Hasta Mudras</a>
       <a href="mudras.html" class="mr-inline mr">हस्तमुद्रा</a>
-      <a href="#garden" class="en">Nakshatra Garden</a>
+      <a href="#garden" class="en">Nakshatra Udyan</a>
       <a href="#garden" class="mr-inline mr">नक्षत्र उद्यान</a>
       <a href="contact.html" class="en">Contact &amp; Visit</a>
       <a href="contact.html" class="mr-inline mr">संपर्क व भेट</a>
@@ -887,7 +833,7 @@
     <a href="mahapurush.html" class="mr-block mr">महापुरुष गॅलरी</a>
     <a href="mudras.html" class="en">Buddha Hasta Mudras</a>
     <a href="mudras.html" class="mr-block mr">बुद्ध हस्तमुद्रा</a>
-    <a href="#garden" class="en">Nakshatra Garden</a>
+    <a href="#garden" class="en">Nakshatra Udyan</a>
     <a href="#garden" class="mr-block mr">नक्षत्र उद्यान</a>
     <a href="contact.html" class="en">Contact &amp; Visit</a>
     <a href="contact.html" class="mr-block mr">संपर्क व भेट</a>
@@ -900,14 +846,6 @@
         <div class="hero-progress" id="heroProgress"></div>
         <canvas class="hero-canvas" id="heroCanvas"></canvas>
 
-        <div class="hero-overlay-top">
-          <div class="hero-badge">
-            <span class="hero-badge-dot"></span>
-            <span class="en">Interactive 3D Architectural View</span>
-            <span class="mr-block mr">परस्परसंवादी वास्तुकला दर्शन</span>
-          </div>
-        </div>
-
         <div class="hero-content">
           <div>
             <p class="hero-loc reveal en">Vidya Nagari Campus<br>Baramati, Maharashtra</p>
@@ -919,7 +857,6 @@
               <span id="heroPlayText" class="en">Flythrough</span>
               <span id="heroPlayTextMr" class="mr-block mr">दृश्य फिरवा</span>
             </button>
-            <span class="hero-frame-counter" id="heroFrameCounter">Frame 1 / 80</span>
           </div>
         </div>
 
@@ -945,8 +882,8 @@
         <h1 class="about-lede reveal mr-block mr">जिथे वास्तुकला, निसर्ग आणि शांतता<br>उंबरठ्यावर एकत्र येतात.</h1>
 
         <div class="about-copy reveal">
-          <p class="en"><b>Prerna Sthal</b> is a thoughtfully envisioned meditation and reflection space, located within Nakshatra Garden in the Vidya Nagari campus of Vidya Pratishthan, Baramati. Surrounded by the tranquil landscape of Nakshatra Garden, the project is designed to promote inner peace, mindfulness, and spiritual well-being through its harmonious integration of architecture, nature, and water elements.</p>
-          <p class="mr-block mr"><b>प्रेरणा स्थळ</b> ही विद्या प्रतिष्ठान, बारामतीच्या विद्या नगरी कॅम्पसमधील नक्षत्र गार्डनमध्ये वसलेली, काळजीपूर्वक साकारलेली ध्यान आणि चिंतनाची जागा आहे. नक्षत्र गार्डनच्या शांत परिसराने वेढलेला हा प्रकल्प वास्तुकला, निसर्ग आणि जल घटकांच्या सुसंवादी एकत्रीकरणातून आंतरिक शांती, सजगता आणि आध्यात्मिक स्वास्थ्य वाढवण्यासाठी रचला आहे.</p>
+          <p class="en"><b>Prerna Sthal</b> is a thoughtfully envisioned meditation and reflection space, located within Nakshatra Udyan in the Vidya Nagari campus of Vidya Pratishthan, Baramati. Surrounded by the tranquil landscape of Nakshatra Udyan, the project is designed to promote inner peace, mindfulness, and spiritual well-being through its harmonious integration of architecture, nature, and water elements.</p>
+          <p class="mr-block mr"><b>प्रेरणा स्थळ</b> ही विद्या प्रतिष्ठान, बारामतीच्या विद्या नगरी कॅम्पसमधील नक्षत्र उद्यानात वसलेली, काळजीपूर्वक साकारलेली ध्यान आणि चिंतनाची जागा आहे. नक्षत्र उद्यानाच्या शांत परिसराने वेढलेला हा प्रकल्प वास्तुकला, निसर्ग आणि जल घटकांच्या सुसंवादी एकत्रीकरणातून आंतरिक शांती, सजगता आणि आध्यात्मिक स्वास्थ्य वाढवण्यासाठी रचला आहे.</p>
         </div>
       </div>
     </section>
@@ -973,7 +910,10 @@
 
     <!-- Visual Break 1 -->
     <figure class="visual-break reveal" aria-label="Prerna Sthal Architectural Visual">
-      <img src="images/architecture/cover.jpg" alt="Prerna Sthal architectural rendering showing main entrance and dome" data-zoomable>
+      <picture>
+        <source media="(max-width: 640px)" srcset="images/architecture/cover-mobile.jpg">
+        <img src="images/architecture/cover.jpg" alt="Prerna Sthal architectural rendering showing main entrance and dome" data-zoomable>
+      </picture>
       <span class="visual-cap en">Prerna Sthal · Meditation Dome &amp; Reflection Hall</span>
       <span class="visual-cap mr-block mr">प्रेरणा स्थळ · ध्यान घुमट आणि चिंतन सभागृह</span>
     </figure>
@@ -1041,21 +981,57 @@
     </section>
 
     <!-- Visual Break 2 -->
-    <figure class="visual-break reveal" aria-label="Nakshatra Garden Aerial Visual">
-      <img src="images/architecture/bird2.jpg" alt="Aerial rendering of Nakshatra Garden encircling Prerna Sthal dome" data-zoomable>
-      <span class="visual-cap en">Nakshatra Garden · Botanical &amp; Astrological Landscape</span>
-      <span class="visual-cap mr-block mr">नक्षत्र गार्डन · वनस्पती व खगोलीय भूदृश्य रचना</span>
+    <figure class="visual-break reveal" aria-label="Nakshatra Udyan Aerial Visual">
+      <img src="images/architecture/bird2.jpg" alt="Aerial rendering of Nakshatra Udyan encircling Prerna Sthal dome" data-zoomable>
+      <span class="visual-cap en">Nakshatra Udyan · Botanical &amp; Cosmic Landscape</span>
+      <span class="visual-cap mr-block mr">नक्षत्र उद्यान · वनस्पती व खगोलीय भूदृश्य रचना</span>
     </figure>
 
-    <!-- ================= NAKSHATRA GARDEN & FLORA ================= -->
+    <!-- ================= NAKSHATRA UDYAN & FLORA ================= -->
     <section class="garden" id="garden">
       <div class="wrap">
         <div class="section-head reveal">
-          <div class="eyebrow center"><span class="en">Cosmic Botany</span><span class="mr-inline mr">निसर्ग व खगोल</span></div>
-          <h2 class="en">Nakshatra Garden</h2>
+          <div class="eyebrow center"><span class="en">Cosmic Botany &amp; Serenity</span><span class="mr-inline mr">निसर्ग व खगोल</span></div>
+          <h2 class="en">Nakshatra Udyan</h2>
           <h2 class="mr-block mr">नक्षत्र उद्यान</h2>
-          <p class="intro en">Each section of the garden corresponds to a specific Nakshatra (lunar constellation), planted with native medicinal trees revered in Indian heritage for thousands of years.</p>
-          <p class="intro mr-block mr">उद्यानाचा प्रत्येक विभाग एका विशिष्ट नक्षत्राशी संबंधित असून, त्या नक्षत्राशी जोडलेली औषधी व पवित्र झाडे येथे लावण्यात आलेली आहेत.</p>
+          <p class="intro en">An expansive sanctuary of native medicinal biodiversity, where each zone aligns with the 27 Nakshatras (lunar constellations) to create a serene environment for contemplation and rejuvenation.</p>
+          <p class="intro mr-block mr">२७ नक्षत्रांशी संबंधित औषधी आणि पवित्र वनस्पतींनी सजलेले विस्तीर्ण उद्यान, जे ध्यान आणि आत्मचिंतनासाठी शांत व आरोग्यदायी वातावरण निर्माण करते.</p>
+        </div>
+
+        <!-- General Overview Presentation -->
+        <div class="garden-overview-card reveal">
+          <div class="garden-overview-grid">
+            <div class="garden-overview-text">
+              <h3 class="en">Harmony of Celestial &amp; Earthly Nature</h3>
+              <h3 class="mr-block mr">खगोलीय आणि नैसर्गिक घटकांचा सुसंवाद</h3>
+              <p class="en">In ancient Indian tradition, each of the 27 lunar constellations corresponds to a dedicated indigenous tree endowed with unique therapeutic and ecological benefits. Nakshatra Udyan integrates this wisdom into modern landscape architecture surrounding the central meditation hall.</p>
+              <p class="en">Visitors and students can stroll through shaded green avenues, absorb the gentle fragrance of medicinal leaves, and experience a restorative connection with nature before stepping into the central dome.</p>
+              <p class="mr-block mr">प्राचीन भारतीय परंपरेनुसार २७ नक्षत्रांपैकी प्रत्येकाशी एक विशिष्ट औषधी वृक्ष जोडलेला आहे. हे उद्यान याच ज्ञानाला आधुनिक निसर्ग रचनेत गुंफून ध्यान सभागृहाभोवती पवित्र व शांत वातावरण तयार करते.</p>
+              <p class="mr-block mr">येथे येणारे अभ्यासक व नागरिक सावलीच्या पायवाटेवरून चालताना औषधी वनस्पतींचा सुगंध आणि निसर्गाची शांतता अनुभवू शकतात.</p>
+            </div>
+            <div class="garden-overview-stat">
+              <div class="stat-item">
+                <div class="stat-num">27</div>
+                <div class="stat-lbl en">Nakshatra Zones</div>
+                <div class="stat-lbl mr-block mr">नक्षत्र विभाग</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num">100%</div>
+                <div class="stat-lbl en">Recycled Water</div>
+                <div class="stat-lbl mr-block mr">पुनर्वापर जलसिंचन</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num">15+</div>
+                <div class="stat-lbl en">Native Species</div>
+                <div class="stat-lbl mr-block mr">देशी वृक्ष प्रजाती</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num">365</div>
+                <div class="stat-lbl en">Days Open</div>
+                <div class="stat-lbl mr-block mr">दिवस खुले</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="garden-features reveal">
@@ -1082,24 +1058,6 @@
             <h4 class="mr-block mr">नैसर्गिक ध्वनी</h4>
             <p class="en">Gentle rustling leaves, bird calls, and winding water channels that soothe the mind before entering the dome.</p>
             <p class="mr-block mr">पानांची सळसळ, पक्षांचे मंजुळ आवाज आणि जलतरंग जे सभागृहात प्रवेश करण्यापूर्वीच मन शांत करतात.</p>
-          </div>
-        </div>
-
-        <!-- Interactive Nakshatra Explorer Component -->
-        <div class="nakshatra-box reveal">
-          <div class="nakshatra-head">
-            <div>
-              <h3 style="font-size:22px; color:var(--teal-deep);"><span class="en">Explore the 27 Nakshatra Trees</span><span class="mr-block mr">२७ नक्षत्रे व त्यांचे नक्षत्रवृक्ष</span></h3>
-              <p style="margin:4px 0 0; font-size:13.5px; opacity:0.8;"><span class="en">Find the sacred tree associated with your birth constellation</span><span class="mr-block mr">तुमच्या जन्म नक्षत्राशी संबंधित पवित्र वृक्ष शोधा</span></p>
-            </div>
-            <div class="nakshatra-search">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <input type="text" id="nakshatraSearchInput" placeholder="Search constellation or tree..." aria-label="Search nakshatra trees">
-            </div>
-          </div>
-
-          <div class="nakshatra-grid" id="nakshatraGrid">
-            <!-- Rendered by JS -->
           </div>
         </div>
 
@@ -1198,7 +1156,7 @@
             <div class="eyebrow"><span class="en">Visitor Information</span><span class="mr-inline mr">भेट व संपर्क</span></div>
             <h2 class="en">We welcome you to experience stillness.</h2>
             <h2 class="mr-block mr">शांततेचा अनुभव घेण्यासाठी आपले स्वागत आहे.</h2>
-            <p class="lede en">Prerna Sthal and Nakshatra Garden are open to students, faculty, researchers, and visitors daily.</p>
+            <p class="lede en">Prerna Sthal and Nakshatra Udyan are open to students, faculty, researchers, and visitors daily.</p>
             <p class="lede mr-block mr">प्रेरणा स्थळ आणि नक्षत्र उद्यान दैनंदिन ध्यान, अभ्यास आणि शांततेसाठी सर्वांसाठी खुले आहे.</p>
             
             <div style="margin-top:24px;">
@@ -1252,7 +1210,7 @@
             <img src="images/logo.png" class="footer-logo" alt="Prerna Sthal">
             <h3 style="margin:0;">Prerna Sthal</h3>
           </div>
-          <p class="en">A sanctuary of meditation, architectural harmony, and spiritual reflection situated within the serene Nakshatra Garden at Vidya Pratishthan, Baramati.</p>
+          <p class="en">A sanctuary of meditation, architectural harmony, and spiritual reflection situated within the serene Nakshatra Udyan at Vidya Pratishthan, Baramati.</p>
           <p class="mr-block mr">विद्या प्रतिष्ठान, बारामती येथील नक्षत्र उद्यानातील शांततेची, वास्तुकलेच्या सुसंवादाची आणि ध्यानाची पवित्र जागा.</p>
         </div>
 
@@ -1263,7 +1221,7 @@
             <li><a href="index.html" class="en">Home Sanctuary</a><a href="index.html" class="mr-block mr">मुख्य दालन</a></li>
             <li><a href="mahapurush.html" class="en">15 Mahapurush Corridor</a><a href="mahapurush.html" class="mr-block mr">१५ महापुरुष गॅलरी</a></li>
             <li><a href="mudras.html" class="en">10 Buddha Hasta Mudras</a><a href="mudras.html" class="mr-block mr">१० बुद्ध हस्तमुद्रा</a></li>
-            <li><a href="#garden" class="en">Nakshatra Constellation Garden</a><a href="#garden" class="mr-block mr">नक्षत्र वनस्पती उद्यान</a></li>
+            <li><a href="#garden" class="en">Nakshatra Udyan</a><a href="#garden" class="mr-block mr">नक्षत्र वनस्पती उद्यान</a></li>
           </ul>
         </div>
 
@@ -1280,7 +1238,7 @@
       </div>
 
       <div class="footer-bottom">
-        <span class="footer-fine">© Prerna Sthal · Nakshatra Garden · Vidya Pratishthan, Baramati</span>
+        <span class="footer-fine">© Prerna Sthal · Nakshatra Udyan · Vidya Pratishthan, Baramati</span>
         <span class="footer-fine">Architectural &amp; Spiritual Sanctuary</span>
       </div>
     </div>
@@ -1288,84 +1246,13 @@
 
   <script src="shared.js"></script>
   <script>
-    // 1. Nakshatra Garden Data & Search Component
-    const nakshatraData = [
-      { id: 1, nameEn: "Ashwini", nameMr: "अश्विनी", treeEn: "Kuchla (Nux-vomica)", treeMr: "कुचला / काजरा", bot: "Strychnos nux-vomica" },
-      { id: 2, nameEn: "Bharani", nameMr: "भरणी", treeEn: "Amla (Indian Gooseberry)", treeMr: "आवळा", bot: "Phyllanthus emblica" },
-      { id: 3, nameEn: "Krittika", nameMr: "कृत्तिका", treeEn: "Umbar (Cluster Fig)", treeMr: "उंबर / गूलर", bot: "Ficus racemosa" },
-      { id: 4, nameEn: "Rohini", nameMr: "रोहिणी", treeEn: "Jamun (Black Plum)", treeMr: "जांभूळ", bot: "Syzygium cumini" },
-      { id: 5, nameEn: "Mrigashira", nameMr: "मृगशीर्ष", treeEn: "Khair (Cutch Tree)", treeMr: "खैर", bot: "Senegalia catechu" },
-      { id: 6, nameEn: "Ardra", nameMr: "आर्द्रा", treeEn: "Raktachandan (Red Sandalwood)", treeMr: "रक्तचंदन", bot: "Pterocarpus santalinus" },
-      { id: 7, nameEn: "Punarvasu", nameMr: "पुनर्वसु", treeEn: "Velu (Bamboo)", treeMr: "वेळू / बांबू", bot: "Bambusa vulgaris" },
-      { id: 8, nameEn: "Pushya", nameMr: "पुष्य", treeEn: "Pipal (Sacred Fig)", treeMr: "पिंपळ", bot: "Ficus religiosa" },
-      { id: 9, nameEn: "Ashlesha", nameMr: "आश्लेषा", treeEn: "Nagkeshar (Ceylon Ironwood)", treeMr: "नागकेशर", bot: "Mesua ferrea" },
-      { id: 10, nameEn: "Magha", nameMr: "मघा", treeEn: "Vad (Banyan Tree)", treeMr: "वड", bot: "Ficus benghalensis" },
-      { id: 11, nameEn: "Purva Phalguni", nameMr: "पूर्वा फाल्गुनी", treeEn: "Palas (Flame of the Forest)", treeMr: "पळस", bot: "Butea monosperma" },
-      { id: 12, nameEn: "Uttara Phalguni", nameMr: "उत्तरा फाल्गुनी", treeEn: "Payar (White Fig)", treeMr: "पायर", bot: "Ficus virens" },
-      { id: 13, nameEn: "Hasta", nameMr: "हस्त", treeEn: "Reetha (Soapnut)", treeMr: "रिठा", bot: "Sapindus mukorossi" },
-      { id: 14, nameEn: "Chitra", nameMr: "चित्रा", treeEn: "Bel (Bael Fruit)", treeMr: "बेल", bot: "Aegle marmelos" },
-      { id: 15, nameEn: "Swati", nameMr: "स्वाती", treeEn: "Arjun (Terminalia)", treeMr: "अर्जुन", bot: "Terminalia arjuna" },
-      { id: 16, nameEn: "Vishakha", nameMr: "विशाखा", treeEn: "Kauth (Wood Apple)", treeMr: "कवठ", bot: "Limonia acidissima" },
-      { id: 17, nameEn: "Anuradha", nameMr: "अनुराधा", treeEn: "Bakul (Spanish Cherry)", treeMr: "बकुळ", bot: "Mimusops elengi" },
-      { id: 18, nameEn: "Jyeshtha", nameMr: "ज्येष्ठा", treeEn: "Shisam (Rosewood)", treeMr: "शिसव", bot: "Dalbergia latifolia" },
-      { id: 19, nameEn: "Moola", nameMr: "मूळ", treeEn: "Salai (Frankincense)", treeMr: "सालई / राळ", bot: "Boswellia serrata" },
-      { id: 20, nameEn: "Purva Ashadha", nameMr: "पूर्वाषाढा", treeEn: "Vetas (Rattan Willow)", treeMr: "वेत", bot: "Salix tetrasperma" },
-      { id: 21, nameEn: "Uttara Ashadha", nameMr: "उत्तराषाढा", treeEn: "Phanas (Jackfruit)", treeMr: "फणस", bot: "Artocarpus heterophyllus" },
-      { id: 22, nameEn: "Shravana", nameMr: "श्रवण", treeEn: "Rui / Mandar (Crown Flower)", treeMr: "रुई / मंदार", bot: "Calotropis gigantea" },
-      { id: 23, nameEn: "Dhanishta", nameMr: "धनिष्ठा", treeEn: "Shami (Prosopis)", treeMr: "शमी", bot: "Prosopis cineraria" },
-      { id: 24, nameEn: "Shatabhisha", nameMr: "शततारका", treeEn: "Kadamb (Burflower)", treeMr: "कदंब", bot: "Neolamarckia cadamba" },
-      { id: 25, nameEn: "Purva Bhadrapada", nameMr: "पूर्वाभाद्रपदा", treeEn: "Amba (Mango)", treeMr: "आंबा", bot: "Mangifera indica" },
-      { id: 26, nameEn: "Uttara Bhadrapada", nameMr: "उत्तराभाद्रपदा", treeEn: "Neem (Margosa)", treeMr: "कडुलिंब", bot: "Azadirachta indica" },
-      { id: 27, nameEn: "Revati", nameMr: "रेवती", treeEn: "Moha (Mahua)", treeMr: "मोह", bot: "Madhuca longifolia" }
-    ];
-
-    function renderNakshatraGrid(filter = "") {
-      const grid = document.getElementById('nakshatraGrid');
-      if (!grid) return;
-      const q = filter.toLowerCase().trim();
-      const isMr = document.body.classList.contains('lang-mr');
-
-      const filtered = nakshatraData.filter(item => {
-        if (!q) return true;
-        return item.nameEn.toLowerCase().includes(q) ||
-               item.nameMr.includes(q) ||
-               item.treeEn.toLowerCase().includes(q) ||
-               item.treeMr.includes(q) ||
-               item.bot.toLowerCase().includes(q);
-      });
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; opacity:0.7;">No matching constellation tree found.</div>`;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(item => `
-        <div class="nakshatra-card">
-          <span class="n-num">#${String(item.id).padStart(2, '0')} NAKSHATRA</span>
-          <div class="n-name">${isMr ? item.nameMr : item.nameEn}</div>
-          <div class="n-tree">${isMr ? item.treeMr : item.treeEn}</div>
-          <div class="n-botanical">${item.bot}</div>
-        </div>
-      `).join('');
-    }
-
-    renderNakshatraGrid();
-    const searchInput = document.getElementById('nakshatraSearchInput');
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => renderNakshatraGrid(e.target.value));
-    }
-    window.addEventListener('ps:langchange', () => {
-      if (searchInput) renderNakshatraGrid(searchInput.value);
-    });
-
-    // 2. High-Performance Frame-Scrubbed Canvas Hero with Auto-Flythrough
+    // 1. High-Performance Frame-Scrubbed Canvas Hero with Auto-Flythrough
     (function () {
       const heroSection = document.querySelector('.hero');
       const heroCanvas = document.getElementById('heroCanvas');
       const heroProgress = document.getElementById('heroProgress');
       const heroPlayBtn = document.getElementById('heroPlayBtn');
       const heroPlayIcon = document.getElementById('heroPlayIcon');
-      const heroFrameCounter = document.getElementById('heroFrameCounter');
       const scrollCue = document.getElementById('scrollCue');
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1416,9 +1303,6 @@
         if (!img || !img.complete) return;
         currentIndex = index;
         drawCover(img);
-        if (heroFrameCounter) {
-          heroFrameCounter.textContent = `Frame ${index + 1} / ${FRAME_COUNT}`;
-        }
       }
 
       function updateHero() {

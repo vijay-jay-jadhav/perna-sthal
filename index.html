@@ -139,16 +139,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 18px;
+    gap: 14px;
     margin: 0 auto var(--sp-3);
     color: var(--brick);
   }
-  .about-ornament span {
-    display: block;
-    width: 72px;
-    height: 1px;
-    background: var(--brick);
-    opacity: 0.45;
+  .about-ornament .dot {
+    font-size: 18px;
+    line-height: 1;
+    color: var(--brick);
+    opacity: 0.65;
   }
   .about-ornament b {
     font-family: 'Fraunces', serif;
@@ -238,15 +237,17 @@
   /* ================= VISUAL BREAK ================= */
   .visual-break {
     position: relative;
-    margin: var(--sp-7) 0;
+    margin: 0;
     overflow: hidden;
     background: var(--teal-deep);
   }
   .visual-break img {
     width: 100%;
     height: auto;
+    min-height: 540px;
     display: block;
     object-fit: cover;
+    object-position: center top;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .visual-break:hover img {
@@ -269,7 +270,8 @@
     box-shadow: 0 4px 16px rgba(0,0,0,0.35);
   }
   @media (max-width: 640px) {
-    .visual-break { margin: var(--sp-5) 0; }
+    .visual-break { margin: 0; }
+    .visual-break img { min-height: 380px; }
     .visual-break .visual-cap {
       left: 12px;
       right: 12px;
@@ -518,6 +520,46 @@
     .garden-overview-card { padding: 22px 18px; }
   }
 
+  .garden-cta-wrap {
+    margin-top: 36px;
+    text-align: center;
+  }
+  .garden-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--paper);
+    background: var(--teal);
+    border: 1px solid var(--teal);
+    padding: 13px 26px;
+    border-radius: 999px;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(15, 74, 68, 0.2);
+    box-sizing: border-box;
+    max-width: 100%;
+    text-align: center;
+  }
+  .garden-cta:hover {
+    background: var(--brick);
+    border-color: var(--brick);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(150, 85, 47, 0.3);
+  }
+  @media (max-width: 580px) {
+    .garden-cta {
+      padding: 11px 18px;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+    }
+  }
+
   /* ================= CORRIDOR CAROUSEL ================= */
   .corridor {
     position: relative;
@@ -529,12 +571,12 @@
   .corridor .section-head h2 { color: var(--paper); }
   .corridor .section-head .intro { color: var(--paper); opacity: 0.9; }
 
-  .carousel { margin-top: var(--sp-4); }
+  .carousel { margin-top: var(--sp-4); position: relative; }
   .carousel-viewport {
     position: relative;
-    height: 520px;
+    height: 590px;
     margin: 0 -6vw;
-    overflow: hidden;
+    overflow: visible;
   }
   .carousel-track {
     position: absolute;
@@ -544,22 +586,24 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 260px;
-    margin: -230px 0 0 -130px;
+    width: 250px;
+    margin: -225px 0 0 -125px;
     transition: transform 0.55s cubic-bezier(0.16, 0.8, 0.28, 1), opacity 0.55s ease;
     cursor: pointer;
     text-decoration: none;
     color: inherit;
+    will-change: transform, opacity;
   }
   .carousel-card .frame {
     width: 100%;
     aspect-ratio: 0.618;
     overflow: hidden;
     background: rgba(4, 31, 28, 0.85);
-    border: 1px solid rgba(220, 193, 137, 0.25);
-    border-radius: 4px;
+    border: 2px solid rgba(220, 193, 137, 0.3);
+    border-radius: 6px;
     position: relative;
     box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
   }
   .carousel-card .frame img {
     width: 100%;
@@ -608,10 +652,17 @@
     text-transform: uppercase;
     color: var(--gold-soft);
     line-height: 1.5;
+    padding: 0 6px;
+    transition: color 0.3s ease;
   }
   .carousel-card.is-active .frame {
     border-color: var(--gold);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 20px rgba(199, 154, 74, 0.3);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.8), 0 0 24px rgba(199, 154, 74, 0.35);
+  }
+  .carousel-card.is-active .cap {
+    color: var(--paper);
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
   }
 
   .carousel-controls {
@@ -619,7 +670,7 @@
     align-items: center;
     justify-content: center;
     gap: 18px;
-    margin-top: var(--sp-4);
+    margin-top: var(--sp-5);
   }
   .carousel-btn {
     width: 48px;
@@ -693,8 +744,19 @@
   }
 
   @media (max-width: 860px) {
-    .carousel-viewport { height: 380px; }
-    .carousel-card { width: 170px; margin: -170px 0 0 -85px; }
+    .carousel-viewport { height: 440px; overflow: visible; }
+    .carousel-card { width: 170px; margin: -160px 0 0 -85px; }
+  }
+  @media (max-width: 540px) {
+    .carousel-viewport { height: 400px; overflow: visible; }
+    .carousel-card { width: 145px; margin: -145px 0 0 -72px; }
+    .gallery-cta {
+      padding: 11px 18px;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
   }
 
   /* ================= CONTACT SECTION ================= */
@@ -872,18 +934,16 @@
     <section class="about" id="about">
       <div class="wrap">
         <div class="eyebrow center reveal" style="margin-bottom:var(--gap-eyebrow-title);">
-          <span class="en">About the sanctuary</span>
-          <span class="mr-inline mr">या पवित्र जागेविषयी</span>
+          <span class="en">About the space</span>
+          <span class="mr-inline mr">या जागेविषयी</span>
         </div>
 
-        <div class="about-ornament reveal" aria-hidden="true"><span></span><b>&#10022;</b><span></span></div>
-
-        <h1 class="about-lede reveal en">Where architecture, nature,<br>and stillness meet at the door.</h1>
-        <h1 class="about-lede reveal mr-block mr">जिथे वास्तुकला, निसर्ग आणि शांतता<br>उंबरठ्यावर एकत्र येतात.</h1>
+        <h1 class="about-lede reveal en">Where architecture, nature<br>and quietness come together.</h1>
+        <h1 class="about-lede reveal mr-block mr">जिथे निसर्ग, वास्तू आणि शांतता<br>एकत्र अनुभवता येते.</h1>
 
         <div class="about-copy reveal">
-          <p class="en"><b>Prerna Sthal</b> is a thoughtfully envisioned meditation and reflection space, located within Nakshatra Udyan in the Vidya Nagari campus of Vidya Pratishthan, Baramati. Surrounded by the tranquil landscape of Nakshatra Udyan, the project is designed to promote inner peace, mindfulness, and spiritual well-being through its harmonious integration of architecture, nature, and water elements.</p>
-          <p class="mr-block mr"><b>प्रेरणा स्थळ</b> ही विद्या प्रतिष्ठान, बारामतीच्या विद्या नगरी कॅम्पसमधील नक्षत्र उद्यानात वसलेली, काळजीपूर्वक साकारलेली ध्यान आणि चिंतनाची जागा आहे. नक्षत्र उद्यानाच्या शांत परिसराने वेढलेला हा प्रकल्प वास्तुकला, निसर्ग आणि जल घटकांच्या सुसंवादी एकत्रीकरणातून आंतरिक शांती, सजगता आणि आध्यात्मिक स्वास्थ्य वाढवण्यासाठी रचला आहे.</p>
+          <p class="en">Prerna Sthal is a space for meditation and reflection within Nakshatra Udyan at Vidya Pratishthan’s Vidya Nagari campus in Baramati. Surrounded by trees, water and open space, it brings these elements together to create a calm setting for quiet thought, mindfulness and inner reflection.</p>
+          <p class="mr-block mr">विद्या प्रतिष्ठानच्या विद्या नगरी परिसरातील नक्षत्र उद्यानात प्रेरणा स्थळ उभारले आहे. ध्यान, शांतपणे बसणे आणि स्वतःशी संवाद साधण्यासाठी ही जागा तयार करण्यात आली आहे. सभोवतालची हिरवाई, पाणी आणि वास्तू यांचा सुंदर मेळ या परिसराला निवांतपणा देतो.</p>
         </div>
       </div>
     </section>
@@ -901,9 +961,12 @@
         <blockquote class="quote-text en">"In today's world of stress and conflict, Gautam Buddha remains a powerful symbol of peace, reminding us that inner calm and compassion are the foundations of a peaceful society."</blockquote>
         <blockquote class="quote-text mr-block mr">"आजच्या तणावग्रस्त आणि संघर्षमय जगात, गौतम बुद्ध शांततेचे प्रभावी प्रतीक आहेत, आंतरिक शांती आणि करुणा हाच शांत समाजाचा पाया आहे याची आठवण करून देणारे."</blockquote>
         <svg class="quote-ornament" viewBox="0 0 160 24" aria-hidden="true">
-          <path d="M0 12H57M103 12H160" stroke="var(--gold)" stroke-width="1.4"/>
+          <circle cx="36" cy="12" r="2.5" fill="var(--gold)"/>
+          <circle cx="56" cy="12" r="2" fill="var(--gold)"/>
           <path d="M80 4l3 5 5 3-5 3-3 5-3-5-5-3 5-3Z" fill="none" stroke="var(--gold)" stroke-width="1.3"/>
           <circle cx="80" cy="12" r="2" fill="var(--gold)"/>
+          <circle cx="104" cy="12" r="2" fill="var(--gold)"/>
+          <circle cx="124" cy="12" r="2.5" fill="var(--gold)"/>
         </svg>
       </div>
     </section>
@@ -914,19 +977,19 @@
         <source media="(max-width: 640px)" srcset="images/architecture/cover-mobile.jpg">
         <img src="images/architecture/cover.jpg" alt="Prerna Sthal architectural rendering showing main entrance and dome" data-zoomable>
       </picture>
-      <span class="visual-cap en">Prerna Sthal · Meditation Dome &amp; Reflection Hall</span>
-      <span class="visual-cap mr-block mr">प्रेरणा स्थळ · ध्यान घुमट आणि चिंतन सभागृह</span>
+      <span class="visual-cap en">Prerna Sthal · Meditation Dome &amp; Reflection Space</span>
+      <span class="visual-cap mr-block mr">प्रेरणा स्थळ · ध्यान घुमट आणि चिंतनासाठीची जागा</span>
     </figure>
 
     <!-- ================= WHY MEDITATION MATTERS ================= -->
     <section class="why" id="why">
       <div class="wrap">
         <div class="section-head reveal">
-          <div class="eyebrow center"><span class="en">Sanctuary Purpose</span><span class="mr-inline mr">उद्दिष्ट व महत्त्व</span></div>
+          <div class="eyebrow center"><span class="en">Purpose of the Space</span><span class="mr-inline mr">प्रेरणा स्थळाचा उद्देश</span></div>
           <h2 class="en">Why this space matters</h2>
-          <h2 class="mr-block mr">या जागेचे महत्त्व</h2>
-          <p class="intro en">Designed as an oasis for students, scholars, visitors, and citizens seeking mindfulness amidst modern life.</p>
-          <p class="intro mr-block mr">आधुनिक धावपळीच्या जीवनात विद्यार्थी, अभ्यासक, नागरिक आणि साधकांसाठी सजगतेचे आश्रयस्थान.</p>
+          <h2 class="mr-block mr">ही जागा कशासाठी?</h2>
+          <p class="intro en">Created as a quiet place where students, researchers, visitors and citizens can pause, reflect and spend time with themselves.</p>
+          <p class="intro mr-block mr">दैनंदिन धावपळीत काही वेळ शांत बसता यावा, मन एकाग्र करता यावे आणि स्वतःकडे पाहता यावे, यासाठी ही जागा विद्यार्थ्यांसह अभ्यासक, नागरिक आणि भेट देणाऱ्या सर्वांसाठी खुली आहे.</p>
         </div>
 
         <div class="benefits">
@@ -937,8 +1000,8 @@
             <span class="benefit-number">01</span>
             <h3 class="en">Mental Well-being</h3>
             <h3 class="mr-block mr">मानसिक स्वास्थ्य</h3>
-            <p class="en">A quiet sanctuary away from urban noise, systematically reducing stress and anxiety through tranquil immersion.</p>
-            <p class="mr-block mr">शहराच्या गोंगाटापासून दूर असलेली शांत जागा, नियमित ध्यानाभ्यासाने ताण आणि चिंता कमी करण्यास मदत करते.</p>
+            <p class="en">Away from the noise of everyday life, the peaceful surroundings offer a natural setting to slow down, settle the mind and reduce everyday stress.</p>
+            <p class="mr-block mr">गोंगाटापासून दूर असलेल्या शांत वातावरणात काही वेळ घालवल्याने मन निवांत होण्यास आणि दैनंदिन ताण कमी करण्यास मदत होऊ शकते.</p>
           </article>
 
           <article class="benefit reveal">
@@ -946,10 +1009,10 @@
               <svg viewBox="0 0 64 64"><circle cx="32" cy="13" r="6"/><path d="M32 20v10"/><path d="M23 29c2 8 5 12 9 12s7-4 9-12"/><path d="M25 34c-8 1-13 5-13 10 0 4 7 7 20 7s20-3 20-7c0-5-5-9-13-10"/><path d="M21 48c4-3 7-4 11-4s7 1 11 4"/></svg>
             </div>
             <span class="benefit-number">02</span>
-            <h3 class="en">Spiritual Growth</h3>
-            <h3 class="mr-block mr">आध्यात्मिक विकास</h3>
-            <p class="en">A serene, neutral space for people of all walks of life to reconnect with inner stillness, cultivating deep self-awareness.</p>
-            <p class="mr-block mr">सर्व घटकांसाठी स्वतःशी जोडून घेण्याकरिता पवित्र वातावरण, आत्मभान आणि चिंतनाला प्रोत्साहन देणारे.</p>
+            <h3 class="en">Inner Growth</h3>
+            <h3 class="mr-block mr">अंतर्मुखता</h3>
+            <p class="en">A welcoming space for people from different walks of life to sit quietly, reflect and develop a deeper awareness of themselves.</p>
+            <p class="mr-block mr">शांतपणे बसणे, ध्यान करणे आणि स्वतःच्या विचारांकडे लक्ष देणे यासाठी हे वातावरण पोषक आहे.</p>
           </article>
 
           <article class="benefit reveal">
@@ -958,9 +1021,9 @@
             </div>
             <span class="benefit-number">03</span>
             <h3 class="en">Community &amp; Learning</h3>
-            <h3 class="mr-block mr">समुदाय व संवाद</h3>
-            <p class="en">A thoughtful gathering hall hosting guided mindfulness, yoga circles, and reflective dialogues for all generations.</p>
-            <p class="mr-block mr">सजगता आणि आंतरिक विकासासाठी एकत्र येण्याची जागा, सामूहिक ध्यान आणि अभ्यासपूर्ण चर्चांसाठी सज्ज.</p>
+            <h3 class="mr-block mr">संवाद आणि शिक्षण</h3>
+            <p class="en">A place where people can come together for meditation, yoga, learning and thoughtful conversations across generations.</p>
+            <p class="mr-block mr">ध्यान, योग, अभ्यास आणि विचारांची देवाणघेवाण करण्यासाठी एकत्र येता यावे, अशी ही जागा आहे.</p>
           </article>
 
           <article class="benefit reveal">
@@ -968,15 +1031,15 @@
               <svg viewBox="0 0 64 64"><path d="M32 52C28 45 14 40 14 28c0-7 5-11 10-11 4 0 7 2 8 6 1-4 4-6 8-6 5 0 10 4 10 11 0 12-14 17-18 24Z"/><path d="M17 40c-6-1-9-5-9-10 6 0 11 2 13 7"/><path d="M47 40c6-1 9-5 9-10-6 0-11 2-13 7"/><path d="M17 42c-4 2-6 5-6 9h15"/><path d="M47 42c4 2 6 5 6 9H38"/></svg>
             </div>
             <span class="benefit-number">04</span>
-            <h3 class="en">Holistic Health</h3>
-            <h3 class="mr-block mr">आरोग्यविषयक लाभ</h3>
-            <p class="en">Meditation offers scientifically proven benefits: heightened mental clarity, deeper restorative sleep, and emotional balance.</p>
-            <p class="mr-block mr">ध्यानाचे सिद्ध झालेले लाभ: वाढलेली एकाग्रता, गुणवत्तापूर्ण झोप आणि स्थिर भावनिक संतुलन.</p>
+            <h3 class="en">Well-being</h3>
+            <h3 class="mr-block mr">आरोग्य आणि मनःशांती</h3>
+            <p class="en">Regular meditation is associated with benefits such as better concentration, improved sleep and greater emotional balance.</p>
+            <p class="mr-block mr">नियमित ध्यानामुळे एकाग्रता, झोप आणि भावनिक संतुलन यांसारख्या गोष्टींना फायदा होऊ शकतो.</p>
           </article>
         </div>
 
-        <p class="why-close reveal en">"In a fast-paced world, Prerna Sthal stands as an enduring sanctuary—fostering calm, clarity, and compassion."</p>
-        <p class="why-close reveal mr-block mr">"वेगवान युगात, प्रेरणा स्थळ एक शांत आश्रयस्थान बनते—दैनंदिन जीवनात शांतता, स्पष्टता आणि करुणा वृद्धिंगत करणारे."</p>
+        <p class="why-close reveal en">"In a fast-paced world, Prerna Sthal offers a quiet place to pause, and to find a little more calm, clarity and compassion in everyday life."</p>
+        <p class="why-close reveal mr-block mr">"वेगवान जीवनात काही क्षण थांबून शांत होण्यासाठी प्रेरणा स्थळ एक निवांत जागा आहे, मनात अधिक शांतता, स्पष्टता आणि करुणा निर्माण करण्यासाठी."</p>
       </div>
     </section>
 
@@ -984,30 +1047,30 @@
     <figure class="visual-break reveal" aria-label="Nakshatra Udyan Aerial Visual">
       <img src="images/architecture/bird2.jpg" alt="Aerial rendering of Nakshatra Udyan encircling Prerna Sthal dome" data-zoomable>
       <span class="visual-cap en">Nakshatra Udyan · Botanical &amp; Cosmic Landscape</span>
-      <span class="visual-cap mr-block mr">नक्षत्र उद्यान · वनस्पती व खगोलीय भूदृश्य रचना</span>
+      <span class="visual-cap mr-block mr">नक्षत्र उद्यान · वनस्पती आणि निसर्ग</span>
     </figure>
 
     <!-- ================= NAKSHATRA UDYAN & FLORA ================= -->
     <section class="garden" id="garden">
       <div class="wrap">
         <div class="section-head reveal">
-          <div class="eyebrow center"><span class="en">Cosmic Botany &amp; Serenity</span><span class="mr-inline mr">निसर्ग व खगोल</span></div>
+          <div class="eyebrow center"><span class="en">Nature, tradition and tranquillity</span><span class="mr-inline mr">निसर्ग, परंपरा आणि शांतता</span></div>
           <h2 class="en">Nakshatra Udyan</h2>
           <h2 class="mr-block mr">नक्षत्र उद्यान</h2>
-          <p class="intro en">An expansive sanctuary of native medicinal biodiversity, where each zone aligns with the 27 Nakshatras (lunar constellations) to create a serene environment for contemplation and rejuvenation.</p>
-          <p class="intro mr-block mr">२७ नक्षत्रांशी संबंधित औषधी आणि पवित्र वनस्पतींनी सजलेले विस्तीर्ण उद्यान, जे ध्यान आणि आत्मचिंतनासाठी शांत व आरोग्यदायी वातावरण निर्माण करते.</p>
+          <p class="intro en">Spread across a large green landscape, Nakshatra Udyan brings together native and medicinal plants associated with the 27 Nakshatras, creating a peaceful setting for walking, reflection and time in nature.</p>
+          <p class="intro mr-block mr">२७ नक्षत्रांशी संबंधित वृक्ष आणि वनस्पतींनी समृद्ध असलेले नक्षत्र उद्यान ध्यान, फेरफटका आणि निसर्गाचा अनुभव घेण्यासाठी शांत वातावरण देते.</p>
         </div>
 
         <!-- General Overview Presentation -->
         <div class="garden-overview-card reveal">
           <div class="garden-overview-grid">
             <div class="garden-overview-text">
-              <h3 class="en">Harmony of Celestial &amp; Earthly Nature</h3>
-              <h3 class="mr-block mr">खगोलीय आणि नैसर्गिक घटकांचा सुसंवाद</h3>
-              <p class="en">In ancient Indian tradition, each of the 27 lunar constellations corresponds to a dedicated indigenous tree endowed with unique therapeutic and ecological benefits. Nakshatra Udyan integrates this wisdom into modern landscape architecture surrounding the central meditation hall.</p>
-              <p class="en">Visitors and students can stroll through shaded green avenues, absorb the gentle fragrance of medicinal leaves, and experience a restorative connection with nature before stepping into the central dome.</p>
-              <p class="mr-block mr">प्राचीन भारतीय परंपरेनुसार २७ नक्षत्रांपैकी प्रत्येकाशी एक विशिष्ट औषधी वृक्ष जोडलेला आहे. हे उद्यान याच ज्ञानाला आधुनिक निसर्ग रचनेत गुंफून ध्यान सभागृहाभोवती पवित्र व शांत वातावरण तयार करते.</p>
-              <p class="mr-block mr">येथे येणारे अभ्यासक व नागरिक सावलीच्या पायवाटेवरून चालताना औषधी वनस्पतींचा सुगंध आणि निसर्गाची शांतता अनुभवू शकतात.</p>
+              <h3 class="en">A meeting of tradition and nature</h3>
+              <h3 class="mr-block mr">परंपरा आणि निसर्गाचा सुंदर मेळ</h3>
+              <p class="en">In Indian tradition, each of the 27 Nakshatras is associated with a particular tree. Nakshatra Udyan brings this tradition into the landscape around Prerna Sthal, giving visitors an opportunity to experience it alongside a living collection of trees and plants.</p>
+              <p class="en">Students and visitors can walk along shaded paths, notice the fragrance of the plants and enjoy the quiet of the garden before entering Prerna Sthal.</p>
+              <p class="mr-block mr">भारतीय परंपरेत २७ नक्षत्रांपैकी प्रत्येकाशी एक विशिष्ट वृक्ष जोडला जातो. नक्षत्र उद्यानात ही परंपरा जपताना विविध वृक्ष आणि वनस्पतींची लागवड करण्यात आली आहे.</p>
+              <p class="mr-block mr">सावलीच्या पायवाटेवरून चालताना झाडांचा सुगंध, पक्ष्यांचे आवाज आणि परिसरातील शांतता अनुभवता येते. प्रेरणा स्थळाकडे जाताना हा अनुभव मनाला हळूहळू निवांत करतो.</p>
             </div>
             <div class="garden-overview-stat">
               <div class="stat-item">
@@ -1037,58 +1100,58 @@
         <div class="garden-features reveal">
           <div class="gf-card">
             <h4 class="en">Walking &amp; Jogging</h4>
-            <h4 class="mr-block mr">प्रदक्षिणा व फिरणे</h4>
-            <p class="en">Tree-lined, smooth stone paths ideal for morning walks, peaceful jogging, and barefoot walking meditation.</p>
-            <p class="mr-block mr">पहाटेच्या फिरण्यासाठी, प्राणायामासाठी आणि अनवाणी चालण्याच्या ध्यानासाठी शांत, निसर्गरम्य मार्ग.</p>
+            <h4 class="mr-block mr">फेरफटका आणि चालणे</h4>
+            <p class="en">Shaded stone paths suited to morning walks, gentle jogging and barefoot walking meditation.</p>
+            <p class="mr-block mr">सकाळच्या फेरफटक्यासाठी, हलक्या धावण्यासाठी किंवा अनवाणी चालण्याचा अनुभव घेण्यासाठी शांत पायवाटा आहेत.</p>
           </div>
           <div class="gf-card">
             <h4 class="en">Medicinal Biodiversity</h4>
-            <h4 class="mr-block mr">औषधी जैवविविधता</h4>
-            <p class="en">A living herbal repository serving botanical study, Ayurvedic knowledge, and biodiversity conservation.</p>
-            <p class="mr-block mr">विद्यार्थी व वनस्पती अभ्यासकांसाठी आयुर्वेदाचा आणि दुर्मिळ वनस्पतींचा जिवंत वारसा.</p>
+            <h4 class="mr-block mr">औषधी वनस्पतींची विविधता</h4>
+            <p class="en">A living collection of plants that supports botanical study, Ayurvedic learning and the conservation of local biodiversity.</p>
+            <p class="mr-block mr">वनस्पतींचा हा संग्रह विद्यार्थ्यांना आणि अभ्यासकांना वनस्पतीशास्त्र, आयुर्वेद आणि जैवविविधतेचा अभ्यास करण्याची संधी देतो.</p>
           </div>
           <div class="gf-card">
             <h4 class="en">Eco-friendly Practices</h4>
             <h4 class="mr-block mr">पर्यावरणपूरक व्यवस्था</h4>
-            <p class="en">Utilizes 100% treated recycled water for irrigation, ensuring zero waste and sustainable campus ecology.</p>
-            <p class="mr-block mr">प्रक्रिया केलेल्या पाण्याचा १००% पुनर्वापर करून हरित संवर्धन व जलव्यवस्थापन साध्य केले आहे.</p>
+            <p class="en">Treated and recycled water is used for irrigation, helping the campus make responsible use of its water resources.</p>
+            <p class="mr-block mr">सांडपाण्यावर प्रक्रिया करून मिळणाऱ्या पाण्याचा सिंचनासाठी पुनर्वापर केला जातो.</p>
           </div>
           <div class="gf-card">
             <h4 class="en">Natural Soundscape</h4>
-            <h4 class="mr-block mr">नैसर्गिक ध्वनी</h4>
-            <p class="en">Gentle rustling leaves, bird calls, and winding water channels that soothe the mind before entering the dome.</p>
-            <p class="mr-block mr">पानांची सळसळ, पक्षांचे मंजुळ आवाज आणि जलतरंग जे सभागृहात प्रवेश करण्यापूर्वीच मन शांत करतात.</p>
+            <h4 class="mr-block mr">नैसर्गिक आवाज</h4>
+            <p class="en">The sound of leaves, birds and flowing water adds to the sense of calm as visitors move through the garden.</p>
+            <p class="mr-block mr">पानांची सळसळ, पक्ष्यांचा किलबिलाट आणि वाहत्या पाण्याचा मंद आवाज परिसरातील शांतता अधिक जाणवून देतो.</p>
           </div>
         </div>
 
-        <!-- Water Healing Block -->
+        <!-- Water Calming Block -->
         <div class="water-block reveal">
           <div class="water-left">
-            <h3 class="en">Water as a Healing Element</h3>
-            <h3 class="mr-block mr">जल: एक उपचारक घटक</h3>
+            <h3 class="en">Water as a Calming Element</h3>
+            <h3 class="mr-block mr">पाणी आणि शांत वातावरण</h3>
             <ul>
               <li class="en">Winding stone water channels</li>
               <li class="en">Blooming sacred lily ponds</li>
               <li class="en">Reflective acoustic surfaces</li>
               <li class="en">Natural cooling microclimate</li>
-              <li class="mr-block mr">वाहते दगडी जलप्रवाह</li>
-              <li class="mr-block mr">कमळ व कुमुद तलाव</li>
-              <li class="mr-block mr">शांत ध्वनी तरंग परावर्तन</li>
-              <li class="mr-block mr">नैसर्गिक थंडावा निर्माण करणारे वातावरण</li>
+              <li class="mr-block mr">दगडी जलवाहिन्या</li>
+              <li class="mr-block mr">कमळाची आणि कुमुदाची तळी</li>
+              <li class="mr-block mr">पाण्याच्या आवाजाची आणि हालचालीची रचना</li>
+              <li class="mr-block mr">परिसरात नैसर्गिक गारवा</li>
             </ul>
           </div>
           <div class="water-right">
-            <p class="en">The sound and movement of water is deliberately choreographed through Prerna Sthal. Rippling channels and water lily ponds slow the visitor's pulse before they reach the main hall, setting an atmosphere of contemplative stillness.</p>
-            <p class="en">Together with the lush Nakshatra flora and the soaring central dome, water completes the sanctuary as a place built for inward discovery.</p>
-            <p class="mr-block mr">पाण्याचा नाद आणि मंद प्रवाह जाणीवपूर्वक प्रेरणा स्थळाभोवती गुंफण्यात आला आहे. जलवाहिन्या आणि कमळ तलाव सभागृहामध्ये प्रवेश करण्यापूर्वीच मनाला स्थिर आणि शांत करतात.</p>
-            <p class="mr-block mr">नक्षत्र वृक्षांची सावली, पाण्याची संथ लय आणि विस्तीर्ण ध्यान घुमट मिळून आंतरिक शांतीचा परिपूर्ण अनुभव देतात.</p>
+            <p class="en">Water channels and lily ponds are woven into the landscape around Prerna Sthal. Their gentle movement and sound create a quieter atmosphere as visitors approach the main space.</p>
+            <p class="en">Together with the trees and the central dome, the water features give the surroundings a sense of openness, calm and continuity.</p>
+            <p class="mr-block mr">प्रेरणा स्थळाभोवती जलवाहिन्या आणि तळी तयार करण्यात आली आहेत. पाण्याचा मंद प्रवाह आणि त्याचा आवाज परिसरात शांत वातावरण निर्माण करतो.</p>
+            <p class="mr-block mr">झाडांची सावली, पाण्याची संथ लय आणि घुमटाची रचना यामुळे प्रेरणा स्थळाभोवतीचा परिसर अधिक निवांत वाटतो.</p>
           </div>
         </div>
 
-        <div style="text-align:center; margin-top:36px;" class="reveal">
-          <a href="nakshatra-udyan.html" class="visit-pill" style="padding:12px 28px; font-size:13px; letter-spacing:0.06em;">
-            <span class="en">Explore Full Nakshatra Udyan &amp; 27 Sacred Trees Guide →</span>
-            <span class="mr-inline mr">संपूर्ण नक्षत्र उद्यान व २७ वृक्षांची सविस्तर माहिती पहा →</span>
+        <div class="garden-cta-wrap reveal">
+          <a href="nakshatra-udyan.html" class="garden-cta">
+            <span class="en">Explore Nakshatra Udyan &rarr;</span>
+            <span class="mr-inline mr">नक्षत्र उद्यान दर्शन &rarr;</span>
           </a>
         </div>
       </div>
@@ -1105,32 +1168,30 @@
             <path d="M32 27C25 20 25 12 32 6c7 6 7 14 0 21Z" fill="none" stroke="var(--gold)" stroke-width="2"/>
             <path d="M22 50h20" fill="none" stroke="var(--gold)" stroke-width="2"/>
           </svg>
-          <div class="eyebrow on-dark center"><span class="en">The Dome Corridor</span><span class="mr-inline mr">घुमट प्रदक्षिणा मार्ग</span></div>
+          <div class="eyebrow on-dark center"><span class="en">The Dome Corridor</span><span class="mr-inline mr">घुमटाभोवतीचा मार्ग</span></div>
           <h2 class="en">An Inspirational Gallery</h2>
           <h2 class="mr-block mr">प्रेरणादायी महापुरुष गॅलरी</h2>
-          <p class="intro en">The corridor encircling the dome features life-size, hand-painted portraits of 15 nation-builders, visionaries, and social reformers who shaped modern India.</p>
-          <p class="intro mr-block mr">घुमटाभोवतीचा प्रदक्षिणा मार्ग १५ महान नेते, समाजसुधारक आणि राष्ट्रनिर्मात्यांच्या जीवनाकार हस्तचित्रांनी सुशोभित आहे.</p>
+          <p class="intro en">The corridor around the dome features life-size, hand-painted portraits of leaders, social reformers and nation-builders whose work has shaped modern India.</p>
+          <p class="intro mr-block mr">घुमटाभोवतीच्या मार्गावर भारताच्या सामाजिक आणि सार्वजनिक जीवनावर प्रभाव टाकणाऱ्या महापुरुषांची जीवनाकार हस्तचित्रे लावण्यात आली आहेत.</p>
         </div>
 
         <div class="carousel reveal">
           <div class="carousel-viewport" id="corridorViewport">
             <div class="carousel-track" id="corridorTrack">
               <!-- Dynamically populated / preserved for 3D navigation -->
-              <a href="mahapurush.html" class="carousel-card" data-index="0"><div class="frame"><span class="placeholder-name">Rajmata Jijau</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Rajmata Jijau</div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="1"><div class="frame"><span class="placeholder-name">Chhatrapati Shivaji Maharaj</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Chhatrapati Shivaji Maharaj</div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="2"><div class="frame"><img src="images/portraits/Ahilyabai%20Holkar.jpg" loading="lazy" alt="Ahilyabai Holkar"></div><div class="cap">Ahilyabai Holkar</div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="3"><div class="frame"><img src="images/portraits/Mahatma%20Jyotirao%20Phule.jpg" loading="lazy" alt="Mahatma Jyotirao Phule"></div><div class="cap">Mahatma Jyotirao Phule</div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="4"><div class="frame"><img src="images/portraits/Savitribai%20Phule.jpg" loading="lazy" alt="Savitribai Phule"></div><div class="cap">Savitribai Phule</div></a>
-              <a href="shahu-maharaj.html" class="carousel-card" data-index="5"><div class="frame"><img src="images/portraits/Chhatrapati%20Rajarshi%20Shahu%20Maharaj.jpg" loading="lazy" alt="Rajarshi Shahu Maharaj"></div><div class="cap">Rajarshi Shahu Maharaj</div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="6"><div class="frame"><img src="images/portraits/Dr.%20Babasaheb%20Ambedkar.jpg" loading="lazy" alt="Dr. Babasaheb Ambedkar"></div><div class="cap">Dr. Babasaheb Ambedkar</div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="7"><div class="frame"><img src="images/portraits/Maharaja%20Sayajirao%20Gaikwad.jpg" loading="lazy" alt="Maharaja Sayajirao Gaikwad"></div><div class="cap">Maharaja Sayajirao Gaikwad</div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="8"><div class="frame"><img src="images/portraits/Mahatma%20Gandhi.jpg" loading="lazy" alt="Mahatma Gandhi"></div><div class="cap">Mahatma Gandhi</div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="9"><div class="frame"><img src="images/portraits/Karmaveer%20Bhaurao%20Patil.jpg" loading="lazy" alt="Karmaveer Bhaurao Patil"></div><div class="cap">Karmaveer Bhaurao Patil</div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="10"><div class="frame"><img src="images/portraits/Annabhau%20Sathe.jpg" loading="lazy" alt="Annabhau Sathe"></div><div class="cap">Annabhau Sathe</div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="11"><div class="frame"><span class="placeholder-name">Shardabai Pawar</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Shardabai Pawar</div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="12"><div class="frame"><img src="images/portraits/Yashwantrao%20Chavan.jpg" loading="lazy" alt="Yashwantrao Chavan"></div><div class="cap">Yashwantrao Chavan</div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="13"><div class="frame"><span class="placeholder-name">Lokmanya Tilak</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Lokmanya Tilak</div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="14"><div class="frame"><span class="placeholder-name">Maulana Abul Kalam Azad</span><span class="pending-tag">Portrait pending</span></div><div class="cap">Maulana Abul Kalam Azad</div></a>
+              <a href="mahapurush.html" class="carousel-card" data-index="0"><div class="frame"><span class="placeholder-name"><span class="en">Rajmata Jijau</span><span class="mr-inline mr">राजमाता जिजाऊ</span></span><span class="pending-tag"><span class="en">Portrait pending</span><span class="mr-inline mr">चित्र प्रतिक्षेत</span></span></div><div class="cap"><span class="en">Rajmata Jijau</span><span class="mr-inline mr">राजमाता जिजाऊ</span></div></a>
+              <a href="mahapurush.html" class="carousel-card" data-index="1"><div class="frame"><span class="placeholder-name"><span class="en">Chhatrapati Shivaji Maharaj</span><span class="mr-inline mr">छत्रपती शिवाजी महाराज</span></span><span class="pending-tag"><span class="en">Portrait pending</span><span class="mr-inline mr">चित्र प्रतिक्षेत</span></span></div><div class="cap"><span class="en">Chhatrapati Shivaji Maharaj</span><span class="mr-inline mr">छत्रपती शिवाजी महाराज</span></div></a>
+              <a href="mahapurush.html" class="carousel-card" data-index="2"><div class="frame"><img src="images/portraits/Ahilyabai%20Holkar.jpg" loading="lazy" alt="Ahilyabai Holkar"></div><div class="cap"><span class="en">Ahilyabai Holkar</span><span class="mr-inline mr">अहिल्याबाई होळकर</span></div></a>
+              <a href="mahapurush.html" class="carousel-card" data-index="3"><div class="frame"><img src="images/portraits/Mahatma%20Jyotirao%20Phule.jpg" loading="lazy" alt="Mahatma Jyotirao Phule"></div><div class="cap"><span class="en">Mahatma Jyotirao Phule</span><span class="mr-inline mr">महात्मा ज्योतिराव फुले</span></div></a>
+              <a href="mahapurush.html" class="carousel-card" data-index="4"><div class="frame"><img src="images/portraits/Savitribai%20Phule.jpg" loading="lazy" alt="Savitribai Phule"></div><div class="cap"><span class="en">Savitribai Phule</span><span class="mr-inline mr">सावित्रीबाई फुले</span></div></a>
+              <a href="shahu-maharaj.html" class="carousel-card" data-index="5"><div class="frame"><img src="images/portraits/Chhatrapati%20Rajarshi%20Shahu%20Maharaj.jpg" loading="lazy" alt="Rajarshi Shahu Maharaj"></div><div class="cap"><span class="en">Rajarshi Shahu Maharaj</span><span class="mr-inline mr">राजर्षी शाहू महाराज</span></div></a>
+              <a href="mahapurush.html" class="carousel-card" data-index="6"><div class="frame"><img src="images/portraits/Dr.%20Babasaheb%20Ambedkar.jpg" loading="lazy" alt="Dr. Babasaheb Ambedkar"></div><div class="cap"><span class="en">Dr. Babasaheb Ambedkar</span><span class="mr-inline mr">डॉ. बाबासाहेब आंबेडकर</span></div></a>
+              <a href="mahapurush.html" class="carousel-card" data-index="7"><div class="frame"><img src="images/portraits/Maharaja%20Sayajirao%20Gaikwad.jpg" loading="lazy" alt="Maharaja Sayajirao Gaikwad"></div><div class="cap"><span class="en">Maharaja Sayajirao Gaikwad</span><span class="mr-inline mr">महाराजा सयाजीराव गायकवाड</span></div></a>
+              <a href="mahapurush.html" class="carousel-card" data-index="8"><div class="frame"><img src="images/portraits/Mahatma%20Gandhi.jpg" loading="lazy" alt="Mahatma Gandhi"></div><div class="cap"><span class="en">Mahatma Gandhi</span><span class="mr-inline mr">महात्मा गांधी</span></div></a>
+              <a href="mahapurush.html" class="carousel-card" data-index="9"><div class="frame"><img src="images/portraits/Karmaveer%20Bhaurao%20Patil.jpg" loading="lazy" alt="Karmaveer Bhaurao Patil"></div><div class="cap"><span class="en">Karmaveer Bhaurao Patil</span><span class="mr-inline mr">कर्मवीर भाऊराव पाटील</span></div></a>
+              <a href="mahapurush.html" class="carousel-card" data-index="10"><div class="frame"><img src="images/portraits/Annabhau%20Sathe.jpg" loading="lazy" alt="Annabhau Sathe"></div><div class="cap"><span class="en">Annabhau Sathe</span><span class="mr-inline mr">अण्णा भाऊ साठे</span></div></a>
+              <a href="mahapurush.html" class="carousel-card" data-index="11"><div class="frame"><span class="placeholder-name"><span class="en">Shardabai Pawar</span><span class="mr-inline mr">शारदाबाई पवार</span></span><span class="pending-tag"><span class="en">Portrait pending</span><span class="mr-inline mr">चित्र प्रतिक्षेत</span></span></div><div class="cap"><span class="en">Shardabai Pawar</span><span class="mr-inline mr">शारदाबाई पवार</span></div></a>
+              <a href="mahapurush.html" class="carousel-card" data-index="12"><div class="frame"><img src="images/portraits/Yashwantrao%20Chavan.jpg" loading="lazy" alt="Yashwantrao Chavan"></div><div class="cap"><span class="en">Yashwantrao Chavan</span><span class="mr-inline mr">यशवंतराव चव्हाण</span></div></a>
             </div>
           </div>
 
@@ -1142,8 +1203,8 @@
         </div>
 
         <div class="gallery-cta-wrap reveal">
-          <a href="mahapurush.html" class="gallery-cta en">Explore All 15 Mahapurush Biographies &rarr;</a>
-          <a href="mahapurush.html" class="gallery-cta mr-block mr">सर्व १५ महापुरुषांचे चरित्र व गॅलरी पहा &rarr;</a>
+          <a href="mahapurush.html" class="gallery-cta en">Explore Mahapurush biographies &rarr;</a>
+          <a href="mahapurush.html" class="gallery-cta mr-block mr">सर्व महापुरुषांचे चरित्र पहा &rarr;</a>
         </div>
       </div>
     </section>
@@ -1152,7 +1213,7 @@
     <figure class="visual-break reveal" aria-label="Prerna Sthal Aerial Dome View">
       <img src="images/architecture/bird1.jpg" alt="Aerial perspective of Prerna Sthal architecture and amphitheatre grounds" data-zoomable>
       <span class="visual-cap en">Prerna Sthal · Vidya Pratishthan Campus, Baramati</span>
-      <span class="visual-cap mr-block mr">प्रेरणा स्थळ · विद्या प्रतिष्ठान कॅम्पस, बारामती</span>
+      <span class="visual-cap mr-block mr">प्रेरणा स्थळ · विद्या प्रतिष्ठान परिसर, बारामती</span>
     </figure>
 
     <!-- ================= VISIT & CONTACT ================= -->
@@ -1161,10 +1222,10 @@
         <div class="contact-card reveal">
           <div class="contact-left">
             <div class="eyebrow"><span class="en">Visitor Information</span><span class="mr-inline mr">भेट व संपर्क</span></div>
-            <h2 class="en">We welcome you to experience stillness.</h2>
-            <h2 class="mr-block mr">शांततेचा अनुभव घेण्यासाठी आपले स्वागत आहे.</h2>
-            <p class="lede en">Prerna Sthal and Nakshatra Udyan are open to students, faculty, researchers, and visitors daily.</p>
-            <p class="lede mr-block mr">प्रेरणा स्थळ आणि नक्षत्र उद्यान दैनंदिन ध्यान, अभ्यास आणि शांततेसाठी सर्वांसाठी खुले आहे.</p>
+            <h2 class="en">We welcome you to spend some quiet time here.</h2>
+            <h2 class="mr-block mr">काही वेळ शांततेत घालवण्यासाठी आपले मनःपूर्वक स्वागत आहे.</h2>
+            <p class="lede en">Prerna Sthal and Nakshatra Udyan are open daily to students, researchers, faculty and visitors.</p>
+            <p class="lede mr-block mr">प्रेरणा स्थळ आणि नक्षत्र उद्यान विद्यार्थ्यांसह अभ्यासक, नागरिक आणि इतर अभ्यागतांसाठी दररोज खुले आहे.</p>
             
             <div style="margin-top:24px;">
               <a href="contact.html" class="visit-pill en" style="display:inline-block;">Plan Your Visit &rarr;</a>
@@ -1178,8 +1239,8 @@
                 <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12"/><path d="M16 8v8l5 3"/></svg>
               </div>
               <div>
-                <div class="k"><span class="en">Hours</span><span class="mr-block mr">वेळ</span></div>
-                <div class="v">6:00 AM – 8:30 PM (Daily / दररोज)</div>
+                <div class="k"><span class="en">Hours</span><span class="mr-block mr">भेटीची वेळ</span></div>
+                <div class="v">6:00 AM to 8:00 PM (Daily / दररोज)</div>
               </div>
             </div>
 
@@ -1189,7 +1250,7 @@
               </div>
               <div>
                 <div class="k"><span class="en">Phone</span><span class="mr-block mr">फोन</span></div>
-                <div class="v"><a href="tel:+912112243691">02112-243691</a> / <a href="tel:+912112239200">239200</a></div>
+                <div class="v"><a href="tel:+912112243691">02112-243691</a>, <a href="tel:+912112239200">239200</a></div>
               </div>
             </div>
 
@@ -1199,7 +1260,7 @@
               </div>
               <div>
                 <div class="k"><span class="en">Location</span><span class="mr-block mr">पत्ता</span></div>
-                <div class="v">Vidya Pratishthan, Vidyanagari, Bhigwan Road, Baramati, Dist. Pune – 413133</div>
+                <div class="v">Vidya Pratishthan, Vidyanagari, MIDC, Baramati, Maharashtra 413133</div>
               </div>
             </div>
           </div>
@@ -1217,27 +1278,27 @@
             <img src="images/logo.png" class="footer-logo" alt="Prerna Sthal">
             <h3 style="margin:0;">Prerna Sthal</h3>
           </div>
-          <p class="en">A sanctuary of meditation, architectural harmony, and spiritual reflection situated within the serene Nakshatra Udyan at Vidya Pratishthan, Baramati.</p>
-          <p class="mr-block mr">विद्या प्रतिष्ठान, बारामती येथील नक्षत्र उद्यानातील शांततेची, वास्तुकलेच्या सुसंवादाची आणि ध्यानाची पवित्र जागा.</p>
+          <p class="en">A peaceful place for meditation, reflection and quiet thought, set within the serene surroundings of Nakshatra Udyan at Vidya Pratishthan, Baramati.</p>
+          <p class="mr-block mr">निसर्ग, शांतता आणि चिंतन यांचा अनुभव देणारे प्रेरणा स्थळ नक्षत्र उद्यानाच्या हिरवाईत, विद्या प्रतिष्ठान, बारामती येथे वसले आहे.</p>
         </div>
 
         <div class="footer-col">
-          <h4 class="en">Exploration</h4>
-          <h4 class="mr-block mr">मार्गक्रमण</h4>
+          <h4 class="en">Sections</h4>
+          <h4 class="mr-block mr">विभाग</h4>
           <ul class="footer-links">
             <li><a href="index.html" class="en">Home Sanctuary</a><a href="index.html" class="mr-block mr">मुख्य दालन</a></li>
-            <li><a href="mahapurush.html" class="en">15 Mahapurush Corridor</a><a href="mahapurush.html" class="mr-block mr">१५ महापुरुष गॅलरी</a></li>
-            <li><a href="mudras.html" class="en">10 Buddha Hasta Mudras</a><a href="mudras.html" class="mr-block mr">१० बुद्ध हस्तमुद्रा</a></li>
+            <li><a href="mahapurush.html" class="en">Mahapurush Gallery</a><a href="mahapurush.html" class="mr-block mr">महापुरुष गॅलरी</a></li>
+            <li><a href="mudras.html" class="en">Buddha Hasta Mudras</a><a href="mudras.html" class="mr-block mr">बुद्ध हस्तमुद्रा</a></li>
             <li><a href="nakshatra-udyan.html" class="en">Nakshatra Udyan (36 Acres)</a><a href="nakshatra-udyan.html" class="mr-block mr">नक्षत्र उद्यान (३६ एकर)</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4 class="en">Connect</h4>
-          <h4 class="mr-block mr">संपर्क व दिशा</h4>
+          <h4 class="mr-block mr">संपर्क</h4>
           <ul class="footer-links">
             <li><a href="contact.html" class="en">Plan a Visit</a><a href="contact.html" class="mr-block mr">भेटीचे नियोजन</a></li>
-            <li><a href="https://www.vidyapratishthan.com" target="_blank" rel="noopener">Vidya Pratishthan Trust ↗</a></li>
+            <li><a href="https://www.vidyapratishthan.com" target="_blank" rel="noopener">Vidya Pratishthan Trust &nearr;</a></li>
             <li><a href="mailto:vijay.jay.jadhav@gmail.com">vijay.jay.jadhav@gmail.com</a></li>
             <li><span>Baramati, Pune, Maharashtra</span></li>
           </ul>
@@ -1245,8 +1306,8 @@
       </div>
 
       <div class="footer-bottom">
-        <span class="footer-fine">© Prerna Sthal · Nakshatra Udyan · Vidya Pratishthan, Baramati</span>
-        <span class="footer-fine">Architectural &amp; Spiritual Sanctuary</span>
+        <span class="footer-fine">&copy; Prerna Sthal &middot; Nakshatra Udyan &middot; Vidya Pratishthan, Baramati</span>
+        <span class="footer-fine">made with peace by <a href="https://zivastudios.com" target="_blank" rel="noopener">ziva studios</a></span>
       </div>
     </div>
   </footer>
@@ -1298,7 +1359,7 @@
         const scale = Math.max(cw / iw, ch / ih);
         const dw = iw * scale, dh = ih * scale;
         const dx = (cw - dw) / 2;
-        const dy = (ch - dh) * 0.30;
+        const dy = 0; // Pin to top so upper border is never cropped
         ctx.clearRect(0, 0, cw, ch);
         ctx.drawImage(img, dx, dy, dw, dh);
       }

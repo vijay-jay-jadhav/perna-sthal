@@ -23,6 +23,9 @@
   --line-onlight: rgba(250, 245, 234, 0.22);
   --line-ongold:  rgba(199, 154, 74, 0.35);
 
+  /* Navigation Height */
+  --nav-height: 118px;
+
   /* Spacing */
   --sp-1: 8px;
   --sp-2: 16px;
@@ -468,6 +471,7 @@ body.lang-mr .mr-grid { display: grid !important; }
 .mobile-menu-close span:last-child { transform: rotate(-45deg); }
 
 @media (max-width: 860px) {
+  :root { --nav-height: 62px; }
   .hamburger { display: flex; }
   .nav-links-row { display: none; }
   .nav-top { height: 60px; padding: 0 14px; gap: 8px; }

@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nakshatra Udyan · Cosmic Botanical Sanctuary &amp; Research · Vidya Pratishthan, Baramati</title>
+<meta name="description" content="Explore Nakshatra Udyan on 36 acres at Vidya Pratishthan, Baramati. A living sanctuary integrating 27 Nakshatra trees, 12 Rashi groves, Ayurvedic plant medicine, and sustainable biotechnology.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* Page Hero & Scrolly Layout */
+  .udyan-hero {
+    position: relative;
+    background: var(--teal-deep);
+    color: var(--paper);
+    overflow: hidden;
+    padding-top: calc(var(--nav-height, 118px) + 54px);
+    padding-bottom: var(--sp-7);
+  }
+  .udyan-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0.38;
+    background-image: url('images/architecture/bird2.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: saturate(1.15) contrast(1.1);
+    transform: scale(1.02);
+    transition: transform 10s ease-out;
+  }
+  .udyan-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: radial-gradient(circle at 60% 40%, rgba(10, 47, 43, 0.4) 0%, rgba(10, 47, 43, 0.92) 80%);
+  }
+  .udyan-hero-wrap {
+    position: relative;
+    z-index: 3;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--content-pad);
+  }
+  .udyan-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 74, 68, 0.85);
+    border: 1px solid var(--line-ongold);
+    padding: 6px 16px;
+    border-radius: 999px;
+    color: var(--gold-soft);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: var(--sp-4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .udyan-hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(34px, 4.5vw, 56px);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+    margin: 0 0 var(--sp-3);
+  }
+  .udyan-hero-title span {
+    color: var(--gold-soft);
+    font-style: italic;
+  }
+  .udyan-hero-lede {
+    font-size: clamp(16px, 1.4vw, 20px);
+    line-height: 1.7;
+    color: var(--gold-soft);
+    max-width: 820px;
+    margin: 0;
+    font-weight: 300;
+  }
+
+  /* Stat Counter Strip */
+  .udyan-stats-strip {
+    background: var(--teal);
+    color: var(--paper);
+    border-bottom: 1px solid var(--line-ongold);
+    padding: var(--sp-5) 0;
+  }
+  .stats-grid-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    text-align: center;
+  }
+  .stat-block {
+    padding: 8px 12px;
+  }
+  .stat-big {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--paper);
+    opacity: 0.9;
+  }
+
+  /* Sticky Story Navigation */
+  .story-nav-bar {
+    position: sticky;
+    top: var(--nav-height);
+    z-index: 40;
+    background: rgba(247, 244, 238, 0.95);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 10px 0;
+  }
+  .story-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow-x: auto;
+    gap: 12px;
+    scrollbar-width: none;
+  }
+  .story-nav-inner::-webkit-scrollbar { display: none; }
+  .story-tab-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 6px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .story-tab-link:hover, .story-tab-link.active {
+    background: var(--teal);
+    color: var(--paper);
+  }
+
+  /* Section Styling */
+  .udyan-section {
+    padding: var(--sp-8) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .udyan-section:nth-child(even) {
+    background: var(--parchment);
+  }
+
+  /* Institutional Vision Card */
+  .vision-box {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: var(--sp-6);
+    box-shadow: 0 10px 30px -12px rgba(15, 74, 68, 0.06);
+    margin-bottom: var(--sp-6);
+  }
+  .vision-quote {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(20px, 2.2vw, 26px);
+    line-height: 1.5;
+    color: var(--teal-deep);
+    font-weight: 400;
+    font-style: italic;
+    border-left: 3px solid var(--gold);
+    padding-left: 24px;
+    margin: 0 0 24px;
+  }
+  .vision-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 36px;
+    align-items: center;
+  }
+  .dept-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .dept-badge {
+    background: var(--parchment);
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--teal-deep);
+  }
+
+  /* Matrix: Cosmic Antenna Concept */
+  .matrix-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: var(--sp-5);
+  }
+  .matrix-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px 24px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .matrix-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--teal);
+    box-shadow: 0 16px 36px -12px rgba(15, 74, 68, 0.12);
+  }
+  .matrix-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: var(--parchment);
+    color: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 22px;
+    border: 1px solid var(--line);
+  }
+  .matrix-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    color: var(--teal-deep);
+    margin-bottom: 10px;
+  }
+  .matrix-desc {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* 27 Nakshatras Interactive Explorer */
+  .nakshatra-ctrl-panel {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: var(--sp-5);
+    margin-bottom: var(--sp-6);
+    box-shadow: 0 8px 24px -10px rgba(0,0,0,0.06);
+  }
+  .nakshatra-filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .nakshatra-search-wrap {
+    display: flex;
+    align-items: center;
+    background: var(--parchment);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 18px;
+    gap: 10px;
+    min-width: 320px;
+  }
+  .nakshatra-search-wrap input {
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    color: var(--ink);
+  }
+  .filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .filter-tag {
+    background: var(--parchment);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .filter-tag:hover, .filter-tag.is-active {
+    background: var(--teal-deep);
+    color: var(--paper);
+    border-color: var(--teal-deep);
+  }
+  
+  .nakshatra-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .nakshatra-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+  }
+  .nakshatra-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px -10px rgba(10, 47, 43, 0.12);
+  }
+  .n-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .n-index {
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--brick);
+    letter-spacing: 0.08em;
+  }
+  .n-element {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    background: var(--parchment);
+    color: var(--teal-deep);
+    border: 1px solid var(--line);
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .n-title {
+    font-family: 'Fraunces', serif;
+    font-size: 21px;
+    color: var(--teal-deep);
+    margin: 0 0 4px;
+    font-weight: 600;
+  }
+  .n-tree-name {
+    font-size: 14.5px;
+    color: var(--teal);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .n-botanical {
+    font-size: 12.5px;
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .n-rashi-tag {
+    display: inline-block;
+    background: rgba(199, 91, 63, 0.08);
+    color: var(--brick);
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .n-action-btn {
+    align-self: flex-start;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--teal-deep);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .n-action-btn:hover {
+    background: var(--teal);
+    color: var(--paper);
+    border-color: var(--teal);
+  }
+
+  /* 12 Rashis Grid */
+  .rashi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: var(--sp-5);
+  }
+  .rashi-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px 18px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .rashi-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--teal);
+  }
+  .rashi-sign {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--brick);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .rashi-name {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    color: var(--teal-deep);
+    margin: 4px 0 6px;
+  }
+  .rashi-tree {
+    font-size: 13.5px;
+    color: var(--teal);
+    font-weight: 600;
+  }
+  .rashi-meta {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  /* Ecological Engineering & Water Recycling */
+  .stp-block {
+    background: var(--teal-deep);
+    color: var(--paper);
+    border-radius: 16px;
+    overflow: hidden;
+    padding: var(--sp-6);
+    box-shadow: 0 20px 40px -15px rgba(10, 47, 43, 0.3);
+  }
+  .stp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .stp-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .stp-step {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(220, 193, 137, 0.2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .stp-step-num {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stp-step-text h4 {
+    color: var(--gold-soft);
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-family: 'Work Sans', sans-serif;
+  }
+  .stp-step-text p {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--paper);
+    opacity: 0.85;
+    line-height: 1.6;
+  }
+
+  /* Modal for Botanical Profile */
+  .nakshatra-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(10, 30, 27, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .nakshatra-modal.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .nakshatra-modal-card {
+    background: var(--paper);
+    border: 1px solid var(--line-ongold);
+    border-radius: 16px;
+    max-width: 680px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: var(--sp-6);
+    position: relative;
+    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.4);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+  }
+  .nakshatra-modal.is-open .nakshatra-modal-card {
+    transform: translateY(0);
+  }
+  .modal-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--parchment);
+    border: 1px solid var(--line);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Responsiveness */
+  @media (max-width: 1080px) {
+    .stats-grid-5 { grid-template-columns: repeat(3, 1fr); }
+    .nakshatra-grid { grid-template-columns: repeat(2, 1fr); }
+    .rashi-grid { grid-template-columns: repeat(3, 1fr); }
+    .matrix-cards { grid-template-columns: 1fr; }
+    .vision-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .stats-grid-5 { grid-template-columns: repeat(2, 1fr); }
+    .nakshatra-grid { grid-template-columns: 1fr; }
+    .rashi-grid { grid-template-columns: repeat(2, 1fr); }
+    .stp-grid { grid-template-columns: 1fr; }
+    .nakshatra-search-wrap { min-width: 100%; }
+    .udyan-hero { padding-top: calc(var(--nav-height, 62px) + 32px); padding-bottom: var(--sp-6); }
+  }
+  @media (max-width: 500px) {
+    .stats-grid-5 { grid-template-columns: 1fr; }
+    .rashi-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ================= TOP NAVIGATION ================= -->
+  <nav class="site-nav" aria-label="Main Navigation">
+    <div class="nav-top">
+      <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      
+      <div class="nav-brand">
+        <a href="index.html" class="logo-link">
+          <img src="images/logo.png" class="logo-img" alt="Prerna Sthal Logo">
+        </a>
+        <div class="brand-text">
+          <span class="brand-title">Prerna Sthal</span>
+          <span class="brand-sub">Nakshatra Udyan · Baramati</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <div class="lang-toggle" role="group" aria-label="Choose language">
+          <button type="button" class="active" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="mr" aria-pressed="false">मराठी</button>
+        </div>
+
+        <a href="contact.html" class="visit-pill en">Visit</a>
+        <a href="contact.html" class="visit-pill mr-inline mr">भेट द्या</a>
+      </div>
+    </div>
+
+    <div class="nav-links-row">
+      <a href="index.html" class="en">Home</a>
+      <a href="index.html" class="mr-inline mr">मुख्यपृष्ठ</a>
+      <a href="mahapurush.html" class="en">Mahapurush Gallery</a>
+      <a href="mahapurush.html" class="mr-inline mr">महापुरुष गॅलरी</a>
+      <a href="mudras.html" class="en">Hasta Mudras</a>
+      <a href="mudras.html" class="mr-inline mr">हस्तमुद्रा</a>
+      <a href="nakshatra-udyan.html" class="is-current en">Nakshatra Udyan</a>
+      <a href="nakshatra-udyan.html" class="is-current mr-inline mr">नक्षत्र उद्यान</a>
+      <a href="contact.html" class="en">Contact &amp; Visit</a>
+      <a href="contact.html" class="mr-inline mr">संपर्क व भेट</a>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+      <span></span><span></span>
+    </button>
+    <a href="index.html" class="en">Home</a>
+    <a href="index.html" class="mr-block mr">मुख्यपृष्ठ</a>
+    <a href="mahapurush.html" class="en">Mahapurush Gallery</a>
+    <a href="mahapurush.html" class="mr-block mr">महापुरुष गॅलरी</a>
+    <a href="mudras.html" class="en">Hasta Mudras</a>
+    <a href="mudras.html" class="mr-block mr">हस्तमुद्रा</a>
+    <a href="nakshatra-udyan.html" class="en is-current">Nakshatra Udyan</a>
+    <a href="nakshatra-udyan.html" class="mr-block mr is-current">नक्षत्र उद्यान</a>
+    <a href="contact.html" class="en">Contact &amp; Visit</a>
+    <a href="contact.html" class="mr-block mr">संपर्क व भेट</a>
+  </div>
+
+  <main id="main">
+    <!-- ================= HERO SECTION ================= -->
+    <header class="udyan-hero">
+      <div class="udyan-hero-bg"></div>
+      <div class="udyan-hero-wrap">
+        <div class="udyan-hero-badge reveal">
+          <span>🌿</span>
+          <span class="en">Vidya Pratishthan Campus · 36-Acre Living Arboretum</span>
+          <span class="mr-inline mr">विद्या प्रतिष्ठान परिसर · ३६ एकर जिवंत वनस्पती अभयारण्य</span>
+        </div>
+
+        <h1 class="udyan-hero-title reveal">
+          <span class="en">Nakshatra Udyan</span>
+          <span class="mr-block mr">नक्षत्र उद्यान</span>
+          <br>
+          <span class="en" style="font-size:clamp(22px, 3vw, 36px); font-weight:300; opacity:0.95;">Where Cosmic Botany Meets Sustainable Biotechnology</span>
+          <span class="mr-block mr" style="font-size:clamp(22px, 3vw, 36px); font-weight:300; opacity:0.95;">खगोलीय वनस्पतीशास्त्र आणि शाश्वत विज्ञानाचा अनोखा संगम</span>
+        </h1>
+
+        <p class="udyan-hero-lede reveal">
+          <span class="en">An exemplary milestone in academic research, Ayurvedic pharmacognosy, and rural community outreach. Conceived under the guidance of Padma Vibhushan Shri. Sharadchandraji Pawar and realized by the Departments of Biotechnology and Botany, Nakshatra Udyan maps the 27 lunar constellations and 12 solar signs to native therapeutic trees on 36 tranquil acres encircling Prerna Sthal.</span>
+          <span class="mr-block mr">पद्मविभूषण खा. शरदचंद्रजी पवार यांच्या दूरदर्शी मार्गदर्शनाखाली विद्या प्रतिष्ठानच्या जैवतंत्रज्ञान व वनस्पतीशास्त्र विभागांनी ३६ एकरांवर साकारलेले हे उद्यान आयुर्वेदाचा संहिता संकेत, आधुनिक औषधनिर्माण आणि ग्रामीण आरोग्य संवर्धनाचे जागतिक दर्जाचे केंद्र आहे. प्रेरणा स्थळाभोवती पसरलेले हे उद्यान २७ नक्षत्र आणि १२ राशींचे प्रतीक आहे.</span>
+        </p>
+      </div>
+    </header>
+
+    <!-- ================= STATS STRIP ================= -->
+    <aside class="udyan-stats-strip" aria-label="Nakshatra Udyan Vital Statistics">
+      <div class="wrap">
+        <div class="stats-grid-5">
+          <div class="stat-block">
+            <div class="stat-big">36</div>
+            <div class="stat-label"><span class="en">Acres Land</span><span class="mr-inline mr">एकरांवर विस्तार</span></div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-big">27</div>
+            <div class="stat-label"><span class="en">Nakshatra Zones</span><span class="mr-inline mr">नक्षत्र वनस्पती क्षेत्र</span></div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-big">12</div>
+            <div class="stat-label"><span class="en">Rashi Groves</span><span class="mr-inline mr">राशी उद्यान विभाग</span></div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-big">100%</div>
+            <div class="stat-label"><span class="en">STP Recycled Water</span><span class="mr-inline mr">जल पुनर्वापर सिंचन</span></div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-big">5am–7pm</div>
+            <div class="stat-label"><span class="en">Daily Visitor Hours</span><span class="mr-inline mr">दैनंदिन भेट वेळ</span></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ================= STICKY SUB-NAV ================= -->
+    <div class="story-nav-bar" aria-label="Nakshatra Udyan Sections">
+      <div class="wrap">
+        <div class="story-nav-inner">
+          <a href="#vision" class="story-tab-link active"><span class="en">Vision</span><span class="mr-inline mr">संकल्पना</span></a>
+          <a href="#matrix" class="story-tab-link"><span class="en">Ayurvedic Code</span><span class="mr-inline mr">खगोल व वनस्पती</span></a>
+          <a href="#trees" class="story-tab-link"><span class="en">27 Sacred Trees</span><span class="mr-inline mr">२७ नक्षत्र वृक्ष</span></a>
+          <a href="#rashis" class="story-tab-link"><span class="en">12 Rashi Groves</span><span class="mr-inline mr">१२ राशी वन</span></a>
+          <a href="#ecology" class="story-tab-link"><span class="en">Water Recycling</span><span class="mr-inline mr">जलसंधारण</span></a>
+          <a href="#sanctuary-link" class="story-tab-link"><span class="en">Prerna Sthal Core</span><span class="mr-inline mr">प्रेरणा स्थळ</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 1. VISION & GENESIS ================= -->
+    <section class="udyan-section" id="vision">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow center"><span class="en">Institutional Genesis</span><span class="mr-inline mr">संस्थात्मक संकल्पना</span></div>
+          <h2 class="en">Research, Social Outreach &amp; Rural Development</h2>
+          <h2 class="mr-block mr">संशोधन, समाजप्रबोधन आणि ग्रामीण विकास</h2>
+          <p class="intro en">An epitome of scientific curiosity and indigenous heritage at Vidya Pratishthan, Baramati.</p>
+          <p class="intro mr-block mr">विद्या प्रतिष्ठान, बारामती येथील पारंपारिक ज्ञान आणि आधुनिक जैवतंत्रज्ञानाचा अद्वितीय आविष्कार.</p>
+        </div>
+
+        <div class="vision-box reveal">
+          <blockquote class="vision-quote">
+            <span class="en">"Nakshatra Garden is the spectacular evidence and an epitome in Research and Social outreach through traditional interventions in plant medicine and modern healthcare for sustainable Biotechnology and rural development."</span>
+            <span class="mr-block mr">"नक्षत्र उद्यान हे पारंपारिक वनस्पती औषधे आणि आधुनिक आरोग्यसेवेच्या माध्यमातून शाश्वत जैवतंत्रज्ञान व ग्रामीण विकासासाठी केलेल्या संशोधन आणि सामाजिक प्रबोधनाचा एक देदीप्यमान पुरावा आहे."</span>
+          </blockquote>
+
+          <div class="vision-grid">
+            <div>
+              <p class="en" style="font-size:16px; line-height:1.8; color:var(--ink);">
+                The efforts were conceptualized, conceived, and extended by the <strong>Departments of Biotechnology and Botany</strong> of Vidya Pratishthan's College on <strong>36 acres of fertile land</strong> under the visionary guidance of <strong>Padma Vibhushan Shri. Sharadchandraji Pawar</strong>.
+              </p>
+              <p class="en" style="font-size:15px; line-height:1.8; color:var(--ink-soft);">
+                Dedicated to socio-natural health services through indigenous plant conservation, the garden bridges the gap between folklore medicinal claims and laboratory pharmacognosy, providing students, researchers, and farmers with an open-air laboratory.
+              </p>
+              <p class="mr-block mr" style="font-size:16px; line-height:1.8; color:var(--ink);">
+                <strong>पद्मविभूषण खा. शरदचंद्रजी पवार</strong> यांच्या कुशल मार्गदर्शनाखाली विद्या प्रतिष्ठान महाविद्यालयाच्या <strong>जैवतंत्रज्ञान (Biotechnology) आणि वनस्पतीशास्त्र (Botany)</strong> विभागांनी ३६ एकर विस्तीर्ण भूभागावर ही संकल्पना मूर्त स्वरूपात आणली.
+              </p>
+              <p class="mr-block mr" style="font-size:15px; line-height:1.8; color:var(--ink-soft);">
+                वनस्पतींचे जतन आणि संवर्धन करून सामाजिक-नैसर्गिक आरोग्यसेवेचा दृष्टिकोन रुजवणे हा या उपक्रमाचा मुख्य उद्देश आहे. पारंपारिक आयुर्वेदातील ज्ञानाला आधुनिक विज्ञानाची जोड देऊन हे उद्यान विद्यार्थी, संशोधक व स्थानिक नागरिकांसाठी ज्ञानकेंद्र ठरले आहे.
+              </p>
+              
+              <div class="dept-badge-row">
+                <span class="dept-badge">🧬 Dept. of Biotechnology</span>
+                <span class="dept-badge">🌱 Dept. of Botany</span>
+                <span class="dept-badge">🏛 Vidya Pratishthan (Est. 1972)</span>
+                <span class="dept-badge">💧 Campus Water Treatment</span>
+              </div>
+            </div>
+
+            <div>
+              <img src="images/architecture/bird2.jpg" alt="Aerial view of Nakshatra Udyan concentric layout" class="reveal" style="border-radius:12px; width:100%; box-shadow:0 12px 30px -10px rgba(0,0,0,0.15);" data-zoomable>
+              <div style="font-family:'Space Mono', monospace; font-size:11px; color:var(--teal); margin-top:8px; text-align:center;">
+                <span class="en">Concentric 36-acre layout encircling Prerna Sthal dome</span>
+                <span class="mr-inline mr">प्रेरणा स्थळ घुमटाभोवती वर्तुळाकार पसरलेले ३६ एकर उद्यान</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. AYURVEDIC CODE & ASTRONOMICAL MATRIX ================= -->
+    <section class="udyan-section" id="matrix">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow center"><span class="en">Pharmacological Interpretation</span><span class="mr-inline mr">औषधनिर्माण व वैज्ञानिक अर्थ</span></div>
+          <h2 class="en">Interpreting the Code of Ayurveda</h2>
+          <h2 class="mr-block mr">आयुर्वेदाच्या संहितेचे आधुनिक अर्थनिर्वचन</h2>
+          <p class="intro en">Plants serve as cosmic mediators and antennae of message carriers for the 12 Rashis and 27 Nakshatras.</p>
+          <p class="intro mr-block mr">वनस्पती या १२ राशी आणि २७ नक्षत्रांचे संदेशवाहक व ऊर्जा ग्रहण करणारी 'अँटेना' म्हणून कार्य करतात.</p>
+        </div>
+
+        <div class="matrix-cards reveal">
+          <div class="matrix-card">
+            <div class="matrix-icon">📡</div>
+            <h3 class="matrix-title en">Cosmic Mediators &amp; Antennae</h3>
+            <h3 class="matrix-title mr-block mr">खगोलीय ऊर्जा ग्राहक 'अँटेना'</h3>
+            <p class="matrix-desc en">In ancient astronomy, the 27 Nakshatras represent specific divisions of the ecliptic. Ayurvedic treatises postulate that particular native tree species absorb and harmonize specific cosmic radiations, serving as biological resonators that stabilize human vitality.</p>
+            <p class="matrix-desc mr-block mr">प्राचीन खगोलशास्त्रानुसार २७ नक्षत्रे क्रांतीवृत्ताचे विशिष्ट भाग दर्शवतात. या नक्षत्रांमधून येणाऱ्या सूक्ष्म वैश्विक लहरी विशिष्ट औषधी वृक्षांच्या पानांद्वारे शोषल्या जाऊन मानवी शरीरातील ऊर्जा संतुलित राहण्यास मदत होते.</p>
+          </div>
+
+          <div class="matrix-card">
+            <div class="matrix-icon">🔬</div>
+            <h3 class="matrix-title en">Clinical Pharmacological Actions</h3>
+            <h3 class="matrix-title mr-block mr">क्लिनिकल फार्माकोलॉजिकल परिणाम</h3>
+            <p class="matrix-desc en">Vidya Pratishthan's researchers study these trees not merely symbolically, but through empirical extraction of bio-active phytomolecules—alkaloids, tannins, and flavonoids used in cardio-protective, neuro-protective, and immunomodulatory therapeutics.</p>
+            <p class="matrix-desc mr-block mr">विद्या प्रतिष्ठानचे संशोधक या वृक्षांचा केवळ धार्मिक दृष्टीने नव्हे, तर त्यांच्यातील जैविक रेणू (Alkaloids, Flavonoids) तपासून हृदयविकार, मज्जासंस्था आणि रोगप्रतिकारक शक्तीवरील त्यांच्या परिणामांचा प्रत्यक्ष अभ्यास करतात.</p>
+          </div>
+
+          <div class="matrix-card">
+            <div class="matrix-icon">⚖️</div>
+            <h3 class="matrix-title en">Tridosha Balance (V-P-K)</h3>
+            <h3 class="matrix-title mr-block mr">त्रिदोष संतुलन (वात, पित्त, कफ)</h3>
+            <p class="matrix-desc en">The circular walking pathways are engineered so that morning strollers pass through trees with cooling (Sheeta) and heating (Ushna) viryas, gently balancing Vata, Pitta, and Kapha through natural volatile phytoncides released in dawn air.</p>
+            <p class="matrix-desc mr-block mr">उद्यानातील प्रदक्षिणा मार्ग अशा प्रकारे आखले आहेत की पहाटे चालणाऱ्या व्यक्तीला शीत व उष्ण वीर्य असणाऱ्या वृक्षांच्या पानांतून सुटणाऱ्या नैसर्गिक वायूंमुळे त्रिदोष संतुलनाचा अनुभव मिळतो.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 3. 27 NAKSHATRA TREES CATALOG ================= -->
+    <section class="udyan-section" id="trees">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow center"><span class="en">Living Botanical Repository</span><span class="mr-inline mr">२७ नक्षत्र वृक्ष संग्रह</span></div>
+          <h2 class="en">The 27 Nakshatras &amp; Sacred Trees</h2>
+          <h2 class="mr-block mr">२७ नक्षत्रे व त्यांचे औषधी नक्षत्रवृक्ष</h2>
+          <p class="intro en">Discover the sacred indigenous tree linked to your birth constellation, its botanical name, Ayurvedic clinical actions, and therapeutic uses.</p>
+          <p class="intro mr-block mr">आपल्या जन्म नक्षत्राशी संबंधित असलेला पवित्र वृक्ष, त्याचे वनस्पतीशास्त्रीय नाव, आयुर्वेदातील गुणधर्म आणि औषधी उपयोग शोधा.</p>
+        </div>
+
+        <!-- Search and Filter Control Panel -->
+        <div class="nakshatra-ctrl-panel reveal">
+          <div class="nakshatra-filter-row">
+            <div class="nakshatra-search-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="text" id="nakshatraSearch" placeholder="Search by Constellation, Marathi name, Tree or Botanical name..." aria-label="Search nakshatra trees">
+            </div>
+
+            <div class="filter-tags" id="elementFilterTags">
+              <button type="button" class="filter-tag is-active" data-element="all">All 27 Trees</button>
+              <button type="button" class="filter-tag" data-element="Agni">Agni (Fire)</button>
+              <button type="button" class="filter-tag" data-element="Prithvi">Prithvi (Earth)</button>
+              <button type="button" class="filter-tag" data-element="Vayu">Vayu (Air)</button>
+              <button type="button" class="filter-tag" data-element="Jal">Jal (Water)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Grid -->
+        <div class="nakshatra-grid" id="nakshatraList">
+          <!-- Rendered via JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 4. 12 RASHIS GROVES ================= -->
+    <section class="udyan-section" id="rashis">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow center"><span class="en">Zodiac Affiliation</span><span class="mr-inline mr">१२ राशी वन</span></div>
+          <h2 class="en">The 12 Rashi (Zodiac) Groves</h2>
+          <h2 class="mr-block mr">१२ राशींची समर्पित वृक्षावळी</h2>
+          <p class="intro en">Beyond the 27 Nakshatras, the garden arranges designated clusters for the 12 Rashis (Sun Signs), synthesizing the entire astronomical wheel.</p>
+          <p class="intro mr-block mr">२७ नक्षत्रांशिवाय, संपूर्ण खगोलीय चक्र पूर्ण करण्यासाठी उद्यानात १२ राशींसाठी समर्पित वृक्षकुंज तयार करण्यात आले आहेत.</p>
+        </div>
+
+        <div class="rashi-grid reveal">
+          <!-- 1. Mesha -->
+          <article class="rashi-card">
+            <span class="rashi-sign">01 · MESHA (ARIES)</span>
+            <h3 class="rashi-name"><span class="en">Mesha</span><span class="mr-block mr">मेष</span></h3>
+            <div class="rashi-tree">Raktachandan / Kuchla</div>
+            <div class="rashi-meta">
+              <strong>Ruling:</strong> Mars (Mangal) · Agni<br>
+              <strong>Benefits:</strong> Blood purification, vitality, anti-inflammatory actions.
+            </div>
+          </article>
+
+          <!-- 2. Vrishabha -->
+          <article class="rashi-card">
+            <span class="rashi-sign">02 · VRISHABHA (TAURUS)</span>
+            <h3 class="rashi-name"><span class="en">Vrishabha</span><span class="mr-block mr">वृषभ</span></h3>
+            <div class="rashi-tree">Jamun / Umbar</div>
+            <div class="rashi-meta">
+              <strong>Ruling:</strong> Venus (Shukra) · Prithvi<br>
+              <strong>Benefits:</strong> Metabolic balance, blood sugar control, vocal clarity.
+            </div>
+          </article>
+
+          <!-- 3. Mithuna -->
+          <article class="rashi-card">
+            <span class="rashi-sign">03 · MITHUNA (GEMINI)</span>
+            <h3 class="rashi-name"><span class="en">Mithuna</span><span class="mr-block mr">मिथुन</span></h3>
+            <div class="rashi-tree">Khair / Bamboo</div>
+            <div class="rashi-meta">
+              <strong>Ruling:</strong> Mercury (Budha) · Vayu<br>
+              <strong>Benefits:</strong> Respiratory strength, skin vitality, mental agility.
+            </div>
+          </article>
+
+          <!-- 4. Karka -->
+          <article class="rashi-card">
+            <span class="rashi-sign">04 · KARKA (CANCER)</span>
+            <h3 class="rashi-name"><span class="en">Karka</span><span class="mr-block mr">कर्क</span></h3>
+            <div class="rashi-tree">Palas / Pipal</div>
+            <div class="rashi-meta">
+              <strong>Ruling:</strong> Moon (Chandra) · Jal<br>
+              <strong>Benefits:</strong> Emotional equilibrium, memory, digestive soothing.
+            </div>
+          </article>
+
+          <!-- 5. Simha -->
+          <article class="rashi-card">
+            <span class="rashi-sign">05 · SIMHA (LEO)</span>
+            <h3 class="rashi-name"><span class="en">Simha</span><span class="mr-block mr">सिंह</span></h3>
+            <div class="rashi-tree">Vad (Banyan)</div>
+            <div class="rashi-meta">
+              <strong>Ruling:</strong> Sun (Surya) · Agni<br>
+              <strong>Benefits:</strong> Longevity, spine integrity, cardiac strength.
+            </div>
+          </article>
+
+          <!-- 6. Kanya -->
+          <article class="rashi-card">
+            <span class="rashi-sign">06 · KANYA (VIRGO)</span>
+            <h3 class="rashi-name"><span class="en">Kanya</span><span class="mr-block mr">कन्या</span></h3>
+            <div class="rashi-tree">Payar / Reetha</div>
+            <div class="rashi-meta">
+              <strong>Ruling:</strong> Mercury (Budha) · Prithvi<br>
+              <strong>Benefits:</strong> Cleansing, neural calm, liver homeostasis.
+            </div>
+          </article>
+
+          <!-- 7. Tula -->
+          <article class="rashi-card">
+            <span class="rashi-sign">07 · TULA (LIBRA)</span>
+            <h3 class="rashi-name"><span class="en">Tula</span><span class="mr-block mr">तुळ</span></h3>
+            <div class="rashi-tree">Bel / Arjun</div>
+            <div class="rashi-meta">
+              <strong>Ruling:</strong> Venus (Shukra) · Vayu<br>
+              <strong>Benefits:</strong> Cardiovascular tonification, kidney support.
+            </div>
+          </article>
+
+          <!-- 8. Vrishchika -->
+          <article class="rashi-card">
+            <span class="rashi-sign">08 · VRISHCHIKA (SCORPIO)</span>
+            <h3 class="rashi-name"><span class="en">Vrishchika</span><span class="mr-block mr">वृश्चिक</span></h3>
+            <div class="rashi-tree">Kauth / Bakul</div>
+            <div class="rashi-meta">
+              <strong>Ruling:</strong> Mars (Mangal) · Jal<br>
+              <strong>Benefits:</strong> Dental strength, gut microbiome, cellular regeneration.
+            </div>
+          </article>
+
+          <!-- 9. Dhanu -->
+          <article class="rashi-card">
+            <span class="rashi-sign">09 · DHANU (SAGITTARIUS)</span>
+            <h3 class="rashi-name"><span class="en">Dhanu</span><span class="mr-block mr">धनु</span></h3>
+            <div class="rashi-tree">Shisam / Salai</div>
+            <div class="rashi-meta">
+              <strong>Ruling:</strong> Jupiter (Guru) · Agni<br>
+              <strong>Benefits:</strong> Joint flexibility, anti-arthritic action, deep focus.
+            </div>
+          </article>
+
+          <!-- 10. Makara -->
+          <article class="rashi-card">
+            <span class="rashi-sign">10 · MAKARA (CAPRICORN)</span>
+            <h3 class="rashi-name"><span class="en">Makara</span><span class="mr-block mr">मकर</span></h3>
+            <div class="rashi-tree">Shami / Vetas</div>
+            <div class="rashi-meta">
+              <strong>Ruling:</strong> Saturn (Shani) · Prithvi<br>
+              <strong>Benefits:</strong> Bone density, stamina, metabolic resilience.
+            </div>
+          </article>
+
+          <!-- 11. Kumbha -->
+          <article class="rashi-card">
+            <span class="rashi-sign">11 · KUMBHA (AQUARIUS)</span>
+            <h3 class="rashi-name"><span class="en">Kumbha</span><span class="mr-block mr">कुंभ</span></h3>
+            <div class="rashi-tree">Kadamb / Rui</div>
+            <div class="rashi-meta">
+              <strong>Ruling:</strong> Saturn (Shani) · Vayu<br>
+              <strong>Benefits:</strong> Circulatory flow, respiratory clarity, immunity.
+            </div>
+          </article>
+
+          <!-- 12. Meena -->
+          <article class="rashi-card">
+            <span class="rashi-sign">12 · MEENA (PISCES)</span>
+            <h3 class="rashi-name"><span class="en">Meena</span><span class="mr-block mr">मीन</span></h3>
+            <div class="rashi-tree">Moha / Neem / Amba</div>
+            <div class="rashi-meta">
+              <strong>Ruling:</strong> Jupiter (Guru) · Jal<br>
+              <strong>Benefits:</strong> Detoxification, lymphatic health, deep sleep.
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 5. SUSTAINABILITY & 100% STP RECYCLED WATER ================= -->
+    <section class="udyan-section" id="ecology">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow center"><span class="en">Ecological Engineering</span><span class="mr-inline mr">पर्यावरणपूरक जलव्यवस्थापन</span></div>
+          <h2 class="en">100% STP Recycled Water &amp; Zero Waste</h2>
+          <h2 class="mr-block mr">१००% प्रक्रियायुक्त सांडपाण्याचा पुनर्वापर</h2>
+          <p class="intro en">Vidya Pratishthan campus recycles all wastewater through its modern Sewage Treatment Plant to irrigate the entire 36-acre Nakshatra Udyan.</p>
+          <p class="intro mr-block mr">विद्या प्रतिष्ठान संकुलातील सर्व सांडपाण्यावर अत्याधुनिक संयंत्रात प्रक्रिया करून ३६ एकर उद्यानाला अव्याहतपणे पाणी दिले जाते.</p>
+        </div>
+
+        <div class="stp-block reveal">
+          <div class="stp-grid">
+            <div>
+              <h3 style="font-family:'Fraunces', serif; font-size:clamp(22px, 2.5vw, 30px); color:var(--gold-soft); margin-top:0;">
+                <span class="en">A Sustainable Campus Miracle</span>
+                <span class="mr-block mr">शाश्वत परिसंस्थेचा आदर्श वस्तुपाठ</span>
+              </h3>
+              <p class="en" style="font-size:15.5px; line-height:1.8; color:var(--paper); opacity:0.9;">
+                In the drought-prone climate of western Maharashtra, maintaining 36 acres of lush native woodland requires exceptional resource stewardship. Vidya Pratishthan engineered an integrated closed-loop water system that treats thousands of liters of campus sewage water every day.
+              </p>
+              <p class="en" style="font-size:15px; line-height:1.8; color:var(--gold-soft); opacity:0.85;">
+                Treated water flows through a network of gentle gravity-fed channels, micro-drip networks, and reflective water lily ponds encircling Prerna Sthal. This creates a natural cooling microclimate that reduces ambient temperature by 3°C to 4°C.
+              </p>
+              <p class="mr-block mr" style="font-size:15.5px; line-height:1.8; color:var(--paper); opacity:0.9;">
+                पश्चिम महाराष्ट्रातील कोरड्या हवामानात ३६ एकर हरित परिसर टिकवणे ही एक मोठी जबाबदारी आहे. विद्या प्रतिष्ठानने अत्याधुनिक सांडपाणी प्रक्रिया प्रकल्प (STP) उभारून दररोज हजारो लिटर पाण्याचा पुनर्वापर करण्याची स्वयंपूर्ण व्यवस्था निर्माण केली आहे.
+              </p>
+              <p class="mr-block mr" style="font-size:15px; line-height:1.8; color:var(--gold-soft); opacity:0.85;">
+                प्रक्रिया केलेले हे पाणी सूक्ष्म ठिबक सिंचन आणि प्रेरणा स्थळाभोवती असणाऱ्या दगडी जलवाहिन्या व कमळ तलावांमधून फिरवले जाते, ज्यामुळे परिसरातील तापमान ३ ते ४ अंशांनी नैसर्गिकरीत्या कमी राहते.
+              </p>
+            </div>
+
+            <div class="stp-steps">
+              <div class="stp-step">
+                <div class="stp-step-num">01</div>
+                <div class="stp-step-text">
+                  <h4 class="en">Campus Collection &amp; Aeration</h4>
+                  <h4 class="mr-block mr">पाणी संकलन व वातन प्रक्रिया</h4>
+                  <p class="en">Wastewater from residential hostels, dining facilities, and academic departments is collected centrally.</p>
+                  <p class="mr-block mr">वसतिगृहे आणि महाविद्यालयातील सांडपाणी संकलित करून जैविक प्रक्रिया केली जाते.</p>
+                </div>
+              </div>
+
+              <div class="stp-step">
+                <div class="stp-step-num">02</div>
+                <div class="stp-step-text">
+                  <h4 class="en">Biological Filtration &amp; Clarification</h4>
+                  <h4 class="mr-block mr">जैविक गाळण व शुद्धीकरण</h4>
+                  <p class="en">Multi-stage biological treatment removes pathogens and enriches water with gentle organic nitrates ideal for botanical nourishment.</p>
+                  <p class="mr-block mr">बहुस्तरीय गाळण प्रक्रियेद्वारे झाडांच्या वाढीसाठी पोषक घटकांचे संतुलन राखले जाते.</p>
+                </div>
+              </div>
+
+              <div class="stp-step">
+                <div class="stp-step-num">03</div>
+                <div class="stp-step-text">
+                  <h4 class="en">Drip Network &amp; Lily Channels</h4>
+                  <h4 class="mr-block mr">ठिबक सिंचन व जलतलाव</h4>
+                  <p class="en">Filtered water feeds the 27 Nakshatra sectors, Rashi groves, and decorative lily ponds around Prerna Sthal dome.</p>
+                  <p class="mr-block mr">शुद्ध केलेले पाणी २७ नक्षत्र झाडे, राशी कुंज आणि कमळ तलावांमध्ये सतत प्रवाहित राहते.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 6. TRANSITION TO PRERNA STHAL ================= -->
+    <section class="udyan-section" id="sanctuary-link" style="background:var(--teal-deep); color:var(--paper);">
+      <div class="wrap">
+        <div class="vision-grid reveal" style="align-items:center;">
+          <div>
+            <div class="eyebrow" style="color:var(--gold);"><span class="en">Spiritual Threshold</span><span class="mr-inline mr">आत्मिक उंबरठा</span></div>
+            <h2 style="font-family:'Fraunces', serif; font-size:clamp(26px, 3vw, 38px); color:var(--paper); margin:12px 0 16px;">
+              <span class="en">The Green Threshold to Prerna Sthal</span>
+              <span class="mr-block mr">प्रेरणा स्थळाचा शांत हिरवा उंबरठा</span>
+            </h2>
+            <p class="en" style="font-size:15.5px; line-height:1.8; color:var(--gold-soft);">
+              Nakshatra Udyan does not exist in isolation—it is the living threshold designed to quiet the mind before entering the meditation hall of Prerna Sthal. As visitors leave the busyness of Baramati and walk beneath sacred canopy leaves, their breathing deepens, paving the way for profound inner stillness inside the central dome.
+            </p>
+            <p class="mr-block mr" style="font-size:15.5px; line-height:1.8; color:var(--gold-soft);">
+              नक्षत्र उद्यान हे केवळ एक बाग नसून प्रेरणा स्थळाच्या ध्यान सभागृहात प्रवेश करण्यापूर्वी मनाला शांत करणारा एक जिवंत उंबरठा आहे. बारामतीच्या धावपळीतून येणारा अभ्यागत जेव्हा या नक्षत्र वृक्षांच्या सावलीतून चालतो, तेव्हा त्याचा श्वास शांत होतो आणि तो ध्यान घुमटातील शांततेसाठी सज्ज होतो.
+            </p>
+            
+            <div style="display:flex; gap:14px; margin-top:24px; flex-wrap:wrap;">
+              <a href="index.html" class="visit-pill" style="background:var(--gold); color:var(--teal-deep); border-color:var(--gold);">
+                <span class="en">Explore Prerna Sthal Dome →</span>
+                <span class="mr-inline mr">प्रेरणा स्थळ घुमट दर्शन →</span>
+              </a>
+              <a href="mahapurush.html" class="visit-pill" style="background:transparent; color:var(--paper); border-color:var(--line-ongold);">
+                <span class="en">15 Mahapurush Gallery →</span>
+                <span class="mr-inline mr">१५ महापुरुष गॅलरी →</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <img src="images/architecture/cover.jpg" alt="Prerna Sthal Dome nestled inside Nakshatra Udyan" style="width:100%; border-radius:14px; box-shadow:0 15px 35px rgba(0,0,0,0.4);" data-zoomable>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 8. VISITOR INFORMATION & TIMINGS ================= -->
+    <section class="udyan-section" id="visit">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow center"><span class="en">Visitor Guide</span><span class="mr-inline mr">भेट मार्गदर्शक</span></div>
+          <h2 class="en">Visiting Nakshatra Udyan</h2>
+          <h2 class="mr-block mr">नक्षत्र उद्यान भेट माहिती</h2>
+          <p class="intro en">Open free of charge to all seekers, nature enthusiasts, students, and citizens daily.</p>
+          <p class="intro mr-block mr">विद्यार्थी, निसर्गप्रेमी आणि सर्व नागरिकांसाठी उद्यान दररोज विनामूल्य खुले आहे.</p>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;" class="reveal">
+          <div style="background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:24px;">
+            <h4 style="font-family:'Fraunces', serif; color:var(--teal-deep); font-size:18px; margin-top:0;">
+              <span class="en">Daily Timings</span>
+              <span class="mr-block mr">वेळापत्रक</span>
+            </h4>
+            <p style="font-size:14.5px; line-height:1.8; color:var(--ink-soft); margin:0;">
+              <strong>5:00 AM – 7:00 PM</strong><br>
+              Open Monday through Sunday, 365 days a year. Best enjoyed during sunrise (5:30 AM – 8:00 AM) and serene twilight (5:00 PM – 6:45 PM).
+            </p>
+          </div>
+
+          <div style="background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:24px;">
+            <h4 style="font-family:'Fraunces', serif; color:var(--teal-deep); font-size:18px; margin-top:0;">
+              <span class="en">Location &amp; Access</span>
+              <span class="mr-block mr">पत्ता व मार्ग</span>
+            </h4>
+            <p style="font-size:14.5px; line-height:1.8; color:var(--ink-soft); margin:0;">
+              <strong>Vidya Pratishthan Campus</strong><br>
+              Jalochi Road, Vidyanagari, MIDC, Baramati, Maharashtra – 413133. Located near Vidya Pratishthan's College of Engineering.
+            </p>
+          </div>
+
+          <div style="background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:24px;">
+            <h4 style="font-family:'Fraunces', serif; color:var(--teal-deep); font-size:18px; margin-top:0;">
+              <span class="en">Campus Conduct</span>
+              <span class="mr-block mr">आचारसंहिता</span>
+            </h4>
+            <p style="font-size:14.5px; line-height:1.8; color:var(--ink-soft); margin:0;">
+              Maintain silent reflection. Please do not pluck leaves, medicinal bark, or flowers. Stay on designated stone footpaths to protect delicate root systems.
+            </p>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:var(--sp-6);" class="reveal">
+          <a href="contact.html" class="visit-pill" style="padding:10px 24px;">
+            <span class="en">Plan a Group or Student Visit →</span>
+            <span class="mr-inline mr">गट किंवा अभ्यास सहलीचे नियोजन करा →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= BOTANICAL MODAL ================= -->
+  <div class="nakshatra-modal" id="nakshatraModal" role="dialog" aria-modal="true" aria-label="Nakshatra Tree Botanical Profile">
+    <div class="nakshatra-modal-card">
+      <button type="button" class="modal-close-btn" id="modalCloseBtn" aria-label="Close botanical card">&times;</button>
+      <div id="modalBody">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SITE FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+            <img src="images/logo.png" class="footer-logo" alt="Prerna Sthal">
+            <h3 style="margin:0;">Prerna Sthal</h3>
+          </div>
+          <p class="en">A sanctuary of meditation, architectural harmony, and spiritual reflection situated within the serene Nakshatra Udyan at Vidya Pratishthan, Baramati.</p>
+          <p class="mr-block mr">विद्या प्रतिष्ठान, बारामती येथील नक्षत्र उद्यानातील शांततेची, वास्तुकलेच्या सुसंवादाची आणि ध्यानाची पवित्र जागा.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="en">Sanctuary Sections</h4>
+          <h4 class="mr-block mr">महत्त्वाचे विभाग</h4>
+          <ul class="footer-links">
+            <li><a href="index.html" class="en">Home Sanctuary</a><a href="index.html" class="mr-block mr">मुख्य दालन</a></li>
+            <li><a href="mahapurush.html" class="en">15 Mahapurush Corridor</a><a href="mahapurush.html" class="mr-block mr">१५ महापुरुष गॅलरी</a></li>
+            <li><a href="mudras.html" class="en">10 Buddha Hasta Mudras</a><a href="mudras.html" class="mr-block mr">१० बुद्ध हस्तमुद्रा</a></li>
+            <li><a href="nakshatra-udyan.html" class="en">Nakshatra Udyan (36 Acres)</a><a href="nakshatra-udyan.html" class="mr-block mr">नक्षत्र उद्यान (३६ एकर)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="en">Vidya Pratishthan</h4>
+          <h4 class="mr-block mr">विद्या प्रतिष्ठान</h4>
+          <p style="font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 12px;">
+            Vidyanagari, Jalochi Road, Baramati, Dist. Pune, Maharashtra 413133.<br>
+            Phone: +91 02112 – 243691, 239140
+          </p>
+          <p style="font-size:12.5px; color:var(--ink-soft); margin:0;">
+            Research by Departments of Biotechnology &amp; Botany.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-fine">© Prerna Sthal · Nakshatra Udyan · Vidya Pratishthan, Baramati</span>
+        <span class="footer-fine">Architectural, Botanical &amp; Spiritual Sanctuary</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>
+    // 27 Nakshatra Comprehensive Botanical Database
+    const nakshatraCatalog = [
+      {
+        id: 1,
+        nameEn: "Ashwini",
+        nameMr: "अश्विनी",
+        treeEn: "Kuchla (Nux-vomica)",
+        treeMr: "कुचला / काजरा",
+        bot: "Strychnos nux-vomica",
+        element: "Agni",
+        rashi: "Mesha (Aries)",
+        rashiMr: "मेष",
+        actionEn: "Nervine stimulant, alleviates Vata paralysis, digestive bitter.",
+        actionMr: "मज्जासंस्था उत्तेजक, वातविकार व पक्षाघातावर गुणकारी, कडू पाचक.",
+        partUsed: "Purified Seeds, Bark",
+        pharma: "Contains strychnine and brucine alkaloids used in micro-doses for neural tonic formulations."
+      },
+      {
+        id: 2,
+        nameEn: "Bharani",
+        nameMr: "भरणी",
+        treeEn: "Amla (Indian Gooseberry)",
+        treeMr: "आवळा",
+        bot: "Phyllanthus emblica",
+        element: "Prithvi",
+        rashi: "Mesha (Aries)",
+        rashiMr: "मेष",
+        actionEn: "Premier Rasayana, richest natural Vitamin C, balances all three Doshas.",
+        actionMr: "सर्वश्रेष्ठ रसायन, नैसर्गिक क जीवनसत्त्वाचा खजिना, त्रिदोषशामक.",
+        partUsed: "Fruit, Seed, Leaves",
+        pharma: "Abundant emblicanin polyphenols providing potent antioxidant, cardioprotective and hepatoprotective properties."
+      },
+      {
+        id: 3,
+        nameEn: "Krittika",
+        nameMr: "कृत्तिका",
+        treeEn: "Umbar (Cluster Fig)",
+        treeMr: "उंबर / गूलर",
+        bot: "Ficus racemosa",
+        element: "Agni",
+        rashi: "Mesha / Vrishabha",
+        rashiMr: "मेष / वृषभ",
+        actionEn: "Cooling astringent, purifies blood, soothes diabetic thirst.",
+        actionMr: "अतिशय शीतल, रक्तस्तंभक, पित्तशामक आणि मधुमेहातील दाह शांत करणारे.",
+        partUsed: "Bark, Latex, Fruit",
+        pharma: "Rich in beta-sitosterol, lupeol, and tannins with anti-inflammatory and hypoglycemic activities."
+      },
+      {
+        id: 4,
+        nameEn: "Rohini",
+        nameMr: "रोहिणी",
+        treeEn: "Jamun (Black Plum)",
+        treeMr: "जांभूळ",
+        bot: "Syzygium cumini",
+        element: "Prithvi",
+        rashi: "Vrishabha (Taurus)",
+        rashiMr: "वृषभ",
+        actionEn: "Renowned anti-diabetic seed, astringent bark for digestive health.",
+        actionMr: "मधुमेहावर रामबाण जांभूळ बी, पचनसंस्थेचे आरोग्य सुधारणारी साल.",
+        partUsed: "Seeds, Fruit pulp, Bark",
+        pharma: "Contains jamboline glucoside which impedes the diastatic conversion of starch into sugar."
+      },
+      {
+        id: 5,
+        nameEn: "Mrigashira",
+        nameMr: "मृगशीर्ष",
+        treeEn: "Khair (Cutch Tree)",
+        treeMr: "खैर",
+        bot: "Senegalia catechu",
+        element: "Prithvi",
+        rashi: "Vrishabha / Mithuna",
+        rashiMr: "वृषभ / मिथुन",
+        actionEn: "Best Kushthaghna (skin curative), strengthens gums and teeth.",
+        actionMr: "सर्वश्रेष्ठ कुष्ठघ्न (त्वचारोग नाशक), दात व हिरड्या मजबूत करणारे कात.",
+        partUsed: "Heartwood extract, Bark",
+        pharma: "Yields catechin and catechutannic acid used worldwide for oral and dermatological therapeutics."
+      },
+      {
+        id: 6,
+        nameEn: "Ardra",
+        nameMr: "आर्द्रा",
+        treeEn: "Raktachandan (Red Sandalwood)",
+        treeMr: "रक्तचंदन",
+        bot: "Pterocarpus santalinus",
+        element: "Jal",
+        rashi: "Mithuna (Gemini)",
+        rashiMr: "मिथुन",
+        actionEn: "Profound cooling, clears skin blemishes, stabilizes Pitta.",
+        actionMr: "अतिशय शीत वीर्य, त्वचेचे विकार दूर करणारे, पित्तशामक आणि रक्तशोधक.",
+        partUsed: "Heartwood",
+        pharma: "Contains santalin pigments with antimicrobial, analgesic, and membrane-stabilizing efficacy."
+      },
+      {
+        id: 7,
+        nameEn: "Punarvasu",
+        nameMr: "पुनर्वसु",
+        treeEn: "Velu (Bamboo)",
+        treeMr: "वेळू / बांबू",
+        bot: "Bambusa vulgaris",
+        element: "Jal",
+        rashi: "Mithuna / Karka",
+        rashiMr: "मिथुन / कर्क",
+        actionEn: "Source of Tabasheer (Vanshlochan), lung tonic and bone strengthener.",
+        actionMr: "वंशलोचनाचा नैसर्गिक स्रोत, फुफ्फुसे व हाडे मजबूत करणारा वृक्ष.",
+        partUsed: "Siliceous concretions (Vanshlochan), Shoots",
+        pharma: "High biological silica content aiding collagen synthesis and remineralization of cartilage."
+      },
+      {
+        id: 8,
+        nameEn: "Pushya",
+        nameMr: "पुष्य",
+        treeEn: "Pipal (Sacred Fig)",
+        treeMr: "पिंपळ",
+        bot: "Ficus religiosa",
+        element: "Jal",
+        rashi: "Karka (Cancer)",
+        rashiMr: "कर्क",
+        actionEn: "Revered oxygen emitter, astringent for ulcers, neural calmative.",
+        actionMr: "दिवसरात्र प्राणवायू देणारा पवित्र वृक्ष, जखमा भरणारा व मन शांत करणारा.",
+        partUsed: "Bark, Tender leaves, Latex",
+        pharma: "Phytosterols and flavonoids that exhibit potent anti-ulcer, anti-asthmatic and memory-enhancing actions."
+      },
+      {
+        id: 9,
+        nameEn: "Ashlesha",
+        nameMr: "आश्लेषा",
+        treeEn: "Nagkeshar (Ceylon Ironwood)",
+        treeMr: "नागकेशर",
+        bot: "Mesua ferrea",
+        element: "Jal",
+        rashi: "Karka (Cancer)",
+        rashiMr: "कर्क",
+        actionEn: "Styptic, stops hemorrhages, aromatic carminative.",
+        actionMr: "रक्तस्त्राव रोखणारे उत्कृष्ट औषध, सुगंधी व पचनशक्ती वाढवणारे.",
+        partUsed: "Dried flower buds, Stamens",
+        pharma: "Mesuanic acid and volatile coumarins that display high antibacterial and anti-inflammatory properties."
+      },
+      {
+        id: 10,
+        nameEn: "Magha",
+        nameMr: "मघा",
+        treeEn: "Vad (Banyan Tree)",
+        treeMr: "वड",
+        bot: "Ficus benghalensis",
+        element: "Agni",
+        rashi: "Simha (Leo)",
+        rashiMr: "सिंह",
+        actionEn: "Symbol of immortality, aerial roots used for tooth hygiene and female health.",
+        actionMr: "अक्षयतेचे प्रतीक, पारंब्या दात स्वच्छ करण्यासाठी व स्त्रियांच्या आरोग्यासाठी उपयुक्त.",
+        partUsed: "Aerial roots, Bark, Buds, Latex",
+        pharma: "Bengalenosides exerting broad-spectrum hypoglycemic, hypolipidemic, and wound-healing actions."
+      },
+      {
+        id: 11,
+        nameEn: "Purva Phalguni",
+        nameMr: "पूर्वा फाल्गुनी",
+        treeEn: "Palas (Flame of the Forest)",
+        treeMr: "पळस",
+        bot: "Butea monosperma",
+        element: "Agni",
+        rashi: "Simha (Leo)",
+        rashiMr: "सिंह",
+        actionEn: "Anthelmintic seeds (Krimighna), bright flowers used for cooling summer drinks.",
+        actionMr: "पोटातील जंत मारणारे पळसबी, उन्हाळ्यात थंडावा देणारी शेंदरी फुले.",
+        partUsed: "Seeds, Flowers, Gum (Kamarkas)",
+        pharma: "Butein and butin chalcones showing strong vermicidal, anti-estrogenic and free-radical scavenging abilities."
+      },
+      {
+        id: 12,
+        nameEn: "Uttara Phalguni",
+        nameMr: "उत्तरा फाल्गुनी",
+        treeEn: "Payar (White Fig)",
+        treeMr: "पायर",
+        bot: "Ficus virens",
+        element: "Agni",
+        rashi: "Simha / Kanya",
+        rashiMr: "सिंह / कन्या",
+        actionEn: "Cooling astringent bark, cures stomatitis and mouth ulcers.",
+        actionMr: "थंडावा देणारी साल, तोंडातील व्रण व छाले बरे करणारी.",
+        partUsed: "Bark, Tender aerial shoots",
+        pharma: "High phenolic content responsible for antiseptic, anti-dysenteric and wound contracting properties."
+      },
+      {
+        id: 13,
+        nameEn: "Hasta",
+        nameMr: "हस्त",
+        treeEn: "Reetha (Soapnut)",
+        treeMr: "रिठा",
+        bot: "Sapindus mukorossi",
+        element: "Prithvi",
+        rashi: "Kanya (Virgo)",
+        rashiMr: "कन्या",
+        actionEn: "Natural saponin cleanser, hair tonic, antimicrobial expectorant.",
+        actionMr: "नैसर्गिक सॅपोनिन साबण, केसांचे पोषण करणारे आणि कफनाशक.",
+        partUsed: "Fruit rind",
+        pharma: "Triterpenoid saponins serving as non-toxic bio-surfactants with antifungal and anti-dandruff benefits."
+      },
+      {
+        id: 14,
+        nameEn: "Chitra",
+        nameMr: "चित्रा",
+        treeEn: "Bel (Bael Fruit)",
+        treeMr: "बेल",
+        bot: "Aegle marmelos",
+        element: "Prithvi",
+        rashi: "Kanya / Tula",
+        rashiMr: "कन्या / तुळ",
+        actionEn: "Sacred fruit for IBS and chronic diarrhea, cools brain and stomach.",
+        actionMr: "पोटाचे जुनाट विकार व संग्रहणीवर रामबाण, मेंदू व जठराला थंडावा देणारे.",
+        partUsed: "Half-ripe fruit, Leaves, Root",
+        pharma: "Marmelosin, imperatorin and pectin conferring intestinal motility regulation and prebiotic support."
+      },
+      {
+        id: 15,
+        nameEn: "Swati",
+        nameMr: "स्वाती",
+        treeEn: "Arjun (Terminalia)",
+        treeMr: "अर्जुन",
+        bot: "Terminalia arjuna",
+        element: "Vayu",
+        rashi: "Tula (Libra)",
+        rashiMr: "तुळ",
+        actionEn: "Incomparable cardiac tonic, regulates hypertension and ischemic distress.",
+        actionMr: "हृदयाचे सर्वोत्तम रक्षण करणारा अर्जुन वृक्ष, रक्तदाब नियंत्रक.",
+        partUsed: "Stem Bark",
+        pharma: "Arjunic acid, arjunetin and coenzyme Q10 precursors that strengthen myocardium contractility."
+      },
+      {
+        id: 16,
+        nameEn: "Vishakha",
+        nameMr: "विशाखा",
+        treeEn: "Kauth (Wood Apple)",
+        treeMr: "कवठ",
+        bot: "Limonia acidissima",
+        element: "Vayu",
+        rashi: "Tula / Vrishchika",
+        rashiMr: "तुळ / वृश्चिक",
+        actionEn: "Digestive appetizer, liver detoxifier, counters sunstroke.",
+        actionMr: "भूक वाढवणारे पाचक फळ, यकृताचे शुद्धीकरण आणि उष्माघातापासून रक्षण.",
+        partUsed: "Fruit pulp, Leaves, Bark",
+        pharma: "Rich in citric acid, riboflavin and thiamine supporting gastric enzymes and hepatocyte repair."
+      },
+      {
+        id: 17,
+        nameEn: "Anuradha",
+        nameMr: "अनुराधा",
+        treeEn: "Bakul (Spanish Cherry)",
+        treeMr: "बकुळ",
+        bot: "Mimusops elengi",
+        element: "Jal",
+        rashi: "Vrishchika (Scorpio)",
+        rashiMr: "वृश्चिक",
+        actionEn: "Fragrant blossoms retain scent when dry; bark firms loose teeth.",
+        actionMr: "सुकल्यावरही सुगंध टिकवून ठेवणारी फुले, दातांना बळकटी देणारी साल.",
+        partUsed: "Bark, Flowers, Fruit",
+        pharma: "Saponins and sterols effective in periodontal pathogens and chronic gingivitis gargles."
+      },
+      {
+        id: 18,
+        nameEn: "Jyeshtha",
+        nameMr: "ज्येष्ठा",
+        treeEn: "Shisam (Rosewood)",
+        treeMr: "शिसव",
+        bot: "Dalbergia latifolia",
+        element: "Jal",
+        rashi: "Vrishchika (Scorpio)",
+        rashiMr: "वृश्चिक",
+        actionEn: "Cures burning sensations, purifies blood, relieves dyspepsia.",
+        actionMr: "अंगातील दाह शमवणारे, रक्तशुद्धी करणारे आणि पोटदुखीवर उपयुक्त.",
+        partUsed: "Bark, Heartwood, Leaves",
+        pharma: "Dalbergin and neoflavonoids providing mild spasmolytic, anti-pyretic and tissue reconstructive effects."
+      },
+      {
+        id: 19,
+        nameEn: "Moola",
+        nameMr: "मूळ",
+        treeEn: "Salai (Frankincense)",
+        treeMr: "सालई / राळ",
+        bot: "Boswellia serrata",
+        element: "Agni",
+        rashi: "Dhanu (Sagittarius)",
+        rashiMr: "धनु",
+        actionEn: "Premier joint remedy, potent anti-arthritic gum resin (Shallaki).",
+        actionMr: "सांधेदुखी व आमवातावर सर्वोत्तम औषध असणारा गुग्गुळ डिंक (शल्लकी).",
+        partUsed: "Oleo-gum resin",
+        pharma: "Boswellic acids that selectively inhibit 5-lipoxygenase (5-LOX), arresting chronic cartilage degeneration."
+      },
+      {
+        id: 20,
+        nameEn: "Purva Ashadha",
+        nameMr: "पूर्वाषाढा",
+        treeEn: "Vetas (Rattan Willow)",
+        treeMr: "वेत",
+        bot: "Salix tetrasperma",
+        element: "Agni",
+        rashi: "Dhanu (Sagittarius)",
+        rashiMr: "धनु",
+        actionEn: "Ancestral plant source of natural salicylates, antipyretic pain soother.",
+        actionMr: "नैसर्गिक ॲस्पिरिनचा (सॅलिसिलिक ॲसिड) स्रोत, ताप व वेदना शमवणारे.",
+        partUsed: "Bark, Leaves",
+        pharma: "Salicin glycosides that convert into salicylic acid in the body, providing gentle analgesia."
+      },
+      {
+        id: 21,
+        nameEn: "Uttara Ashadha",
+        nameMr: "उत्तराषाढा",
+        treeEn: "Phanas (Jackfruit)",
+        treeMr: "फणस",
+        bot: "Artocarpus heterophyllus",
+        element: "Agni",
+        rashi: "Dhanu / Makara",
+        rashiMr: "धनु / मकर",
+        actionEn: "Nutritious tonic, roots alleviate skin ulcers and diarrhea.",
+        actionMr: "ताकद देणारे पौष्टिक फळ, मुळे त्वचारोग आणि जुलाबावर गुणकारी.",
+        partUsed: "Root, Leaves, Fruit, Seeds",
+        pharma: "Artocarpin and morin flavonoids displaying tyrosinase inhibition and prebiotic glycemic stability."
+      },
+      {
+        id: 22,
+        nameEn: "Shravana",
+        nameMr: "श्रवण",
+        treeEn: "Rui / Mandar (Crown Flower)",
+        treeMr: "रुई / मंदार",
+        bot: "Calotropis gigantea",
+        element: "Vayu",
+        rashi: "Makara (Capricorn)",
+        rashiMr: "मकर",
+        actionEn: "Powerful Vata pacifier for joint swellings, roots used in asthma.",
+        actionMr: "वातविकार व सांधेदुखीवर पानांचा शेक, मुळांची साल दम्यावर उपयुक्त.",
+        partUsed: "Root bark, Leaves, Flowers",
+        pharma: "Cardiac glycosides (calotropin, uscharin) monitored carefully in pharmacology for bronchospasm relief."
+      },
+      {
+        id: 23,
+        nameEn: "Dhanishta",
+        nameMr: "धनिष्ठा",
+        treeEn: "Shami (Prosopis)",
+        treeMr: "शमी",
+        bot: "Prosopis cineraria",
+        element: "Vayu",
+        rashi: "Makara / Kumbha",
+        rashiMr: "मकर / कुंभ",
+        actionEn: "Sacred tree pacifying Shani, bark cools fiery Pitta disorders and tremors.",
+        actionMr: "शनिदोष निवारक पवित्र शमी, अंगातील उष्णता, कंपवात व चक्कर येणे थांबवणारी.",
+        partUsed: "Bark, Leaves, Pods",
+        pharma: "Prosogerin flavonoids and mineral rich ash showing neuro-stabilizing and anti-hyperlipidemic traits."
+      },
+      {
+        id: 24,
+        nameEn: "Shatabhisha",
+        nameMr: "शततारका",
+        treeEn: "Kadamb (Burflower)",
+        treeMr: "कदंब",
+        bot: "Neolamarckia cadamba",
+        element: "Vayu",
+        rashi: "Kumbha (Aquarius)",
+        rashiMr: "कुंभ",
+        actionEn: "Aromatic globe flowers, bark decoction washes infected wounds and lowers fever.",
+        actionMr: "गोलाकार सुगंधी फुले, साल जखमा धुण्यासाठी आणि ताप उतरवण्यासाठी उपयुक्त.",
+        partUsed: "Bark, Flowers, Leaves",
+        pharma: "Cadambine indole alkaloids with documented antipyretic, anti-hepatotoxic and sedative actions."
+      },
+      {
+        id: 25,
+        nameEn: "Purva Bhadrapada",
+        nameMr: "पूर्वाभाद्रपदा",
+        treeEn: "Amba (Mango)",
+        treeMr: "आंबा",
+        bot: "Mangifera indica",
+        element: "Vayu",
+        rashi: "Kumbha / Meena",
+        rashiMr: "कुंभ / मीन",
+        actionEn: "Tender leaves balance sugar, kernels used for intestinal worms.",
+        actionMr: "कोवळ्या पानांचा काढा साखरेवर गुणकारी, कोय पोटातील जंतांवर उपयुक्त.",
+        partUsed: "Leaves, Bark, Seed Kernel, Fruit",
+        pharma: "Mangiferin xanthone, an exceptional natural antioxidant showing anti-diabetic and radioprotective properties."
+      },
+      {
+        id: 26,
+        nameEn: "Uttara Bhadrapada",
+        nameMr: "उत्तराभाद्रपदा",
+        treeEn: "Neem (Margosa)",
+        treeMr: "कडुलिंब",
+        bot: "Azadirachta indica",
+        element: "Jal",
+        rashi: "Meena (Pisces)",
+        rashiMr: "मीन",
+        actionEn: "Universal village pharmacy, unsurpassed blood cleanser and antimicrobial.",
+        actionMr: "निसर्गाचे चालते-बोलते औषधालय, सर्वोत्तम रक्तशुद्धिकारक आणि जंतुनाशक.",
+        partUsed: "Leaves, Bark, Seeds, Oil",
+        pharma: "Azadirachtin, nimbin, and nimbidol possessing extensive antiviral, antibacterial, and dermatological efficacy."
+      },
+      {
+        id: 27,
+        nameEn: "Revati",
+        nameMr: "रेवती",
+        treeEn: "Moha (Mahua)",
+        treeMr: "मोह",
+        bot: "Madhuca longifolia",
+        element: "Jal",
+        rashi: "Meena (Pisces)",
+        rashiMr: "मीन",
+        actionEn: "Nutritious sweet flowers, seed oil relieves muscle aches and dry cough.",
+        actionMr: "ताकद देणारी गोड फुले, बियांचे तेल सांधेदुखी व कोरड्या खोकल्यावर गुणकारी.",
+        partUsed: "Flowers, Seed oil, Bark",
+        pharma: "Saponins (mowrin) and essential fatty acids that support metabolic vitality and bronchial relaxation."
+      }
+    ];
+
+    let currentFilterElement = "all";
+    let currentSearchTerm = "";
+
+    function renderNakshatras() {
+      const container = document.getElementById('nakshatraList');
+      if (!container) return;
+      const isMr = document.body.classList.contains('lang-mr');
+      const q = currentSearchTerm.toLowerCase().trim();
+
+      const filtered = nakshatraCatalog.filter(item => {
+        const matchesElement = (currentFilterElement === "all") || (item.element === currentFilterElement);
+        if (!matchesElement) return false;
+
+        if (!q) return true;
+        return item.nameEn.toLowerCase().includes(q) ||
+               item.nameMr.includes(q) ||
+               item.treeEn.toLowerCase().includes(q) ||
+               item.treeMr.includes(q) ||
+               item.bot.toLowerCase().includes(q) ||
+               item.rashi.toLowerCase().includes(q) ||
+               item.actionEn.toLowerCase().includes(q) ||
+               item.actionMr.includes(q);
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column:1/-1; text-align:center; padding:50px 20px; background:var(--paper); border:1px solid var(--line); border-radius:12px;">
+            <h3 style="font-family:'Fraunces', serif; color:var(--teal-deep);">${isMr ? 'कोणतेही नक्षत्र वृक्ष सापडले नाही' : 'No matching constellation tree found'}</h3>
+            <p style="color:var(--ink-soft);">${isMr ? 'कृपया वेगळा शोध शब्द वापरून पहा.' : 'Try a different search keyword or clear the element filter.'}</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(n => `
+        <article class="nakshatra-card reveal">
+          <div>
+            <div class="n-head">
+              <span class="n-index">#${String(n.id).padStart(2, '0')} NAKSHATRA</span>
+              <span class="n-element">${n.element}</span>
+            </div>
+            <h3 class="n-title">${isMr ? n.nameMr : n.nameEn}</h3>
+            <div class="n-tree-name">${isMr ? n.treeMr : n.treeEn}</div>
+            <div class="n-botanical">${n.bot}</div>
+            <div class="n-rashi-tag">Zodiac: ${isMr ? n.rashiMr : n.rashi}</div>
+            <p style="font-size:13.5px; line-height:1.65; color:var(--ink-soft); margin:0 0 16px;">
+              ${isMr ? n.actionMr : n.actionEn}
+            </p>
+          </div>
+
+          <button type="button" class="n-action-btn" onclick="openBotanicalModal(${n.id})">
+            <span>${isMr ? 'औषधी तपशील' : 'Botanical Profile'}</span> &rarr;
+          </button>
+        </article>
+      `).join('');
+
+      container.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }
+
+    function openBotanicalModal(id) {
+      const n = nakshatraCatalog.find(x => x.id === id);
+      if (!n) return;
+      const isMr = document.body.classList.contains('lang-mr');
+      const modal = document.getElementById('nakshatraModal');
+      const body = document.getElementById('modalBody');
+
+      body.innerHTML = `
+        <div style="margin-bottom:20px; border-bottom:1px solid var(--line); padding-bottom:16px;">
+          <div style="font-family:'Space Mono', monospace; font-size:11px; color:var(--brick); letter-spacing:0.1em; text-transform:uppercase;">
+            NAKSHATRA #${String(n.id).padStart(2, '0')} · ${n.element} ELEMENT
+          </div>
+          <h2 style="font-family:'Fraunces', serif; font-size:28px; color:var(--teal-deep); margin:6px 0 2px;">
+            ${isMr ? n.nameMr : n.nameEn} Constellation
+          </h2>
+          <div style="font-size:16px; color:var(--teal); font-weight:600;">
+            ${isMr ? n.treeMr : n.treeEn}
+          </div>
+          <div style="font-style:italic; font-size:13px; color:var(--ink-soft);">
+            Taxonomy: <strong>${n.bot}</strong>
+          </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <h4 style="font-family:'Fraunces', serif; font-size:16px; color:var(--teal-deep); margin:0 0 6px;">
+            ${isMr ? 'आयुर्वेदिक व क्लिनिकल परिणाम' : 'Ayurvedic Clinical Action'}
+          </h4>
+          <p style="font-size:14.5px; line-height:1.75; color:var(--ink); margin:0;">
+            ${isMr ? n.actionMr : n.actionEn}
+          </p>
+        </div>
+
+        <div style="background:var(--parchment); border-left:3px solid var(--gold); padding:12px 16px; border-radius:0 8px 8px 0; margin-bottom:16px;">
+          <div style="font-family:'Space Mono', monospace; font-size:10.5px; text-transform:uppercase; color:var(--teal); margin-bottom:4px;">
+            ${isMr ? 'औषधी उपयुक्त भाग' : 'Part Used'}
+          </div>
+          <div style="font-size:14px; font-weight:500; color:var(--ink);">
+            ${n.partUsed}
+          </div>
+        </div>
+
+        <div style="margin-bottom:20px;">
+          <h4 style="font-family:'Fraunces', serif; font-size:16px; color:var(--teal-deep); margin:0 0 6px;">
+            ${isMr ? 'जैवतंत्रज्ञान व फायटोकेमिकल विवरण' : 'Biotechnology & Pharmacognosy Note'}
+          </h4>
+          <p style="font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0;">
+            ${n.pharma}
+          </p>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--line); padding-top:14px;">
+          <span style="font-family:'Space Mono', monospace; font-size:11px; color:var(--teal);">
+            Vidya Pratishthan Botanical Herbarium
+          </span>
+          <a href="contact.html" class="visit-pill" style="font-size:11px; padding:6px 14px;">
+            ${isMr ? 'उद्यानाला भेट द्या' : 'Visit Arboretum →'}
+          </a>
+        </div>
+      `;
+
+      modal.classList.add('is-open');
+    }
+
+    // Event Listeners for Search and Elements
+    const searchInput = document.getElementById('nakshatraSearch');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        currentSearchTerm = e.target.value;
+        renderNakshatras();
+      });
+    }
+
+    const filterTags = document.querySelectorAll('#elementFilterTags .filter-tag');
+    filterTags.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterTags.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        currentFilterElement = btn.dataset.element;
+        renderNakshatras();
+      });
+    });
+
+    const modal = document.getElementById('nakshatraModal');
+    const closeBtn = document.getElementById('modalCloseBtn');
+    if (closeBtn && modal) {
+      closeBtn.addEventListener('click', () => modal.classList.remove('is-open'));
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('is-open');
+      });
+    }
+
+    // Listen for language toggles
+    window.addEventListener('ps:langchange', () => {
+      renderNakshatras();
+    });
+
+    // Initial render
+    renderNakshatras();
+
+    // IntersectionObserver for Sticky Sub-nav Active Highlight
+    const sections = document.querySelectorAll('.udyan-section');
+    const navLinks = document.querySelectorAll('.story-tab-link');
+    window.addEventListener('scroll', () => {
+      let currentId = "";
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 180;
+        if (window.scrollY >= top) {
+          currentId = sec.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentId}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

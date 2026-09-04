@@ -194,9 +194,142 @@
     margin: 0;
   }
 
+  /* Interactive Map Section */
+  .map-section {
+    padding: var(--sp-8) 0;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+  }
+  .map-card {
+    background: var(--parchment);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(23,35,31,0.06);
+    margin-top: var(--sp-6);
+  }
+  .map-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 24px 28px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+  }
+  .map-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .map-place-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--teal-deep);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .map-place-address {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .map-coords-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--teal);
+    background: rgba(15, 74, 68, 0.08);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-top: 2px;
+    width: fit-content;
+  }
+  .map-action-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn-map-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--teal);
+    color: var(--paper) !important;
+    padding: 11px 20px;
+    border-radius: 999px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(15, 74, 68, 0.25);
+  }
+  .btn-map-primary:hover {
+    background: var(--teal-deep);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(15, 74, 68, 0.35);
+  }
+  .btn-map-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--teal-deep) !important;
+    border: 1px solid var(--teal);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .btn-map-secondary:hover {
+    background: rgba(15, 74, 68, 0.08);
+    transform: translateY(-1px);
+  }
+  .map-embed-wrapper {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    background: #e5e3df;
+  }
+  .map-embed-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+  .map-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 28px;
+    background: var(--paper);
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+  }
+
   @media (max-width: 860px) {
     .contact-grid { grid-template-columns: 1fr; }
     .travel-grid { grid-template-columns: 1fr; }
+    .map-embed-wrapper { height: 340px; }
+    .map-top-bar { padding: 18px 20px; }
+    .map-card-footer { padding: 14px 20px; }
   }
 </style>
 </head>
@@ -330,7 +463,16 @@
                   <div>
                     <strong>Prerna Sthal &amp; Nakshatra Udyan</strong><br>
                     Vidya Pratishthan Campus, Vidyanagari,<br>
-                    MIDC, Baramati, District Pune, Maharashtra 413133
+                    MIDC, Baramati, District Pune, Maharashtra 413133<br>
+                    <div style="display:flex; align-items:center; gap:14px; margin-top:10px; flex-wrap:wrap;">
+                      <a href="https://maps.app.goo.gl/KvUEFBSavnCoeFcWA" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--teal); font-weight:700; text-decoration:underline;">
+                        <span>📍 <span class="en">Open in Google Maps</span><span class="mr-inline mr">गुगल मॅप्सवर उघडा</span> ↗</span>
+                      </a>
+                      <span style="color:var(--line); font-size:12px;">•</span>
+                      <a href="#location-map" style="display:inline-flex; align-items:center; gap:4px; font-size:13px; color:var(--ink-soft); text-decoration:none; font-weight:600;">
+                        <span>🗺️ <span class="en">View Map Below ↓</span><span class="mr-inline mr">थेट नकाशा खाली पहा ↓</span></span>
+                      </a>
+                    </div>
                   </div>
                 </li>
                 <li>
@@ -408,6 +550,91 @@
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INTERACTIVE GOOGLE MAP & LOCATION ================= -->
+    <section class="map-section" id="location-map">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow center">
+            <span class="en">Location &amp; Live Map</span>
+            <span class="mr-inline mr">स्थान व थेट नकाशा</span>
+          </div>
+          <h2 class="en">Find Prerna Sthal &amp; Nakshatra Garden</h2>
+          <h2 class="mr-block mr">प्रेरणा स्थळ व नक्षत्र उद्यान नकाशा</h2>
+          <p class="en" style="max-width:720px; margin:12px auto 0; text-align:center; color:var(--ink-soft); font-size:15.5px; line-height:1.7;">
+            Nestled inside the 150-acre Vidya Pratishthan campus in Baramati, easily accessible via Jalochi Road and MIDC Baramati.
+          </p>
+          <p class="mr-block mr" style="max-width:720px; margin:12px auto 0; text-align:center; color:var(--ink-soft); font-size:15.5px; line-height:1.7;">
+            बारामती येथील विद्या प्रतिष्ठानच्या १५० एकर निसर्गरम्य प्रांगणात वसलेले प्रेरणा स्थळ व नक्षत्र उद्यान. जळोची रोड व एमआयडीसी मार्गे सहज पोहोचता येते.
+          </p>
+        </div>
+
+        <div class="map-card reveal">
+          <!-- Top details & direct action banner -->
+          <div class="map-top-bar">
+            <div class="map-details">
+              <div class="map-place-title">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--brick); flex-shrink:0;">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span>
+                  <span class="en">Nakshatra Garden (Prerna Sthal)</span>
+                  <span class="mr-inline mr">नक्षत्र उद्यान (प्रेरणा स्थळ)</span>
+                </span>
+              </div>
+              <div class="map-place-address">
+                Vidya Pratishthan Campus, Vidyanagari, MIDC, Baramati, Maharashtra 413133
+              </div>
+              <div class="map-coords-badge">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <span>18°10'24.9"N 74°36'36.3"E · Plus Code: 5JR6+C2 Baramati</span>
+              </div>
+            </div>
+
+            <div class="map-action-group">
+              <a href="https://maps.app.goo.gl/KvUEFBSavnCoeFcWA" target="_blank" rel="noopener noreferrer" class="btn-map-primary" id="openGoogleMapsBtn">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                <span class="en">Open in Google Maps ↗</span>
+                <span class="mr-inline mr">गुगल मॅप्सवर उघडा ↗</span>
+              </a>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=18.1735905,74.6100801" target="_blank" rel="noopener noreferrer" class="btn-map-secondary" id="getDirectionsBtn">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                <span class="en">Get Driving Directions ↗</span>
+                <span class="mr-inline mr">मार्ग शोधा (Directions) ↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Embedded Responsive Google Map Frame -->
+          <div class="map-embed-wrapper">
+            <iframe 
+              id="googleMapIframe"
+              title="Nakshatra Garden and Prerna Sthal Baramati Google Map"
+              src="https://maps.google.com/maps?q=18.1735905,74.6100801+(Nakshatra+Garden+Baramati)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" 
+              loading="lazy" 
+              allowfullscreen 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+          <!-- Bottom bar with helpful navigation tips -->
+          <div class="map-card-footer">
+            <div>
+              <strong><span class="en">Campus Landmark:</span><span class="mr-inline mr">महत्त्वाचा संदर्भ:</span></strong>
+              <span class="en"> Located adjacent to Vidya Pratishthan School of Biotechnology &amp; Engineering College</span>
+              <span class="mr-inline mr"> विद्या प्रतिष्ठान बायोटेक्नॉलॉजी व इंजिनिअरिंग कॉलेजजवळ</span>
+            </div>
+            <div>
+              <a href="https://maps.app.goo.gl/KvUEFBSavnCoeFcWA" target="_blank" rel="noopener noreferrer" style="color:var(--teal); text-decoration:underline; font-weight:600;">
+                <span class="en">View full map in Google Maps app ↗</span>
+                <span class="mr-inline mr">गुगल मॅप्स ॲपमध्ये पूर्ण नकाशा पहा ↗</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>

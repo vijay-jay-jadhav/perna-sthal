@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meditation · ध्यान · Prerna Sthal</title>
+<meta name="description" content="A tranquil mindful breathing and meditation space at Prerna Sthal, Baramati. Practice rhythmic breath cycles paired with Buddha Hasta Mudras.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#0d2e29">
+
+<style>
+  :root {
+    --sanctuary-bg: #09221e;
+    --sanctuary-surface: #10332e;
+    --sanctuary-surface-bright: #16433c;
+    --sanctuary-glow: rgba(220, 193, 137, 0.25);
+    --sanctuary-text: #f5eedb;
+    --sanctuary-sub: #b2c9c4;
+  }
+
+  body.meditation-page {
+    background-color: var(--sanctuary-bg);
+    color: var(--sanctuary-text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* Immersive Canvas Container */
+  .meditation-hero {
+    position: relative;
+    flex: 1;
+    min-height: calc(100vh - 72px);
+    margin-top: 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--sp-6) var(--sp-4) var(--sp-8);
+    overflow: hidden;
+  }
+
+  /* Background Ambient Rays & Gradients */
+  .meditation-ambient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: 
+      radial-gradient(circle at 50% 45%, rgba(35, 99, 90, 0.45), transparent 60%),
+      radial-gradient(circle at 20% 80%, rgba(199, 154, 74, 0.08), transparent 45%),
+      radial-gradient(circle at 80% 20%, rgba(13, 46, 41, 0.8), transparent 50%);
+  }
+
+  .dome-rings {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 650px;
+    height: 650px;
+    border-radius: 50%;
+    border: 1px solid rgba(220, 193, 137, 0.08);
+    pointer-events: none;
+    box-shadow: inset 0 0 80px rgba(0,0,0,0.5);
+  }
+  .dome-rings::before,
+  .dome-rings::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px dashed rgba(220, 193, 137, 0.06);
+  }
+  .dome-rings::before { width: 480px; height: 480px; }
+  .dome-rings::after { width: 320px; height: 320px; }
+
+  /* Top Sanctuary Controls Bar */
+  .sanctuary-topbar {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: var(--sp-5);
+  }
+
+  .pattern-tabs {
+    display: inline-flex;
+    background: rgba(16, 51, 46, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(220, 193, 137, 0.2);
+    border-radius: 999px;
+    padding: 4px;
+    gap: 4px;
+  }
+  .pattern-btn {
+    background: transparent;
+    border: 0;
+    color: var(--sanctuary-sub);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+  .pattern-btn:hover {
+    color: var(--paper);
+  }
+  .pattern-btn.active {
+    background: var(--gold);
+    color: var(--teal-deep);
+    box-shadow: 0 4px 12px rgba(199, 154, 74, 0.35);
+  }
+
+  .sanctuary-aux-tools {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .tool-btn {
+    background: rgba(16, 51, 46, 0.85);
+    border: 1px solid rgba(220, 193, 137, 0.2);
+    color: var(--sanctuary-text);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+  .tool-btn:hover {
+    background: var(--sanctuary-surface-bright);
+    border-color: var(--gold);
+  }
+  .tool-btn.active {
+    border-color: var(--gold);
+    color: var(--gold-soft);
+  }
+
+  /* The Central Breathing Orb Stage */
+  .breath-stage {
+    position: relative;
+    z-index: 5;
+    width: 380px;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  /* Outer pulsing ambient halo */
+  .breath-halo {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(199, 154, 74, 0.22), rgba(35, 99, 90, 0.05) 70%, transparent);
+    transform: scale(0.65);
+    filter: blur(28px);
+    transition: transform 4s cubic-bezier(0.4, 0, 0.2, 1), opacity 3s ease;
+    opacity: 0.5;
+  }
+
+  /* Concentric expanding ripples */
+  .breath-ripple {
+    position: absolute;
+    inset: 20px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(220, 193, 137, 0.25);
+    transform: scale(0.7);
+    transition: transform 4s cubic-bezier(0.4, 0, 0.2, 1), border-color 2s ease;
+  }
+
+  /* Core Solid Organic Sphere */
+  .breath-core {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #449285, #144941 70%, #0c312b 100%);
+    border: 2px solid rgba(220, 193, 137, 0.4);
+    box-shadow: 
+      0 20px 60px rgba(0,0,0,0.6),
+      inset 0 4px 18px rgba(255,255,255,0.2),
+      inset 0 -8px 24px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    transform: scale(0.85);
+    transition: transform 4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 3s ease, filter 2s ease;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /* Phase Dynamic States */
+  .breath-stage.inhale .breath-core {
+    transform: scale(1.32);
+    box-shadow: 0 30px 90px rgba(199, 154, 74, 0.35), inset 0 4px 25px rgba(255,255,255,0.4);
+    filter: brightness(1.08);
+  }
+  .breath-stage.inhale .breath-halo {
+    transform: scale(1.45);
+    opacity: 0.9;
+  }
+  .breath-stage.inhale .breath-ripple {
+    transform: scale(1.28);
+    border-color: rgba(220, 193, 137, 0.5);
+  }
+
+  .breath-stage.hold .breath-core {
+    transform: scale(1.32);
+    box-shadow: 0 30px 90px rgba(199, 154, 74, 0.5), inset 0 4px 30px rgba(255,255,255,0.5);
+    filter: brightness(1.18);
+  }
+  .breath-stage.hold .breath-halo {
+    transform: scale(1.48);
+    opacity: 1;
+  }
+  .breath-stage.hold .breath-ripple {
+    transform: scale(1.3);
+    border-color: var(--gold);
+  }
+
+  .breath-stage.exhale .breath-core {
+    transform: scale(0.8);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.7), inset 0 2px 10px rgba(255,255,255,0.1);
+    filter: brightness(0.92);
+  }
+  .breath-stage.exhale .breath-halo {
+    transform: scale(0.65);
+    opacity: 0.35;
+  }
+  .breath-stage.exhale .breath-ripple {
+    transform: scale(0.72);
+    border-color: rgba(220, 193, 137, 0.15);
+  }
+
+  .breath-stage.hold-empty .breath-core {
+    transform: scale(0.8);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    filter: brightness(0.85);
+  }
+  .breath-stage.hold-empty .breath-halo {
+    transform: scale(0.65);
+    opacity: 0.25;
+  }
+
+  /* Instruction Typography */
+  .breath-prompt {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(24px, 3.5vw, 32px);
+    font-weight: 400;
+    color: var(--paper);
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+    line-height: 1.15;
+    transition: opacity 0.3s ease;
+  }
+  .breath-timer {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold-soft);
+    letter-spacing: 0.08em;
+  }
+
+  /* Subtitle text under sphere */
+  .stage-caption {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    max-width: 480px;
+    margin-top: 14px;
+  }
+  .stage-caption-title {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--gold-soft);
+    margin-bottom: 4px;
+  }
+  .stage-caption-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--sanctuary-sub);
+  }
+
+  /* Bottom Controls: Play/Pause, Breath Count, Timer */
+  .bottom-controls {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  .play-pause-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--teal-deep);
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(199, 154, 74, 0.4);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .play-pause-btn:hover {
+    transform: scale(1.08);
+    background: var(--paper);
+  }
+
+  .stats-pill {
+    background: rgba(16, 51, 46, 0.85);
+    border: 1px solid rgba(220, 193, 137, 0.2);
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--sanctuary-sub);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .stats-pill strong {
+    color: var(--gold-soft);
+    font-size: 14px;
+  }
+
+  /* Mudra Companion Tray */
+  .mudra-companion-section {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 960px;
+    margin-top: 48px;
+    background: rgba(16, 51, 46, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(220, 193, 137, 0.15);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .companion-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .companion-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--gold-soft);
+    margin: 0;
+  }
+  .companion-sub {
+    font-size: 13px;
+    color: var(--sanctuary-sub);
+  }
+
+  .mudra-pills-scroll {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(220, 193, 137, 0.3) transparent;
+  }
+  .mudra-pill-card {
+    flex: 0 0 auto;
+    background: var(--sanctuary-surface);
+    border: 1px solid rgba(220, 193, 137, 0.15);
+    border-radius: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+    text-align: left;
+    color: var(--sanctuary-text);
+  }
+  .mudra-pill-card:hover {
+    background: var(--sanctuary-surface-bright);
+    border-color: var(--gold-soft);
+  }
+  .mudra-pill-card.selected {
+    background: #19524a;
+    border-color: var(--gold);
+    box-shadow: 0 4px 16px rgba(199, 154, 74, 0.25);
+  }
+  .mudra-pill-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #092824;
+    border: 1px solid var(--line-ongold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-soft);
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .mudra-pill-info h5 {
+    font-size: 13px;
+    margin: 0 0 2px;
+    color: var(--paper);
+  }
+  .mudra-pill-info p {
+    font-size: 11px;
+    margin: 0;
+    color: var(--sanctuary-sub);
+  }
+
+  .selected-mudra-banner {
+    margin-top: 16px;
+    background: rgba(9, 34, 30, 0.7);
+    border: 1px dashed rgba(220, 193, 137, 0.3);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .selected-mudra-text {
+    font-size: 13.5px;
+    color: var(--sanctuary-sub);
+    line-height: 1.5;
+  }
+  .selected-mudra-text strong {
+    color: var(--gold-soft);
+  }
+  .selected-mudra-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--gold);
+  }
+
+  @media (max-width: 768px) {
+    .sanctuary-topbar { justify-content: center; }
+    .pattern-tabs { width: 100%; justify-content: center; flex-wrap: wrap; }
+    .breath-stage { width: 300px; height: 300px; }
+    .breath-core { width: 180px; height: 180px; padding: 16px; }
+    .breath-prompt { font-size: 22px; }
+    .mudra-companion-section { padding: 16px; }
+  }
+</style>
+</head>
+<body class="meditation-page">
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ================= TOP NAVIGATION ================= -->
+  <nav class="site-nav" aria-label="Main Navigation">
+    <div class="nav-top">
+      <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      
+      <div class="nav-brand">
+        <a href="index.html" class="logo-link">
+          <img src="images/logo.png" class="logo-img" alt="Prerna Sthal Logo">
+        </a>
+        <div class="brand-text">
+          <span class="brand-title">Prerna Sthal</span>
+          <span class="brand-sub">Nakshatra Udyan · Baramati</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <div class="lang-toggle" role="group" aria-label="Choose language">
+          <button type="button" class="active" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="mr" aria-pressed="false">मराठी</button>
+        </div>
+
+        <a href="contact.html" class="visit-pill en">Visit</a>
+        <a href="contact.html" class="visit-pill mr-inline mr">भेट द्या</a>
+      </div>
+    </div>
+
+    <div class="nav-links-row">
+      <a href="index.html" class="en">Home</a>
+      <a href="index.html" class="mr-inline mr">मुख्यपृष्ठ</a>
+      <a href="mahapurush.html" class="en">Mahapurush Gallery</a>
+      <a href="mahapurush.html" class="mr-inline mr">महापुरुष गॅलरी</a>
+      <a href="mudras.html" class="en">Hasta Mudras</a>
+      <a href="mudras.html" class="mr-inline mr">हस्तमुद्रा</a>
+      <a href="meditation.html" class="is-current en">Meditation</a>
+      <a href="meditation.html" class="is-current mr-inline mr">ध्यान</a>
+      <a href="nakshatra-udyan.html" class="en">Nakshatra Udyan</a>
+      <a href="nakshatra-udyan.html" class="mr-inline mr">नक्षत्र उद्यान</a>
+      <a href="contact.html" class="en">Contact &amp; Visit</a>
+      <a href="contact.html" class="mr-inline mr">संपर्क व भेट</a>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true">
+    <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu"><span></span><span></span></button>
+    <a href="index.html" class="en">Home</a>
+    <a href="index.html" class="mr-block mr">मुख्यपृष्ठ</a>
+    <a href="mahapurush.html" class="en">Mahapurush Gallery</a>
+    <a href="mahapurush.html" class="mr-block mr">महापुरुष गॅलरी</a>
+    <a href="mudras.html" class="en">Hasta Mudras</a>
+    <a href="mudras.html" class="mr-block mr">हस्तमुद्रा</a>
+    <a href="meditation.html" class="en is-current">Meditation</a>
+    <a href="meditation.html" class="mr-block mr is-current">ध्यान</a>
+    <a href="nakshatra-udyan.html" class="en">Nakshatra Udyan</a>
+    <a href="nakshatra-udyan.html" class="mr-block mr">नक्षत्र उद्यान</a>
+    <a href="contact.html" class="en">Contact &amp; Visit</a>
+    <a href="contact.html" class="mr-block mr">संपर्क व भेट</a>
+  </div>
+
+  <!-- Main Sanctuary View -->
+  <main class="meditation-hero" id="main">
+    <div class="meditation-ambient"></div>
+    <div class="dome-rings"></div>
+
+    <!-- Sanctuary Top Bar -->
+    <div class="sanctuary-topbar">
+      <!-- Breathing Pattern Selector -->
+      <div class="pattern-tabs" role="tablist" aria-label="Breathing Techniques">
+        <button type="button" class="pattern-btn active" data-pattern="box" onclick="setPattern('box')">
+          <span class="en">Box (4-4-4-4)</span><span class="mr-inline mr">समतोल (४-४-४-४)</span>
+        </button>
+        <button type="button" class="pattern-btn" data-pattern="calm" onclick="setPattern('calm')">
+          <span class="en">Deep Calm (4-7-8)</span><span class="mr-inline mr">विश्रांती (४-७-८)</span>
+        </button>
+        <button type="button" class="pattern-btn" data-pattern="balance" onclick="setPattern('balance')">
+          <span class="en">Resonance (5-5)</span><span class="mr-inline mr">सुसंवाद (५-५)</span>
+        </button>
+        <button type="button" class="pattern-btn" data-pattern="mindful" onclick="setPattern('mindful')">
+          <span class="en">Mindful (4-4-4)</span><span class="mr-inline mr">सजग (४-४-४)</span>
+        </button>
+      </div>
+
+      <!-- Aux Tools: Sound Chime & Timer -->
+      <div class="sanctuary-aux-tools">
+        <button type="button" class="tool-btn active" id="chimeBtn" onclick="toggleChime()">
+          <span id="chimeIcon">🔔</span>
+          <span class="en" id="chimeText">Sound On</span>
+          <span class="mr-inline mr" id="chimeTextMr">घंटी सुरू</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Central Breath Orb Stage -->
+    <div class="breath-stage" id="breathStage" onclick="togglePlayPause()">
+      <div class="breath-halo" id="breathHalo"></div>
+      <div class="breath-ripple" id="breathRipple"></div>
+      <div class="breath-core" id="breathCore">
+        <div class="breath-prompt" id="breathPrompt">Inhale</div>
+        <div class="breath-timer" id="breathTimer">4s</div>
+      </div>
+    </div>
+
+    <!-- Stage Caption & Context -->
+    <div class="stage-caption">
+      <div class="stage-caption-title" id="patternTitle">Box Breathing (Samavritti)</div>
+      <div class="stage-caption-desc" id="patternDesc">
+        Inhale 4s, Hold 4s, Exhale 4s, Hold 4s. Promotes laser focus, nervous system equilibrium, and clarity of thought.
+      </div>
+    </div>
+
+    <!-- Bottom Controls: Play/Pause, Breath Count, Session Timer -->
+    <div class="bottom-controls">
+      <button type="button" class="play-pause-btn" id="playBtn" onclick="togglePlayPause()" aria-label="Play or Pause">
+        <span id="playIcon">⏸</span>
+      </button>
+
+      <div class="stats-pill">
+        <span><span class="en">Cycles:</span><span class="mr-inline mr">आवर्तने:</span> <strong id="cycleCount">0</strong></span>
+        <span>•</span>
+        <span><span class="en">Time:</span><span class="mr-inline mr">वेळ:</span> <strong id="sessionTimer">00:00</strong></span>
+      </div>
+    </div>
+
+    <!-- Mudra Companion Selector -->
+    <section class="mudra-companion-section">
+      <div class="companion-head">
+        <div>
+          <h3 class="companion-title">
+            <span class="en">Mudra Companion · Hold a Sacred Gesture</span>
+            <span class="mr-block mr">हस्तमुद्रा साथी · ध्यान करताना मुद्रा धारण करा</span>
+          </h3>
+          <span class="companion-sub">
+            <span class="en">Select a Buddha Hasta Mudra to hold during your breath practice.</span>
+            <span class="mr-block mr">ध्यानाभ्यासात स्थिरता मिळवण्यासाठी खालीलपैकी एक मुद्रा निवडा.</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="mudra-pills-scroll" id="mudraScrollContainer">
+        <!-- Will be populated dynamically -->
+      </div>
+
+      <div class="selected-mudra-banner" id="selectedMudraBanner">
+        <div class="selected-mudra-text" id="selectedMudraText">
+          <strong>Dhyanamudra (Meditation Gesture)</strong>: Both hands rest open on your lap, thumbs touching to create a serene Triratna triangle.
+        </div>
+        <a href="dhyana-mudra.html" class="selected-mudra-link" id="selectedMudraPageLink">
+          <span class="en">View Details &rarr;</span>
+          <span class="mr-inline mr">सविस्तर माहिती &rarr;</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= GLOBAL FOOTER ================= -->
+  <footer class="site-footer" style="background:#061815; border-top:1px solid rgba(220,193,137,0.15);">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+            <img src="images/logo.png" class="footer-logo" alt="Prerna Sthal">
+            <h3 style="margin:0; color:var(--paper);">Prerna Sthal</h3>
+          </div>
+          <p class="en">A peaceful sanctuary for meditation, quiet reflection, and mindful breathing in the lap of nature at Vidya Pratishthan, Baramati.</p>
+          <p class="mr-block mr">निसर्ग, शांतता आणि सजग ध्यान यांचा अनुभव देणारे प्रेरणा स्थळ, विद्या प्रतिष्ठान, बारामती.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="en" style="color:var(--gold-soft);">Sections</h4>
+          <h4 class="mr-block mr" style="color:var(--gold-soft);">विभाग</h4>
+          <ul class="footer-links">
+            <li><a href="index.html" class="en">Home Sanctuary</a><a href="index.html" class="mr-block mr">मुख्य दालन</a></li>
+            <li><a href="mahapurush.html" class="en">Mahapurush Gallery</a><a href="mahapurush.html" class="mr-block mr">महापुरुष गॅलरी</a></li>
+            <li><a href="mudras.html" class="en">Hasta Mudras</a><a href="mudras.html" class="mr-block mr">हस्तमुद्रा</a></li>
+            <li><a href="meditation.html" class="en">Meditation &amp; Breath</a><a href="meditation.html" class="mr-block mr">ध्यान व प्राणायाम</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="en" style="color:var(--gold-soft);">Connect</h4>
+          <h4 class="mr-block mr" style="color:var(--gold-soft);">संपर्क</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html" class="en">Plan a Visit</a><a href="contact.html" class="mr-block mr">भेटीचे नियोजन</a></li>
+            <li><a href="https://www.vidyapratishthan.com" target="_blank" rel="noopener">Vidya Pratishthan Trust &nearr;</a></li>
+            <li><a href="mailto:vijay.jay.jadhav@gmail.com">vijay.jay.jadhav@gmail.com</a></li>
+            <li><span>Baramati, Pune, Maharashtra</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom" style="border-top-color:rgba(220,193,137,0.1);">
+        <span class="footer-fine">&copy; Prerna Sthal &middot; Nakshatra Udyan &middot; Vidya Pratishthan, Baramati</span>
+        <span class="footer-fine">made with peace by <a href="https://zivastudios.com" target="_blank" rel="noopener">ziva studios</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script src="mudras-list.data.js"></script>
+  <script>
+    // Patterns Configuration
+    const patterns = {
+      box: {
+        titleEn: "Box Breathing (Samavritti)",
+        titleMr: "समतोल प्राणायाम (४-४-४-४)",
+        descEn: "Inhale 4s, Hold 4s, Exhale 4s, Hold 4s. Promotes laser focus, nervous system equilibrium, and clarity of thought.",
+        descMr: "४ सेकंद श्वास घेणे, ४ सेकंद रोखणे, ४ सेकंद सोडणे, ४ सेकंद शांत राहणे. मानसिक ताण दूर करून एकाग्रता वाढवते.",
+        phases: [
+          { nameEn: "Inhale", nameMr: "श्वास घ्या", cls: "inhale", duration: 4 },
+          { nameEn: "Hold", nameMr: "श्वास रोखा", cls: "hold", duration: 4 },
+          { nameEn: "Exhale", nameMr: "हळूच सोडा", cls: "exhale", duration: 4 },
+          { nameEn: "Hold", nameMr: "शांत राहा", cls: "hold-empty", duration: 4 }
+        ]
+      },
+      calm: {
+        titleEn: "Deep Calm (4-7-8)",
+        titleMr: "गहन विश्रांती (४-७-८)",
+        descEn: "Inhale 4s, Hold 7s, Exhale 8s. Clinically proven to soothe sympathetic arousal, relieve anxiety, and prepare for deep rest.",
+        descMr: "४ सेकंद श्वास घेणे, ७ सेकंद रोखणे, ८ सेकंद हळूच सोडणे. मनाची अस्वस्थता दूर करून गाढ शांतता देते.",
+        phases: [
+          { nameEn: "Inhale", nameMr: "श्वास घ्या", cls: "inhale", duration: 4 },
+          { nameEn: "Hold", nameMr: "श्वास रोखा", cls: "hold", duration: 7 },
+          { nameEn: "Exhale", nameMr: "हळूच सोडा", cls: "exhale", duration: 8 }
+        ]
+      },
+      balance: {
+        titleEn: "Harmonic Resonance (5-5)",
+        titleMr: "हृदय सुसंवाद (५-५)",
+        descEn: "Inhale 5s, Exhale 5s. Balances heart rate variability (HRV) and synchronizes brainwaves with heart rhythm.",
+        descMr: "५ सेकंद श्वास घेणे, ५ सेकंद सोडणे. हृदय आणि मेंदूमध्ये सुसंवाद निर्माण करून शांतता आणते.",
+        phases: [
+          { nameEn: "Inhale", nameMr: "श्वास घ्या", cls: "inhale", duration: 5 },
+          { nameEn: "Exhale", nameMr: "हळूच सोडा", cls: "exhale", duration: 5 }
+        ]
+      },
+      mindful: {
+        titleEn: "Mindful Meditation (4-4-4)",
+        titleMr: "सजग ध्यानाभ्यास (४-४-४)",
+        descEn: "Inhale 4s, Hold 4s, Exhale 4s. A gentle classical cadence ideal for anchoring body awareness.",
+        descMr: "४ सेकंद श्वास घेणे, ४ सेकंद रोखणे, ४ सेकंद सोडणे. शरीराचे आणि श्वासाचे आंतरिक भान जागृत करते.",
+        phases: [
+          { nameEn: "Inhale", nameMr: "श्वास घ्या", cls: "inhale", duration: 4 },
+          { nameEn: "Hold", nameMr: "श्वास रोखा", cls: "hold", duration: 4 },
+          { nameEn: "Exhale", nameMr: "हळूच सोडा", cls: "exhale", duration: 4 }
+        ]
+      }
+    };
+
+    let currentPatternKey = "box";
+    let isPlaying = true;
+    let currentPhaseIndex = 0;
+    let secondsLeftInPhase = 4;
+    let phaseInterval = null;
+    let sessionTimerInterval = null;
+    let totalSeconds = 0;
+    let completedCycles = 0;
+    let chimeEnabled = true;
+
+    // Web Audio Singing Bowl Chime Synthesizer
+    let audioCtx = null;
+    function playSingingBowl(freq = 280) {
+      if (!chimeEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        // Subtle gentle pitch decay
+        osc.frequency.exponentialRampToValueAtTime(freq * 0.99, audioCtx.currentTime + 3.5);
+
+        gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.18, audioCtx.currentTime + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 3.8);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + 4);
+      } catch (e) {
+        console.log('AudioContext not allowed yet');
+      }
+    }
+
+    function toggleChime() {
+      chimeEnabled = !chimeEnabled;
+      const btn = document.getElementById('chimeBtn');
+      const icon = document.getElementById('chimeIcon');
+      const text = document.getElementById('chimeText');
+      const textMr = document.getElementById('chimeTextMr');
+      if (chimeEnabled) {
+        btn.classList.add('active');
+        icon.textContent = '🔔';
+        text.textContent = 'Sound On';
+        textMr.textContent = 'घंटी सुरू';
+        playSingingBowl(340);
+      } else {
+        btn.classList.remove('active');
+        icon.textContent = '🔕';
+        text.textContent = 'Sound Off';
+        textMr.textContent = 'घंटी बंद';
+      }
+    }
+
+    function setPattern(key) {
+      currentPatternKey = key;
+      document.querySelectorAll('.pattern-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.pattern === key);
+      });
+      updatePatternHeadings();
+      resetCycle();
+    }
+
+    function updatePatternHeadings() {
+      const isMr = document.body.classList.contains('lang-mr');
+      const pat = patterns[currentPatternKey];
+      document.getElementById('patternTitle').textContent = isMr ? pat.titleMr : pat.titleEn;
+      document.getElementById('patternDesc').textContent = isMr ? pat.descMr : pat.descEn;
+    }
+
+    function resetCycle() {
+      currentPhaseIndex = 0;
+      const pat = patterns[currentPatternKey];
+      const phase = pat.phases[0];
+      secondsLeftInPhase = phase.duration;
+      applyPhase(phase);
+    }
+
+    function applyPhase(phase) {
+      const stage = document.getElementById('breathStage');
+      const prompt = document.getElementById('breathPrompt');
+      const timer = document.getElementById('breathTimer');
+      const isMr = document.body.classList.contains('lang-mr');
+
+      stage.className = 'breath-stage ' + phase.cls;
+      prompt.textContent = isMr ? phase.nameMr : phase.nameEn;
+      timer.textContent = secondsLeftInPhase + 's';
+
+      if (phase.cls === 'inhale') {
+        playSingingBowl(293.66); // D4 note
+      } else if (phase.cls === 'exhale') {
+        playSingingBowl(220); // A3 note
+      }
+    }
+
+    function stepPhase() {
+      if (!isPlaying) return;
+
+      const pat = patterns[currentPatternKey];
+      secondsLeftInPhase--;
+
+      if (secondsLeftInPhase <= 0) {
+        currentPhaseIndex = (currentPhaseIndex + 1) % pat.phases.length;
+        if (currentPhaseIndex === 0) {
+          completedCycles++;
+          document.getElementById('cycleCount').textContent = completedCycles;
+        }
+        const nextPhase = pat.phases[currentPhaseIndex];
+        secondsLeftInPhase = nextPhase.duration;
+        applyPhase(nextPhase);
+      } else {
+        document.getElementById('breathTimer').textContent = secondsLeftInPhase + 's';
+      }
+    }
+
+    function togglePlayPause() {
+      isPlaying = !isPlaying;
+      const playIcon = document.getElementById('playIcon');
+      playIcon.textContent = isPlaying ? '⏸' : '▶';
+
+      if (isPlaying && audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    // Timer formatting
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60).toString().padStart(2, '0');
+      const s = (sec % 60).toString().padStart(2, '0');
+      return m + ':' + s;
+    }
+
+    // Mudra Companion Initialization
+    let selectedMudraId = 'dhyana-mudra';
+
+    function initMudrasList() {
+      const container = document.getElementById('mudraScrollContainer');
+      if (!container || !window.mudras) return;
+
+      container.innerHTML = '';
+      const isMr = document.body.classList.contains('lang-mr');
+
+      window.mudras.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'mudra-pill-card' + (m.id === selectedMudraId ? ' selected' : '');
+        card.onclick = () => selectMudra(m.id);
+
+        card.innerHTML = `
+          <div class="mudra-pill-badge">${m.num}</div>
+          <div class="mudra-pill-info">
+            <h5>${isMr ? m.nameMr.split('|')[0].trim() : m.nameEn}</h5>
+            <p>${isMr ? m.subtitleMr : m.subtitleEn}</p>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      updateSelectedMudraBanner();
+    }
+
+    function selectMudra(id) {
+      selectedMudraId = id;
+      document.querySelectorAll('.mudra-pill-card').forEach((card, idx) => {
+        card.classList.toggle('selected', window.mudras[idx].id === id);
+      });
+      updateSelectedMudraBanner();
+    }
+
+    function updateSelectedMudraBanner() {
+      if (!window.mudras) return;
+      const m = window.mudras.find(item => item.id === selectedMudraId) || window.mudras[0];
+      const isMr = document.body.classList.contains('lang-mr');
+      const banner = document.getElementById('selectedMudraText');
+      const link = document.getElementById('selectedMudraPageLink');
+
+      banner.innerHTML = `<strong>${isMr ? m.nameMr : m.nameEn} (${isMr ? m.subtitleMr : m.subtitleEn})</strong>: ${isMr ? m.descMr : m.descEn}`;
+      link.href = m.detailUrl || 'mudras.html';
+    }
+
+    // URL Query Param check: ?mudra=... or ?pattern=...
+    function checkQueryParams() {
+      const params = new URLSearchParams(window.location.search);
+      const mParam = params.get('mudra');
+      const pParam = params.get('pattern');
+
+      if (mParam && window.mudras && window.mudras.some(m => m.id === mParam)) {
+        selectedMudraId = mParam;
+      }
+      if (pParam && patterns[pParam]) {
+        currentPatternKey = pParam;
+      }
+    }
+
+    // Setup intervals
+    window.addEventListener('DOMContentLoaded', () => {
+      checkQueryParams();
+      initMudrasList();
+      setPattern(currentPatternKey);
+
+      phaseInterval = setInterval(stepPhase, 1000);
+
+      sessionTimerInterval = setInterval(() => {
+        if (isPlaying) {
+          totalSeconds++;
+          document.getElementById('sessionTimer').textContent = formatTime(totalSeconds);
+        }
+      }, 1000);
+
+      // Listen to language switch from shared.js
+      document.querySelectorAll('.lang-toggle button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          setTimeout(() => {
+            updatePatternHeadings();
+            initMudrasList();
+            const pat = patterns[currentPatternKey];
+            const phase = pat.phases[currentPhaseIndex];
+            const prompt = document.getElementById('breathPrompt');
+            prompt.textContent = document.body.classList.contains('lang-mr') ? phase.nameMr : phase.nameEn;
+          }, 50);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

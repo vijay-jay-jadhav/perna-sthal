@@ -199,35 +199,69 @@
     margin: 0;
   }
 
-  /* Interactive Breathing Guide */
-  .breathing-box {
-    background: var(--paper);
-    border: 1px solid var(--line);
+  /* Dedicated Meditation Sanctuary Banner */
+  .meditation-cta {
+    background: linear-gradient(135deg, var(--teal-deep) 0%, #10332e 100%);
+    color: var(--paper);
     border-radius: 16px;
-    padding: var(--sp-6);
+    padding: var(--sp-6) var(--sp-7);
     max-width: 760px;
     margin: var(--sp-7) auto 0;
-    text-align: center;
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    box-shadow: 0 16px 36px -12px rgba(13, 46, 41, 0.25);
+    border: 1px solid rgba(220, 193, 137, 0.25);
   }
-  .breath-circle {
-    width: 120px;
-    height: 120px;
+  .meditation-cta-icon {
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
-    background: radial-gradient(circle, var(--gold-soft), var(--teal));
-    margin: 20px auto;
+    background: rgba(220, 193, 137, 0.15);
+    border: 1px solid var(--gold-soft);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--paper);
+    font-size: 26px;
+    color: var(--gold-soft);
+    flex-shrink: 0;
+  }
+  .meditation-cta-body h4 {
+    color: var(--gold-soft);
+    font-size: 19px;
+    margin: 0 0 6px;
+  }
+  .meditation-cta-body p {
+    color: rgba(245, 238, 219, 0.85);
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .meditation-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold);
+    color: var(--teal-deep);
+    padding: 12px 22px;
+    border-radius: 999px;
     font-family: 'Space Mono', monospace;
     font-size: 12px;
     font-weight: 700;
-    transition: transform 4s ease-in-out;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 0.2s ease, background 0.2s ease;
+    flex-shrink: 0;
   }
-  .breath-circle.inhale { transform: scale(1.35); }
-  .breath-circle.hold { transform: scale(1.35); filter: brightness(1.2); }
-  .breath-circle.exhale { transform: scale(0.9); }
+  .meditation-cta-btn:hover {
+    background: var(--paper);
+    transform: translateY(-2px);
+  }
+  @media (max-width: 640px) {
+    .meditation-cta { flex-direction: column; text-align: center; }
+    .meditation-cta-btn { width: 100%; justify-content: center; }
+  }
 
   .gallery-nav {
     border-top: 1px solid var(--line);
@@ -310,6 +344,8 @@
       <a href="mahapurush.html" class="mr-inline mr">महापुरुष गॅलरी</a>
       <a href="mudras.html" class="is-current en">Hasta Mudras</a>
       <a href="mudras.html" class="is-current mr-inline mr">हस्तमुद्रा</a>
+      <a href="meditation.html" class="en">Meditation</a>
+      <a href="meditation.html" class="mr-inline mr">ध्यान</a>
       <a href="nakshatra-udyan.html" class="en">Nakshatra Udyan</a>
       <a href="nakshatra-udyan.html" class="mr-inline mr">नक्षत्र उद्यान</a>
       <a href="contact.html" class="en">Contact &amp; Visit</a>
@@ -326,6 +362,8 @@
     <a href="mahapurush.html" class="mr-block mr">महापुरुष गॅलरी</a>
     <a href="mudras.html" class="en is-current">Hasta Mudras</a>
     <a href="mudras.html" class="mr-block mr is-current">हस्तमुद्रा</a>
+    <a href="meditation.html" class="en">Meditation</a>
+    <a href="meditation.html" class="mr-block mr">ध्यान</a>
     <a href="nakshatra-udyan.html" class="en">Nakshatra Udyan</a>
     <a href="nakshatra-udyan.html" class="mr-block mr">नक्षत्र उद्यान</a>
     <a href="contact.html" class="en">Contact &amp; Visit</a>
@@ -381,18 +419,19 @@
         <p>या मुद्रेने नमस्कार आणि आदराचा निर्देश केला जातो. मुखाच्या खालच्या बाजूला दोन हात जोडलेले असणे म्हणजे गुरूच्या शब्दांप्रती आदर दर्शविणे, असेही मानले जाते. जोडलेल्या दोन हातांनी लौकिक आणि पारलौकिक, तसेच स्थिर आणि गतिशील अशा जगाचे एकरूपत्व दर्शविले जाते.</p>
       </div>
 
-      <!-- Interactive Breathing Meditation Box -->
-      <div class="breathing-box reveal">
-        <div class="eyebrow center" style="margin-bottom:8px;"><span class="en">Mindful Practice</span><span class="mr-inline mr">सजग ध्यानाभ्यास</span></div>
-        <h3 class="en" style="font-size:22px; color:var(--teal-deep);">4-4-4 Contemplative Breathing Loop</h3>
-        <h3 class="mr-block mr" style="font-size:22px; color:var(--teal-deep);">४-४-४ लयबद्ध श्वासोच्छ्वास सराव</h3>
-        <p style="font-size:14px; opacity:0.85; max-width:520px; margin:8px auto 0;">
-          <span class="en">Hold your hands in Anjalimudra and follow the pulsing sphere.</span>
-          <span class="mr-block mr">हात अंजलीमुद्रा मध्ये ठेवून वर्तुळाच्या लयीनुसार श्वास घ्या व सोडा.</span>
-        </p>
-
-        <div class="breath-circle" id="breathCircle">Inhale</div>
-        <div id="breathLabel" style="font-family:'Space Mono', monospace; font-size:11.5px; color:var(--teal); font-weight:700;">Inhale (4s)</div>
+      <!-- Meditation Sanctuary Invitation -->
+      <div class="meditation-cta reveal">
+        <div class="meditation-cta-icon">☸</div>
+        <div class="meditation-cta-body">
+          <h4 class="en">Practice Meditation with Anjalimudra</h4>
+          <h4 class="mr-block mr">अंजलीमुद्रेसह सजग ध्यान व प्राणायाम</h4>
+          <p class="en">Enter our tranquil breathing sanctuary to align your breath with guided mindful rhythms and gentle chimes.</p>
+          <p class="mr-block mr">आदर, कृतज्ञता आणि अंतर्मनातील एकात्मतेची अनुभूती घेण्यासाठी ध्यान दालनात प्रवेश करा.</p>
+        </div>
+        <a href="meditation.html?mudra=anjalimudra" class="meditation-cta-btn">
+          <span class="en">Enter Sanctuary &rarr;</span>
+          <span class="mr-inline mr">ध्यान सुरू करा &rarr;</span>
+        </a>
       </div>
 
       <div class="gallery-nav">
@@ -423,6 +462,7 @@
             <li><a href="index.html" class="en">Home Sanctuary</a><a href="index.html" class="mr-block mr">मुख्य दालन</a></li>
             <li><a href="mahapurush.html" class="en">Mahapurush Gallery</a><a href="mahapurush.html" class="mr-block mr">महापुरुष गॅलरी</a></li>
             <li><a href="mudras.html" class="en">Buddha Hasta Mudras</a><a href="mudras.html" class="mr-block mr">बुद्ध हस्तमुद्रा</a></li>
+            <li><a href="meditation.html" class="en">Meditation &amp; Breath</a><a href="meditation.html" class="mr-block mr">ध्यान व प्राणायाम</a></li>
             <li><a href="nakshatra-udyan.html" class="en">Nakshatra Udyan (36 Acres)</a><a href="nakshatra-udyan.html" class="mr-block mr">नक्षत्र उद्यान (३६ एकर)</a></li>
           </ul>
         </div>
@@ -474,31 +514,6 @@
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
-
-    // Breathing Loop Controller
-    (function initBreathing() {
-      const circle = document.getElementById('breathCircle');
-      const label = document.getElementById('breathLabel');
-      if (!circle || !label) return;
-
-      const phases = [
-        { textEn: 'Inhale (4s)', textMr: 'श्वास आत घ्या (४ सेकंद)', cls: 'inhale', duration: 4000 },
-        { textEn: 'Hold (4s)', textMr: 'श्वास रोखा (४ सेकंद)', cls: 'hold', duration: 4000 },
-        { textEn: 'Exhale (4s)', textMr: 'श्वास हळूच सोडा (४ सेकंद)', cls: 'exhale', duration: 4000 }
-      ];
-      let step = 0;
-
-      function tick() {
-        const isMr = document.body.classList.contains('lang-mr');
-        const curr = phases[step];
-        circle.className = 'breath-circle ' + curr.cls;
-        circle.textContent = isMr ? (step === 0 ? 'श्वास' : (step === 1 ? 'रोखा' : 'सोडा')) : (step === 0 ? 'Inhale' : (step === 1 ? 'Hold' : 'Exhale'));
-        label.textContent = isMr ? curr.textMr : curr.textEn;
-        step = (step + 1) % phases.length;
-        setTimeout(tick, curr.duration);
-      }
-      tick();
-    })();
 
     // Speech Narration
     let isSpeaking = false;

@@ -271,6 +271,27 @@
     opacity: 0.25;
   }
 
+  .breath-stage.ready .breath-core {
+    transform: scale(0.95);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.55), inset 0 2px 14px rgba(255,255,255,0.22);
+  }
+  .breath-stage.ready .breath-halo {
+    transform: scale(0.8);
+    opacity: 0.45;
+  }
+  .breath-stage.ready .breath-ripple {
+    transform: scale(0.85);
+    border-color: rgba(220, 193, 137, 0.25);
+  }
+
+  .breath-stage.paused .breath-core {
+    filter: brightness(0.88);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+  }
+  .breath-stage.paused .breath-halo {
+    opacity: 0.3;
+  }
+
   /* Instruction Typography */
   .breath-prompt {
     font-family: 'Fraunces', serif;
@@ -311,43 +332,84 @@
     color: var(--sanctuary-sub);
   }
 
-  /* Bottom Controls: Play/Pause, Breath Count, Timer */
+  /* Bottom Controls: Start/Pause, Reset, Breath Count, Timer */
   .bottom-controls {
     position: relative;
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 16px;
     margin-top: 32px;
     flex-wrap: wrap;
   }
 
-  .play-pause-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+  .start-meditation-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
     background: var(--gold);
     color: var(--teal-deep);
     border: 0;
+    padding: 14px 32px;
+    border-radius: 999px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(199, 154, 74, 0.35);
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    letter-spacing: 0.03em;
+    user-select: none;
+  }
+  .start-meditation-btn:hover {
+    transform: translateY(-2px);
+    background: var(--paper);
+    box-shadow: 0 14px 36px rgba(199, 154, 74, 0.5);
+  }
+  .start-meditation-btn.is-active {
+    background: rgba(220, 193, 137, 0.15);
+    color: var(--paper);
+    border: 1px solid var(--gold-soft);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  }
+  .start-meditation-btn.is-active:hover {
+    background: rgba(220, 193, 137, 0.3);
+    transform: translateY(-2px);
+  }
+  .start-btn-icon {
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .reset-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(16, 51, 46, 0.85);
+    border: 1px solid rgba(220, 193, 137, 0.25);
+    color: var(--gold-soft);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
-    box-shadow: 0 10px 30px rgba(199, 154, 74, 0.4);
-    transition: transform 0.2s ease, background 0.2s ease;
+    transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+    user-select: none;
   }
-  .play-pause-btn:hover {
-    transform: scale(1.08);
-    background: var(--paper);
+  .reset-btn:hover {
+    background: rgba(220, 193, 137, 0.2);
+    color: var(--paper);
+    transform: rotate(-60deg);
   }
 
   .stats-pill {
     background: rgba(16, 51, 46, 0.85);
     border: 1px solid rgba(220, 193, 137, 0.2);
     border-radius: 999px;
-    padding: 10px 20px;
+    padding: 12px 22px;
     font-family: 'Space Mono', monospace;
     font-size: 12px;
     color: var(--sanctuary-sub);
@@ -584,12 +646,12 @@
     </div>
 
     <!-- Central Breath Orb Stage -->
-    <div class="breath-stage" id="breathStage" onclick="togglePlayPause()">
+    <div class="breath-stage ready" id="breathStage" onclick="togglePlayPause()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();togglePlayPause();}" role="button" tabindex="0" title="Click to start or pause meditation" aria-label="Meditation sphere">
       <div class="breath-halo" id="breathHalo"></div>
       <div class="breath-ripple" id="breathRipple"></div>
       <div class="breath-core" id="breathCore">
-        <div class="breath-prompt" id="breathPrompt">Inhale</div>
-        <div class="breath-timer" id="breathTimer">4s</div>
+        <div class="breath-prompt" id="breathPrompt">Ready</div>
+        <div class="breath-timer" id="breathTimer">Start ▶</div>
       </div>
     </div>
 
@@ -601,10 +663,15 @@
       </div>
     </div>
 
-    <!-- Bottom Controls: Play/Pause, Breath Count, Session Timer -->
+    <!-- Bottom Controls: Start/Pause Button, Reset, Breath Count, Session Timer -->
     <div class="bottom-controls">
-      <button type="button" class="play-pause-btn" id="playBtn" onclick="togglePlayPause()" aria-label="Play or Pause">
-        <span id="playIcon">⏸</span>
+      <button type="button" class="start-meditation-btn" id="startMeditationBtn" onclick="togglePlayPause()" aria-label="Start Meditation">
+        <span class="start-btn-icon" id="startBtnIcon">▶</span>
+        <span id="startBtnText">Start Meditation</span>
+      </button>
+
+      <button type="button" class="reset-btn" id="resetBtn" onclick="resetMeditationSession()" title="Reset practice session" aria-label="Reset practice session">
+        ↺
       </button>
 
       <div class="stats-pill">
@@ -740,7 +807,8 @@
     };
 
     let currentPatternKey = "box";
-    let isPlaying = true;
+    let isPlaying = false;
+    let hasStarted = false;
     let currentPhaseIndex = 0;
     let secondsLeftInPhase = 4;
     let phaseInterval = null;
@@ -805,7 +873,11 @@
         btn.classList.toggle('active', btn.dataset.pattern === key);
       });
       updatePatternHeadings();
-      resetCycle();
+      if (!hasStarted) {
+        showReadyState();
+      } else {
+        resetCycle();
+      }
     }
 
     function updatePatternHeadings() {
@@ -813,6 +885,40 @@
       const pat = patterns[currentPatternKey];
       document.getElementById('patternTitle').textContent = isMr ? pat.titleMr : pat.titleEn;
       document.getElementById('patternDesc').textContent = isMr ? pat.descMr : pat.descEn;
+    }
+
+    function showReadyState() {
+      const stage = document.getElementById('breathStage');
+      const prompt = document.getElementById('breathPrompt');
+      const timer = document.getElementById('breathTimer');
+      const isMr = document.body.classList.contains('lang-mr');
+
+      stage.className = 'breath-stage ready';
+      prompt.textContent = isMr ? 'सज्ज व्हा' : 'Ready';
+      timer.textContent = isMr ? 'सुरू करा ▶' : 'Start ▶';
+
+      updateButtonUI();
+    }
+
+    function updateButtonUI() {
+      const btn = document.getElementById('startMeditationBtn');
+      const icon = document.getElementById('startBtnIcon');
+      const text = document.getElementById('startBtnText');
+      const isMr = document.body.classList.contains('lang-mr');
+
+      if (!hasStarted) {
+        btn.classList.remove('is-active');
+        icon.textContent = '▶';
+        text.textContent = isMr ? 'ध्यान सुरू करा' : 'Start Meditation';
+      } else if (isPlaying) {
+        btn.classList.add('is-active');
+        icon.textContent = '⏸';
+        text.textContent = isMr ? 'थांबवा' : 'Pause Practice';
+      } else {
+        btn.classList.remove('is-active');
+        icon.textContent = '▶';
+        text.textContent = isMr ? 'पुन्हा सुरू करा' : 'Resume Practice';
+      }
     }
 
     function resetCycle() {
@@ -841,7 +947,7 @@
     }
 
     function stepPhase() {
-      if (!isPlaying) return;
+      if (!isPlaying || !hasStarted) return;
 
       const pat = patterns[currentPatternKey];
       secondsLeftInPhase--;
@@ -861,13 +967,55 @@
     }
 
     function togglePlayPause() {
-      isPlaying = !isPlaying;
-      const playIcon = document.getElementById('playIcon');
-      playIcon.textContent = isPlaying ? '⏸' : '▶';
+      const isMr = document.body.classList.contains('lang-mr');
+      const stage = document.getElementById('breathStage');
+      const prompt = document.getElementById('breathPrompt');
+      const timer = document.getElementById('breathTimer');
+      const pat = patterns[currentPatternKey];
 
-      if (isPlaying && audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume();
+      if (!hasStarted) {
+        hasStarted = true;
+        isPlaying = true;
+        currentPhaseIndex = 0;
+        const phase = pat.phases[0];
+        secondsLeftInPhase = phase.duration;
+        applyPhase(phase);
+        updateButtonUI();
+
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        return;
       }
+
+      isPlaying = !isPlaying;
+      updateButtonUI();
+
+      if (isPlaying) {
+        // Resumed
+        const currPhase = pat.phases[currentPhaseIndex];
+        stage.className = 'breath-stage ' + currPhase.cls;
+        prompt.textContent = isMr ? currPhase.nameMr : currPhase.nameEn;
+        timer.textContent = secondsLeftInPhase + 's';
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+      } else {
+        // Paused
+        stage.className = 'breath-stage paused';
+        prompt.textContent = isMr ? 'थांबवले' : 'Paused';
+        timer.textContent = secondsLeftInPhase + 's';
+      }
+    }
+
+    function resetMeditationSession() {
+      isPlaying = false;
+      hasStarted = false;
+      completedCycles = 0;
+      totalSeconds = 0;
+      document.getElementById('cycleCount').textContent = '0';
+      document.getElementById('sessionTimer').textContent = '00:00';
+      showReadyState();
     }
 
     // Timer formatting
@@ -942,12 +1090,13 @@
     window.addEventListener('DOMContentLoaded', () => {
       checkQueryParams();
       initMudrasList();
-      setPattern(currentPatternKey);
+      updatePatternHeadings();
+      showReadyState();
 
       phaseInterval = setInterval(stepPhase, 1000);
 
       sessionTimerInterval = setInterval(() => {
-        if (isPlaying) {
+        if (isPlaying && hasStarted) {
           totalSeconds++;
           document.getElementById('sessionTimer').textContent = formatTime(totalSeconds);
         }
@@ -959,10 +1108,17 @@
           setTimeout(() => {
             updatePatternHeadings();
             initMudrasList();
-            const pat = patterns[currentPatternKey];
-            const phase = pat.phases[currentPhaseIndex];
-            const prompt = document.getElementById('breathPrompt');
-            prompt.textContent = document.body.classList.contains('lang-mr') ? phase.nameMr : phase.nameEn;
+            updateButtonUI();
+            const isMr = document.body.classList.contains('lang-mr');
+            if (!hasStarted) {
+              showReadyState();
+            } else if (!isPlaying) {
+              document.getElementById('breathPrompt').textContent = isMr ? 'थांबवले' : 'Paused';
+            } else {
+              const pat = patterns[currentPatternKey];
+              const phase = pat.phases[currentPhaseIndex];
+              document.getElementById('breathPrompt').textContent = isMr ? phase.nameMr : phase.nameEn;
+            }
           }, 50);
         });
       });

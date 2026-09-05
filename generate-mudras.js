@@ -1,10 +1,38 @@
-<!DOCTYPE html>
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { mudrasData, getMudraSVG } from './mudras-data.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+function generateMudraPage(item, index, all) {
+  const prev = index > 0 ? all[index - 1] : all[all.length - 1];
+  const next = index < all.length - 1 ? all[index + 1] : all[0];
+
+  const mrParagraphsHtml = item.mrParas.map(p => `        <p>${p}</p>`).join('\n');
+  const enParagraphsHtml = item.enParas.map(p => `        <p>${p}</p>`).join('\n');
+
+  const symbolsHtml = item.symbols.map(s => `
+        <div class="symbol-card">
+          <div class="symbol-icon">${s.icon}</div>
+          <h4 class="en">${s.titleEn}</h4>
+          <h4 class="mr-block mr">${s.titleMr}</h4>
+          <p class="en">${s.descEn}</p>
+          <p class="mr-block mr">${s.descMr}</p>
+        </div>`).join('\n');
+
+  const visualDisplayHtml = item.image 
+    ? `<img src="${item.image}" width="1080" height="1080" id="mudraImg" alt="${item.titleEnFull} - Bronze relief sculpture" data-zoomable>`
+    : `<div class="mudra-svg-hero-badge">${getMudraSVG(item.iconType, 160)}</div>`;
+
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vitarkamudra · Vitarkamudra | Vyakhyanamudra | Teaching Gesture · Prerna Sthal</title>
-<meta name="description" content="This gesture indicates teaching, intellectual discussion, and debate. The thumb touching the index finger forms a circle of understanding, while the other fingers remain outstretched. This circle represents the cycle of teaching and learning, emphasizing that knowledge is a continuous process that evolves through discussion and intellectual engagement.">
+<title>${item.titleEn} · ${item.titleEnFull} · Prerna Sthal</title>
+<meta name="description" content="${item.enParas[0].replace(/"/g, '&quot;')}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -337,17 +365,17 @@
   <!-- Header -->
   <header class="mudra-header">
     <div class="wrap">
-      <div class="eyebrow on-dark center reveal"><span class="en">The Dome Corridor · Hasta Mudra #02</span><span class="mr-inline mr">घुमट प्रदक्षिणा मार्ग · हस्तमुद्रा #02</span></div>
+      <div class="eyebrow on-dark center reveal"><span class="en">The Dome Corridor · Hasta Mudra #${item.num}</span><span class="mr-inline mr">घुमट प्रदक्षिणा मार्ग · हस्तमुद्रा #${item.num}</span></div>
       
       <div class="mudra-image-frame reveal" id="mudraFrame">
-        <img src="images/mudras/vitarka-mudra.png" width="1080" height="1080" id="mudraImg" alt="Vitarkamudra | Vyakhyanamudra | Teaching Gesture - Bronze relief sculpture" data-zoomable>
+        ${visualDisplayHtml}
       </div>
 
-      <h1 class="mudra-name-mr reveal mr">वितर्कमुद्रा | व्याख्यानमुद्रा</h1>
-      <div class="mudra-name-en reveal">Vitarkamudra | Vyakhyanamudra | Teaching Gesture</div>
+      <h1 class="mudra-name-mr reveal mr">${item.titleMr}</h1>
+      <div class="mudra-name-en reveal">${item.titleEnFull}</div>
 
-      <p class="mudra-desc reveal en">This gesture indicates teaching, intellectual discussion, and debate. The thumb touching the index finger forms a circle of understanding, while the other fingers remain outstretched. This circle represents the cycle of teaching and learning, emphasizing that knowledge is a continuous process that evolves through discussion and intellectual engagement.</p>
-      <p class="mudra-desc reveal mr-block mr">या मुद्रेने उपदेश, वैचारिक चर्चा आणि वादचर्चेचा निर्देश होतो. अंगठा आणि तर्जनी यांचा स्पर्श होऊन वर्तुळाकार तयार होतो. शिकणे आणि शिकवणे यांमधून चर्चा आणि संवादाच्या माध्यमातून ज्ञानाचे चक्र अविरत चालते, असा याचा प्रतीकात्मक अर्थ अभिप्रेत असतो.</p>
+      <p class="mudra-desc reveal en">${item.enParas[0]}</p>
+      <p class="mudra-desc reveal mr-block mr">${item.mrParas[0]}</p>
 
       <!-- Audio Narration -->
       <div class="audio-narration-bar reveal">
@@ -368,46 +396,21 @@
     <div class="wrap">
       <div class="section-head reveal">
         <div class="eyebrow center"><span class="en">Philosophy &amp; Symbolism</span><span class="mr-inline mr">तत्त्वज्ञान आणि अर्थ</span></div>
-        <h2 class="en">What Vitarkamudra Represents</h2>
-        <h2 class="mr-block mr">वितर्कमुद्रा | व्याख्यानमुद्रा चा सखोल अर्थ</h2>
+        <h2 class="en">What ${item.titleEn} Represents</h2>
+        <h2 class="mr-block mr">${item.titleMr} चा सखोल अर्थ</h2>
       </div>
 
       <div class="meaning-body reveal en">
-        <p>This gesture indicates teaching, intellectual discussion, and debate. The thumb touching the index finger forms a circle of understanding, while the other fingers remain outstretched. This circle represents the cycle of teaching and learning, emphasizing that knowledge is a continuous process that evolves through discussion and intellectual engagement.</p>
-        <p>The extended fingers are also symbolic. The three extended fingers represent the three jewels of Buddhism—the Buddha, the Dharma (teachings), and the Sangha (community). This supports the idea that the mudra is about dissemination of knowledge and the interconnection between the teacher, the teachings, and the community of practitioners.</p>
+${enParagraphsHtml}
       </div>
 
       <div class="meaning-body reveal mr-block mr">
-        <p>या मुद्रेने उपदेश, वैचारिक चर्चा आणि वादचर्चेचा निर्देश होतो. अंगठा आणि तर्जनी यांचा स्पर्श होऊन वर्तुळाकार तयार होतो. शिकणे आणि शिकवणे यांमधून चर्चा आणि संवादाच्या माध्यमातून ज्ञानाचे चक्र अविरत चालते, असा याचा प्रतीकात्मक अर्थ अभिप्रेत असतो.</p>
-        <p>या मुद्रेतील तीन उभी बोटेदेखील बुद्ध, धम्म आणि संघ यांचा निर्देश प्रतीकात्मकरीत्या करतात. शिक्षक, शिकवण आणि साधकांच्या समुदायातील आंतरिक संबंध या मुद्रेतून दर्शविले जातात.</p>
+${mrParagraphsHtml}
       </div>
 
       <!-- Symbolism Cards -->
       <div class="symbol-grid reveal">
-
-        <div class="symbol-card">
-          <div class="symbol-icon">◯</div>
-          <h4 class="en">Circle of Understanding</h4>
-          <h4 class="mr-block mr">ज्ञानाचे अविरत चक्र</h4>
-          <p class="en">Thumb touching index finger forms the eternal cycle where knowledge evolves through discussion.</p>
-          <p class="mr-block mr">अंगठा आणि तर्जनीचा स्पर्श ज्ञानाचे अविरत चालणारे संवादचक्र दर्शवतो.</p>
-        </div>
-
-        <div class="symbol-card">
-          <div class="symbol-icon">|||</div>
-          <h4 class="en">Three Extended Fingers</h4>
-          <h4 class="mr-block mr">त्रिरत्न सुसंवाद</h4>
-          <p class="en">Three upright fingers signify the Three Jewels: Buddha, Dharma, and Sangha.</p>
-          <p class="mr-block mr">तीन उभी बोटे बुद्ध, धम्म व संघ आणि साधकांमधील आंतरिक संबंध दर्शवितात.</p>
-        </div>
-
-        <div class="symbol-card">
-          <div class="symbol-icon">✦</div>
-          <h4 class="en">Dialectic Wisdom</h4>
-          <h4 class="mr-block mr">वैचारिक स्पष्टता</h4>
-          <p class="en">Embodies intellectual debate, instruction, and the mutual flow between teacher and learner.</p>
-          <p class="mr-block mr">शिकणे व शिकवणे यांच्यातील सखोल वैचारिक देवाणघेवाण या मुद्रेतून व्यक्त होते.</p>
-        </div>
+${symbolsHtml}
       </div>
 
       <!-- Interactive Breathing Meditation Box -->
@@ -416,8 +419,8 @@
         <h3 class="en" style="font-size:22px; color:var(--teal-deep);">4-4-4 Contemplative Breathing Loop</h3>
         <h3 class="mr-block mr" style="font-size:22px; color:var(--teal-deep);">४-४-४ लयबद्ध श्वासोच्छ्वास सराव</h3>
         <p style="font-size:14px; opacity:0.85; max-width:520px; margin:8px auto 0;">
-          <span class="en">Hold your hands in Vitarkamudra and follow the pulsing sphere.</span>
-          <span class="mr-block mr">हात वितर्कमुद्रा मध्ये ठेवून वर्तुळाच्या लयीनुसार श्वास घ्या व सोडा.</span>
+          <span class="en">Hold your hands in ${item.titleEn} and follow the pulsing sphere.</span>
+          <span class="mr-block mr">हात ${item.titleMr.split('|')[0].trim()} मध्ये ठेवून वर्तुळाच्या लयीनुसार श्वास घ्या व सोडा.</span>
         </p>
 
         <div class="breath-circle" id="breathCircle">Inhale</div>
@@ -425,9 +428,9 @@
       </div>
 
       <div class="gallery-nav">
-        <a href="dhyana-mudra.html">&larr; <span class="en">Previous (Dhyanamudra)</span><span class="mr-inline mr">मागील (ध्यानमुद्रा)</span></a>
+        <a href="${prev.file}">&larr; <span class="en">Previous (${prev.titleEn})</span><span class="mr-inline mr">मागील (${prev.titleMr.split('|')[0].trim()})</span></a>
         <a href="mudras.html" class="center-link"><span class="en">All Hasta Mudras (10)</span><span class="mr-inline mr">सर्व हस्तमुद्रा (१०)</span></a>
-        <a href="vajramudra.html"><span class="en">Next (Vajramudra)</span><span class="mr-inline mr">पुढील (वज्रमुद्रा)</span> &rarr;</a>
+        <a href="${next.file}"><span class="en">Next (${next.titleEn})</span><span class="mr-inline mr">पुढील (${next.titleMr.split('|')[0].trim()})</span> &rarr;</a>
       </div>
     </div>
   </section>
@@ -534,8 +537,8 @@
     function toggleMudraSpeech() {
       const isMr = document.body.classList.contains('lang-mr');
       const text = isMr
-        ? "वितर्कमुद्रा, व्याख्यानमुद्रा. या मुद्रेने उपदेश, वैचारिक चर्चा आणि वादचर्चेचा निर्देश होतो. अंगठा आणि तर्जनी यांचा स्पर्श होऊन ज्ञानाचे चक्र अविरत चालते. तीन उभी बोटे बुद्ध, धम्म आणि संघ यांचा निर्देश करतात."
-        : "Vitarkamudra or Vyakhyanamudra, the Teaching Gesture. This gesture indicates teaching, intellectual discussion, and debate. The thumb and index finger form a circle representing the continuous evolution of knowledge through dialogue.";
+        ? "${item.audioMr.replace(/"/g, '\\"')}"
+        : "${item.audioEn.replace(/"/g, '\\"')}";
 
       if (isSpeaking) {
         window.PrernaSthal.stopSpeaking();
@@ -552,3 +555,14 @@
   </script>
 </body>
 </html>
+`;
+}
+
+// Generate all 10 pages
+mudrasData.forEach((item, index) => {
+  const filePath = path.join(__dirname, item.file);
+  const content = generateMudraPage(item, index, mudrasData);
+  fs.writeFileSync(filePath, content, 'utf8');
+  console.log(`Generated page: ${item.file}`);
+});
+console.log('All 10 individual mudra pages successfully generated!');

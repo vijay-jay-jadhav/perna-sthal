@@ -768,7 +768,7 @@
   /* ================= CONTACT SECTION ================= */
   .visit {
     background: var(--paper);
-    padding: var(--sp-8) 0;
+    padding: var(--sp-8) 0 135px;
   }
   .contact-card {
     background: var(--parchment);
@@ -840,7 +840,11 @@
   }
 
   @media (max-width: 860px) {
+    .visit { padding: var(--sp-6) 0 95px; }
     .contact-card { grid-template-columns: 1fr; gap: 32px; padding: 32px 24px; }
+  }
+  @media (max-width: 560px) {
+    .visit { padding: var(--sp-5) 0 70px; }
   }
 
 </style>
@@ -1190,19 +1194,19 @@
           <div class="carousel-viewport" id="corridorViewport">
             <div class="carousel-track" id="corridorTrack">
               <!-- Dynamically populated / preserved for 3D navigation -->
-              <a href="mahapurush.html" class="carousel-card" data-index="0"><div class="frame"><span class="placeholder-name"><span class="en">Rajmata Jijau</span><span class="mr-inline mr">राजमाता जिजाऊ</span></span><span class="pending-tag"><span class="en">Portrait pending</span><span class="mr-inline mr">चित्र प्रतिक्षेत</span></span></div><div class="cap"><span class="en">Rajmata Jijau</span><span class="mr-inline mr">राजमाता जिजाऊ</span></div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="1"><div class="frame"><span class="placeholder-name"><span class="en">Chhatrapati Shivaji Maharaj</span><span class="mr-inline mr">छत्रपती शिवाजी महाराज</span></span><span class="pending-tag"><span class="en">Portrait pending</span><span class="mr-inline mr">चित्र प्रतिक्षेत</span></span></div><div class="cap"><span class="en">Chhatrapati Shivaji Maharaj</span><span class="mr-inline mr">छत्रपती शिवाजी महाराज</span></div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="2"><div class="frame"><img src="images/portraits/Ahilyabai%20Holkar.jpg" loading="lazy" alt="Ahilyabai Holkar"></div><div class="cap"><span class="en">Ahilyabai Holkar</span><span class="mr-inline mr">अहिल्याबाई होळकर</span></div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="3"><div class="frame"><img src="images/portraits/Mahatma%20Jyotirao%20Phule.jpg" loading="lazy" alt="Mahatma Jyotirao Phule"></div><div class="cap"><span class="en">Mahatma Jyotirao Phule</span><span class="mr-inline mr">महात्मा ज्योतिराव फुले</span></div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="4"><div class="frame"><img src="images/portraits/Savitribai%20Phule.jpg" loading="lazy" alt="Savitribai Phule"></div><div class="cap"><span class="en">Savitribai Phule</span><span class="mr-inline mr">सावित्रीबाई फुले</span></div></a>
+              <a href="rajmata-jijau.html" class="carousel-card" data-index="0"><div class="frame"><span class="placeholder-name"><span class="en">Rajmata Jijau</span><span class="mr-inline mr">राजमाता जिजाऊ</span></span><span class="pending-tag"><span class="en">Portrait pending</span><span class="mr-inline mr">चित्र प्रतिक्षेत</span></span></div><div class="cap"><span class="en">Rajmata Jijau</span><span class="mr-inline mr">राजमाता जिजाऊ</span></div></a>
+              <a href="chhatrapati-shivaji-maharaj.html" class="carousel-card" data-index="1"><div class="frame"><span class="placeholder-name"><span class="en">Chhatrapati Shivaji Maharaj</span><span class="mr-inline mr">छत्रपती शिवाजी महाराज</span></span><span class="pending-tag"><span class="en">Portrait pending</span><span class="mr-inline mr">चित्र प्रतिक्षेत</span></span></div><div class="cap"><span class="en">Chhatrapati Shivaji Maharaj</span><span class="mr-inline mr">छत्रपती शिवाजी महाराज</span></div></a>
+              <a href="ahilyadevi-holkar.html" class="carousel-card" data-index="2"><div class="frame"><img src="images/portraits/Ahilyabai%20Holkar.jpg" loading="lazy" alt="Ahilyabai Holkar"></div><div class="cap"><span class="en">Ahilyadevi Holkar</span><span class="mr-inline mr">अहिल्यादेवी होळकर</span></div></a>
+              <a href="jyotirao-phule.html" class="carousel-card" data-index="3"><div class="frame"><img src="images/portraits/Mahatma%20Jyotirao%20Phule.jpg" loading="lazy" alt="Mahatma Jyotirao Phule"></div><div class="cap"><span class="en">Mahatma Jyotirao Phule</span><span class="mr-inline mr">महात्मा ज्योतिराव फुले</span></div></a>
+              <a href="savitribai-phule.html" class="carousel-card" data-index="4"><div class="frame"><img src="images/portraits/Savitribai%20Phule.jpg" loading="lazy" alt="Savitribai Phule"></div><div class="cap"><span class="en">Savitribai Phule</span><span class="mr-inline mr">सावित्रीबाई फुले</span></div></a>
               <a href="shahu-maharaj.html" class="carousel-card" data-index="5"><div class="frame"><img src="images/portraits/Chhatrapati%20Rajarshi%20Shahu%20Maharaj.jpg" loading="lazy" alt="Rajarshi Shahu Maharaj"></div><div class="cap"><span class="en">Rajarshi Shahu Maharaj</span><span class="mr-inline mr">राजर्षी शाहू महाराज</span></div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="6"><div class="frame"><img src="images/portraits/Dr.%20Babasaheb%20Ambedkar.jpg" loading="lazy" alt="Dr. Babasaheb Ambedkar"></div><div class="cap"><span class="en">Dr. Babasaheb Ambedkar</span><span class="mr-inline mr">डॉ. बाबासाहेब आंबेडकर</span></div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="7"><div class="frame"><img src="images/portraits/Maharaja%20Sayajirao%20Gaikwad.jpg" loading="lazy" alt="Maharaja Sayajirao Gaikwad"></div><div class="cap"><span class="en">Maharaja Sayajirao Gaikwad</span><span class="mr-inline mr">महाराजा सयाजीराव गायकवाड</span></div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="8"><div class="frame"><img src="images/portraits/Mahatma%20Gandhi.jpg" loading="lazy" alt="Mahatma Gandhi"></div><div class="cap"><span class="en">Mahatma Gandhi</span><span class="mr-inline mr">महात्मा गांधी</span></div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="9"><div class="frame"><img src="images/portraits/Karmaveer%20Bhaurao%20Patil.jpg" loading="lazy" alt="Karmaveer Bhaurao Patil"></div><div class="cap"><span class="en">Karmaveer Bhaurao Patil</span><span class="mr-inline mr">कर्मवीर भाऊराव पाटील</span></div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="10"><div class="frame"><img src="images/portraits/Annabhau%20Sathe.jpg" loading="lazy" alt="Annabhau Sathe"></div><div class="cap"><span class="en">Annabhau Sathe</span><span class="mr-inline mr">अण्णा भाऊ साठे</span></div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="11"><div class="frame"><span class="placeholder-name"><span class="en">Shardabai Pawar</span><span class="mr-inline mr">शारदाबाई पवार</span></span><span class="pending-tag"><span class="en">Portrait pending</span><span class="mr-inline mr">चित्र प्रतिक्षेत</span></span></div><div class="cap"><span class="en">Shardabai Pawar</span><span class="mr-inline mr">शारदाबाई पवार</span></div></a>
-              <a href="mahapurush.html" class="carousel-card" data-index="12"><div class="frame"><img src="images/portraits/Yashwantrao%20Chavan.jpg" loading="lazy" alt="Yashwantrao Chavan"></div><div class="cap"><span class="en">Yashwantrao Chavan</span><span class="mr-inline mr">यशवंतराव चव्हाण</span></div></a>
+              <a href="dr-babasaheb-ambedkar.html" class="carousel-card" data-index="6"><div class="frame"><img src="images/portraits/Dr.%20Babasaheb%20Ambedkar.jpg" loading="lazy" alt="Dr. Babasaheb Ambedkar"></div><div class="cap"><span class="en">Dr. Babasaheb Ambedkar</span><span class="mr-inline mr">डॉ. बाबासाहेब आंबेडकर</span></div></a>
+              <a href="sayajirao-gaekwad.html" class="carousel-card" data-index="7"><div class="frame"><img src="images/portraits/Maharaja%20Sayajirao%20Gaikwad.jpg" loading="lazy" alt="Maharaja Sayajirao Gaikwad"></div><div class="cap"><span class="en">Maharaja Sayajirao Gaikwad</span><span class="mr-inline mr">महाराजा सयाजीराव गायकवाड</span></div></a>
+              <a href="mahatma-gandhi.html" class="carousel-card" data-index="8"><div class="frame"><img src="images/portraits/Mahatma%20Gandhi.jpg" loading="lazy" alt="Mahatma Gandhi"></div><div class="cap"><span class="en">Mahatma Gandhi</span><span class="mr-inline mr">महात्मा गांधी</span></div></a>
+              <a href="bhaurao-patil.html" class="carousel-card" data-index="9"><div class="frame"><img src="images/portraits/Karmaveer%20Bhaurao%20Patil.jpg" loading="lazy" alt="Karmaveer Bhaurao Patil"></div><div class="cap"><span class="en">Karmaveer Bhaurao Patil</span><span class="mr-inline mr">कर्मवीर भाऊराव पाटील</span></div></a>
+              <a href="annabhau-sathe.html" class="carousel-card" data-index="10"><div class="frame"><img src="images/portraits/Annabhau%20Sathe.jpg" loading="lazy" alt="Annabhau Sathe"></div><div class="cap"><span class="en">Annabhau Sathe</span><span class="mr-inline mr">अण्णा भाऊ साठे</span></div></a>
+              <a href="sharadabai-pawar.html" class="carousel-card" data-index="11"><div class="frame"><span class="placeholder-name"><span class="en">Sharadabai Pawar</span><span class="mr-inline mr">शारदाबाई पवार</span></span><span class="pending-tag"><span class="en">Portrait pending</span><span class="mr-inline mr">चित्र प्रतिक्षेत</span></span></div><div class="cap"><span class="en">Sharadabai Pawar</span><span class="mr-inline mr">शारदाबाई पवार</span></div></a>
+              <a href="yashwantrao-chavan.html" class="carousel-card" data-index="12"><div class="frame"><img src="images/portraits/Yashwantrao%20Chavan.jpg" loading="lazy" alt="Yashwantrao Chavan"></div><div class="cap"><span class="en">Yashwantrao Chavan</span><span class="mr-inline mr">यशवंतराव चव्हाण</span></div></a>
             </div>
           </div>
 

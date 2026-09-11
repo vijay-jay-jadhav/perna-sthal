@@ -422,128 +422,12 @@
     font-size: 14px;
   }
 
-  /* Mudra Companion Tray */
-  .mudra-companion-section {
-    position: relative;
-    z-index: 10;
-    width: 100%;
-    max-width: 960px;
-    margin-top: 48px;
-    background: rgba(16, 51, 46, 0.6);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(220, 193, 137, 0.15);
-    border-radius: 16px;
-    padding: 24px;
-  }
-  .companion-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .companion-title {
-    font-family: 'Fraunces', serif;
-    font-size: 18px;
-    color: var(--gold-soft);
-    margin: 0;
-  }
-  .companion-sub {
-    font-size: 13px;
-    color: var(--sanctuary-sub);
-  }
-
-  .mudra-pills-scroll {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 8px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(220, 193, 137, 0.3) transparent;
-  }
-  .mudra-pill-card {
-    flex: 0 0 auto;
-    background: var(--sanctuary-surface);
-    border: 1px solid rgba(220, 193, 137, 0.15);
-    border-radius: 12px;
-    padding: 12px 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.2s ease;
-    text-align: left;
-    color: var(--sanctuary-text);
-  }
-  .mudra-pill-card:hover {
-    background: var(--sanctuary-surface-bright);
-    border-color: var(--gold-soft);
-  }
-  .mudra-pill-card.selected {
-    background: #19524a;
-    border-color: var(--gold);
-    box-shadow: 0 4px 16px rgba(199, 154, 74, 0.25);
-  }
-  .mudra-pill-badge {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: #092824;
-    border: 1px solid var(--line-ongold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gold-soft);
-    font-size: 15px;
-    flex-shrink: 0;
-  }
-  .mudra-pill-info h5 {
-    font-size: 13px;
-    margin: 0 0 2px;
-    color: var(--paper);
-  }
-  .mudra-pill-info p {
-    font-size: 11px;
-    margin: 0;
-    color: var(--sanctuary-sub);
-  }
-
-  .selected-mudra-banner {
-    margin-top: 16px;
-    background: rgba(9, 34, 30, 0.7);
-    border: 1px dashed rgba(220, 193, 137, 0.3);
-    border-radius: 10px;
-    padding: 14px 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-  }
-  .selected-mudra-text {
-    font-size: 13.5px;
-    color: var(--sanctuary-sub);
-    line-height: 1.5;
-  }
-  .selected-mudra-text strong {
-    color: var(--gold-soft);
-  }
-  .selected-mudra-link {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--gold);
-    text-decoration: none;
-    white-space: nowrap;
-    border-bottom: 1px solid var(--gold);
-  }
-
   @media (max-width: 768px) {
     .sanctuary-topbar { justify-content: center; }
     .pattern-tabs { width: 100%; justify-content: center; flex-wrap: wrap; }
     .breath-stage { width: 300px; height: 300px; }
     .breath-core { width: 180px; height: 180px; padding: 16px; }
     .breath-prompt { font-size: 22px; }
-    .mudra-companion-section { padding: 16px; }
   }
 </style>
 </head>
@@ -680,36 +564,6 @@
         <span><span class="en">Time:</span><span class="mr-inline mr">वेळ:</span> <strong id="sessionTimer">00:00</strong></span>
       </div>
     </div>
-
-    <!-- Mudra Companion Selector -->
-    <section class="mudra-companion-section">
-      <div class="companion-head">
-        <div>
-          <h3 class="companion-title">
-            <span class="en">Mudra Companion · Hold a Sacred Gesture</span>
-            <span class="mr-block mr">हस्तमुद्रा साथी · ध्यान करताना मुद्रा धारण करा</span>
-          </h3>
-          <span class="companion-sub">
-            <span class="en">Select a Buddha Hasta Mudra to hold during your breath practice.</span>
-            <span class="mr-block mr">ध्यानाभ्यासात स्थिरता मिळवण्यासाठी खालीलपैकी एक मुद्रा निवडा.</span>
-          </span>
-        </div>
-      </div>
-
-      <div class="mudra-pills-scroll" id="mudraScrollContainer">
-        <!-- Will be populated dynamically -->
-      </div>
-
-      <div class="selected-mudra-banner" id="selectedMudraBanner">
-        <div class="selected-mudra-text" id="selectedMudraText">
-          <strong>Dhyanamudra (Meditation Gesture)</strong>: Both hands rest open on your lap, thumbs touching to create a serene Triratna triangle.
-        </div>
-        <a href="dhyana-mudra.html" class="selected-mudra-link" id="selectedMudraPageLink">
-          <span class="en">View Details &rarr;</span>
-          <span class="mr-inline mr">सविस्तर माहिती &rarr;</span>
-        </a>
-      </div>
-    </section>
   </main>
 
   <!-- ================= GLOBAL FOOTER ================= -->
@@ -1025,62 +879,10 @@
       return m + ':' + s;
     }
 
-    // Mudra Companion Initialization
-    let selectedMudraId = 'dhyana-mudra';
-
-    function initMudrasList() {
-      const container = document.getElementById('mudraScrollContainer');
-      if (!container || !window.mudras) return;
-
-      container.innerHTML = '';
-      const isMr = document.body.classList.contains('lang-mr');
-
-      window.mudras.forEach(m => {
-        const card = document.createElement('div');
-        card.className = 'mudra-pill-card' + (m.id === selectedMudraId ? ' selected' : '');
-        card.onclick = () => selectMudra(m.id);
-
-        card.innerHTML = `
-          <div class="mudra-pill-badge">${m.num}</div>
-          <div class="mudra-pill-info">
-            <h5>${isMr ? m.nameMr.split('|')[0].trim() : m.nameEn}</h5>
-            <p>${isMr ? m.subtitleMr : m.subtitleEn}</p>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-
-      updateSelectedMudraBanner();
-    }
-
-    function selectMudra(id) {
-      selectedMudraId = id;
-      document.querySelectorAll('.mudra-pill-card').forEach((card, idx) => {
-        card.classList.toggle('selected', window.mudras[idx].id === id);
-      });
-      updateSelectedMudraBanner();
-    }
-
-    function updateSelectedMudraBanner() {
-      if (!window.mudras) return;
-      const m = window.mudras.find(item => item.id === selectedMudraId) || window.mudras[0];
-      const isMr = document.body.classList.contains('lang-mr');
-      const banner = document.getElementById('selectedMudraText');
-      const link = document.getElementById('selectedMudraPageLink');
-
-      banner.innerHTML = `<strong>${isMr ? m.nameMr : m.nameEn} (${isMr ? m.subtitleMr : m.subtitleEn})</strong>: ${isMr ? m.descMr : m.descEn}`;
-      link.href = m.detailUrl || 'mudras.html';
-    }
-
-    // URL Query Param check: ?mudra=... or ?pattern=...
+    // URL Query Param check: ?pattern=...
     function checkQueryParams() {
       const params = new URLSearchParams(window.location.search);
-      const mParam = params.get('mudra');
       const pParam = params.get('pattern');
-
-      if (mParam && window.mudras && window.mudras.some(m => m.id === mParam)) {
-        selectedMudraId = mParam;
-      }
       if (pParam && patterns[pParam]) {
         currentPatternKey = pParam;
       }
@@ -1089,7 +891,6 @@
     // Setup intervals
     window.addEventListener('DOMContentLoaded', () => {
       checkQueryParams();
-      initMudrasList();
       updatePatternHeadings();
       showReadyState();
 
@@ -1107,7 +908,6 @@
         btn.addEventListener('click', () => {
           setTimeout(() => {
             updatePatternHeadings();
-            initMudrasList();
             updateButtonUI();
             const isMr = document.body.classList.contains('lang-mr');
             if (!hasStarted) {

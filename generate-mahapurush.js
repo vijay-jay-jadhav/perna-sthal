@@ -1,10 +1,40 @@
-<!DOCTYPE html>
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { mahapurushList } from './mahapurush-data.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+function generateMahapurushPage(item, index, all) {
+  const prev = index > 0 ? all[index - 1] : all[all.length - 1];
+  const next = index < all.length - 1 ? all[index + 1] : all[0];
+
+  const enParagraphsHtml = item.parasEn.map(p => `        <p>${p}</p>`).join('\n');
+  const mrParagraphsHtml = item.parasMr.map(p => `        <p>${p}</p>`).join('\n');
+
+  const portraitHtml = item.portrait 
+    ? `<div class="leader-portrait-frame reveal" id="portraitFrame">
+        <img src="${item.portrait}" width="865" height="1400" id="portraitImg" alt="Hand-painted portrait of ${item.titleEn} by Vishal Tajanekar" data-zoomable>
+      </div>
+      <div class="portrait-credit reveal">Hand-Painted Portrait by Vishal Tajanekar</div>`
+    : `<div class="leader-portrait-frame placeholder-frame reveal" id="portraitFrame">
+        <div class="placeholder-crest">
+          <img src="images/logo-white.png" alt="Prerna Sthal Crest" class="crest-emblem">
+          <div class="crest-name-mr">${item.titleMr}</div>
+          <div class="crest-name-en">${item.titleEn}</div>
+          <span class="crest-badge"><span class="en">Portrait in progress</span><span class="mr-inline mr">चित्र प्रतिक्षेत</span></span>
+        </div>
+      </div>
+      <div class="portrait-credit reveal">The Dome Corridor · Prerna Sthal Gallery</div>`;
+
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rajarshi Shahu Maharaj · Corridor Gallery · Prerna Sthal</title>
-<meta name="description" content="Born into the Ghatge family of Kagal, Maharashtra, Yashwant was adopted by Anandibai, widow of Shivaji Raje IV of the Kolhapur State, and renamed 'Shahu'. ...">
+<title>${item.titleEn} · Corridor Gallery · Prerna Sthal</title>
+<meta name="description" content="${item.parasEn[0].replace(/"/g, '&quot;').slice(0, 155)}...">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -389,23 +419,20 @@
   <header class="leader-header">
     <div class="wrap">
       <div class="eyebrow on-dark center reveal">
-        <span class="en">The Dome Corridor · Mahapurush #07</span>
-        <span class="mr-inline mr">घुमट प्रदक्षिणा मार्ग · महापुरुष #०७</span>
+        <span class="en">The Dome Corridor · Mahapurush #${item.num}</span>
+        <span class="mr-inline mr">घुमट प्रदक्षिणा मार्ग · महापुरुष #${item.numMr}</span>
       </div>
       
-      <div class="leader-portrait-frame reveal" id="portraitFrame">
-        <img src="images/portraits/Chhatrapati%20Rajarshi%20Shahu%20Maharaj.jpg" width="865" height="1400" id="portraitImg" alt="Hand-painted portrait of Rajarshi Shahu Maharaj by Vishal Tajanekar" data-zoomable>
-      </div>
-      <div class="portrait-credit reveal">Hand-Painted Portrait by Vishal Tajanekar</div>
+      ${portraitHtml}
 
-      <h1 class="leader-name-en reveal en">Rajarshi Shahu Maharaj</h1>
-      <h1 class="leader-name-en reveal mr-block mr">राजर्षी शाहू महाराज</h1>
+      <h1 class="leader-name-en reveal en">${item.titleEn}</h1>
+      <h1 class="leader-name-en reveal mr-block mr">${item.titleMr}</h1>
 
-      <p class="leader-tag reveal en">(Born - 26 June 1874 | Died - 6 May 1922)</p>
-      <p class="leader-tag reveal mr-block mr">(जन्म - २६ जून १८७४ | मृत्यू - ६ मे १९२२)</p>
+      <p class="leader-tag reveal en">(${item.datesEn})</p>
+      <p class="leader-tag reveal mr-block mr">(${item.datesMr})</p>
 
-      <p class="leader-quote reveal en">“Possessing the detachment of a sage and the power of a king, he brought about a social revolution during his 28-year reign and gave direction to an inclusive Maharashtra.”</p>
-      <p class="leader-quote reveal mr-block mr">“ऋषीची विरक्ती आणि राजाची शक्ती अंगी असलेल्या शाहू महाराजांनी आपल्या २८ वर्षांच्या कारकीर्दीत सामाजिक क्रांती घडवत सर्वसमावेशक महाराष्ट्राला दिशा दिली.”</p>
+      <p class="leader-quote reveal en">${item.quoteEn}</p>
+      <p class="leader-quote reveal mr-block mr">${item.quoteMr}</p>
 
       <!-- Speech Narration Pill -->
       <div class="audio-narration-bar reveal">
@@ -426,22 +453,18 @@
     <div class="wrap">
       <article class="bio-card-wrapper reveal">
         <div class="bio-official-heading">
-          <h2 class="bio-official-title en">Rajarshi Shahu Maharaj</h2>
-          <h2 class="bio-official-title mr-block mr">राजर्षी शाहू महाराज</h2>
-          <div class="bio-official-dates en">(Born - 26 June 1874 | Died - 6 May 1922)</div>
-          <div class="bio-official-dates mr-block mr">(जन्म - २६ जून १८७४ | मृत्यू - ६ मे १९२२)</div>
+          <h2 class="bio-official-title en">${item.titleEn}</h2>
+          <h2 class="bio-official-title mr-block mr">${item.titleMr}</h2>
+          <div class="bio-official-dates en">(${item.datesEn})</div>
+          <div class="bio-official-dates mr-block mr">(${item.datesMr})</div>
         </div>
 
         <div class="bio-body reveal en">
-        <p>Born into the Ghatge family of Kagal, Maharashtra, Yashwant was adopted by Anandibai, widow of Shivaji Raje IV of the Kolhapur State, and renamed 'Shahu'. After completing his education in 1894, he toured the entire state before assuming the reins of administration, seeking to understand the joys and hardships of his people. Despite inheriting royal grandeur, he laid the foundation of social equality through his governance.</p>
-        <p>To free his people from poverty, ignorance and superstition, Chhatrapati Shahu made primary education free, compulsory and universal. He established caste-based hostels for poor students. To make administration inclusive, he reserved fifty percent of positions in the Kolhapur State for the backward classes, laying the foundation of social justice. He extended royal patronage to art and sports. Through laws banning the Devadasi practice, legalizing widow remarriage and protecting women from domestic violence, he ushered in a new era of women's emancipation. By granting legal recognition to inter-caste and inter-religious marriages, he struck at the roots of the caste system. To strengthen an economy dependent on traditional agriculture and the vagaries of nature, he fostered agriculture, industry, trade and infrastructure, ensuring water for farms, employment, markets for produce and access to capital for the disadvantaged.</p>
-        <p>At a time when many rulers were immersed in the grandeur of the throne, Shahu Maharaj expanded his subjects' rights and used royal authority and wealth to combat social inequality. Possessing the detachment of a sage and the power of a king, he brought about a social revolution during his 28-year reign and gave direction to an inclusive Maharashtra.</p>
+${enParagraphsHtml}
         </div>
 
         <div class="bio-body reveal mr-block mr">
-        <p>महाराष्ट्रातील कागलच्या घाटगे घराण्यात जन्मलेल्या यशवंतला कोल्हापूर संस्थानाच्या चौथ्या शिवाजी राजेंच्या निधनानंतर त्यांच्या पत्नी आनंदीबाई यांनी दत्तक घेऊन त्याचे नामकरण 'शाहू' केले. शाहू महाराजांनी १८९४ मध्ये शिक्षण पूर्ण झाल्यावर राज्यकारभार हातात घेण्यापूर्वी संपूर्ण राज्याचा दौरा करून जनतेची सुखदुःखे समजून घेतली. राजवैभवाचा मोठा वारसा असूनही त्यांनी आपल्या कारभारातून सामाजिक समतेची पायाभरणी केली.</p>
-        <p>तत्कालीन जनतेला दारिद्र्य, अज्ञान, अंधश्रद्धांच्या जोखडातून मुक्त करण्यासाठी शिक्षण हक्क कायदा आणून छत्रपती शाहूंनी प्राथमिक शिक्षण, मोफत, सक्तीचे व सार्वत्रिक केले. गरीब विद्यार्थ्यांसाठी जातिनिहाय वसतिगृहे उभारली. प्रशासनाला सर्वसमावेशक करण्यासाठी कोल्हापूर संस्थानात ५० टक्के जागा मागासवर्गीयांसाठी राखीव ठेवून त्यांनी सामाजिक न्यायाचा पाया घातला. कला, क्रीडा क्षेत्राला राजाश्रय दिला. देवदासी प्रथा बंदी आणि विधवा पुनर्विवाहाचा कायदा, कौटुंबिक हिंसेपासून महिलांचे संरक्षण व्हावे म्हणून कायदा करून त्यांनी स्त्री-मुक्तीचे नवे पर्व सुरू केले. आंतरजातीय व आंतरधर्मीय विवाहांना कायदेशीर मान्यता देत छत्रपती शाहूंनी जातिव्यवस्थेच्या मुळावरच घाव घातला. पारंपरिक शेती आणि निसर्गाच्या लहरीपणावर अवलंबून असलेल्या अर्थव्यवस्थेला बळकटी देण्यासाठी शाहू महाराजांनी कोल्हापूर संस्थानात कृषी, उद्योग, व्यापार आणि पायाभूत सुविधांचा सुरेख संगम साधून शेतीला पाणी, हाताला काम, उत्पादित मालाला बाजारपेठ आणि दुर्बलांना भांडवल मिळवून दिले.</p>
-        <p>बरेचसे राजे राजगद्दीच्या वैभवात मग्न असतानाच्या काळात शाहू महाराजांनी प्रजाधिकारांच्या सीमा विस्तारल्या, राजसत्ता व संपत्ती वापरून समाजातील विषमता नष्ट करण्यावर भर दिला. ऋषीची विरक्ती आणि राजाची शक्ती अंगी असलेल्या शाहू महाराजांनी आपल्या २८ वर्षांच्या कारकीर्दीत सामाजिक क्रांती घडवत सर्वसमावेशक महाराष्ट्राला दिशा दिली.</p>
+${mrParagraphsHtml}
         </div>
 
         <div class="bio-official-footer-emblem">
@@ -451,9 +474,9 @@
       </article>
 
       <div class="gallery-nav reveal">
-        <a href="sayajirao-gaekwad.html">&larr; <span class="en">Previous (Maharaja Sayajirao Gaekwad)</span><span class="mr-inline mr">मागील (महाराजा सयाजीराव गायकवाड)</span></a>
+        <a href="${prev.filename}">&larr; <span class="en">Previous (${prev.titleEn})</span><span class="mr-inline mr">मागील (${prev.titleMr})</span></a>
         <a href="mahapurush.html" class="center-link"><span class="en">Mahapurush Gallery</span><span class="mr-inline mr">महापुरुष गॅलरी</span></a>
-        <a href="mahatma-gandhi.html"><span class="en">Next (Mahatma Gandhi)</span><span class="mr-inline mr">पुढील (महात्मा गांधी)</span> &rarr;</a>
+        <a href="${next.filename}"><span class="en">Next (${next.titleEn})</span><span class="mr-inline mr">पुढील (${next.titleMr})</span> &rarr;</a>
       </div>
     </div>
   </section>
@@ -536,8 +559,8 @@
     function toggleLeaderSpeech() {
       const isMr = document.body.classList.contains('lang-mr');
       const bioText = isMr
-        ? "राजर्षी शाहू महाराज. (जन्म - २६ जून १८७४ | मृत्यू - ६ मे १९२२). महाराष्ट्रातील कागलच्या घाटगे घराण्यात जन्मलेल्या यशवंतला कोल्हापूर संस्थानाच्या चौथ्या शिवाजी राजेंच्या निधनानंतर त्यांच्या पत्नी आनंदीबाई यांनी दत्तक घेऊन त्याचे नामकरण 'शाहू' केले. शाहू महाराजांनी १८९४ मध्ये शिक्षण पूर्ण झाल्यावर राज्यकारभार हातात घेण्यापूर्वी संपूर्ण राज्याचा दौरा करून जनतेची सुखदुःखे समजून घेतली. राजवैभवाचा मोठा वारसा असूनही त्यांनी आपल्या कारभारातून सामाजिक समतेची पायाभरणी केली."
-        : "Rajarshi Shahu Maharaj. (Born - 26 June 1874 | Died - 6 May 1922). Born into the Ghatge family of Kagal, Maharashtra, Yashwant was adopted by Anandibai, widow of Shivaji Raje IV of the Kolhapur State, and renamed 'Shahu'. After completing his education in 1894, he toured the entire state before assuming the reins of administration, seeking to understand the joys and hardships of his people. Despite inheriting royal grandeur, he laid the foundation of social equality through his governance.";
+        ? "${item.titleMr}. (${item.datesMr}). ${item.parasMr[0].replace(/"/g, '')}"
+        : "${item.titleEn}. (${item.datesEn}). ${item.parasEn[0].replace(/"/g, '')}";
 
       if (isSpeaking) {
         if (window.PrernaSthal) window.PrernaSthal.stopSpeaking();
@@ -556,3 +579,15 @@
   </script>
 </body>
 </html>
+`;
+}
+
+// Generate each page
+mahapurushList.forEach((item, index) => {
+  const pageHtml = generateMahapurushPage(item, index, mahapurushList);
+  const outPath = path.join(__dirname, item.filename);
+  fs.writeFileSync(outPath, pageHtml, 'utf8');
+  console.log(`Generated: ${item.filename} (#${item.num} ${item.titleEn})`);
+});
+
+console.log("All 13 dedicated Mahapurush pages generated successfully!");

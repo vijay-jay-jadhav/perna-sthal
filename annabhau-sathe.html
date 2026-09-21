@@ -7,7 +7,7 @@
 <meta name="description" content="Tukaram, known by his nickname Anna, was born to Bhaurao and Valubai in a settlement on the outskirts of Wategaon in Sangli district, Maharashtra. He spent...">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -97,7 +97,7 @@
     font-weight: 700;
     color: var(--gold-soft);
     margin-bottom: 6px;
-    font-family: 'Baloo 2', sans-serif;
+    font-family: 'Noto Sans Devanagari', sans-serif;
   }
   .crest-name-en {
     font-size: 16px;
@@ -153,36 +153,242 @@
     padding: 0 16px;
   }
 
-  /* Audio player card */
-  .audio-narration-bar {
-    max-width: 640px;
-    margin: 32px auto 0;
-    background: rgba(250, 245, 234, 0.08);
-    border: 1px solid var(--line-ongold);
-    border-radius: 999px;
-    padding: 10px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-  .audio-play-pill {
-    background: var(--gold);
-    color: var(--teal-deep);
-    border: 0;
-    padding: 8px 18px;
-    border-radius: 999px;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    font-weight: 700;
-    cursor: pointer;
+  /* Audio Capsule Bar - Heritage Deep Teal & Royal Gold Theme */
+  .audio-capsule-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    transition: all 0.2s ease;
+    padding: 5px 16px;
+    border-radius: 999px;
+    background: rgba(199, 154, 74, 0.12);
+    border: 1px solid rgba(199, 154, 74, 0.35);
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    color: var(--gold-soft);
+    margin: 26px auto 14px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
   }
-  .audio-play-pill:hover {
-    background: var(--paper);
+  .audio-pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: inline-block;
+    box-shadow: 0 0 8px var(--gold);
+    transition: all 0.3s ease;
+  }
+  .audio-pulse-dot.is-playing {
+    animation: pulseGlow 1.4s ease-in-out infinite alternate;
+    background: #34c759;
+    box-shadow: 0 0 10px #34c759;
+  }
+  @keyframes pulseGlow {
+    from { opacity: 0.4; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1.3); }
+  }
+
+  .audio-player-capsule {
+    max-width: 660px;
+    width: 100%;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #103c37 0%, #072522 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(199, 154, 74, 0.45);
+    border-radius: 999px;
+    padding: 10px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.6), 0 0 24px rgba(199, 154, 74, 0.12), inset 0 1px 0 rgba(220, 193, 137, 0.35);
+    color: var(--paper);
+    user-select: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+  }
+  .audio-player-capsule:hover {
+    border-color: var(--gold);
+    box-shadow: 0 20px 44px -4px rgba(0, 0, 0, 0.7), 0 0 32px rgba(199, 154, 74, 0.22), inset 0 1px 0 rgba(220, 193, 137, 0.55);
+  }
+
+  .capsule-controls-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .capsule-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: var(--gold-soft);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: all 0.15s ease;
+    opacity: 0.9;
+  }
+  .capsule-btn:hover {
+    opacity: 1;
+    color: #ffffff;
+    background: rgba(199, 154, 74, 0.2);
+    transform: scale(1.08);
+  }
+  .capsule-btn:active {
+    transform: scale(0.92);
+  }
+
+  .capsule-btn-play {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #e8d3a7 0%, #c79a4a 55%, #ad7e34 100%);
+    border: 1px solid #dcc189;
+    color: #072522;
+    opacity: 1;
+    box-shadow: 0 4px 14px rgba(199, 154, 74, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+  .capsule-btn-play:hover {
+    background: linear-gradient(135deg, #ffffff 0%, #e8d3a7 55%, #c79a4a 100%);
+    border-color: #ffffff;
+    color: #072522;
+    transform: scale(1.1);
+    box-shadow: 0 6px 18px rgba(199, 154, 74, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  .capsule-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .capsule-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold-soft);
+    letter-spacing: 0.04em;
+    min-width: 38px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  /* Range Sliders - Gold Progress & Heritage Handle */
+  .capsule-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #c79a4a 0%, #e8d3a7 var(--fill-pct, 0%), rgba(220, 193, 137, 0.22) var(--fill-pct, 0%), rgba(220, 193, 137, 0.22) 100%);
+    border-radius: 999px;
+    outline: none;
+    cursor: pointer;
+    margin: 0;
+    transition: height 0.15s ease;
+  }
+  .capsule-slider:hover {
+    height: 6px;
+  }
+  .capsule-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #faf6ee;
+    border: 2px solid #c79a4a;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(199, 154, 74, 0.8), 0 2px 6px rgba(0, 0, 0, 0.5);
+    transition: transform 0.15s ease;
+  }
+  .capsule-slider:hover::-webkit-slider-thumb {
+    transform: scale(1.35);
+    background: #ffffff;
+    border-color: #dcc189;
+  }
+  .capsule-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #faf6ee;
+    border: 2px solid #c79a4a;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(199, 154, 74, 0.8), 0 2px 6px rgba(0, 0, 0, 0.5);
+    transition: transform 0.15s ease;
+  }
+  .capsule-slider:hover::-moz-range-thumb {
+    transform: scale(1.35);
+    background: #ffffff;
+    border-color: #dcc189;
+  }
+
+  .capsule-volume-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .capsule-volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 62px;
+    height: 4px;
+    background: linear-gradient(to right, #c79a4a 0%, #e8d3a7 var(--vol-pct, 100%), rgba(220, 193, 137, 0.22) var(--vol-pct, 100%), rgba(220, 193, 137, 0.22) 100%);
+    border-radius: 999px;
+    outline: none;
+    cursor: pointer;
+    margin: 0;
+  }
+  .capsule-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #faf6ee;
+    border: 1.5px solid #c79a4a;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  }
+  .capsule-volume-slider::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #faf6ee;
+    border: 1.5px solid #c79a4a;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  @media (max-width: 640px) {
+    .audio-player-capsule {
+      padding: 8px 14px;
+      gap: 10px;
+      border-radius: 999px;
+    }
+    .capsule-controls-left {
+      gap: 6px;
+    }
+    .capsule-btn {
+      width: 28px;
+      height: 28px;
+    }
+    .capsule-btn-play {
+      width: 34px;
+      height: 34px;
+    }
+    .capsule-volume-slider {
+      display: none;
+    }
   }
 
   .bio {
@@ -220,7 +426,7 @@
     color: var(--brick);
     font-weight: 700;
     margin-bottom: 6px;
-    font-family: 'Baloo 2', sans-serif;
+    font-family: 'Noto Sans Devanagari', sans-serif;
   }
   .bio-official-title.en {
     font-family: 'Fraunces', serif;
@@ -407,16 +613,63 @@
       <p class="leader-quote reveal en">“Using art for public education and social awareness, he was a radiant 'Red Star' in Maharashtra's literary and cultural landscape.”</p>
       <p class="leader-quote reveal mr-block mr">“कलेला लोकशिक्षणासाठी वापरून लोकजागृती करणारे अण्णा भाऊ साठे महाराष्ट्राच्या साहित्यिक, सांस्कृतिक क्षेत्रात तेजाने तळपणारा 'लाल तारा' होते.”</p>
 
-      <!-- Speech Narration Pill -->
-      <div class="audio-narration-bar reveal">
-        <span style="font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.06em;">
-          <span class="en">Audio Narration</span><span class="mr-inline mr">श्राव्य निवेदन</span>
-        </span>
-        <button type="button" class="audio-play-pill" id="leaderNarrationBtn" onclick="toggleLeaderSpeech()">
-          <span id="leaderAudioIcon">▶</span>
-          <span id="leaderAudioLabel" class="en">Listen Biography</span>
-          <span id="leaderAudioLabelMr" class="mr-inline mr">चरित्र ऐका</span>
-        </button>
+      <!-- Capsule Audio Player Bar -->
+      <div style="text-align:center;">
+        <div class="audio-capsule-badge reveal">
+          <span class="audio-pulse-dot" id="capsulePulseDot"></span>
+          <span class="en">Audio Narration · Biography</span>
+          <span class="mr-inline mr">श्राव्य निवेदन · संपूर्ण चरित्र</span>
+        </div>
+
+        <div class="audio-player-capsule reveal" id="audioPlayerCapsule">
+          <div class="capsule-controls-left">
+            <!-- Rewind 10s / Previous Track -->
+            <button type="button" class="capsule-btn" id="capsulePrevBtn" onclick="handleCapsulePrev()" aria-label="Rewind 10s or Previous Mahapurush" title="Rewind 10s / Previous: Karmaveer Bhaurao Patil">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="3" y="4" width="2.5" height="16" rx="1"/>
+                <polygon points="21,4 9,12 21,20"/>
+              </svg>
+            </button>
+
+            <!-- Play / Pause -->
+            <button type="button" class="capsule-btn capsule-btn-play" id="capsulePlayBtn" onclick="toggleCapsulePlay()" aria-label="Play or Pause audio">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" id="capsulePlayIcon">
+                <polygon points="6,4 20,12 6,20"/>
+              </svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" id="capsulePauseIcon" style="display:none;">
+                <rect x="5" y="4" width="4.5" height="16" rx="1.5"/>
+                <rect x="14.5" y="4" width="4.5" height="16" rx="1.5"/>
+              </svg>
+            </button>
+
+            <!-- Fast Forward 10s / Next Track -->
+            <button type="button" class="capsule-btn" id="capsuleNextBtn" onclick="handleCapsuleNext()" aria-label="Fast forward 10s or Next Mahapurush" title="Fast-forward 10s / Next: Loknete Yashwantrao Chavan">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="3,4 15,12 3,20"/>
+                <rect x="18.5" y="4" width="2.5" height="16" rx="1"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Center Scrubber & Timestamps -->
+          <div class="capsule-center">
+            <span class="capsule-time" id="capsuleCurrentTime">00:00</span>
+            <input type="range" class="capsule-slider" id="capsuleScrubber" min="0" max="100" value="0" step="0.1" aria-label="Audio scrubber" oninput="handleCapsuleSeek(this.value)">
+            <span class="capsule-time" id="capsuleDuration">--:--</span>
+          </div>
+
+          <!-- Volume Controls -->
+          <div class="capsule-volume-wrap">
+            <button type="button" class="capsule-btn" id="capsuleMuteBtn" onclick="toggleCapsuleMute()" aria-label="Mute or unmute volume" style="width:28px; height:28px;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" id="capsuleVolIcon">
+                <polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <input type="range" class="capsule-volume-slider" id="capsuleVolSlider" min="0" max="1" step="0.05" value="1" aria-label="Volume slider" oninput="handleCapsuleVolume(this.value)">
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -531,28 +784,210 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    // Speech Narration Toggle
-    let isSpeaking = false;
-    function toggleLeaderSpeech() {
+    // Sleek Pill Audio Player
+    let audioElem = null;
+    let isPlayingAudio = false;
+    let isSpeakingSynth = false;
+    let lastVolume = 1;
+
+    function formatSec(s) {
+      if (!s || isNaN(s)) return '00:00';
+      const m = Math.floor(s / 60).toString().padStart(2, '0');
+      const sec = Math.floor(s % 60).toString().padStart(2, '0');
+      return m + ':' + sec;
+    }
+
+    function initAudio() {
+      if (audioElem) return audioElem;
+      const isMr = document.body.classList.contains('lang-mr');
+      const audioSrc = isMr ? 'audio/annabhau-sathe-mr.mp3' : 'audio/annabhau-sathe-en.mp3';
+
+      audioElem = new Audio(audioSrc);
+      audioElem.preload = 'metadata';
+
+      audioElem.addEventListener('loadedmetadata', () => {
+        const dur = formatSec(audioElem.duration);
+        const durEl = document.getElementById('capsuleDuration');
+        if (durEl) durEl.textContent = dur;
+      });
+
+      audioElem.addEventListener('timeupdate', () => {
+        if (!audioElem.duration) return;
+        const cur = formatSec(audioElem.currentTime);
+        const curEl = document.getElementById('capsuleCurrentTime');
+        const scrubber = document.getElementById('capsuleScrubber');
+        if (curEl) curEl.textContent = cur;
+        if (scrubber) {
+          const pct = ((audioElem.currentTime / audioElem.duration) * 100).toFixed(2);
+          scrubber.value = pct;
+          scrubber.style.setProperty('--fill-pct', pct + '%');
+        }
+      });
+
+      audioElem.addEventListener('ended', () => {
+        isPlayingAudio = false;
+        updateCapsuleUI(false);
+      });
+
+      audioElem.addEventListener('error', () => {
+        isPlayingAudio = false;
+        updateCapsuleUI(false);
+        fallbackToSpeechSynthesis();
+      });
+
+      return audioElem;
+    }
+
+    function updateCapsuleUI(isPlaying) {
+      const playIcon = document.getElementById('capsulePlayIcon');
+      const pauseIcon = document.getElementById('capsulePauseIcon');
+      const pulseDot = document.getElementById('capsulePulseDot');
+      if (playIcon) playIcon.style.display = isPlaying ? 'none' : 'block';
+      if (pauseIcon) pauseIcon.style.display = isPlaying ? 'block' : 'none';
+      if (pulseDot) {
+        if (isPlaying) pulseDot.classList.add('is-playing');
+        else pulseDot.classList.remove('is-playing');
+      }
+    }
+
+    function toggleCapsulePlay() {
+      if (isSpeakingSynth) {
+        if (window.PrernaSthal) window.PrernaSthal.stopSpeaking();
+        isSpeakingSynth = false;
+        updateCapsuleUI(false);
+        return;
+      }
+
+      const player = initAudio();
+      const isMr = document.body.classList.contains('lang-mr');
+      const targetSrc = isMr ? 'audio/annabhau-sathe-mr.mp3' : 'audio/annabhau-sathe-en.mp3';
+
+      if (!player.src.endsWith(targetSrc)) {
+        player.src = targetSrc;
+      }
+
+      if (isPlayingAudio) {
+        player.pause();
+        isPlayingAudio = false;
+        updateCapsuleUI(false);
+      } else {
+        player.play().then(() => {
+          isPlayingAudio = true;
+          updateCapsuleUI(true);
+        }).catch(() => {
+          fallbackToSpeechSynthesis();
+        });
+      }
+    }
+
+    function handleCapsuleSeek(val) {
+      const player = initAudio();
+      if (player.duration) {
+        player.currentTime = (parseFloat(val) / 100) * player.duration;
+      }
+      const scrubber = document.getElementById('capsuleScrubber');
+      if (scrubber) scrubber.style.setProperty('--fill-pct', val + '%');
+    }
+
+    function handleCapsulePrev() {
+      const player = initAudio();
+      if (player.currentTime > 3) {
+        player.currentTime = Math.max(0, player.currentTime - 10);
+      } else {
+        window.location.href = 'bhaurao-patil.html';
+      }
+    }
+
+    function handleCapsuleNext() {
+      const player = initAudio();
+      if (player.duration && (player.duration - player.currentTime > 10)) {
+        player.currentTime = Math.min(player.duration, player.currentTime + 10);
+      } else {
+        window.location.href = 'yashwantrao-chavan.html';
+      }
+    }
+
+    function toggleCapsuleMute() {
+      const player = initAudio();
+      const volSlider = document.getElementById('capsuleVolSlider');
+      const volIcon = document.getElementById('capsuleVolIcon');
+      if (player.muted || player.volume === 0) {
+        player.muted = false;
+        player.volume = lastVolume > 0 ? lastVolume : 1;
+        if (volSlider) {
+          volSlider.value = player.volume;
+          volSlider.style.setProperty('--vol-pct', (player.volume * 100) + '%');
+        }
+        updateVolIcon(player.volume);
+      } else {
+        lastVolume = player.volume;
+        player.muted = true;
+        if (volSlider) {
+          volSlider.value = 0;
+          volSlider.style.setProperty('--vol-pct', '0%');
+        }
+        updateVolIcon(0);
+      }
+    }
+
+    function handleCapsuleVolume(val) {
+      const player = initAudio();
+      const num = parseFloat(val);
+      player.volume = num;
+      player.muted = (num === 0);
+      const volSlider = document.getElementById('capsuleVolSlider');
+      if (volSlider) volSlider.style.setProperty('--vol-pct', (num * 100) + '%');
+      updateVolIcon(num);
+    }
+
+    function updateVolIcon(vol) {
+      const volIcon = document.getElementById('capsuleVolIcon');
+      if (!volIcon) return;
+      if (vol <= 0.05) {
+        volIcon.innerHTML = '<polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><line x1="23" y1="9" x2="17" y2="15" stroke="currentColor" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="currentColor" stroke-width="2"/>';
+      } else if (vol < 0.5) {
+        volIcon.innerHTML = '<polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+      } else {
+        volIcon.innerHTML = '<polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+      }
+    }
+
+    function fallbackToSpeechSynthesis() {
       const isMr = document.body.classList.contains('lang-mr');
       const bioText = isMr
         ? "लोकशाहीर अण्णा भाऊ साठे. (जन्म - १ ऑगस्ट १९२० | मृत्यू - १८ जुलै १९६९). महाराष्ट्रातील सांगली जिल्ह्यातील वाटेगावच्या परिघाबाहेरच्या वस्तीत भाऊराव आणि वालुबाई या दाम्पत्याच्या पोटी जन्मलेले तुकाराम पुढे त्यांच्या 'अण्णा' या टोपणनावाने ओळखले जाऊ लागले. वारणेच्या खोऱ्यात पण कमालीच्या सामाजिक, आर्थिक संघर्षात त्यांचे बालपण गेले. औपचारिक शिक्षण किंवा घराण्यात शिक्षणाचा वारसा नसताना अनुभवाच्या शाळेत शिक्षण घेत त्यांनी मराठी साहित्यात नवे युग आणले."
         : "Lokshahir Anna Bhau Sathe. (Born - 1 August 1920 | Died - 18 July 1969). Tukaram, known by his nickname Anna, was born to Bhaurao and Valubai in a settlement on the outskirts of Wategaon in Sangli district, Maharashtra. He spent his childhood in the Warna valley amidst social and economic struggles. Without formal education or a family tradition of learning, he educated himself in the 'school of experience' and ushered in a new era in Marathi literature.";
-
-      if (isSpeaking) {
-        if (window.PrernaSthal) window.PrernaSthal.stopSpeaking();
-        isSpeaking = false;
-        document.getElementById('leaderAudioIcon').textContent = '▶';
-      } else {
-        if (window.PrernaSthal) {
-          const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US');
-          if (started) {
-            isSpeaking = true;
-            document.getElementById('leaderAudioIcon').textContent = '⏸';
-          }
+      if (window.PrernaSthal) {
+        const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US');
+        if (started) {
+          isSpeakingSynth = true;
+          updateCapsuleUI(true);
         }
       }
     }
+
+    // Auto-initialize audio duration on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      initAudio();
+    });
+
+    window.addEventListener('ps:langchange', () => {
+      if (audioElem && isPlayingAudio) {
+        audioElem.pause();
+        isPlayingAudio = false;
+        updateCapsuleUI(false);
+      }
+      if (isSpeakingSynth) {
+        if (window.PrernaSthal) window.PrernaSthal.stopSpeaking();
+        isSpeakingSynth = false;
+        updateCapsuleUI(false);
+      }
+      // Re-point audio source
+      if (audioElem) {
+        const isMr = document.body.classList.contains('lang-mr');
+        audioElem.src = isMr ? 'audio/annabhau-sathe-mr.mp3' : 'audio/annabhau-sathe-en.mp3';
+      }
+    });
   </script>
 </body>
 </html>

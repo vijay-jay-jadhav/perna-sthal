@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
+
 /* ============================================================
    PRERNA STHAL - DESIGN SYSTEM & SHARED STYLES
    Vidya Pratishthan, Nakshatra Udyan, Baramati
    ============================================================ */
 
 :root {
+  /* Marathi Typography */
+  --font-mr: 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
   /* Color Palette */
   --ink:          #17231f;
   --ink-soft:     #2b3d37;
@@ -97,7 +101,54 @@ button, input, select, textarea {
 }
 
 .mr, .mr-text {
-  font-family: 'Baloo 2', 'Noto Sans Devanagari', sans-serif !important;
+  font-family: var(--font-mr) !important;
+  letter-spacing: normal !important;
+}
+
+/* Global Marathi Typography when body has .lang-mr */
+body.lang-mr {
+  font-family: var(--font-mr);
+}
+
+body.lang-mr h1,
+body.lang-mr h2,
+body.lang-mr h3,
+body.lang-mr h4,
+body.lang-mr h5 {
+  font-family: var(--font-mr);
+  letter-spacing: -0.01em;
+}
+
+body.lang-mr .nav-links-row a,
+.nav-links-row a.mr {
+  font-family: var(--font-mr) !important;
+  font-size: 13.5px !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  font-weight: 600;
+}
+
+body.lang-mr .visit-pill,
+.visit-pill.mr {
+  font-family: var(--font-mr) !important;
+  font-size: 13px !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  font-weight: 600;
+}
+
+body.lang-mr .lang-toggle button,
+.lang-toggle button.mr {
+  font-family: var(--font-mr) !important;
+  letter-spacing: 0 !important;
+}
+
+body.lang-mr .eyebrow,
+.eyebrow .mr,
+.eyebrow.mr {
+  font-family: var(--font-mr) !important;
+  letter-spacing: 0.04em !important;
+  text-transform: none !important;
 }
 
 .wrap {

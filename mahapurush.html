@@ -7,7 +7,7 @@
 <meta name="description" content="Explore the life-size hand-painted portraits and biographies of the great social reformers and leaders in the Prerna Sthal corridor gallery.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -320,6 +320,175 @@
     color: var(--teal-deep);
   }
 
+  /* Audio Capsule Bar - Heritage Deep Teal & Royal Gold Theme */
+  .audio-player-capsule {
+    max-width: 660px;
+    width: 100%;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #103c37 0%, #072522 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(199, 154, 74, 0.45);
+    border-radius: 999px;
+    padding: 10px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.55), 0 0 24px rgba(199, 154, 74, 0.12), inset 0 1px 0 rgba(220, 193, 137, 0.35);
+    color: var(--paper);
+    user-select: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+  }
+  .audio-player-capsule:hover {
+    border-color: var(--gold);
+    box-shadow: 0 20px 44px -4px rgba(0, 0, 0, 0.65), 0 0 32px rgba(199, 154, 74, 0.22), inset 0 1px 0 rgba(220, 193, 137, 0.55);
+  }
+  .capsule-controls-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .capsule-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: var(--gold-soft);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: all 0.15s ease;
+    opacity: 0.9;
+  }
+  .capsule-btn:hover {
+    opacity: 1;
+    color: #ffffff;
+    background: rgba(199, 154, 74, 0.2);
+    transform: scale(1.08);
+  }
+  .capsule-btn:active {
+    transform: scale(0.92);
+  }
+  .capsule-btn-play {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #e8d3a7 0%, #c79a4a 55%, #ad7e34 100%);
+    border: 1px solid #dcc189;
+    color: #072522;
+    opacity: 1;
+    box-shadow: 0 4px 14px rgba(199, 154, 74, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+  .capsule-btn-play:hover {
+    background: linear-gradient(135deg, #ffffff 0%, #e8d3a7 55%, #c79a4a 100%);
+    border-color: #ffffff;
+    color: #072522;
+    transform: scale(1.1);
+    box-shadow: 0 6px 18px rgba(199, 154, 74, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  .capsule-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+  }
+  .capsule-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold-soft);
+    letter-spacing: 0.04em;
+    min-width: 38px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .capsule-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #c79a4a 0%, #e8d3a7 var(--fill-pct, 0%), rgba(220, 193, 137, 0.22) var(--fill-pct, 0%), rgba(220, 193, 137, 0.22) 100%);
+    border-radius: 999px;
+    outline: none;
+    cursor: pointer;
+    margin: 0;
+    transition: height 0.15s ease;
+  }
+  .capsule-slider:hover { height: 6px; }
+  .capsule-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #faf6ee;
+    border: 2px solid #c79a4a;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(199, 154, 74, 0.8), 0 2px 6px rgba(0, 0, 0, 0.5);
+    transition: transform 0.15s ease;
+  }
+  .capsule-slider:hover::-webkit-slider-thumb {
+    transform: scale(1.35);
+    background: #ffffff;
+    border-color: #dcc189;
+  }
+  .capsule-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #faf6ee;
+    border: 2px solid #c79a4a;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(199, 154, 74, 0.8), 0 2px 6px rgba(0, 0, 0, 0.5);
+  }
+  .capsule-volume-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .capsule-volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 62px;
+    height: 4px;
+    background: linear-gradient(to right, #c79a4a 0%, #e8d3a7 var(--vol-pct, 100%), rgba(220, 193, 137, 0.22) var(--vol-pct, 100%), rgba(220, 193, 137, 0.22) 100%);
+    border-radius: 999px;
+    outline: none;
+    cursor: pointer;
+    margin: 0;
+  }
+  .capsule-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #faf6ee;
+    border: 1.5px solid #c79a4a;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  }
+  .capsule-volume-slider::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #faf6ee;
+    border: 1.5px solid #c79a4a;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  @media (max-width: 640px) {
+    .audio-player-capsule { padding: 8px 12px; gap: 8px; }
+    .capsule-volume-slider { display: none; }
+  }
+
   .bio-modal-main {
     padding: 40px 36px;
     overflow-y: auto;
@@ -572,8 +741,49 @@
         <div class="bio-modal-main">
           <div class="eyebrow" style="margin-bottom:8px;">${isMr ? 'अधिकृत चरित्र व विचार' : 'Official Life & Legacy'}</div>
           <h3 style="font-size:28px; margin-bottom:6px; color:var(--brick);">${isMr ? item.titleMr : item.titleEn}</h3>
-          <div style="font-family:'Space Mono', monospace; font-size:12px; color:var(--ink); opacity:0.7; margin-bottom:20px;">${isMr ? item.datesMr : item.datesEn}</div>
+          <div style="font-family:'Space Mono', monospace; font-size:12px; color:var(--ink); opacity:0.7; margin-bottom:16px;">${isMr ? item.datesMr : item.datesEn}</div>
           
+          <!-- Sleek Capsule Audio Player Bar inside Modal -->
+          <div class="audio-player-capsule" id="modalCapsulePlayer" style="margin: 0 0 24px; max-width: 100%;">
+            <div class="capsule-controls-left">
+              <button type="button" class="capsule-btn" onclick="seekModalDelta(-10)" aria-label="Rewind 10 seconds" title="Rewind 10s">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="3" y="4" width="2.5" height="16" rx="1"/>
+                  <polygon points="21,4 9,12 21,20"/>
+                </svg>
+              </button>
+
+              <button type="button" class="capsule-btn capsule-btn-play" id="modalPlayBtn" onclick="toggleBioNarration('${item.id}')" aria-label="Play or pause">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" id="modalPlayIcon"><polygon points="6,4 20,12 6,20"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" id="modalPauseIcon" style="display:none;"><rect x="5" y="4" width="4.5" height="16" rx="1.5"/><rect x="14.5" y="4" width="4.5" height="16" rx="1.5"/></svg>
+              </button>
+
+              <button type="button" class="capsule-btn" onclick="seekModalDelta(10)" aria-label="Skip 10 seconds" title="Skip 10s">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="3,4 15,12 3,20"/>
+                  <rect x="18.5" y="4" width="2.5" height="16" rx="1"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="capsule-center">
+              <span class="capsule-time" id="modalCurrentTime">00:00</span>
+              <input type="range" class="capsule-slider" id="modalScrubber" min="0" max="100" value="0" step="0.1" aria-label="Scrubber" oninput="handleModalSeek(this.value)">
+              <span class="capsule-time" id="modalDuration">--:--</span>
+            </div>
+
+            <div class="capsule-volume-wrap">
+              <button type="button" class="capsule-btn" onclick="toggleModalMute()" aria-label="Mute or unmute" style="width:28px; height:28px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" id="modalVolIcon">
+                  <polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/>
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+              <input type="range" class="capsule-volume-slider" id="modalVolSlider" min="0" max="1" step="0.05" value="1" aria-label="Volume slider" oninput="handleModalVolume(this.value)">
+            </div>
+          </div>
+
           <div class="bio-modal-quote">
             ${isMr ? item.quoteMr : item.quoteEn}
           </div>
@@ -591,31 +801,169 @@
 
       modal.classList.add('is-open');
       document.body.style.overflow = 'hidden';
+      initModalAudio(id);
+    }
+
+    let modalAudio = null;
+    let isPlayingModalAudio = false;
+    let isSpeakingBio = false;
+    let modalLastVolume = 1;
+    let currentModalLeaderId = null;
+
+    function formatTime(s) {
+      if (!s || isNaN(s)) return '00:00';
+      const m = Math.floor(s / 60).toString().padStart(2, '0');
+      const sec = Math.floor(s % 60).toString().padStart(2, '0');
+      return m + ':' + sec;
+    }
+
+    function updateModalCapsuleUI(isPlaying) {
+      const playIcon = document.getElementById('modalPlayIcon');
+      const pauseIcon = document.getElementById('modalPauseIcon');
+      if (playIcon) playIcon.style.display = isPlaying ? 'none' : 'block';
+      if (pauseIcon) pauseIcon.style.display = isPlaying ? 'block' : 'none';
     }
 
     function closeBioModal() {
       const modal = document.getElementById('bioModal');
       modal.classList.remove('is-open');
       document.body.style.overflow = '';
+      if (modalAudio && isPlayingModalAudio) {
+        modalAudio.pause();
+        isPlayingModalAudio = false;
+      }
       if (window.PrernaSthal) window.PrernaSthal.stopSpeaking();
+      isSpeakingBio = false;
+      updateModalCapsuleUI(false);
     }
 
-    let isSpeakingBio = false;
+    function initModalAudio(id) {
+      currentModalLeaderId = id;
+      const isMr = document.body.classList.contains('lang-mr');
+      const audioSrc = isMr ? `audio/${id}-mr.mp3` : `audio/${id}-en.mp3`;
+
+      if (!modalAudio) {
+        modalAudio = new Audio();
+        modalAudio.preload = 'metadata';
+
+        modalAudio.addEventListener('loadedmetadata', () => {
+          const durEl = document.getElementById('modalDuration');
+          if (durEl) durEl.textContent = formatTime(modalAudio.duration);
+        });
+
+        modalAudio.addEventListener('timeupdate', () => {
+          if (!modalAudio.duration) return;
+          const curEl = document.getElementById('modalCurrentTime');
+          const scrubber = document.getElementById('modalScrubber');
+          if (curEl) curEl.textContent = formatTime(modalAudio.currentTime);
+          if (scrubber) {
+            const pct = ((modalAudio.currentTime / modalAudio.duration) * 100).toFixed(2);
+            scrubber.value = pct;
+            scrubber.style.setProperty('--fill-pct', pct + '%');
+          }
+        });
+
+        modalAudio.addEventListener('ended', () => {
+          isPlayingModalAudio = false;
+          updateModalCapsuleUI(false);
+        });
+
+        modalAudio.addEventListener('error', () => {
+          isPlayingModalAudio = false;
+          updateModalCapsuleUI(false);
+          const item = luminaries.find(l => l.id === id);
+          if (item) fallbackModalSpeech(item, isMr);
+        });
+      }
+
+      if (!modalAudio.src.endsWith(audioSrc)) {
+        modalAudio.src = audioSrc;
+      }
+      return modalAudio;
+    }
+
     function toggleBioNarration(id) {
       const item = luminaries.find(l => l.id === id);
       if (!item) return;
       const isMr = document.body.classList.contains('lang-mr');
-      const text = isMr ? `${item.titleMr}. ${item.datesMr}. ${item.parasMr[0]}` : `${item.titleEn}. ${item.datesEn}. ${item.parasEn[0]}`;
 
       if (isSpeakingBio) {
-        window.PrernaSthal.stopSpeaking();
+        if (window.PrernaSthal) window.PrernaSthal.stopSpeaking();
         isSpeakingBio = false;
-        document.getElementById('bioNarrateBtn').innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg><span>${isMr ? 'चरित्र ऐका (मराठी)' : 'Listen Narration'}</span>`;
+        updateModalCapsuleUI(false);
+        return;
+      }
+
+      const player = initModalAudio(id);
+
+      if (isPlayingModalAudio) {
+        player.pause();
+        isPlayingModalAudio = false;
+        updateModalCapsuleUI(false);
       } else {
+        player.play().then(() => {
+          isPlayingModalAudio = true;
+          updateModalCapsuleUI(true);
+        }).catch(() => {
+          fallbackModalSpeech(item, isMr);
+        });
+      }
+    }
+
+    function handleModalSeek(val) {
+      if (modalAudio && modalAudio.duration) {
+        modalAudio.currentTime = (parseFloat(val) / 100) * modalAudio.duration;
+      }
+      const scrubber = document.getElementById('modalScrubber');
+      if (scrubber) scrubber.style.setProperty('--fill-pct', val + '%');
+    }
+
+    function seekModalDelta(sec) {
+      if (!modalAudio) return;
+      if (modalAudio.duration) {
+        modalAudio.currentTime = Math.max(0, Math.min(modalAudio.duration, modalAudio.currentTime + sec));
+      }
+    }
+
+    function toggleModalMute() {
+      if (!modalAudio) return;
+      const volSlider = document.getElementById('modalVolSlider');
+      const volIcon = document.getElementById('modalVolIcon');
+      if (modalAudio.muted || modalAudio.volume === 0) {
+        modalAudio.muted = false;
+        modalAudio.volume = modalLastVolume > 0 ? modalLastVolume : 1;
+        if (volSlider) {
+          volSlider.value = modalAudio.volume;
+          volSlider.style.setProperty('--vol-pct', (modalAudio.volume * 100) + '%');
+        }
+        if (volIcon) volIcon.innerHTML = '<polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+      } else {
+        modalLastVolume = modalAudio.volume;
+        modalAudio.muted = true;
+        if (volSlider) {
+          volSlider.value = 0;
+          volSlider.style.setProperty('--vol-pct', '0%');
+        }
+        if (volIcon) volIcon.innerHTML = '<polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><line x1="23" y1="9" x2="17" y2="15" stroke="currentColor" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="currentColor" stroke-width="2"/>';
+      }
+    }
+
+    function handleModalVolume(val) {
+      if (!modalAudio) return;
+      const num = parseFloat(val);
+      modalAudio.volume = num;
+      modalAudio.muted = (num === 0);
+      const volSlider = document.getElementById('modalVolSlider');
+      if (volSlider) volSlider.style.setProperty('--vol-pct', (num * 100) + '%');
+    }
+
+    function fallbackModalSpeech(item, isMr) {
+      const text = isMr ? `${item.titleMr}. ${item.datesMr}. ${item.parasMr[0]}` : `${item.titleEn}. ${item.datesEn}. ${item.parasEn[0]}`;
+      if (window.PrernaSthal) {
         const started = window.PrernaSthal.speakText(text, isMr ? 'mr-IN' : 'en-US');
         if (started) {
           isSpeakingBio = true;
-          document.getElementById('bioNarrateBtn').innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><rect x="6" y="6" width="12" height="12" rx="2"/></svg><span>${isMr ? 'थांबवा' : 'Stop Audio'}</span>`;
+          updateModalCapsuleUI(true);
         }
       }
     }
@@ -630,6 +978,20 @@
 
     window.addEventListener('ps:langchange', () => {
       renderLeaderGrid();
+      const modal = document.getElementById('bioModal');
+      if (currentModalLeaderId && modal && modal.classList.contains('is-open')) {
+        if (modalAudio && isPlayingModalAudio) {
+          modalAudio.pause();
+          isPlayingModalAudio = false;
+          updateModalCapsuleUI(false);
+        }
+        if (isSpeakingBio && window.PrernaSthal) {
+          window.PrernaSthal.stopSpeaking();
+          isSpeakingBio = false;
+          updateModalCapsuleUI(false);
+        }
+        initModalAudio(currentModalLeaderId);
+      }
     });
 
     renderLeaderGrid();

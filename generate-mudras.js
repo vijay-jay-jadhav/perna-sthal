@@ -35,7 +35,7 @@ function generateMudraPage(item, index, all) {
 <meta name="description" content="${item.enParas[0].replace(/"/g, '&quot;')}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -47,7 +47,7 @@ function generateMudraPage(item, index, all) {
 <style>
   .corridor-progress {
     position: fixed;
-    top: 72px;
+    top: var(--nav-height, 118px);
     left: 0;
     right: 0;
     height: 3px;
@@ -62,10 +62,10 @@ function generateMudraPage(item, index, all) {
   }
 
   .mudra-header {
-    margin-top: 72px;
+    margin-top: var(--nav-height, 118px);
     background: var(--teal-deep);
     color: var(--paper);
-    padding: var(--sp-8) 0 var(--sp-7);
+    padding: clamp(14px, 2vw, 22px) 0 var(--sp-6);
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -80,7 +80,7 @@ function generateMudraPage(item, index, all) {
   .mudra-image-frame {
     max-width: 360px;
     min-height: 260px;
-    margin: var(--sp-4) auto 0;
+    margin: 12px auto 0;
     background: radial-gradient(circle at 40% 40%, #154540, #092824);
     border: 1px solid rgba(220,193,137,0.3);
     border-radius: 12px;
@@ -365,7 +365,7 @@ function generateMudraPage(item, index, all) {
   <!-- Header -->
   <header class="mudra-header">
     <div class="wrap">
-      <div class="eyebrow on-dark center reveal"><span class="en">The Dome Corridor · Hasta Mudra #${item.num}</span><span class="mr-inline mr">घुमट प्रदक्षिणा मार्ग · हस्तमुद्रा #${item.num}</span></div>
+      <div class="eyebrow on-dark center reveal"><span class="en">The Dome Corridor · Hasta Mudra</span><span class="mr-inline mr">घुमट प्रदक्षिणा मार्ग · हस्तमुद्रा</span></div>
       
       <div class="mudra-image-frame reveal" id="mudraFrame">
         ${visualDisplayHtml}

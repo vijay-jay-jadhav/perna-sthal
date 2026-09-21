@@ -7,7 +7,7 @@
 <meta name="description" content="Discover the spiritual philosophy, meditative symbolism, and sculptural bronze reliefs of the sacred Hasta Mudras at Prerna Sthal.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -396,7 +396,7 @@
                 : getMudraSVG(m.iconType)
               }
             </div>
-            <span class="mudra-num">MUDRA ${m.num}</span>
+            <span class="mudra-num">${isMr ? 'हस्तमुद्रा' : 'HASTA MUDRA'}</span>
           </div>
 
           <div class="mudra-content">
@@ -433,7 +433,7 @@
             ${m.image ? `<img src="${m.image}" style="max-height:80px;" alt="${m.nameEn}">` : getMudraSVG(m.iconType)}
           </div>
           <div>
-            <div class="eyebrow" style="margin-bottom:6px;">MUDRA ${m.num} · PRERNA STHAL</div>
+            <div class="eyebrow" style="margin-bottom:6px;">${isMr ? 'हस्तमुद्रा · प्रेरणा स्थळ' : 'HASTA MUDRA · PRERNA STHAL'}</div>
             <h2 style="font-size:28px; color:var(--teal-deep); margin:0 0 4px;">${isMr ? m.nameMr : m.nameEn}</h2>
             <div style="font-family:'Space Mono', monospace; font-size:12px; color:var(--brick); text-transform:uppercase;">${isMr ? m.subtitleMr : m.subtitleEn}</div>
           </div>

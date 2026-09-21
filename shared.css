@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap');
 
 /* ============================================================
    PRERNA STHAL - DESIGN SYSTEM & SHARED STYLES
@@ -6,8 +6,8 @@
    ============================================================ */
 
 :root {
-  /* Marathi Typography */
-  --font-mr: 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Marathi Typography - Baloo 2 */
+  --font-mr: 'Baloo 2', -apple-system, BlinkMacSystemFont, sans-serif;
   /* Color Palette */
   --ink:          #17231f;
   --ink-soft:     #2b3d37;
@@ -103,11 +103,20 @@ button, input, select, textarea {
 .mr, .mr-text {
   font-family: var(--font-mr) !important;
   letter-spacing: normal !important;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Global Marathi Typography when body has .lang-mr */
 body.lang-mr {
   font-family: var(--font-mr);
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+body.lang-mr * {
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 body.lang-mr h1,
@@ -117,6 +126,18 @@ body.lang-mr h4,
 body.lang-mr h5 {
   font-family: var(--font-mr);
   letter-spacing: -0.01em;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+body.lang-mr p,
+body.lang-mr li,
+body.lang-mr span,
+body.lang-mr a,
+body.lang-mr div,
+body.lang-mr blockquote {
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 body.lang-mr .nav-links-row a,

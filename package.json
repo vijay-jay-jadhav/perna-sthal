@@ -10,5 +10,8 @@
   "dependencies": {
     "express": "^4.21.2",
     "multer": "^2.4.0"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2"
   }
 }

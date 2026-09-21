@@ -789,6 +789,7 @@
     let isPlayingAudio = false;
     let isSpeakingSynth = false;
     let lastVolume = 1;
+    let triedWavFallback = false;
 
     function formatSec(s) {
       if (!s || isNaN(s)) return '00:00';
@@ -797,13 +798,18 @@
       return m + ':' + sec;
     }
 
+    function getTargetAudioSrc(isMr) {
+      return isMr ? 'audio/jyotirao-phule-mr.mp3' : 'audio/jyotirao-phule-en.mp3';
+    }
+
     function initAudio() {
       if (audioElem) return audioElem;
       const isMr = document.body.classList.contains('lang-mr');
-      const audioSrc = isMr ? 'audio/jyotirao-phule-mr.mp3' : 'audio/jyotirao-phule-en.mp3';
+      const audioSrc = getTargetAudioSrc(isMr);
 
-      audioElem = new Audio(audioSrc);
+      audioElem = new Audio();
       audioElem.preload = 'metadata';
+      audioElem.src = audioSrc;
 
       audioElem.addEventListener('loadedmetadata', () => {
         const dur = formatSec(audioElem.duration);
@@ -829,7 +835,23 @@
         updateCapsuleUI(false);
       });
 
-      audioElem.addEventListener('error', () => {
+      audioElem.addEventListener('error', (e) => {
+        console.warn('Audio element error encountered:', e);
+        const isMr = document.body.classList.contains('lang-mr');
+        // If MP3 failed, attempt fallback to WAV before resorting to speech synthesis
+        if (!triedWavFallback && isMr && audioElem.src.includes('-mr.mp3')) {
+          triedWavFallback = true;
+          audioElem.src = 'audio/jyotirao-phule-mr.wav';
+          audioElem.load();
+          if (isPlayingAudio) {
+            audioElem.play().catch(() => {
+              isPlayingAudio = false;
+              updateCapsuleUI(false);
+              fallbackToSpeechSynthesis();
+            });
+          }
+          return;
+        }
         isPlayingAudio = false;
         updateCapsuleUI(false);
         fallbackToSpeechSynthesis();
@@ -860,10 +882,15 @@
 
       const player = initAudio();
       const isMr = document.body.classList.contains('lang-mr');
-      const targetSrc = isMr ? 'audio/jyotirao-phule-mr.mp3' : 'audio/jyotirao-phule-en.mp3';
+      const targetSrc = getTargetAudioSrc(isMr);
 
-      if (!player.src.endsWith(targetSrc)) {
+      // Verify player source matches current language
+      const targetBase = isMr ? 'jyotirao-phule-mr' : 'jyotirao-phule-en';
+      if (!player.src || !player.src.includes(targetBase)) {
+        triedWavFallback = false;
         player.src = targetSrc;
+        player.currentTime = 0;
+        player.load();
       }
 
       if (isPlayingAudio) {
@@ -871,12 +898,29 @@
         isPlayingAudio = false;
         updateCapsuleUI(false);
       } else {
-        player.play().then(() => {
-          isPlayingAudio = true;
-          updateCapsuleUI(true);
-        }).catch(() => {
-          fallbackToSpeechSynthesis();
-        });
+        const playPromise = player.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            isPlayingAudio = true;
+            updateCapsuleUI(true);
+          }).catch((err) => {
+            console.warn('Playback caught exception:', err);
+            // Try WAV if Marathi MP3 had playback issues
+            if (!triedWavFallback && isMr) {
+              triedWavFallback = true;
+              player.src = 'audio/jyotirao-phule-mr.wav';
+              player.load();
+              player.play().then(() => {
+                isPlayingAudio = true;
+                updateCapsuleUI(true);
+              }).catch(() => {
+                fallbackToSpeechSynthesis();
+              });
+            } else {
+              fallbackToSpeechSynthesis();
+            }
+          });
+        }
       }
     }
 
@@ -958,13 +1002,24 @@
         ? "महात्मा जोतीराव फुले. (जन्म - ११ एप्रिल १८२७ | मृत्यू - २८ नोव्हेंबर १८९०). भारतात आधुनिकतेची पायाभरणी करणारे कर्ते विचारवंत असलेल्या जोतीरावांचा जन्म पुण्यातील गोविंदराव फुले यांच्या कुटुंबात झाला. प्रत्यक्ष जीवनात अनुभवलेली सामाजिक विषमता आणि मिशनरी शाळेत शिक्षण घेताना वाचलेल्या पुस्तकांतून परिचित झालेले मानवी हक्कांचे आधुनिक विचार यांच्या घुसळणीतून त्यांचे व्यक्तिमत्त्व घडले. त्या काळात स्त्रियांना आणि समाजाने शूद्रातिशूद्र ठरवलेल्या जातींना शिक्षण व प्रगतीच्या वाटा खुल्या नव्हत्या. ही कुंपणे तोडण्यासाठी जोतीरावांनी जीवनसाथी सावित्रीबाई आणि आपल्या सर्वजातीय मित्रांच्या मदतीने पुण्यात मुलींसाठी आणि अस्पृश्य मानलेल्या जातींसाठी शाळा सुरू केल्या."
         : "Mahatma Jotirao Phule. (Born - 11 April 1827 | Died - 28 November 1890). Jotirao, a pioneering thinker who laid the foundations of modernity in India, was born into the family of Govindrao Phule in Pune, Maharashtra. The social inequality he experienced in everyday life and the modern ideas of human rights he encountered through books at a missionary school shaped his personality and outlook. At the time, women and communities regarded as Shudra and Atishudra were denied access to education and opportunities for progress. To break these barriers, he established schools for girls and untouchables, with the support of Savitribai and a group of friends hailing from various castes.";
       if (window.PrernaSthal) {
-        const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US');
+        const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US', () => {
+          isSpeakingSynth = false;
+          updateCapsuleUI(false);
+        });
         if (started) {
           isSpeakingSynth = true;
           updateCapsuleUI(true);
         }
       }
     }
+
+    // Reset UI when speech ends
+    window.addEventListener('ps:speechend', () => {
+      if (isSpeakingSynth) {
+        isSpeakingSynth = false;
+        updateCapsuleUI(false);
+      }
+    });
 
     // Auto-initialize audio duration on page load
     window.addEventListener('DOMContentLoaded', () => {
@@ -985,7 +1040,17 @@
       // Re-point audio source
       if (audioElem) {
         const isMr = document.body.classList.contains('lang-mr');
-        audioElem.src = isMr ? 'audio/jyotirao-phule-mr.mp3' : 'audio/jyotirao-phule-en.mp3';
+        triedWavFallback = false;
+        audioElem.src = getTargetAudioSrc(isMr);
+        audioElem.currentTime = 0;
+        audioElem.load();
+        const curEl = document.getElementById('capsuleCurrentTime');
+        const scrubber = document.getElementById('capsuleScrubber');
+        if (curEl) curEl.textContent = '00:00';
+        if (scrubber) {
+          scrubber.value = 0;
+          scrubber.style.setProperty('--fill-pct', '0%');
+        }
       }
     });
   </script>

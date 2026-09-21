@@ -837,6 +837,8 @@
       updateModalCapsuleUI(false);
     }
 
+    let modalTriedWavFallback = false;
+
     function initModalAudio(id) {
       currentModalLeaderId = id;
       const isMr = document.body.classList.contains('lang-mr');
@@ -868,16 +870,43 @@
           updateModalCapsuleUI(false);
         });
 
-        modalAudio.addEventListener('error', () => {
+        modalAudio.addEventListener('error', (e) => {
+          console.warn('Modal audio error:', e);
+          const isMrNow = document.body.classList.contains('lang-mr');
+          if (!modalTriedWavFallback && isMrNow && modalAudio.src.includes('-mr.mp3')) {
+            modalTriedWavFallback = true;
+            modalAudio.src = `audio/${currentModalLeaderId}-mr.wav`;
+            modalAudio.load();
+            if (isPlayingModalAudio) {
+              modalAudio.play().catch(() => {
+                isPlayingModalAudio = false;
+                updateModalCapsuleUI(false);
+                const item = luminaries.find(l => l.id === currentModalLeaderId);
+                if (item) fallbackModalSpeech(item, isMrNow);
+              });
+            }
+            return;
+          }
           isPlayingModalAudio = false;
           updateModalCapsuleUI(false);
-          const item = luminaries.find(l => l.id === id);
-          if (item) fallbackModalSpeech(item, isMr);
+          const item = luminaries.find(l => l.id === currentModalLeaderId);
+          if (item) fallbackModalSpeech(item, isMrNow);
         });
       }
 
-      if (!modalAudio.src.endsWith(audioSrc)) {
+      const targetBase = isMr ? `${id}-mr` : `${id}-en`;
+      if (!modalAudio.src || !modalAudio.src.includes(targetBase)) {
+        modalTriedWavFallback = false;
         modalAudio.src = audioSrc;
+        modalAudio.currentTime = 0;
+        modalAudio.load();
+        const curEl = document.getElementById('modalCurrentTime');
+        const scrubber = document.getElementById('modalScrubber');
+        if (curEl) curEl.textContent = '00:00';
+        if (scrubber) {
+          scrubber.value = 0;
+          scrubber.style.setProperty('--fill-pct', '0%');
+        }
       }
       return modalAudio;
     }
@@ -901,12 +930,28 @@
         isPlayingModalAudio = false;
         updateModalCapsuleUI(false);
       } else {
-        player.play().then(() => {
-          isPlayingModalAudio = true;
-          updateModalCapsuleUI(true);
-        }).catch(() => {
-          fallbackModalSpeech(item, isMr);
-        });
+        const playPromise = player.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            isPlayingModalAudio = true;
+            updateModalCapsuleUI(true);
+          }).catch((err) => {
+            console.warn('Modal playback error:', err);
+            if (!modalTriedWavFallback && isMr) {
+              modalTriedWavFallback = true;
+              player.src = `audio/${id}-mr.wav`;
+              player.load();
+              player.play().then(() => {
+                isPlayingModalAudio = true;
+                updateModalCapsuleUI(true);
+              }).catch(() => {
+                fallbackModalSpeech(item, isMr);
+              });
+            } else {
+              fallbackModalSpeech(item, isMr);
+            }
+          });
+        }
       }
     }
 
@@ -960,13 +1005,23 @@
     function fallbackModalSpeech(item, isMr) {
       const text = isMr ? `${item.titleMr}. ${item.datesMr}. ${item.parasMr[0]}` : `${item.titleEn}. ${item.datesEn}. ${item.parasEn[0]}`;
       if (window.PrernaSthal) {
-        const started = window.PrernaSthal.speakText(text, isMr ? 'mr-IN' : 'en-US');
+        const started = window.PrernaSthal.speakText(text, isMr ? 'mr-IN' : 'en-US', () => {
+          isSpeakingBio = false;
+          updateModalCapsuleUI(false);
+        });
         if (started) {
           isSpeakingBio = true;
           updateModalCapsuleUI(true);
         }
       }
     }
+
+    window.addEventListener('ps:speechend', () => {
+      if (isSpeakingBio) {
+        isSpeakingBio = false;
+        updateModalCapsuleUI(false);
+      }
+    });
 
     document.getElementById('bioModalClose').addEventListener('click', closeBioModal);
     document.getElementById('bioModal').addEventListener('click', (e) => {

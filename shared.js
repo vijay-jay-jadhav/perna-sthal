@@ -39,21 +39,115 @@
   }
 
   // 2. Speech Synthesizer for Biographies / Narration
-  function speakText(text, lang = 'mr-IN') {
+  let activeUtterance = null;
+  let cachedVoices = [];
+
+  function loadVoices() {
+    if ('speechSynthesis' in window) {
+      cachedVoices = window.speechSynthesis.getVoices() || [];
+    }
+  }
+  if ('speechSynthesis' in window) {
+    loadVoices();
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+  }
+
+  function getBestVoiceForLang(lang) {
+    if (!cachedVoices.length) loadVoices();
+    if (!cachedVoices.length) return null;
+
+    const isMr = lang.toLowerCase().startsWith('mr');
+    if (isMr) {
+      // 1. Direct Marathi voice match
+      let v = cachedVoices.find(voice => {
+        const l = (voice.lang || '').toLowerCase();
+        const n = (voice.name || '').toLowerCase();
+        return l === 'mr-in' || l.startsWith('mr') || n.includes('marathi') || n.includes('मराठी');
+      });
+      if (v) return v;
+
+      // 2. Hindi voice (Devanagari phonetics are 95%+ identical and native to Android, iOS, Windows, Mac)
+      v = cachedVoices.find(voice => {
+        const l = (voice.lang || '').toLowerCase();
+        const n = (voice.name || '').toLowerCase();
+        return l === 'hi-in' || l.startsWith('hi') || n.includes('hindi') || n.includes('हिन्दी');
+      });
+      if (v) return v;
+
+      // 3. Indian English voice fallback
+      v = cachedVoices.find(voice => {
+        const l = (voice.lang || '').toLowerCase();
+        return l === 'en-in' || l.includes('in');
+      });
+      if (v) return v;
+    } else {
+      // English
+      let v = cachedVoices.find(voice => (voice.lang || '').toLowerCase().startsWith('en'));
+      if (v) return v;
+    }
+
+    return cachedVoices[0] || null;
+  }
+
+  function speakText(text, lang = 'mr-IN', onEndCallback = null) {
     if (!('speechSynthesis' in window)) return false;
-    window.speechSynthesis.cancel();
+
+    try {
+      window.speechSynthesis.cancel();
+    } catch (e) {}
+
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = lang;
-    utterance.rate = 0.92;
+    activeUtterance = utterance; // Prevent garbage collection in V8
+
+    const voice = getBestVoiceForLang(lang);
+    if (voice) {
+      utterance.voice = voice;
+      utterance.lang = voice.lang || lang;
+    } else {
+      utterance.lang = lang;
+    }
+
+    utterance.rate = lang.toLowerCase().startsWith('mr') ? 0.88 : 0.95;
     utterance.pitch = 1.0;
-    window.speechSynthesis.speak(utterance);
+
+    utterance.onend = () => {
+      activeUtterance = null;
+      if (typeof onEndCallback === 'function') onEndCallback();
+      window.dispatchEvent(new CustomEvent('ps:speechend'));
+    };
+
+    utterance.onerror = (e) => {
+      console.warn('Speech synthesis notice:', e);
+      activeUtterance = null;
+      if (typeof onEndCallback === 'function') onEndCallback();
+      window.dispatchEvent(new CustomEvent('ps:speechend'));
+    };
+
+    // Unlock speech synthesis in Chrome/Safari if suspended
+    setTimeout(() => {
+      try {
+        if (window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+        }
+        window.speechSynthesis.speak(utterance);
+      } catch (err) {
+        console.warn('Speech playback error:', err);
+      }
+    }, 40);
+
     return true;
   }
 
   function stopSpeaking() {
     if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
+      try {
+        window.speechSynthesis.cancel();
+      } catch (e) {}
     }
+    activeUtterance = null;
+    window.dispatchEvent(new CustomEvent('ps:speechend'));
   }
 
   // 3. Modal Lightbox System

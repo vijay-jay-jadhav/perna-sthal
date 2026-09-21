@@ -812,6 +812,7 @@ ${mrParagraphsHtml}
     let isPlayingAudio = false;
     let isSpeakingSynth = false;
     let lastVolume = 1;
+    let triedWavFallback = false;
 
     function formatSec(s) {
       if (!s || isNaN(s)) return '00:00';
@@ -820,13 +821,18 @@ ${mrParagraphsHtml}
       return m + ':' + sec;
     }
 
+    function getTargetAudioSrc(isMr) {
+      return isMr ? 'audio/${item.id}-mr.mp3' : 'audio/${item.id}-en.mp3';
+    }
+
     function initAudio() {
       if (audioElem) return audioElem;
       const isMr = document.body.classList.contains('lang-mr');
-      const audioSrc = isMr ? 'audio/${item.id}-mr.mp3' : 'audio/${item.id}-en.mp3';
+      const audioSrc = getTargetAudioSrc(isMr);
 
-      audioElem = new Audio(audioSrc);
+      audioElem = new Audio();
       audioElem.preload = 'metadata';
+      audioElem.src = audioSrc;
 
       audioElem.addEventListener('loadedmetadata', () => {
         const dur = formatSec(audioElem.duration);
@@ -852,7 +858,23 @@ ${mrParagraphsHtml}
         updateCapsuleUI(false);
       });
 
-      audioElem.addEventListener('error', () => {
+      audioElem.addEventListener('error', (e) => {
+        console.warn('Audio element error encountered:', e);
+        const isMr = document.body.classList.contains('lang-mr');
+        // If MP3 failed, attempt fallback to WAV before resorting to speech synthesis
+        if (!triedWavFallback && isMr && audioElem.src.includes('-mr.mp3')) {
+          triedWavFallback = true;
+          audioElem.src = 'audio/${item.id}-mr.wav';
+          audioElem.load();
+          if (isPlayingAudio) {
+            audioElem.play().catch(() => {
+              isPlayingAudio = false;
+              updateCapsuleUI(false);
+              fallbackToSpeechSynthesis();
+            });
+          }
+          return;
+        }
         isPlayingAudio = false;
         updateCapsuleUI(false);
         fallbackToSpeechSynthesis();
@@ -883,10 +905,15 @@ ${mrParagraphsHtml}
 
       const player = initAudio();
       const isMr = document.body.classList.contains('lang-mr');
-      const targetSrc = isMr ? 'audio/${item.id}-mr.mp3' : 'audio/${item.id}-en.mp3';
+      const targetSrc = getTargetAudioSrc(isMr);
 
-      if (!player.src.endsWith(targetSrc)) {
+      // Verify player source matches current language
+      const targetBase = isMr ? '${item.id}-mr' : '${item.id}-en';
+      if (!player.src || !player.src.includes(targetBase)) {
+        triedWavFallback = false;
         player.src = targetSrc;
+        player.currentTime = 0;
+        player.load();
       }
 
       if (isPlayingAudio) {
@@ -894,12 +921,29 @@ ${mrParagraphsHtml}
         isPlayingAudio = false;
         updateCapsuleUI(false);
       } else {
-        player.play().then(() => {
-          isPlayingAudio = true;
-          updateCapsuleUI(true);
-        }).catch(() => {
-          fallbackToSpeechSynthesis();
-        });
+        const playPromise = player.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            isPlayingAudio = true;
+            updateCapsuleUI(true);
+          }).catch((err) => {
+            console.warn('Playback caught exception:', err);
+            // Try WAV if Marathi MP3 had playback issues
+            if (!triedWavFallback && isMr) {
+              triedWavFallback = true;
+              player.src = 'audio/${item.id}-mr.wav';
+              player.load();
+              player.play().then(() => {
+                isPlayingAudio = true;
+                updateCapsuleUI(true);
+              }).catch(() => {
+                fallbackToSpeechSynthesis();
+              });
+            } else {
+              fallbackToSpeechSynthesis();
+            }
+          });
+        }
       }
     }
 
@@ -981,13 +1025,24 @@ ${mrParagraphsHtml}
         ? "${item.titleMr}. (${item.datesMr}). ${item.parasMr[0].replace(/"/g, '')}"
         : "${item.titleEn}. (${item.datesEn}). ${item.parasEn[0].replace(/"/g, '')}";
       if (window.PrernaSthal) {
-        const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US');
+        const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US', () => {
+          isSpeakingSynth = false;
+          updateCapsuleUI(false);
+        });
         if (started) {
           isSpeakingSynth = true;
           updateCapsuleUI(true);
         }
       }
     }
+
+    // Reset UI when speech ends
+    window.addEventListener('ps:speechend', () => {
+      if (isSpeakingSynth) {
+        isSpeakingSynth = false;
+        updateCapsuleUI(false);
+      }
+    });
 
     // Auto-initialize audio duration on page load
     window.addEventListener('DOMContentLoaded', () => {
@@ -1008,7 +1063,17 @@ ${mrParagraphsHtml}
       // Re-point audio source
       if (audioElem) {
         const isMr = document.body.classList.contains('lang-mr');
-        audioElem.src = isMr ? 'audio/${item.id}-mr.mp3' : 'audio/${item.id}-en.mp3';
+        triedWavFallback = false;
+        audioElem.src = getTargetAudioSrc(isMr);
+        audioElem.currentTime = 0;
+        audioElem.load();
+        const curEl = document.getElementById('capsuleCurrentTime');
+        const scrubber = document.getElementById('capsuleScrubber');
+        if (curEl) curEl.textContent = '00:00';
+        if (scrubber) {
+          scrubber.value = 0;
+          scrubber.style.setProperty('--fill-pct', '0%');
+        }
       }
     });
   </script>

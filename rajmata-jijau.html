@@ -794,6 +794,7 @@
     let isPlayingAudio = false;
     let isSpeakingSynth = false;
     let lastVolume = 1;
+    let triedWavFallback = false;
 
     function formatSec(s) {
       if (!s || isNaN(s)) return '00:00';
@@ -802,13 +803,18 @@
       return m + ':' + sec;
     }
 
+    function getTargetAudioSrc(isMr) {
+      return isMr ? 'audio/rajmata-jijau-mr.mp3' : 'audio/rajmata-jijau-en.mp3';
+    }
+
     function initAudio() {
       if (audioElem) return audioElem;
       const isMr = document.body.classList.contains('lang-mr');
-      const audioSrc = isMr ? 'audio/rajmata-jijau-mr.mp3' : 'audio/rajmata-jijau-en.mp3';
+      const audioSrc = getTargetAudioSrc(isMr);
 
-      audioElem = new Audio(audioSrc);
+      audioElem = new Audio();
       audioElem.preload = 'metadata';
+      audioElem.src = audioSrc;
 
       audioElem.addEventListener('loadedmetadata', () => {
         const dur = formatSec(audioElem.duration);
@@ -834,7 +840,23 @@
         updateCapsuleUI(false);
       });
 
-      audioElem.addEventListener('error', () => {
+      audioElem.addEventListener('error', (e) => {
+        console.warn('Audio element error encountered:', e);
+        const isMr = document.body.classList.contains('lang-mr');
+        // If MP3 failed, attempt fallback to WAV before resorting to speech synthesis
+        if (!triedWavFallback && isMr && audioElem.src.includes('-mr.mp3')) {
+          triedWavFallback = true;
+          audioElem.src = 'audio/rajmata-jijau-mr.wav';
+          audioElem.load();
+          if (isPlayingAudio) {
+            audioElem.play().catch(() => {
+              isPlayingAudio = false;
+              updateCapsuleUI(false);
+              fallbackToSpeechSynthesis();
+            });
+          }
+          return;
+        }
         isPlayingAudio = false;
         updateCapsuleUI(false);
         fallbackToSpeechSynthesis();
@@ -865,10 +887,15 @@
 
       const player = initAudio();
       const isMr = document.body.classList.contains('lang-mr');
-      const targetSrc = isMr ? 'audio/rajmata-jijau-mr.mp3' : 'audio/rajmata-jijau-en.mp3';
+      const targetSrc = getTargetAudioSrc(isMr);
 
-      if (!player.src.endsWith(targetSrc)) {
+      // Verify player source matches current language
+      const targetBase = isMr ? 'rajmata-jijau-mr' : 'rajmata-jijau-en';
+      if (!player.src || !player.src.includes(targetBase)) {
+        triedWavFallback = false;
         player.src = targetSrc;
+        player.currentTime = 0;
+        player.load();
       }
 
       if (isPlayingAudio) {
@@ -876,12 +903,29 @@
         isPlayingAudio = false;
         updateCapsuleUI(false);
       } else {
-        player.play().then(() => {
-          isPlayingAudio = true;
-          updateCapsuleUI(true);
-        }).catch(() => {
-          fallbackToSpeechSynthesis();
-        });
+        const playPromise = player.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            isPlayingAudio = true;
+            updateCapsuleUI(true);
+          }).catch((err) => {
+            console.warn('Playback caught exception:', err);
+            // Try WAV if Marathi MP3 had playback issues
+            if (!triedWavFallback && isMr) {
+              triedWavFallback = true;
+              player.src = 'audio/rajmata-jijau-mr.wav';
+              player.load();
+              player.play().then(() => {
+                isPlayingAudio = true;
+                updateCapsuleUI(true);
+              }).catch(() => {
+                fallbackToSpeechSynthesis();
+              });
+            } else {
+              fallbackToSpeechSynthesis();
+            }
+          });
+        }
       }
     }
 
@@ -963,13 +1007,24 @@
         ? "राजमाता जिजाऊ. (जन्म - १२ जानेवारी १५९८ | मृत्यू - १७ जून १६७४). स्वराज्याच्या संकल्पनेला वैचारिक अधिष्ठान देणाऱ्या कुशल संघटक, दूरदृष्टी असलेल्या प्रशासक आणि आदर्श माता म्हणून राजमाता जिजाऊंना ओळखले जाते. त्यांचा जन्म महाराष्ट्रातील बुलढाणा जिल्ह्यातील सिंदखेडराजा येथे शूरवीर सरदार लखुजी जाधवराव आणि म्हाळसाबाई यांच्या पोटी झाला. जाधवराव घराण्यातील शौर्य, स्वाभिमान आणि न्यायबुद्धीचे संस्कार त्यांच्यावर झाले. पुढे वेरूळच्या भोसले घराण्यातील शहाजीराजेंशी त्यांचा विवाह झाला. संभाजीराजे आणि शिवाजीराजे हे त्यांचे दोन पुत्र होत. माहेरच्या जाधवराव, आजोळच्या निंबाळकर आणि सासरच्या भोसले घराण्यांतील संस्कारातून जिजाऊंच्या वैचारिक, राजकीय आणि सामाजिक व्यक्तिमत्त्वाला व्यापक आकार मिळाला."
         : "Rajmata Jijau. (Born - 12 January 1598 | Died - 17 June 1674). Rajmata Jijau is remembered as a skilled organiser, a visionary administrator who gave an intellectual foundation to the idea of Swarajya, and an exemplary mother. She was born at Sindkhed Raja in present-day Buldhana district of Maharashtra to the valiant nobleman Lakhuji Jadhavrao and Mhalasabai. She imbibed the values of courage, self-respect and justice from the Jadhavrao family. She later married Shahajiraje of the Bhosale family of Verul. Sambhajiraje and Shivajiraje were their two sons. The values of the Jadhavrao, Nimbalkar and Bhosale families shaped her intellectual, political and social outlook.";
       if (window.PrernaSthal) {
-        const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US');
+        const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US', () => {
+          isSpeakingSynth = false;
+          updateCapsuleUI(false);
+        });
         if (started) {
           isSpeakingSynth = true;
           updateCapsuleUI(true);
         }
       }
     }
+
+    // Reset UI when speech ends
+    window.addEventListener('ps:speechend', () => {
+      if (isSpeakingSynth) {
+        isSpeakingSynth = false;
+        updateCapsuleUI(false);
+      }
+    });
 
     // Auto-initialize audio duration on page load
     window.addEventListener('DOMContentLoaded', () => {
@@ -990,7 +1045,17 @@
       // Re-point audio source
       if (audioElem) {
         const isMr = document.body.classList.contains('lang-mr');
-        audioElem.src = isMr ? 'audio/rajmata-jijau-mr.mp3' : 'audio/rajmata-jijau-en.mp3';
+        triedWavFallback = false;
+        audioElem.src = getTargetAudioSrc(isMr);
+        audioElem.currentTime = 0;
+        audioElem.load();
+        const curEl = document.getElementById('capsuleCurrentTime');
+        const scrubber = document.getElementById('capsuleScrubber');
+        if (curEl) curEl.textContent = '00:00';
+        if (scrubber) {
+          scrubber.value = 0;
+          scrubber.style.setProperty('--fill-pct', '0%');
+        }
       }
     });
   </script>

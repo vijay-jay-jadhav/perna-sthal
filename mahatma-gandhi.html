@@ -789,6 +789,7 @@
     let isPlayingAudio = false;
     let isSpeakingSynth = false;
     let lastVolume = 1;
+    let triedWavFallback = false;
 
     function formatSec(s) {
       if (!s || isNaN(s)) return '00:00';
@@ -797,13 +798,18 @@
       return m + ':' + sec;
     }
 
+    function getTargetAudioSrc(isMr) {
+      return isMr ? 'audio/mahatma-gandhi-mr.mp3' : 'audio/mahatma-gandhi-en.mp3';
+    }
+
     function initAudio() {
       if (audioElem) return audioElem;
       const isMr = document.body.classList.contains('lang-mr');
-      const audioSrc = isMr ? 'audio/mahatma-gandhi-mr.mp3' : 'audio/mahatma-gandhi-en.mp3';
+      const audioSrc = getTargetAudioSrc(isMr);
 
-      audioElem = new Audio(audioSrc);
+      audioElem = new Audio();
       audioElem.preload = 'metadata';
+      audioElem.src = audioSrc;
 
       audioElem.addEventListener('loadedmetadata', () => {
         const dur = formatSec(audioElem.duration);
@@ -829,7 +835,23 @@
         updateCapsuleUI(false);
       });
 
-      audioElem.addEventListener('error', () => {
+      audioElem.addEventListener('error', (e) => {
+        console.warn('Audio element error encountered:', e);
+        const isMr = document.body.classList.contains('lang-mr');
+        // If MP3 failed, attempt fallback to WAV before resorting to speech synthesis
+        if (!triedWavFallback && isMr && audioElem.src.includes('-mr.mp3')) {
+          triedWavFallback = true;
+          audioElem.src = 'audio/mahatma-gandhi-mr.wav';
+          audioElem.load();
+          if (isPlayingAudio) {
+            audioElem.play().catch(() => {
+              isPlayingAudio = false;
+              updateCapsuleUI(false);
+              fallbackToSpeechSynthesis();
+            });
+          }
+          return;
+        }
         isPlayingAudio = false;
         updateCapsuleUI(false);
         fallbackToSpeechSynthesis();
@@ -860,10 +882,15 @@
 
       const player = initAudio();
       const isMr = document.body.classList.contains('lang-mr');
-      const targetSrc = isMr ? 'audio/mahatma-gandhi-mr.mp3' : 'audio/mahatma-gandhi-en.mp3';
+      const targetSrc = getTargetAudioSrc(isMr);
 
-      if (!player.src.endsWith(targetSrc)) {
+      // Verify player source matches current language
+      const targetBase = isMr ? 'mahatma-gandhi-mr' : 'mahatma-gandhi-en';
+      if (!player.src || !player.src.includes(targetBase)) {
+        triedWavFallback = false;
         player.src = targetSrc;
+        player.currentTime = 0;
+        player.load();
       }
 
       if (isPlayingAudio) {
@@ -871,12 +898,29 @@
         isPlayingAudio = false;
         updateCapsuleUI(false);
       } else {
-        player.play().then(() => {
-          isPlayingAudio = true;
-          updateCapsuleUI(true);
-        }).catch(() => {
-          fallbackToSpeechSynthesis();
-        });
+        const playPromise = player.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            isPlayingAudio = true;
+            updateCapsuleUI(true);
+          }).catch((err) => {
+            console.warn('Playback caught exception:', err);
+            // Try WAV if Marathi MP3 had playback issues
+            if (!triedWavFallback && isMr) {
+              triedWavFallback = true;
+              player.src = 'audio/mahatma-gandhi-mr.wav';
+              player.load();
+              player.play().then(() => {
+                isPlayingAudio = true;
+                updateCapsuleUI(true);
+              }).catch(() => {
+                fallbackToSpeechSynthesis();
+              });
+            } else {
+              fallbackToSpeechSynthesis();
+            }
+          });
+        }
       }
     }
 
@@ -958,13 +1002,24 @@
         ? "महात्मा गांधी. (जन्म - २ ऑक्टोबर १८६९ | मृत्यू - ३० जानेवारी १९४८). पोरबंदर संस्थानात दिवाण असलेल्या प्रतिष्ठित, सुसंस्कृत करमचंद गांधी यांच्या घरात मोहनदास यांचा जन्म झाला. लहानपणी मितभाषी, बुजरे असलेल्या मोहनदासांच्या अंगी सत्याची पाळेमुळे खोलवर रुजली होती. तत्कालीन रिवाजानुसार वयाच्या तेराव्या वर्षी त्यांचा विवाह कस्तुरबांशी झाला. प्राथमिक व माध्यमिक शिक्षण राजकोटला झाल्यानंतर उच्चशिक्षणासाठी त्यांनी लंडन गाठले. स्वतःशी, स्वकीयांशी आणि परकीयांशी अशा तीन पातळ्यांवर लढाई करून, अंतर्मनाचा शोध घेत, समाजाची मशागत करून त्यांनी परकीय सत्तेचा पाडाव केला."
         : "Mahatma Gandhi. (Born - 2 October 1869 | Died - 30 January 1948). Mohandas was born to Karamchand Gandhi, a distinguished and cultured Diwan of the princely state of Porbandar. Reserved and shy as a child, the roots of truth ran deep within him. In accordance with the customs of the time, he married Kasturba at the age of thirteen. After completing his primary and secondary education in Rajkot, he travelled to London for higher education. Waging battles on three fronts—against himself, his own people and foreign rulers—he explored his inner self, worked to transform society and ultimately brought down foreign rule.";
       if (window.PrernaSthal) {
-        const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US');
+        const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US', () => {
+          isSpeakingSynth = false;
+          updateCapsuleUI(false);
+        });
         if (started) {
           isSpeakingSynth = true;
           updateCapsuleUI(true);
         }
       }
     }
+
+    // Reset UI when speech ends
+    window.addEventListener('ps:speechend', () => {
+      if (isSpeakingSynth) {
+        isSpeakingSynth = false;
+        updateCapsuleUI(false);
+      }
+    });
 
     // Auto-initialize audio duration on page load
     window.addEventListener('DOMContentLoaded', () => {
@@ -985,7 +1040,17 @@
       // Re-point audio source
       if (audioElem) {
         const isMr = document.body.classList.contains('lang-mr');
-        audioElem.src = isMr ? 'audio/mahatma-gandhi-mr.mp3' : 'audio/mahatma-gandhi-en.mp3';
+        triedWavFallback = false;
+        audioElem.src = getTargetAudioSrc(isMr);
+        audioElem.currentTime = 0;
+        audioElem.load();
+        const curEl = document.getElementById('capsuleCurrentTime');
+        const scrubber = document.getElementById('capsuleScrubber');
+        if (curEl) curEl.textContent = '00:00';
+        if (scrubber) {
+          scrubber.value = 0;
+          scrubber.style.setProperty('--fill-pct', '0%');
+        }
       }
     });
   </script>

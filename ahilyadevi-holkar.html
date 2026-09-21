@@ -789,6 +789,7 @@
     let isPlayingAudio = false;
     let isSpeakingSynth = false;
     let lastVolume = 1;
+    let triedWavFallback = false;
 
     function formatSec(s) {
       if (!s || isNaN(s)) return '00:00';
@@ -797,13 +798,18 @@
       return m + ':' + sec;
     }
 
+    function getTargetAudioSrc(isMr) {
+      return isMr ? 'audio/ahilyadevi-holkar-mr.mp3' : 'audio/ahilyadevi-holkar-en.mp3';
+    }
+
     function initAudio() {
       if (audioElem) return audioElem;
       const isMr = document.body.classList.contains('lang-mr');
-      const audioSrc = isMr ? 'audio/ahilyadevi-holkar-mr.mp3' : 'audio/ahilyadevi-holkar-en.mp3';
+      const audioSrc = getTargetAudioSrc(isMr);
 
-      audioElem = new Audio(audioSrc);
+      audioElem = new Audio();
       audioElem.preload = 'metadata';
+      audioElem.src = audioSrc;
 
       audioElem.addEventListener('loadedmetadata', () => {
         const dur = formatSec(audioElem.duration);
@@ -829,7 +835,23 @@
         updateCapsuleUI(false);
       });
 
-      audioElem.addEventListener('error', () => {
+      audioElem.addEventListener('error', (e) => {
+        console.warn('Audio element error encountered:', e);
+        const isMr = document.body.classList.contains('lang-mr');
+        // If MP3 failed, attempt fallback to WAV before resorting to speech synthesis
+        if (!triedWavFallback && isMr && audioElem.src.includes('-mr.mp3')) {
+          triedWavFallback = true;
+          audioElem.src = 'audio/ahilyadevi-holkar-mr.wav';
+          audioElem.load();
+          if (isPlayingAudio) {
+            audioElem.play().catch(() => {
+              isPlayingAudio = false;
+              updateCapsuleUI(false);
+              fallbackToSpeechSynthesis();
+            });
+          }
+          return;
+        }
         isPlayingAudio = false;
         updateCapsuleUI(false);
         fallbackToSpeechSynthesis();
@@ -860,10 +882,15 @@
 
       const player = initAudio();
       const isMr = document.body.classList.contains('lang-mr');
-      const targetSrc = isMr ? 'audio/ahilyadevi-holkar-mr.mp3' : 'audio/ahilyadevi-holkar-en.mp3';
+      const targetSrc = getTargetAudioSrc(isMr);
 
-      if (!player.src.endsWith(targetSrc)) {
+      // Verify player source matches current language
+      const targetBase = isMr ? 'ahilyadevi-holkar-mr' : 'ahilyadevi-holkar-en';
+      if (!player.src || !player.src.includes(targetBase)) {
+        triedWavFallback = false;
         player.src = targetSrc;
+        player.currentTime = 0;
+        player.load();
       }
 
       if (isPlayingAudio) {
@@ -871,12 +898,29 @@
         isPlayingAudio = false;
         updateCapsuleUI(false);
       } else {
-        player.play().then(() => {
-          isPlayingAudio = true;
-          updateCapsuleUI(true);
-        }).catch(() => {
-          fallbackToSpeechSynthesis();
-        });
+        const playPromise = player.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            isPlayingAudio = true;
+            updateCapsuleUI(true);
+          }).catch((err) => {
+            console.warn('Playback caught exception:', err);
+            // Try WAV if Marathi MP3 had playback issues
+            if (!triedWavFallback && isMr) {
+              triedWavFallback = true;
+              player.src = 'audio/ahilyadevi-holkar-mr.wav';
+              player.load();
+              player.play().then(() => {
+                isPlayingAudio = true;
+                updateCapsuleUI(true);
+              }).catch(() => {
+                fallbackToSpeechSynthesis();
+              });
+            } else {
+              fallbackToSpeechSynthesis();
+            }
+          });
+        }
       }
     }
 
@@ -958,13 +1002,24 @@
         ? "पुण्यश्लोक अहिल्यादेवी होळकर. (जन्म - ३१ मे १७२५ | मृत्यू - १३ ऑगस्ट १७९५). अठराव्या शतकातील मराठा साम्राज्याच्या इतिहासात न्यायप्रिय, प्रजावत्सल आणि दूरदर्शी राज्यकर्ती म्हणून अहिल्यादेवींचे स्थान अत्यंत महत्त्वाचे आहे. त्यांचा जन्म महाराष्ट्रातील अहिल्यानगर जिल्ह्यातील चौंडी गावचे पाटील माणकोजी शिंदे यांच्या घराण्यात झाला. माळव्याचे सुभेदार मल्हारराव होळकरांनी आपला पुत्र खंडेराव यांच्याशी अहिल्यादेवींचा विवाह घडवून आणला. मल्हाररावांनी त्यांना प्रशासनातले बारकावे शिकवले. १७५४ मध्ये खंडेरावांच्या निधनानंतर मल्हाररावांनी त्यांना सती जाण्यापासून परावृत्त केले. मल्हारराव आणि पुत्र मालेराव यांच्या निधनानंतर १७६७ मध्ये अहिल्यादेवींनी होळकर राज्याची सूत्रे हाती घेतली."
         : "Punyashlok Ahilyadevi Holkar. (Born - 31 May 1725 | Died - 13 August 1795). In the history of the Maratha Empire in the eighteenth century, Ahilyadevi holds a distinguished place as a just, compassionate and visionary ruler. She was born in Chondi, present-day Ahilyanagar district, Maharashtra, to village headman Mankoji Shinde. Malharrao Holkar, the Subedar of Malwa, arranged her marriage to his son Khanderao and trained her in administration. After Khanderao's death in 1754, Malharrao prevented her from committing sati. Following the deaths of Malharrao and her son Malerao, Ahilyadevi assumed the reins of the Holkar State in 1767.";
       if (window.PrernaSthal) {
-        const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US');
+        const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US', () => {
+          isSpeakingSynth = false;
+          updateCapsuleUI(false);
+        });
         if (started) {
           isSpeakingSynth = true;
           updateCapsuleUI(true);
         }
       }
     }
+
+    // Reset UI when speech ends
+    window.addEventListener('ps:speechend', () => {
+      if (isSpeakingSynth) {
+        isSpeakingSynth = false;
+        updateCapsuleUI(false);
+      }
+    });
 
     // Auto-initialize audio duration on page load
     window.addEventListener('DOMContentLoaded', () => {
@@ -985,7 +1040,17 @@
       // Re-point audio source
       if (audioElem) {
         const isMr = document.body.classList.contains('lang-mr');
-        audioElem.src = isMr ? 'audio/ahilyadevi-holkar-mr.mp3' : 'audio/ahilyadevi-holkar-en.mp3';
+        triedWavFallback = false;
+        audioElem.src = getTargetAudioSrc(isMr);
+        audioElem.currentTime = 0;
+        audioElem.load();
+        const curEl = document.getElementById('capsuleCurrentTime');
+        const scrubber = document.getElementById('capsuleScrubber');
+        if (curEl) curEl.textContent = '00:00';
+        if (scrubber) {
+          scrubber.value = 0;
+          scrubber.style.setProperty('--fill-pct', '0%');
+        }
       }
     });
   </script>

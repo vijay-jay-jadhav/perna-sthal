@@ -538,15 +538,36 @@
       if (isSpeaking) {
         window.PrernaSthal.stopSpeaking();
         isSpeaking = false;
-        document.getElementById('mudraAudioIcon').textContent = '▶';
+        const icon = document.getElementById('mudraAudioIcon');
+        if (icon) icon.textContent = '▶';
       } else {
-        const started = window.PrernaSthal.speakText(text, isMr ? 'mr-IN' : 'en-US');
+        const started = window.PrernaSthal.speakText(text, isMr ? 'mr-IN' : 'en-US', () => {
+          isSpeaking = false;
+          const icon = document.getElementById('mudraAudioIcon');
+          if (icon) icon.textContent = '▶';
+        });
         if (started) {
           isSpeaking = true;
-          document.getElementById('mudraAudioIcon').textContent = '⏸';
+          const icon = document.getElementById('mudraAudioIcon');
+          if (icon) icon.textContent = '⏸';
         }
       }
     }
+
+    window.addEventListener('ps:speechend', () => {
+      isSpeaking = false;
+      const icon = document.getElementById('mudraAudioIcon');
+      if (icon) icon.textContent = '▶';
+    });
+
+    window.addEventListener('ps:langchange', () => {
+      if (isSpeaking) {
+        window.PrernaSthal.stopSpeaking();
+        isSpeaking = false;
+        const icon = document.getElementById('mudraAudioIcon');
+        if (icon) icon.textContent = '▶';
+      }
+    });
   </script>
 </body>
 </html>

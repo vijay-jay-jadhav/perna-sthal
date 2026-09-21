@@ -794,6 +794,7 @@
     let isPlayingAudio = false;
     let isSpeakingSynth = false;
     let lastVolume = 1;
+    let triedWavFallback = false;
 
     function formatSec(s) {
       if (!s || isNaN(s)) return '00:00';
@@ -802,13 +803,18 @@
       return m + ':' + sec;
     }
 
+    function getTargetAudioSrc(isMr) {
+      return isMr ? 'audio/chhatrapati-shivaji-maharaj-mr.mp3' : 'audio/chhatrapati-shivaji-maharaj-en.mp3';
+    }
+
     function initAudio() {
       if (audioElem) return audioElem;
       const isMr = document.body.classList.contains('lang-mr');
-      const audioSrc = isMr ? 'audio/chhatrapati-shivaji-maharaj-mr.mp3' : 'audio/chhatrapati-shivaji-maharaj-en.mp3';
+      const audioSrc = getTargetAudioSrc(isMr);
 
-      audioElem = new Audio(audioSrc);
+      audioElem = new Audio();
       audioElem.preload = 'metadata';
+      audioElem.src = audioSrc;
 
       audioElem.addEventListener('loadedmetadata', () => {
         const dur = formatSec(audioElem.duration);
@@ -834,7 +840,23 @@
         updateCapsuleUI(false);
       });
 
-      audioElem.addEventListener('error', () => {
+      audioElem.addEventListener('error', (e) => {
+        console.warn('Audio element error encountered:', e);
+        const isMr = document.body.classList.contains('lang-mr');
+        // If MP3 failed, attempt fallback to WAV before resorting to speech synthesis
+        if (!triedWavFallback && isMr && audioElem.src.includes('-mr.mp3')) {
+          triedWavFallback = true;
+          audioElem.src = 'audio/chhatrapati-shivaji-maharaj-mr.wav';
+          audioElem.load();
+          if (isPlayingAudio) {
+            audioElem.play().catch(() => {
+              isPlayingAudio = false;
+              updateCapsuleUI(false);
+              fallbackToSpeechSynthesis();
+            });
+          }
+          return;
+        }
         isPlayingAudio = false;
         updateCapsuleUI(false);
         fallbackToSpeechSynthesis();
@@ -865,10 +887,15 @@
 
       const player = initAudio();
       const isMr = document.body.classList.contains('lang-mr');
-      const targetSrc = isMr ? 'audio/chhatrapati-shivaji-maharaj-mr.mp3' : 'audio/chhatrapati-shivaji-maharaj-en.mp3';
+      const targetSrc = getTargetAudioSrc(isMr);
 
-      if (!player.src.endsWith(targetSrc)) {
+      // Verify player source matches current language
+      const targetBase = isMr ? 'chhatrapati-shivaji-maharaj-mr' : 'chhatrapati-shivaji-maharaj-en';
+      if (!player.src || !player.src.includes(targetBase)) {
+        triedWavFallback = false;
         player.src = targetSrc;
+        player.currentTime = 0;
+        player.load();
       }
 
       if (isPlayingAudio) {
@@ -876,12 +903,29 @@
         isPlayingAudio = false;
         updateCapsuleUI(false);
       } else {
-        player.play().then(() => {
-          isPlayingAudio = true;
-          updateCapsuleUI(true);
-        }).catch(() => {
-          fallbackToSpeechSynthesis();
-        });
+        const playPromise = player.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            isPlayingAudio = true;
+            updateCapsuleUI(true);
+          }).catch((err) => {
+            console.warn('Playback caught exception:', err);
+            // Try WAV if Marathi MP3 had playback issues
+            if (!triedWavFallback && isMr) {
+              triedWavFallback = true;
+              player.src = 'audio/chhatrapati-shivaji-maharaj-mr.wav';
+              player.load();
+              player.play().then(() => {
+                isPlayingAudio = true;
+                updateCapsuleUI(true);
+              }).catch(() => {
+                fallbackToSpeechSynthesis();
+              });
+            } else {
+              fallbackToSpeechSynthesis();
+            }
+          });
+        }
       }
     }
 
@@ -963,13 +1007,24 @@
         ? "छत्रपती शिवाजी महाराज. (जन्म - १९ फेब्रुवारी १६३० | मृत्यू - ३ एप्रिल १६८०). स्वराज्याची संकल्पना प्रत्यक्षात साकारणाऱ्या छत्रपती शिवाजी महाराजांचा जन्म शिवनेरी किल्ल्यावर झाला. वडील शहाजीराजेंचे मार्गदर्शन आणि राजमाता जिजाऊंचे संस्कार यांचा त्यांच्या व्यक्तिमत्त्वावर प्रभाव पडला. तोरणा, राजगड, प्रतापगड, सिंहगड, रायगड यांसारख्या किल्ल्यांचे महत्त्व ओळखून त्यांनी भक्कम दुर्गव्यवस्था उभारली. पुढे सहकाऱ्यांच्या साथीने त्यांनी शत्रूच्या ताब्यातील अनेक किल्ले जिंकले, काही नव्याने बांधले आणि स्वराज्याचा विस्तार केला."
         : "Chhatrapati Shivaji Maharaj. (Born - 19 February 1630 | Died - 3 April 1680). Chhatrapati Shivaji Maharaj, who gave concrete form to the idea of Swarajya, was born at Shivneri Fort. His personality was shaped by the guidance of his father, Shahaji Maharaj, and the values imparted by his mother, Rajmata Jijabai. Recognising the strategic importance of forts such as Torna, Rajgad, Pratapgad, Sinhagad and Raigad, he established a strong fortification system, captured enemy-held forts, built new ones and expanded Swarajya with his associates.";
       if (window.PrernaSthal) {
-        const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US');
+        const started = window.PrernaSthal.speakText(bioText, isMr ? 'mr-IN' : 'en-US', () => {
+          isSpeakingSynth = false;
+          updateCapsuleUI(false);
+        });
         if (started) {
           isSpeakingSynth = true;
           updateCapsuleUI(true);
         }
       }
     }
+
+    // Reset UI when speech ends
+    window.addEventListener('ps:speechend', () => {
+      if (isSpeakingSynth) {
+        isSpeakingSynth = false;
+        updateCapsuleUI(false);
+      }
+    });
 
     // Auto-initialize audio duration on page load
     window.addEventListener('DOMContentLoaded', () => {
@@ -990,7 +1045,17 @@
       // Re-point audio source
       if (audioElem) {
         const isMr = document.body.classList.contains('lang-mr');
-        audioElem.src = isMr ? 'audio/chhatrapati-shivaji-maharaj-mr.mp3' : 'audio/chhatrapati-shivaji-maharaj-en.mp3';
+        triedWavFallback = false;
+        audioElem.src = getTargetAudioSrc(isMr);
+        audioElem.currentTime = 0;
+        audioElem.load();
+        const curEl = document.getElementById('capsuleCurrentTime');
+        const scrubber = document.getElementById('capsuleScrubber');
+        if (curEl) curEl.textContent = '00:00';
+        if (scrubber) {
+          scrubber.value = 0;
+          scrubber.style.setProperty('--fill-pct', '0%');
+        }
       }
     });
   </script>

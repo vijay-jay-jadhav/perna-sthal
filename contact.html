@@ -3,6 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* Ensure window.fetch has both getter and setter */
+  (function () {
+    try {
+      var _fetch = window.fetch;
+      var descriptor = {
+        configurable: true,
+        enumerable: true,
+        get: function () { return _fetch; },
+        set: function (fn) { _fetch = fn; }
+      };
+      try { Object.defineProperty(window, 'fetch', descriptor); } catch (e1) {}
+      try { if (typeof Window !== 'undefined' && Window.prototype) { Object.defineProperty(Window.prototype, 'fetch', descriptor); } } catch (e2) {}
+    } catch (e) {}
+  })();
+</script>
 <title>Contact &amp; Visit Guide · Prerna Sthal · Baramati</title>
 <meta name="description" content="Plan your visit to Prerna Sthal and Nakshatra Udyan at Vidya Pratishthan, Baramati. Directions, timings, campus guidelines, and inquiries.">
 <link rel="preconnect" href="https://fonts.googleapis.com">

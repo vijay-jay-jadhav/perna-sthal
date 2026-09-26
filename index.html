@@ -3,6 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* Ensure window.fetch has both getter and setter to prevent "Cannot set property fetch of #<Window> which has only a getter" */
+  (function () {
+    try {
+      var _fetch = window.fetch;
+      var descriptor = {
+        configurable: true,
+        enumerable: true,
+        get: function () {
+          return _fetch;
+        },
+        set: function (fn) {
+          _fetch = fn;
+        }
+      };
+      try {
+        Object.defineProperty(window, 'fetch', descriptor);
+      } catch (e1) {}
+      try {
+        if (typeof Window !== 'undefined' && Window.prototype) {
+          Object.defineProperty(Window.prototype, 'fetch', descriptor);
+        }
+      } catch (e2) {}
+    } catch (e) {}
+  })();
+</script>
 <title>Prerna Sthal · Meditation &amp; Reflection Hall · Nakshatra Udyan, Baramati</title>
 <meta name="description" content="Prerna Sthal is a meditation and reflection hall within the Nakshatra Udyan at Vidya Pratishthan, Baramati, Maharashtra.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +46,7 @@
   /* ================= HERO CANVAS STYLING ================= */
   .hero {
     position: relative;
-    height: 340vh;
+    height: 150vh; /* Issue 11 fix: Reduced interaction scrolling cost before reaching content */
     background: var(--teal-deep);
   }
   .hero-sticky {
@@ -61,13 +87,14 @@
     background: linear-gradient(to top, rgba(10, 47, 43, 0.88), transparent);
     pointer-events: none;
   }
+  /* Issue 5 fix: Sentence/title case for hero location (no all-caps) */
   .hero-loc {
     font-family: 'Space Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.04em;
+    text-transform: none;
     color: var(--paper);
-    line-height: 1.8;
+    line-height: 1.6;
     opacity: 0.95;
     pointer-events: auto;
   }
@@ -77,6 +104,7 @@
     gap: 12px;
     pointer-events: auto;
   }
+  /* Issue 14 fix: Standardized button radius */
   .hero-btn {
     display: inline-flex;
     align-items: center;
@@ -85,11 +113,12 @@
     color: var(--gold-soft);
     border: 1px solid var(--line-ongold);
     padding: 8px 18px;
-    border-radius: 999px;
+    border-radius: var(--btn-radius);
     font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.04em;
+    text-transform: none;
+    font-weight: 600;
     cursor: pointer;
     backdrop-filter: blur(8px);
     transition: all 0.25s ease;
@@ -100,29 +129,48 @@
     border-color: var(--gold);
   }
 
+  /* Issue 6 & Issue 12 fix: Prominent scroll cue with high-contrast pill backdrop, clear icon, and sentence case */
   .scroll-cue {
     position: absolute;
     left: 50%;
     bottom: var(--sp-4);
     transform: translateX(-50%);
-    z-index: 10;
+    z-index: 15;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     color: var(--gold-soft);
+    background: rgba(10, 47, 43, 0.85);
+    border: 1px solid var(--line-ongold);
+    padding: 8px 18px;
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    pointer-events: none;
-    opacity: 0.85;
-    animation: floatCue 2s infinite ease-in-out;
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    text-decoration: none;
+    pointer-events: auto;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    opacity: 0.95;
+    animation: floatCue 2.2s infinite ease-in-out;
+    transition: background-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
   }
-  .scroll-cue-line {
-    width: 1px;
-    height: 32px;
-    background: linear-gradient(var(--gold-soft), transparent);
+  .scroll-cue:hover {
+    background: var(--teal);
+    color: var(--paper);
+    transform: translate(-50%, 3px);
+  }
+  .scroll-cue-icon {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    fill: none;
+    display: block;
   }
   @keyframes floatCue {
     0%, 100% { transform: translate(-50%, 0); }
@@ -130,7 +178,7 @@
   }
 
   @media (max-width: 860px) {
-    .hero { height: 260vh; }
+    .hero { height: 120vh; }
     .hero-content { flex-direction: column; align-items: flex-start; gap: 14px; padding: 0 16px 20px; }
   }
 
@@ -259,17 +307,18 @@
   .visual-break:hover img {
     transform: scale(1.02);
   }
+  /* Issue 7 fix: Minimum body font size >= 12px on all viewports */
   .visual-break .visual-cap {
     position: absolute;
     left: var(--content-pad);
     bottom: var(--sp-3);
     font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.05em;
     color: var(--gold-soft);
     background: rgba(10, 47, 43, 0.88);
     padding: 8px 16px;
-    border-radius: 999px;
+    border-radius: var(--radius-full);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid var(--line-ongold);
@@ -282,8 +331,8 @@
       left: 12px;
       right: 12px;
       bottom: 12px;
-      font-size: 10px;
-      padding: 6px 12px;
+      font-size: var(--fs-xs);
+      padding: 6px 14px;
       text-align: center;
       max-width: fit-content;
       margin: 0 auto;
@@ -304,7 +353,7 @@
   .benefit {
     background: var(--parchment);
     border: 1px solid var(--line);
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     padding: 36px 26px;
     text-align: center;
     transition: all 0.3s ease;
@@ -340,19 +389,19 @@
   }
   .benefit-number {
     font-family: 'Space Mono', monospace;
-    font-size: 11px;
+    font-size: var(--fs-xs);
     font-weight: 700;
     color: var(--brick);
     letter-spacing: 0.1em;
     margin-bottom: var(--sp-1);
   }
   .benefit h3 {
-    font-size: 20px;
+    font-size: var(--fs-lg);
     margin-bottom: 12px;
     color: var(--teal-deep);
   }
   .benefit p {
-    font-size: 14.5px;
+    font-size: var(--fs-sm);
     line-height: 1.7;
     color: var(--ink-soft);
     margin: 0;
@@ -363,7 +412,7 @@
     text-align: center;
     font-family: 'Fraunces', Georgia, serif;
     font-style: italic;
-    font-size: clamp(18px, 2.2vw, 24px);
+    font-size: clamp(var(--fs-md), 2.2vw, var(--fs-lg));
     line-height: 1.55;
     color: var(--maroon);
   }
@@ -383,7 +432,7 @@
   .garden-overview-card {
     background: var(--paper);
     border: 1px solid var(--line);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: var(--sp-6) var(--sp-6);
     margin-bottom: var(--sp-6);
     box-shadow: 0 10px 30px -12px rgba(15, 74, 68, 0.08);
@@ -395,12 +444,12 @@
     align-items: center;
   }
   .garden-overview-text h3 {
-    font-size: clamp(22px, 2.2vw, 28px);
+    font-size: clamp(var(--fs-lg), 2.2vw, var(--fs-xl));
     color: var(--teal-deep);
     margin-bottom: 12px;
   }
   .garden-overview-text p {
-    font-size: 15.5px;
+    font-size: var(--fs-base);
     line-height: 1.8;
     color: var(--ink-soft);
     margin-bottom: 14px;
@@ -411,7 +460,7 @@
     gap: 16px;
     background: var(--parchment);
     border: 1px solid var(--line);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     padding: 20px;
   }
   .stat-item {
@@ -419,7 +468,7 @@
   }
   .stat-num {
     font-family: 'Fraunces', serif;
-    font-size: 32px;
+    font-size: var(--fs-2xl);
     font-weight: 600;
     color: var(--teal);
     line-height: 1;
@@ -427,7 +476,7 @@
   }
   .stat-lbl {
     font-family: 'Space Mono', monospace;
-    font-size: 10.5px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--brick);
@@ -443,7 +492,7 @@
   .gf-card {
     background: var(--paper);
     border: 1px solid var(--line);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     padding: 26px 22px;
     transition: transform 0.2s ease, border-color 0.2s ease;
   }
@@ -451,17 +500,18 @@
     transform: translateY(-2px);
     border-color: var(--teal);
   }
+  /* Issue 9 & Issue 10 fix: Sentence case, no long all-caps, font-size >= 14px/16px */
   .gf-card h4 {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--brick);
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: var(--fs-base);
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--teal-deep);
     margin-bottom: 8px;
-    font-weight: 700;
+    font-weight: 600;
   }
   .gf-card p {
-    font-size: 14px;
+    font-size: var(--fs-sm);
     line-height: 1.7;
     color: var(--ink-soft);
     margin: 0;
@@ -472,7 +522,7 @@
     color: var(--paper);
     display: grid;
     grid-template-columns: 0.9fr 1.1fr;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: 0 20px 40px -15px rgba(10, 47, 43, 0.3);
   }
@@ -482,12 +532,12 @@
   }
   .water-left h3 {
     color: var(--gold-soft);
-    font-size: clamp(22px, 2.5vw, 30px);
+    font-size: clamp(var(--fs-lg), 2.5vw, var(--fs-xl));
     margin-bottom: var(--sp-3);
   }
   .water-left li {
     font-family: 'Space Mono', monospace;
-    font-size: 13px;
+    font-size: var(--fs-sm);
     letter-spacing: 0.04em;
     padding: 10px 0;
     border-top: 1px solid var(--line-onlight);
@@ -510,7 +560,7 @@
   }
   .water-right p {
     margin: 0;
-    font-size: 16px;
+    font-size: var(--fs-base);
     line-height: 1.8;
     color: var(--paper);
     opacity: 0.95;
@@ -530,13 +580,14 @@
     margin-top: 36px;
     text-align: center;
   }
+  /* Issue 14 fix: Standardize button corner radius */
   .garden-cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     font-family: 'Space Mono', monospace;
-    font-size: 12px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     font-weight: 700;
@@ -545,7 +596,7 @@
     background: var(--teal);
     border: 1px solid var(--teal);
     padding: 13px 26px;
-    border-radius: 999px;
+    border-radius: var(--btn-radius);
     transition: all 0.25s ease;
     box-shadow: 0 2px 8px rgba(15, 74, 68, 0.2);
     box-sizing: border-box;
@@ -606,7 +657,7 @@
     overflow: hidden;
     background: rgba(4, 31, 28, 0.85);
     border: 2px solid rgba(220, 193, 137, 0.3);
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     position: relative;
     box-shadow: 0 16px 40px rgba(0,0,0,0.5);
     transition: border-color 0.4s ease, box-shadow 0.4s ease;
@@ -631,7 +682,7 @@
     padding: 20px;
     font-family: 'Fraunces', serif;
     font-style: italic;
-    font-size: 16px;
+    font-size: var(--fs-base);
     color: var(--gold-soft);
     opacity: 0.8;
   }
@@ -640,22 +691,22 @@
     left: 10px;
     bottom: 10px;
     font-family: 'Space Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.04em;
+    text-transform: none;
     color: var(--gold-soft);
-    background: rgba(10, 47, 43, 0.7);
+    background: rgba(10, 47, 43, 0.85);
     border: 1px solid rgba(220, 193, 137, 0.3);
-    padding: 4px 8px;
-    border-radius: 3px;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
   }
   .carousel-card .cap {
     margin-top: 14px;
     text-align: center;
     font-family: 'Space Mono', monospace;
-    font-size: 11.5px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.04em;
+    text-transform: none;
     color: var(--gold-soft);
     line-height: 1.5;
     padding: 0 6px;
@@ -671,30 +722,55 @@
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
   }
 
-  .carousel-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    margin-top: var(--sp-5);
-  }
-  .carousel-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 1px solid var(--line-onlight);
-    background: rgba(250, 245, 234, 0.06);
-    color: var(--paper);
+  /* Issue 13 fix: Place navigation buttons on the sides of the portraits */
+  .carousel-side-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 120;
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--line-ongold);
+    background: rgba(10, 47, 43, 0.88);
+    color: var(--gold-soft);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    font-size: var(--fs-md);
+    transition: all 0.25s ease;
   }
-  .carousel-btn:hover {
+  .carousel-side-btn:hover {
     background: var(--gold);
     color: var(--teal-deep);
     border-color: var(--gold);
+    transform: translateY(-50%) scale(1.08);
+  }
+  .carousel-side-btn.prev {
+    left: clamp(14px, 4vw, 40px);
+  }
+  .carousel-side-btn.next {
+    right: clamp(14px, 4vw, 40px);
+  }
+  @media (max-width: 640px) {
+    .carousel-side-btn {
+      width: 42px;
+      height: 42px;
+      font-size: var(--fs-sm);
+    }
+    .carousel-side-btn.prev { left: 8px; }
+    .carousel-side-btn.next { right: 8px; }
+  }
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--sp-4);
   }
   .carousel-dots {
     display: flex;
@@ -707,7 +783,7 @@
   .carousel-dots span {
     width: 6px;
     height: 6px;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     background: var(--line-onlight);
     transition: all 0.3s ease;
     cursor: pointer;
@@ -727,19 +803,20 @@
     margin-top: var(--sp-6);
     text-align: center;
   }
+  /* Issue 14 fix: Standardize button corner radius */
   .gallery-cta {
     display: inline-flex;
     align-items: center;
     gap: 10px;
     font-family: 'Space Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.1em;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     font-weight: 700;
     color: var(--teal-deep);
     background: var(--gold-soft);
-    padding: 14px 30px;
-    border-radius: 999px;
+    padding: 13px 28px;
+    border-radius: var(--btn-radius);
     transition: all 0.25s ease;
     box-shadow: 0 4px 16px rgba(0,0,0,0.25);
   }
@@ -758,8 +835,8 @@
     .carousel-card { width: 145px; margin: -145px 0 0 -72px; }
     .gallery-cta {
       padding: 11px 18px;
-      font-size: 11px;
-      letter-spacing: 0.05em;
+      font-size: var(--fs-xs);
+      letter-spacing: 0.04em;
       max-width: 100%;
       box-sizing: border-box;
     }
@@ -773,7 +850,7 @@
   .contact-card {
     background: var(--parchment);
     border: 1px solid var(--line);
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
     display: grid;
     grid-template-columns: 1.1fr 1fr;
@@ -782,12 +859,12 @@
     box-shadow: 0 10px 30px -10px rgba(0,0,0,0.06);
   }
   .contact-left h2 {
-    font-size: clamp(32px, 3.8vw, 46px);
+    font-size: clamp(var(--fs-2xl), 3.8vw, var(--fs-3xl));
     line-height: 1.12;
     margin: var(--sp-2) 0;
   }
   .contact-left .lede {
-    font-size: 16px;
+    font-size: var(--fs-base);
     line-height: 1.8;
     color: var(--ink-soft);
     margin-top: var(--sp-3);
@@ -810,7 +887,7 @@
   .contact-icon {
     width: 54px;
     height: 54px;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     background: var(--paper);
     border: 1px solid var(--line);
     display: flex;
@@ -826,14 +903,14 @@
   }
   .contact-row .k {
     font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--brick);
     font-weight: 700;
   }
   .contact-row .v {
-    font-size: 15px;
+    font-size: var(--fs-base);
     line-height: 1.6;
     color: var(--ink);
     margin-top: 2px;
@@ -937,11 +1014,13 @@
           </div>
         </div>
 
-        <div class="scroll-cue" id="scrollCue">
+        <a href="#about" class="scroll-cue" id="scrollCue" aria-label="Scroll to explore Prerna Sthal">
           <span class="en">Scroll to explore</span>
           <span class="mr-inline mr">खाली स्क्रोल करा</span>
-          <div class="scroll-cue-line"></div>
-        </div>
+          <svg class="scroll-cue-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
     </section>
 
@@ -1208,12 +1287,12 @@
               <a href="sharadabai-pawar.html" class="carousel-card" data-index="11"><div class="frame"><span class="placeholder-name"><span class="en">Sharadabai Pawar</span><span class="mr-inline mr">शारदाबाई पवार</span></span><span class="pending-tag"><span class="en">Portrait pending</span><span class="mr-inline mr">चित्र प्रतिक्षेत</span></span></div><div class="cap"><span class="en">Sharadabai Pawar</span><span class="mr-inline mr">शारदाबाई पवार</span></div></a>
               <a href="yashwantrao-chavan.html" class="carousel-card" data-index="12"><div class="frame"><img src="images/portraits/Yashwantrao%20Chavan.jpg" loading="lazy" alt="Yashwantrao Chavan"></div><div class="cap"><span class="en">Yashwantrao Chavan</span><span class="mr-inline mr">यशवंतराव चव्हाण</span></div></a>
             </div>
+            <button type="button" class="carousel-side-btn prev" id="corridorPrev" aria-label="Previous portrait">&larr;</button>
+            <button type="button" class="carousel-side-btn next" id="corridorNext" aria-label="Next portrait">&rarr;</button>
           </div>
 
           <div class="carousel-controls">
-            <button type="button" class="carousel-btn" id="corridorPrev" aria-label="Previous portrait">&larr;</button>
-            <div class="carousel-dots" id="corridorDots"></div>
-            <button type="button" class="carousel-btn" id="corridorNext" aria-label="Next portrait">&rarr;</button>
+            <div class="carousel-dots" id="corridorDots" role="tablist" aria-label="Portrait indicators"></div>
           </div>
         </div>
 
@@ -1407,7 +1486,10 @@
           : Math.round(progress * (FRAME_COUNT - 1));
         drawFrame(targetIndex);
         if (heroProgress) heroProgress.style.width = (progress * 100) + '%';
-        if (scrollCue) scrollCue.style.opacity = progress > 0.1 ? '0' : '0.85';
+        if (scrollCue) {
+          scrollCue.style.opacity = progress > 0.1 ? '0' : '0.95';
+          scrollCue.style.pointerEvents = progress > 0.1 ? 'none' : 'auto';
+        }
       }
 
       function onScroll() {

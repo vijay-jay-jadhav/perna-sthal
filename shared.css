@@ -27,6 +27,25 @@
   --line-onlight: rgba(250, 245, 234, 0.22);
   --line-ongold:  rgba(199, 154, 74, 0.35);
 
+  /* Unified Type Scale (8 distinct sizes, strictly under 10; minimum >= 12px) */
+  --fs-xs:   12px;   /* microcopy, badges, secondary indicators, small labels */
+  --fs-sm:   14px;   /* nav items, button labels, fine print, card body */
+  --fs-base: 16px;   /* standard body copy, intros, form controls */
+  --fs-md:   18px;   /* section lead copy, highlighted features */
+  --fs-lg:   22px;   /* subheadings, card titles, quotes */
+  --fs-xl:   28px;   /* modal/panel headings, key stat numbers */
+  --fs-2xl:  36px;   /* section headings */
+  --fs-3xl:  48px;   /* main hero title / display */
+
+  /* Unified Corner Radii (4 distinct scales, strictly under 6) */
+  --radius-sm:   4px;    /* tags, subtle inner borders */
+  --radius-md:   8px;    /* buttons, interactive controls, thumbnails */
+  --radius-lg:   16px;   /* cards, modal dialogs, overview boxes */
+  --radius-full: 9999px; /* circular icons, round controls */
+
+  /* Standardized Unified Button Radius (Issue 14 fix) */
+  --btn-radius:  var(--radius-md);
+
   /* Navigation Height */
   --nav-height: 118px;
 
@@ -187,9 +206,9 @@ body.lang-mr .eyebrow,
   background: var(--teal-deep);
   color: var(--paper);
   padding: 12px 20px;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   font-family: 'Space Mono', monospace;
-  font-size: 13px;
+  font-size: var(--fs-sm);
   font-weight: 700;
   text-decoration: none;
   transition: top 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -215,13 +234,13 @@ body.lang-mr .mr-flex { display: flex !important; }
 .mr-grid { display: none !important; }
 body.lang-mr .mr-grid { display: grid !important; }
 
-/* Eyebrow badge */
+/* Eyebrow badge (Issue 8 fix: minimum >= 12px) */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   font-family: 'Space Mono', monospace;
-  font-size: 11.5px;
-  letter-spacing: 0.2em;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--brick);
   font-weight: 700;
@@ -242,13 +261,13 @@ body.lang-mr .mr-grid { display: grid !important; }
   margin-bottom: var(--gap-eyebrow-title);
 }
 .section-head h2 {
-  font-size: clamp(28px, 4vw, 46px);
+  font-size: clamp(var(--fs-xl), 4vw, var(--fs-3xl));
   line-height: 1.15;
 }
 .section-head .intro {
   margin: var(--gap-title-copy) auto 0;
   max-width: 65ch;
-  font-size: 16.5px;
+  font-size: var(--fs-base);
   line-height: 1.8;
   opacity: 0.88;
 }
@@ -328,19 +347,20 @@ body.lang-mr .mr-grid { display: grid !important; }
 }
 .brand-title {
   font-family: 'Fraunces', serif;
-  font-size: 17px;
+  font-size: var(--fs-md);
   font-weight: 600;
   color: var(--teal-deep);
   line-height: 1.1;
   letter-spacing: -0.01em;
 }
+/* Issue 3 fix: Minimum font size >= 12px */
 .brand-sub {
   font-family: 'Space Mono', monospace;
-  font-size: 9.5px;
-  letter-spacing: 0.12em;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--brick);
-  opacity: 0.85;
+  opacity: 0.88;
   margin-top: 2px;
 }
 
@@ -350,27 +370,28 @@ body.lang-mr .mr-grid { display: grid !important; }
   gap: 14px;
 }
 
+/* Issue 4 fix: Remove long runs of all-caps on navigation links */
 .nav-links-row {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 28px;
-  height: 44px;
+  height: 46px;
   border-top: 1px solid var(--line);
-  font-family: 'Space Mono', monospace;
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 700;
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.01em;
+  text-transform: none;
+  font-weight: 500;
 }
 
 .nav-links-row a {
   position: relative;
   text-decoration: none;
   color: var(--ink);
-  opacity: 0.8;
+  opacity: 0.82;
   padding: 6px 14px;
-  border-radius: 999px;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   transition: color 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
@@ -385,24 +406,24 @@ body.lang-mr .mr-grid { display: grid !important; }
   color: var(--paper);
   background: var(--teal);
   opacity: 1;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .lang-toggle {
   display: flex;
   border: 1px solid var(--line-strong);
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   overflow: hidden;
   background: var(--paper);
   font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
   box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 .lang-toggle button {
   border: 0;
   background: transparent;
-  padding: 7px 12px;
+  padding: 6px 12px;
   min-height: 32px;
   cursor: pointer;
   color: var(--ink);
@@ -418,18 +439,19 @@ body.lang-mr .mr-grid { display: grid !important; }
   opacity: 1;
 }
 
+/* Issue 14 fix: Standardize button corner radius across design system */
 .visit-pill {
   font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 700;
   text-decoration: none;
   color: var(--paper);
   background: var(--teal);
   border: 1px solid var(--teal);
-  padding: 8px 16px;
-  border-radius: 999px;
+  padding: 8px 18px;
+  border-radius: var(--btn-radius);
   transition: all 0.25s ease;
   box-shadow: 0 2px 8px rgba(15, 74, 68, 0.2);
   white-space: nowrap;
@@ -551,8 +573,8 @@ body.lang-mr .mr-grid { display: grid !important; }
   .logo-img { height: 40px; }
   .brand-text { display: none !important; }
   .nav-actions { gap: 8px; }
-  .lang-toggle button { padding: 5px 8px; min-height: 28px; font-size: 10.5px; }
-  .visit-pill { padding: 6px 12px; font-size: 10px; }
+  .lang-toggle button { padding: 5px 8px; min-height: 28px; font-size: var(--fs-xs); }
+  .visit-pill { padding: 6px 12px; font-size: var(--fs-xs); border-radius: var(--btn-radius); }
 }
 
 /* ================= GLOBAL FOOTER ================= */
@@ -586,21 +608,21 @@ body.lang-mr .mr-grid { display: grid !important; }
 }
 .footer-brand h3 {
   color: var(--gold-soft);
-  font-size: 26px;
+  font-size: var(--fs-xl);
   margin-bottom: var(--sp-2);
 }
 .footer-brand p {
   color: var(--paper);
   opacity: 0.82;
-  font-size: 14.5px;
+  font-size: var(--fs-sm);
   line-height: 1.75;
   max-width: 42ch;
   margin: 0;
 }
 .footer-col h4 {
   font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.15em;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gold-soft);
   margin-bottom: var(--sp-3);
@@ -609,7 +631,7 @@ body.lang-mr .mr-grid { display: grid !important; }
 .footer-col p {
   color: var(--paper);
   opacity: 0.88;
-  font-size: 13.5px;
+  font-size: var(--fs-sm);
   line-height: 1.7;
   margin: 0 0 12px;
 }
@@ -617,12 +639,12 @@ body.lang-mr .mr-grid { display: grid !important; }
   margin-bottom: 10px;
 }
 .footer-links span {
-  font-size: 14px;
+  font-size: var(--fs-sm);
   color: var(--paper);
   opacity: 0.78;
 }
 .footer-links a {
-  font-size: 14px;
+  font-size: var(--fs-sm);
   color: var(--paper);
   opacity: 0.78;
   transition: opacity 0.2s ease, color 0.2s ease;
@@ -656,7 +678,7 @@ body.lang-mr .mr-grid { display: grid !important; }
 }
 .footer-fine {
   font-family: 'Space Mono', monospace;
-  font-size: 11px;
+  font-size: var(--fs-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--gold-soft);
@@ -715,7 +737,7 @@ body.lang-mr .mr-grid { display: grid !important; }
 }
 .ps-modal-dialog {
   background: var(--paper);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   max-width: 840px;
   width: 100%;
   max-height: 90vh;
@@ -734,7 +756,7 @@ body.lang-mr .mr-grid { display: grid !important; }
   right: 18px;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   border: 1px solid var(--line);
   background: var(--paper);
   cursor: pointer;

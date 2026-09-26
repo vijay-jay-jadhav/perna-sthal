@@ -3,6 +3,31 @@
  * Nakshatra Udyan, Vidya Pratishthan, Baramati
  */
 
+/* Prevent "Cannot set property fetch of #<Window> which has only a getter" */
+(function () {
+  try {
+    var _fetch = window.fetch;
+    var descriptor = {
+      configurable: true,
+      enumerable: true,
+      get: function () {
+        return _fetch;
+      },
+      set: function (fn) {
+        _fetch = fn;
+      }
+    };
+    try {
+      Object.defineProperty(window, 'fetch', descriptor);
+    } catch (e1) {}
+    try {
+      if (typeof Window !== 'undefined' && Window.prototype) {
+        Object.defineProperty(Window.prototype, 'fetch', descriptor);
+      }
+    } catch (e2) {}
+  } catch (e) {}
+})();
+
 (function () {
   'use strict';
 
